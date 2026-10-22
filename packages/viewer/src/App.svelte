@@ -26,9 +26,7 @@
 				<Board
 					{state}
 					selected={store.selected}
-					onselect={(tile) => (store.selected = tile)}
-					onconfirm={() =>
-						store.selected !== undefined && store.send({ type: "place", tile: tileLabel(store.selected) })}
+					onplace={(tile) => store.send({ type: "place", tile: tileLabel(tile) })}
 				/>
 			</div>
 			{#if store.seats.length > 0 && store.replayAt === undefined}

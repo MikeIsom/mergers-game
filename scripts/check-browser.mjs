@@ -170,17 +170,25 @@ try {
 	assert.equal(await page.locator(".square.playable").count(), 0, "waiting players cannot submit a tile");
 	await inspectHand("spectator");
 	await inspectHand("acting");
-	await open("players=4&theme=dark");
-	const beforeBoardMove = await page.evaluate(() => window.acquireDev.state.log.length);
-	await page.locator(".square.playable").first().click();
-	assert.equal(
-		await page.evaluate(() => window.acquireDev.state.log.length),
-		beforeBoardMove,
-		"first click previews the move"
-	);
-	assert.equal(await page.locator(".square.selected").count(), 1);
-	await page.locator(".square.selected").click();
-	await page.waitForFunction((length) => window.acquireDev.state.log.length > length, beforeBoardMove);
+	for (const width of [1280, 390]) {
+		await page.setViewportSize({ width, height: 900 });
+		await open("players=4&theme=dark");
+		const beforeBoardMove = await page.evaluate(() => window.acquireDev.state.log.length);
+		const square = page.locator(".square.playable").first();
+		const tile = await square.locator(".coord").innerText();
+		await square.click();
+		await page.waitForFunction((length) => window.acquireDev.state.log.length > length, beforeBoardMove);
+		const placements = await page.evaluate(
+			(index) =>
+				window.acquireDev.state.log
+					.slice(index)
+					.filter((entry) => entry.type === "move" && entry.move.type === "place")
+					.map((entry) => entry.move.tile),
+			beforeBoardMove
+		);
+		assert.deepEqual(placements, [tile], "one click places the chosen board tile exactly once");
+		assert.equal(await page.locator(".square.selected").count(), 0, "no placement confirmation remains");
+	}
 	await page.evaluate(() => window.acquireDev.emitter.emit("replay:start"));
 	await settle();
 	assert.equal(
@@ -189,7 +197,7 @@ try {
 		"replay does not project the current hand onto old boards"
 	);
 	report.scenarios.push(
-		"own hand visible while waiting, spectator privacy, board selection/confirmation and replay isolation"
+		"own hand visible while waiting, spectator privacy, one-click board placement on desktop/phone and replay isolation"
 	);
 
 	await open("players=4&moves=95&theme=light");

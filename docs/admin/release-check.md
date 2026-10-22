@@ -1,6 +1,6 @@
 # Acquire private beta — 22 October 2026
 
-Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.7`.
+Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.8`.
 Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 
 ## Validation
@@ -31,7 +31,8 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
   cash retains its currency symbol with emphasized, tabular digits. Checks cover both themes,
   contrast, translated word order and player names that match chain names.
 - Hand markers remain visible between turns, but only legal moves are clickable. Browser checks
-  cover selecting and confirming from the board, spectator privacy, and hiding markers in replay.
+  cover immediate placement from a single board click on desktop and phone, spectator privacy,
+  and hiding markers in replay. Selecting from the hand still offers a placement preview.
 
 ## Fixes made for beta
 

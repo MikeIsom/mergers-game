@@ -17,14 +17,12 @@
 	let {
 		state,
 		selected,
-		onselect,
-		onconfirm,
+		onplace,
 	}: {
 		state: GameState;
 		/** A tile selected in the hand: its square is highlighted and clicking it places the tile. */
 		selected?: Tile;
-		onselect?: (tile: Tile) => void;
-		onconfirm?: () => void;
+		onplace: (tile: Tile) => void;
 	} = $props();
 
 	// Rows A-I down, columns 1-12 across, like the printed board. Tile index = (column - 1) * 9 + row.
@@ -65,10 +63,9 @@
 						type="button"
 						class="square empty held playable actionable"
 						class:selected={tile === selected}
-						aria-label={tile === selected ? t("board.place", { tile: label }) : label}
-						aria-pressed={tile === selected}
+						aria-label={t("board.place", { tile: label })}
 						disabled={store.sending}
-						onclick={() => (tile === selected ? onconfirm?.() : onselect?.(tile))}
+						onclick={() => onplace(tile)}
 					>
 						<span class="coord">{label}</span>
 					</button>
