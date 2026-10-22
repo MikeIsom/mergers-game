@@ -1,6 +1,6 @@
 # Acquire private beta — 22 October 2026
 
-Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.3`.
+Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.4`.
 Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 
 ## Validation
@@ -17,10 +17,14 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
   and four-hands seat plus spectators, replay/live navigation and real tile moves.
 - All three tutorials run through normal controls on desktop and phone. Checks
   cover saved progress, reload, step retry, rejected unrelated actions, French and
-  Persian resume, and the final $15,800 scoring example. Unit tests complete and
-  restore every chapter in all 17 locales using the real engine.
+  Persian resume, the final $15,800 scoring example, reference controls after
+  completion, and returning to an earlier step. The price and bonus explanations
+  have 68 additional locale/viewport checks, including the expanded price table
+  at 320 pixels. Unit tests complete and restore every chapter in all 17 locales
+  using the real engine.
 - Screenshots and a machine-readable report are generated in `release/qa/`.
-  The gallery uses three distinct views, each with light and dark variants.
+  The gallery uses three distinct views, each with light and dark variants. Height
+  checks prevent oversized captures; desktop panels and the full-log toggle are checked.
 
 ## Fixes made for beta
 
@@ -28,11 +32,22 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
   and merger-order arrays must be structured-cloneable for iframe messaging and
   tutorial persistence.
 - Contain wide player/chain tables on narrow screens, without widening the page.
+- Keep both stock-purchase buttons visible on narrow phones, including languages
+  with longer table headings.
 - Supply default player symbols in color-blind mode when BGS sends no assignments.
 - Translate shared chat permissions, unread counts and dates in all 17 locales.
 - Add three interactive tutorials: founding, mergers and scoring. Lesson text and
   controls are translated in all 17 locales; progress is stored locally.
 - Add a built-bundle development mode and repeatable browser checks.
+- Spread players, recent history and chat across the desktop below the play area;
+  show eight recent log entries with the full history available on demand. Gallery
+  captures frame the game instead of including an entire scrolling phone page.
+- Split the game description into two paragraphs.
+- Explain tile adjacency, chain price tiers (no special abilities), price bands,
+  majority/minority bonuses and ties, safe chains, and final payouts alongside
+  the tutorial actions in all 17 languages. Include an expandable price table
+  within the buying lesson. Keep references usable after chapter completion;
+  only game moves are disabled.
 
 ## Still required before a public release
 

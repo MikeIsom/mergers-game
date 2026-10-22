@@ -197,6 +197,24 @@ export const pl: Catalog = {
 	"chat.waiting": "Czat będzie dostępny po rozpoczęciu gry",
 	"chat.connecting": "Łączenie z czatem…",
 	"chat.readOnly": "Czat tylko do odczytu",
+	"tutorial.mechanics.tiles":
+		"Płytki łączą się bokami, nigdy po przekątnej. Obok luźnych płytek zakładasz sieć; obok jednej sieci powiększasz ją; między sieciami wywołujesz fuzję.\n\nZwykła tura: połóż płytkę, rozstrzygnij fuzje, kup łącznie do 3 akcji i uzupełnij rękę. Te lekcje używają mniejszych, przygotowanych rąk.",
+	"tutorial.mechanics.tiers":
+		"Sieci nie mają specjalnych zdolności. Przy tym samym rozmiarze Tower i Luxor są najtańsze; Worldwide, American i Festival kosztują o $100 więcej za akcję, Imperial i Continental o $200 więcej. Wraz z ceną rosną też premie akcjonariuszy.\n\nKażda sieć ma 25 akcji. Założyciel otrzymuje jedną za darmo, jeśli jest dostępna; nie wlicza się ona do limitu 3 zakupów.",
+	"tutorial.mechanics.prices":
+		"Cena zależy od liczby płytek i kategorii sieci, nie od liczby kupowanych akcji. Tower kosztuje $200 przy 2 płytkach, $300 przy 3, $400 przy 4 i $500 przy 5. Dalej obowiązują przedziały: 6–10 płytek to $600, 11–20 to $700 itd. Otwórz tabelę poniżej, aby zobaczyć wszystkie przedziały i kategorie.\n\nTutaj 2 akcje Tower kosztują $400. Możesz kupić łącznie do 3 akcji aktywnych sieci, jeśli masz gotówkę, a bank ma akcje. W zwykłych turach nie można sprzedawać.",
+	"tutorial.mechanics.merger":
+		"Porównaj rozmiary przed dodaniem płytki łączącej: Tower ma 3 płytki, Luxor 2, więc Tower przetrwa. Przy remisie największych sieci wybiera gracz kładący płytkę.\n\nOd 11 płytek sieć jest bezpieczna i nie można jej przejąć. Płytki, która połączyłaby dwie bezpieczne sieci, nie można zagrać.",
+	"tutorial.mechanics.bonuses":
+		"Premie wypłaca się przed sprzedażą i wymianą, według ceny przejmowanej sieci sprzed fuzji. Największy akcjonariusz otrzymuje 10 × cenę (premia większościowa), drugi 5 × (mniejszościowa). Wystarczy mieć najwięcej akcji, nie ponad połowę.\n\nLuxor ma 2 płytki: $200 za akcję. Alex z 3 akcjami dostaje $2000, Bo z 2 dostaje $1000, Cy z 1 nie dostaje premii. Akcji nie oddaje się za premię. Potem można łączyć sprzedaż po $200, wymianę 2 za 1 Tower do wyczerpania zapasu i zachowanie na przyszły Luxor.",
+	"tutorial.mechanics.ties":
+		"Przy remisie na pierwszym miejscu liderzy dzielą obie premie, a inni nic nie dostają. Przy jednym liderze remisujący drudzy dzielą tylko premię mniejszościową. Jedyny akcjonariusz dostaje obie. Każdą część zaokrągla się w górę do pełnych $100.\n\nDwaj równi liderzy Luxor po $200 dostają po ($2000 + $1000) ÷ 2 = $1500. Zachowane akcje Luxor nie mają wartości, dopóki sieć nie powstanie ponownie.",
+	"tutorial.mechanics.safe":
+		"Bezpieczna oznacza co najmniej 11 płytek: sieć może rosnąć i przejmować mniejsze, ale sama nie zostanie przejęta.\n\nMożesz ogłosić koniec, gdy wszystkie sieci na planszy są bezpieczne lub jedna osiągnie 41 płytek. Nie muszą istnieć wszystkie siedem. W zasadach standardowych zakończenie jest dobrowolne: dokończ turę, potem następuje rozliczenie.",
+	"tutorial.mechanics.growth":
+		"Rozrost nie zawsze podnosi cenę. Tower z 11 i 12 płytkami mieści się w tym samym przedziale 11–20: $700 za akcję. Kolejny wzrost następuje przy 21 płytkach ($800).\n\nPo położeniu płytki nadal możesz kupić do 3 akcji. Zakupy mogą zmienić odbiorców końcowych premii.",
+	"tutorial.mechanics.settlement":
+		"Na koniec wypłaca się premie większościowe i mniejszościowe każdej aktywnej sieci, a potem sprzedaje wszystkie jej akcje po aktualnych cenach. Akcje nieaktywnych sieci są bezwartościowe.\n\nPrzy cenie Tower $700 prowadzi Alex z 4 akcjami: $7000 premii + $2800 akcji + $6000 gotówki = $15 800. Bo z 2 akcjami otrzymuje premię mniejszościową $3500, Cy z 1 żadnej. Wygrywa największa końcowa gotówka, nie liczba akcji.",
 	"tutorial.label": "Samouczek",
 	"tutorial.complete": "Rozdział ukończony",
 	"tutorial.previous": "Poprzedni krok",

@@ -41,7 +41,7 @@ const locales = [
 ];
 const output = new URL("../release/qa/", import.meta.url);
 await mkdir(output, { recursive: true });
-const report = { layouts: [], diagnostics: null, scenarios: [] };
+const report = { layouts: [], tutorialLayouts: [], gallery: [], diagnostics: null, scenarios: [] };
 
 try {
 	for (let attempt = 0; ; attempt++) {
@@ -166,6 +166,26 @@ try {
 	assert.equal(await page.locator("main .board").first().innerText(), after);
 	report.scenarios.push("real tile move through the built viewer and state refresh");
 
+	// The desktop used to stack every supporting panel in one tall sidebar. Check the rendered
+	// arrangement and height, not only horizontal overflow, before creating gallery images.
+	await page.setViewportSize({ width: 1280, height: 900 });
+	await open("players=4&moves=95&publicHoldings=1");
+	const board = await page.locator(".layout > .board").boundingBox();
+	const panels = await Promise.all(
+		[".players", ".history", ".conversation"].map((selector) => page.locator(`.layout > ${selector}`).boundingBox())
+	);
+	for (const panel of panels) {
+		assert.ok(panel.y >= board.y + board.height, "supporting panels sit below the board");
+		assert.ok(Math.abs(panel.y - panels[0].y) < 1, "supporting panels share a desktop row");
+	}
+	assert.ok((await page.locator("main").boundingBox()).height <= 900, "desktop game fits within 900px");
+	assert.equal(await page.locator(".log li").count(), 8);
+	await page.getByRole("button", { name: /^Show the whole log/ }).click();
+	assert.ok((await page.locator(".log li").count()) > 100, "full history remains available");
+	await page.locator(".history button").click();
+	assert.equal(await page.locator(".log li").count(), 8);
+	report.scenarios.push("balanced desktop panels, compact recent history and expandable full log");
+
 	for (const [name, params, width, height] of [
 		["overview", "players=4&moves=95&publicHoldings=1", 1280, 900],
 		["merger", "players=4&moves=50&merger=1&publicHoldings=1", 1280, 900],
@@ -174,7 +194,23 @@ try {
 		await page.setViewportSize({ width, height });
 		for (const theme of ["light", "dark"]) {
 			await open(`${params}&theme=${theme}`);
-			await page.screenshot({ path: new URL(`${name}-${theme}.png`, output).pathname, fullPage: true });
+			const main = await page.locator("main").boundingBox();
+			const hand = await page.locator(".layout > .hand").boundingBox();
+			// Desktop shows the whole compact layout. On phones frame the complete decision, board
+			// and hand, without appending a long column of tables, chat and history to the image.
+			const captureHeight = Math.ceil(width < 700 ? hand.y + hand.height + 12 : main.height);
+			assert.ok(captureHeight <= (width < 700 ? 1100 : 900), `${name}: gallery image became too tall`);
+			if (captureHeight > page.viewportSize().height) {
+				await page.setViewportSize({ width, height: captureHeight });
+				await settle();
+			}
+			const screenshot = await page.screenshot({
+				path: new URL(`${name}-${theme}.png`, output).pathname,
+				clip: { x: 0, y: 0, width, height: captureHeight },
+			});
+			assert.equal(screenshot.readUInt32BE(16), width);
+			assert.equal(screenshot.readUInt32BE(20), captureHeight);
+			report.gallery.push({ name, theme, width, height: captureHeight });
 		}
 	}
 	await preferences({ locale: "fa", colorBlind: true });
@@ -186,6 +222,7 @@ try {
 			await page.goto(`${base}/?bundle=1&tutorial=${chapter}&locale=en`);
 			await page.waitForSelector('.acquire-tutorial[data-step="0"]');
 			assert.equal(await page.locator(".chat").count(), 0);
+			assert.equal(await page.locator(".explanation > p").count(), 2);
 			const place = async (tile) => {
 				await page.locator("section.hand").getByRole("button", { name: tile, exact: true }).click();
 				await page
@@ -216,11 +253,20 @@ try {
 			}
 			await page.waitForSelector('.acquire-tutorial[data-step="2"]');
 			if (chapter === "founding") {
+				await page.locator(".guide").getByRole("button", { name: "Price table", exact: true }).click();
+				assert.equal(await page.locator(".guide .prices").count(), 1);
+				await page.locator(".guide .toggle").click();
 				await page.getByRole("button", { name: "Buy one more Tower", exact: true }).click();
 				await page.getByRole("button", { name: "Buy one more Tower", exact: true }).click();
 			}
 			await page.locator("main .panel button.primary").click();
 			await page.waitForSelector('.acquire-tutorial[data-completed="true"]');
+			// Finishing used to make the entire game inert, including reference controls.
+			assert.equal(await page.locator("main .panel button").count(), 0);
+			assert.equal(await page.locator("section.hand button").count(), 0);
+			await page.locator("main").getByRole("button", { name: "Price table", exact: true }).click();
+			assert.equal(await page.locator("main .prices").count(), 1);
+			await page.locator("main .toggle").click();
 			if (chapter === "scoring") {
 				assert.match(await page.locator(".results").innerText(), /15,800/);
 			}
@@ -236,12 +282,59 @@ try {
 					await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1),
 					`${chapter} ${locale} tutorial overflow`
 				);
+				await page.locator("main .market .toggle").click();
+				assert.equal(await page.locator("main .prices").count(), 1, "resumed completed lesson keeps references usable");
+				await page.locator("main .market .toggle").click();
 			}
 			await page.screenshot({ path: new URL(`tutorial-${chapter}-${width}.png`, output).pathname, fullPage: true });
+			await page.locator(".guide nav button").first().click();
+			await page.waitForSelector('.acquire-tutorial[data-step="2"][data-completed="false"]');
+			assert.equal(await page.locator("main .panel button.primary").count(), 1, "previous step restores game actions");
 		}
 	}
 	report.scenarios.push(
-		"three tutorials completed through real controls on desktop and phone; reload, retry, rejected move, French/Persian resume and final scoring"
+		"three tutorials completed through real controls on desktop and phone; reload, retry, rejected move, French/Persian resume, final scoring and usable references after completion"
+	);
+
+	// The new explanations are longer than action prompts. Exercise the price and bonus lessons
+	// in every language, including their tables, at both desktop and the narrowest supported phone.
+	for (const width of [1280, 320]) {
+		await page.setViewportSize({ width, height: 900 });
+		for (const locale of locales) {
+			for (const chapter of ["founding", "mergers"]) {
+				await page.evaluate(
+					async ({ chapter, locale }) => {
+						localStorage.removeItem(`bgs:tutorial:acquire:${chapter}`);
+						await window.acquire.launchTutorial("#app", { chapter, locale });
+					},
+					{ chapter, locale }
+				);
+				await page.locator("section.hand button").click();
+				await page.locator("main .panel .primary").click();
+				await page.waitForSelector('.acquire-tutorial[data-step="1"]');
+				if (chapter === "founding") {
+					await page.locator(".choices button").filter({ hasText: "Tower" }).click();
+					await page.waitForSelector('.acquire-tutorial[data-step="2"]');
+					await page.locator(".guide .toggle").click();
+					assert.equal(await page.locator(".guide .prices").count(), 1);
+				}
+				assert.equal(await page.locator(".explanation > p").count(), 2);
+				assert.ok(
+					await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1),
+					`${chapter} ${locale} ${width}px explanation overflow`
+				);
+				report.tutorialLayouts.push({ width, locale, chapter });
+				if (["en", "fr", "fa"].includes(locale)) {
+					await page.screenshot({
+						path: new URL(`explanation-${chapter}-${locale}-${width}.png`, output).pathname,
+						fullPage: true,
+					});
+				}
+			}
+		}
+	}
+	report.scenarios.push(
+		"share-price and bonus explanations in all 17 languages at desktop and 320px, with the tutorial price table open"
 	);
 
 	await page.emulateMedia({ colorScheme: "dark" });

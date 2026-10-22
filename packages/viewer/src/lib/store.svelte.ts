@@ -26,8 +26,10 @@ export class ViewerStore {
 	view = $derived(
 		this.state && this.replayAt !== undefined ? replayView(this.state, this.player, this.replayAt) : this.state
 	);
-	/** Legal moves for this viewer right now, straight from the engine; none while replaying. */
-	moves = $derived(this.state && this.replayAt === undefined ? movesFor(this.state, this.seats) : []);
+	/** Completed tutorials keep reference controls usable but no longer accept game moves. */
+	readOnly = $state(false);
+	/** Legal moves for this viewer right now, straight from the engine. */
+	moves = $derived(this.state && this.replayAt === undefined && !this.readOnly ? movesFor(this.state, this.seats) : []);
 	/** A tile chosen in the hand but not yet placed. */
 	selected = $state<Tile | undefined>();
 	/** Player avatars from BGS, in player order. */
@@ -64,7 +66,7 @@ export class ViewerStore {
 	}
 
 	send(move: Move): void {
-		if (this.sending) {
+		if (this.sending || this.readOnly) {
 			return;
 		}
 		this.sending = this.sendMove($state.snapshot(move));

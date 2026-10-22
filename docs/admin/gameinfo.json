@@ -7,7 +7,7 @@
 	"tags": ["economic"],
 	"players": [2, 3, 4, 5, 6],
 	"public": false,
-	"description": "Build hotel chains, buy their stock and cash in when they merge. Each turn you place a tile on a 12 × 9 grid: tiles next to each other found a chain, chains grow, and when a tile joins two chains the larger one takes over the smaller. Shareholders of the chain taken over collect bonuses and sell or trade their stock. Whoever has the most money at the end wins. A classic stock-market game for 2–6 players, live or asynchronous.",
+	"description": "Build hotel chains, buy their stock and cash in when they merge. Each turn you place a tile on a 12 × 9 grid: tiles next to each other found a chain, chains grow, and when a tile joins two chains the larger one takes over the smaller.\n\nShareholders of the chain taken over collect bonuses and sell or trade their stock. Whoever has the most money at the end wins. A classic stock-market game for 2–6 players, live or asynchronous.",
 	"rules": "[Rules](/page/acquire:rules)",
 	"credits": "**Acquire** was designed by **Sid Sackson**, first published by 3M in 1964, and is currently published by Renegade Game Studios.\n\nThis is an unofficial open-source implementation of Acquire for boardgamers.space. Not affiliated with or endorsed by Hasbro, Avalon Hill, Renegade Game Studios or any other publisher of Acquire. The rules text, chain colours, chain marks and artwork in this implementation are its own; no text or artwork from any published edition is used.\n\nDigital implementation: [MikeIsom](https://github.com/MikeIsom/mergers-game). BGS integration and interactive tutorials: Boardgamers.",
 	"links": {

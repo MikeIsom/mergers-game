@@ -9,7 +9,7 @@ nothing is taken from any published edition's rulebook, card or box.
 | [rules.md](rules.md)             | CMS page `acquire:rules` (English); set the metadata rules field to `[Rules](/page/acquire:rules)`.                                           |
 | [credits.md](credits.md)         | Game metadata → **credits** (Markdown).                                                                                                       |
 | [pictogram.svg](pictogram.svg)   | Pictogram upload: transparent background, tight bounds, square corners. Export to PNG at the size the panel asks for if it does not take SVG. |
-| [screenshots/](screenshots)      | Screenshot gallery, in the order below.                                                                                                       |
+| `release/qa/*-{light,dark}.png`  | Regenerate the screenshot gallery with `pnpm test:browser`, in the order below.                                                               |
 
 Description, rules and credits are English. BGS stores per-language overlays for these three
 fields (the admin panel can translate them); the viewer itself is already translated.
@@ -27,8 +27,10 @@ Use **economic**, from BGS’s shared tag list. Useful missing categories to pro
 
 ## Screenshots
 
-Captured from the dev page with a fixed seed (`seed=bgs`, 4 players, public holdings) at 2× scale.
-Upload each light image and add the dark one with **Add dark version**.
+Run `pnpm test:browser` to capture the built viewer with a fixed seed (`seed=bgs`, 4 players,
+public holdings). The current images are written to `release/qa/`; the older tracked files in
+`screenshots/` are not the release captures. Upload each light image and add the dark one with
+**Add dark version**.
 
 | Order | Light              | Dark              | Caption                                                                    |
 | ----- | ------------------ | ----------------- | -------------------------------------------------------------------------- |
@@ -36,9 +38,10 @@ Upload each light image and add the dark one with **Add dark version**.
 | 2     | merger-light.png   | merger-dark.png   | A merger: sell, trade 2 for 1 or keep your shares of the chain taken over. |
 | 3     | phone-light.png    | phone-dark.png    | The same decision on a phone.                                              |
 
-To recreate them, run the viewer dev server and open, for example,
-`http://localhost:5173/?players=4&seed=bgs&publicHoldings=1&bar=0&theme=dark&moves=50&merger=1`
-in a 1280 × 860 window (390 × 844 for the phone view).
+Desktop captures frame the whole compact game at 1280 pixels wide. Phone captures are 390
+pixels wide and include the complete decision, board and hand. Do not use full-page phone
+screenshots: the supporting tables and expanded history make an unreadably tall gallery image.
+The browser checks enforce maximum capture heights and verify the desktop panel arrangement.
 
 ## Private beta configuration
 

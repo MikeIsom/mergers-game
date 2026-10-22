@@ -168,6 +168,24 @@ export const nl: Catalog = {
 	"chat.waiting": "De chat is beschikbaar zodra het spel begint",
 	"chat.connecting": "Verbinden met de chat…",
 	"chat.readOnly": "De chat is alleen-lezen",
+	"tutorial.mechanics.tiles":
+		"Tegels sluiten langs randen aan, nooit diagonaal. Naast losse tegels sticht je een keten; naast één keten breid je die uit; tussen ketens veroorzaak je een fusie.\n\nEen gewone beurt: plaatsen, fusies afhandelen, in totaal maximaal 3 aandelen kopen en je hand aanvullen. Deze lessen gebruiken kleinere voorbereide handen.",
+	"tutorial.mechanics.tiers":
+		"Ketens hebben geen speciale krachten. Bij gelijke grootte zijn Tower en Luxor het goedkoopst; Worldwide, American en Festival kosten $100 meer per aandeel; Imperial en Continental $200 meer. Ook de aandeelhoudersbonussen stijgen mee.\n\nElke keten heeft 25 aandelen. De oprichter krijgt één gratis aandeel als dat beschikbaar is; dit telt niet mee voor de 3 toegestane aankopen.",
+	"tutorial.mechanics.prices":
+		"De aandelenprijs hangt af van de grootte en prijsklasse van de keten, niet van hoeveel aandelen spelers kopen. Tower kost bij 2 tegels $200, bij 3 $300, bij 4 $400 en bij 5 $500. Daarna gelden groepen: 6–10 tegels kosten $600, 11–20 kosten $700 enzovoort. De prijstabel hieronder toont alle groepen en klassen.\n\nHier kosten 2 Tower-aandelen $400. Je mag in totaal 3 aandelen van actieve ketens kopen, als je genoeg geld hebt en de bank voorraad heeft. Tijdens gewone beurten kun je niet verkopen.",
+	"tutorial.mechanics.merger":
+		"Vergelijk de grootte vóór de verbindende tegel: Tower heeft 3 tegels en Luxor 2, dus Tower blijft bestaan. Bij gelijke grootste ketens kiest de speler die de tegel plaatst.\n\nVanaf 11 tegels is een keten veilig en kan die niet worden overgenomen. Een tegel die twee veilige ketens zou verbinden is onspeelbaar.",
+	"tutorial.mechanics.bonuses":
+		"Bonussen worden vóór verkoop of ruil betaald, tegen de prijs van de overgenomen keten vóór de fusie. De grootste aandeelhouder krijgt 10 × die prijs (meerderheid), de tweede 5 × (minderheid). De meeste aandelen volstaan; meer dan de helft is niet nodig.\n\nLuxor heeft 2 tegels: $200 per aandeel. Alex krijgt met 3 aandelen $2.000, Bo met 2 aandelen $1.000 en Cy met 1 geen bonus. Je levert hiervoor geen aandelen in. Daarna kun je verkoop voor $200, ruil van 2 voor 1 Tower zolang de voorraad strekt, en bewaren voor een toekomstige Luxor combineren.",
+	"tutorial.mechanics.ties":
+		"Gedeelde eerste plaatsen verdelen beide bonussen; niemand anders krijgt iets. Bij één eerste delen gelijke tweede plaatsen alleen de minderheidsbonus. Een enige aandeelhouder krijgt beide. Rond elk gedeeld bedrag naar boven af op $100.\n\nTwee gedeelde grootste Luxor-aandeelhouders bij $200 krijgen ieder ($2.000 + $1.000) ÷ 2 = $1.500. Bewaarde Luxor-aandelen zijn waardeloos totdat Luxor opnieuw wordt gesticht.",
+	"tutorial.mechanics.safe":
+		"Veilig betekent minstens 11 tegels: de keten kan nog groeien en kleinere ketens overnemen, maar niet zelf worden overgenomen.\n\nJe mag het einde aankondigen als alle aanwezige ketens veilig zijn, of één 41 tegels bereikt. Niet alle zeven hoeven aanwezig te zijn. Volgens de standaardregels is dit vrijwillig; maak je beurt af en reken daarna af.",
+	"tutorial.mechanics.growth":
+		"Groei verhoogt niet altijd de prijs. Tower met 11 en met 12 tegels valt in dezelfde groep 11–20: $700 per aandeel. Pas bij 21 tegels wordt dat $800.\n\nNa het plaatsen mag je nog maximaal 3 aandelen kopen. Daarmee kunnen de ontvangers van de eindbonussen veranderen.",
+	"tutorial.mechanics.settlement":
+		"Bij de eindafrekening krijgt elke actieve keten meerderheids- en minderheidsbonussen, waarna alle aandelen van die ketens tegen de huidige prijs worden verkocht. Inactieve aandelen zijn waardeloos.\n\nBij Tower voor $700 leidt Alex met 4 aandelen: $7.000 bonus + $2.800 aandelen + $6.000 geld = $15.800. Bo krijgt met 2 aandelen de minderheidsbonus van $3.500; Cy met 1 geen bonus. Het eindbedrag bepaalt de winnaar, niet het aantal aandelen.",
 	"tutorial.label": "Handleiding",
 	"tutorial.complete": "Hoofdstuk voltooid",
 	"tutorial.previous": "Vorige stap",

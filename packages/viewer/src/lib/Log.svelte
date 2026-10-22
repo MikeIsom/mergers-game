@@ -7,7 +7,7 @@
 
 	// The log has no scroll box of its own (nested scrolling traps touch users); it shows the most
 	// recent lines and expands in place.
-	const RECENT = 25;
+	const RECENT = 8;
 	const store = useStore();
 	const t = $derived(store.lang.t);
 	let showAll = $state(false);

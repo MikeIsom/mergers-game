@@ -186,6 +186,24 @@ export const fr: Catalog = {
 	"chat.waiting": "La discussion sera disponible au début de la partie",
 	"chat.connecting": "Connexion à la discussion…",
 	"chat.readOnly": "Discussion en lecture seule",
+	"tutorial.mechanics.tiles":
+		"Les tuiles se connectent par les côtés, jamais en diagonale. À côté de tuiles libres, votre tuile fonde une chaîne ; à côté d’une chaîne, elle l’agrandit ; entre plusieurs chaînes, elle provoque une fusion.\n\nUn tour normal : poser, résoudre les fusions, acheter jusqu’à 3 actions au total, puis compléter sa main. Ces leçons utilisent des mains préparées plus petites.",
+	"tutorial.mechanics.tiers":
+		"Les chaînes n’ont pas de pouvoirs spéciaux. À taille égale, Tower et Luxor sont les moins chères ; Worldwide, American et Festival coûtent 100 $ de plus par action ; Imperial et Continental, 200 $ de plus. Leurs primes d’actionnaires augmentent aussi avec ces prix.\n\nChaque chaîne a 25 actions. La fondation offre une action gratuite s’il en reste ; elle ne compte pas parmi vos 3 achats autorisés.",
+	"tutorial.mechanics.prices":
+		"Le prix dépend du nombre de tuiles de la chaîne et de sa catégorie, pas du nombre d’actions achetées. Tower vaut 200 $ à 2 tuiles, 300 $ à 3, 400 $ à 4 et 500 $ à 5. Ensuite, le prix suit des paliers : 6–10 tuiles = 600 $, 11–20 = 700 $, etc. Ouvrez le tableau ci-dessous pour voir tous les paliers et catégories.\n\nIci, 2 actions Tower coûtent 400 $. Vous pouvez acheter jusqu’à 3 actions au total dans les chaînes actives, selon vos liquidités et le stock de la banque. Un tour ordinaire ne permet pas de vendre.",
+	"tutorial.mechanics.merger":
+		"Comparez les tailles avant l’ajout de la tuile de liaison : Tower a 3 tuiles et Luxor 2, donc Tower survit. En cas d’égalité entre les plus grandes, le joueur qui pose choisit.\n\nÀ partir de 11 tuiles, une chaîne est sûre et ne peut plus être absorbée. Une tuile reliant deux chaînes sûres est injouable.",
+	"tutorial.mechanics.bonuses":
+		"Les primes sont versées avant les ventes et échanges, au prix de la chaîne absorbée avant la fusion. Le premier actionnaire reçoit 10 × ce prix (prime majoritaire) ; le deuxième, 5 × (prime minoritaire). Il suffit d’avoir le plus d’actions, pas plus de la moitié.\n\nLuxor a 2 tuiles : l’action vaut 200 $. Les 3 actions d’Alex rapportent 2 000 $, les 2 de Bo 1 000 $, celle de Cy aucune prime. Les actions ne sont pas dépensées pour toucher les primes. Ensuite, vous pouvez combiner vente à 200 $, échange de 2 contre 1 Tower selon le stock, et conservation pour une future Luxor.",
+	"tutorial.mechanics.ties":
+		"Égalités : les premiers ex æquo se partagent les deux primes ; personne d’autre n’en reçoit. Avec un seul premier, les deuxièmes ex æquo se partagent uniquement la prime minoritaire. Un actionnaire unique touche les deux. Chaque part est arrondie aux 100 $ supérieurs.\n\nExemple : deux premiers ex æquo pour Luxor à 200 $ touchent chacun (2 000 $ + 1 000 $) ÷ 2 = 1 500 $. Les actions Luxor conservées ne valent rien tant que la chaîne n’est pas refondée.",
+	"tutorial.mechanics.safe":
+		"Sûre signifie au moins 11 tuiles : la chaîne peut encore grandir et absorber de plus petites chaînes, mais ne peut pas être absorbée.\n\nVous pouvez annoncer la fin si toutes les chaînes présentes sont sûres, ou si l’une atteint 41 tuiles. Les sept chaînes n’ont pas besoin d’être présentes. Avec les règles standard, terminer est facultatif : finissez votre tour, puis comptez les points.",
+	"tutorial.mechanics.growth":
+		"Grandir ne fait pas toujours monter le prix. À 11 comme à 12 tuiles, Tower reste dans le palier 11–20 : 700 $ par action. Le prochain palier est à 21 tuiles (800 $).\n\nAprès la pose, vous pouvez encore acheter jusqu’à 3 actions. Ces achats peuvent modifier l’attribution des primes finales.",
+	"tutorial.mechanics.settlement":
+		"Le décompte verse les primes majoritaire et minoritaire de chaque chaîne active, puis vend toutes les actions de ces chaînes à leur prix actuel. Les actions inactives ne valent rien.\n\nÀ 700 $ l’action Tower, Alex est premier avec 4 actions : 7 000 $ de prime + 2 800 $ d’actions + 6 000 $ en espèces = 15 800 $. Bo reçoit la prime minoritaire de 3 500 $ avec 2 actions ; Cy n’a aucune prime avec 1. C’est l’argent final qui détermine la victoire, pas le nombre d’actions.",
 	"tutorial.label": "Tutoriel",
 	"tutorial.complete": "Chapitre terminé",
 	"tutorial.previous": "Étape précédente",

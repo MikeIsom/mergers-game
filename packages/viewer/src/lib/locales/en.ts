@@ -183,6 +183,24 @@ export const en = {
 	"chat.waiting": "Chat will be available when the game starts",
 	"chat.connecting": "Chat is connecting…",
 	"chat.readOnly": "Chat is read-only",
+	"tutorial.mechanics.tiles":
+		"Tiles connect along edges, never diagonally. Next to loose tiles, your tile founds a chain; next to one chain, it grows that chain; between chains, it causes a merger.\n\nA normal turn is: place, resolve any merger, buy up to 3 shares in total, then refill your hand. These lessons use small prepared hands.",
+	"tutorial.mechanics.tiers":
+		"Chains have no special powers. At the same size, Tower and Luxor are cheapest; Worldwide, American and Festival cost $100 more per share; Imperial and Continental cost $200 more. Their shareholder bonuses rise with those prices too.\n\nEach chain has 25 shares. Founding gives you one free share if available; it does not use your allowance of 3 purchases.",
+	"tutorial.mechanics.prices":
+		"Share price depends on the chain’s tile count and price tier, not on how many shares players buy. Tower costs $200 at 2 tiles, $300 at 3, $400 at 4 and $500 at 5. Larger chains use bands: 6–10 tiles cost $600, 11–20 cost $700, and so on. Open the price table below for every band and tier.\n\nHere, 2 Tower shares cost $400. You may buy up to 3 shares total across active chains, if you have enough cash and the bank has stock. Ordinary turns do not let you sell.",
+	"tutorial.mechanics.merger":
+		"Compare chain sizes before the connecting tile is added: Tower has 3 tiles and Luxor 2, so Tower survives. If largest chains tie, the player placing the tile chooses.\n\nA chain becomes safe at 11 tiles and can never be taken over. A tile that would join two safe chains cannot be played.",
+	"tutorial.mechanics.bonuses":
+		"Bonuses are paid before anyone sells or trades, using the absorbed chain’s pre-merger price. The largest shareholder gets 10 × that price (majority); the second largest gets 5 × (minority). You need the most shares, not more than half.\n\nLuxor has 2 tiles, so a share is $200. Alex’s 3 shares earn $2,000; Bo’s 2 earn $1,000; Cy’s 1 earns no bonus. Shares are not spent to collect bonuses. Then you may mix selling at $200, trading 2 for 1 Tower share while stock lasts, and keeping shares for a future Luxor.",
+	"tutorial.mechanics.ties":
+		"Bonus ties: tied largest holders split both bonuses; nobody else receives one. With a sole largest holder, tied runners-up split only the minority bonus. A lone shareholder receives both. Round each split payout up to the next $100.\n\nFor example, two players tied for most Luxor shares at $200 each receive ($2,000 + $1,000) ÷ 2 = $1,500. Kept Luxor shares have no value unless Luxor is founded again.",
+	"tutorial.mechanics.safe":
+		"Safe means 11 or more tiles: the chain can still grow and absorb smaller chains, but cannot be absorbed.\n\nYou may announce the end if every chain currently on the board is safe, or one reaches 41 tiles. All seven chains need not be present. Ending is optional under the standard rules; finish your current turn, then score.",
+	"tutorial.mechanics.growth":
+		"Growing does not always raise the price. Tower at 11 and 12 tiles is in the same 11–20 band: $700 per share. Its next rise is at 21 tiles ($800).\n\nAfter placing, you still have the usual chance to buy up to 3 shares. Those purchases can change who receives the final bonuses.",
+	"tutorial.mechanics.settlement":
+		"Final scoring pays majority and minority bonuses for every active chain, then sells all shares in those chains at their current prices. Inactive shares are worth nothing.\n\nAt Tower’s $700 price, Alex’s 4 shares lead: $7,000 bonus + $2,800 stock + $6,000 cash = $15,800. Bo’s 2 shares earn the $3,500 minority bonus; Cy’s 1 earns no bonus. Winning depends on final cash, not the number of shares.",
 	"tutorial.label": "Tutorial",
 	"tutorial.complete": "Chapter complete",
 	"tutorial.previous": "Previous step",

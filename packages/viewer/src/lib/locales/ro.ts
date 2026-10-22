@@ -190,6 +190,24 @@ export const ro: Catalog = {
 	"chat.waiting": "Chatul va fi disponibil la începutul jocului",
 	"chat.connecting": "Se conectează chatul…",
 	"chat.readOnly": "Chatul este doar pentru citire",
+	"tutorial.mechanics.tiles":
+		"Plăcuțele se conectează pe laturi, niciodată diagonal. Lângă plăcuțe libere, plăcuța ta fondează un lanț; lângă un lanț, îl extinde; între lanțuri, declanșează o fuziune.\n\nO tură normală: plasezi, rezolvi fuziunile, cumperi cel mult 3 acțiuni în total și completezi mâna. Lecțiile folosesc mâini pregătite mai mici.",
+	"tutorial.mechanics.tiers":
+		"Lanțurile nu au puteri speciale. La aceeași mărime, Tower și Luxor sunt cele mai ieftine; Worldwide, American și Festival costă cu $100 mai mult pe acțiune; Imperial și Continental, cu $200 mai mult. Și bonusurile acționarilor cresc odată cu aceste prețuri.\n\nFiecare lanț are 25 de acțiuni. Fondatorul primește una gratuită, dacă există; nu se scade din cele 3 achiziții permise.",
+	"tutorial.mechanics.prices":
+		"Prețul depinde de numărul de plăcuțe și categoria lanțului, nu de câte acțiuni cumpără jucătorii. Tower costă $200 la 2 plăcuțe, $300 la 3, $400 la 4 și $500 la 5. Apoi se folosesc intervale: 6–10 plăcuțe costă $600, 11–20 costă $700 etc. Deschide tabelul de mai jos pentru toate intervalele și categoriile.\n\nAici, 2 acțiuni Tower costă $400. Poți cumpăra cel mult 3 acțiuni în total din lanțuri active, dacă ai bani și banca are stoc. În turele obișnuite nu poți vinde.",
+	"tutorial.mechanics.merger":
+		"Compară mărimile înainte de plăcuța de legătură: Tower are 3 plăcuțe și Luxor 2, deci Tower supraviețuiește. Dacă cele mai mari lanțuri sunt egale, alege jucătorul care plasează.\n\nLa 11 plăcuțe, un lanț devine sigur și nu poate fi absorbit. O plăcuță care ar uni două lanțuri sigure nu poate fi jucată.",
+	"tutorial.mechanics.bonuses":
+		"Bonusurile se plătesc înainte de vânzare sau schimb, la prețul lanțului absorbit înainte de fuziune. Cel mai mare acționar primește 10 × prețul (majoritate), al doilea 5 × (minoritate). Ajunge să ai cele mai multe acțiuni, nu peste jumătate.\n\nLuxor are 2 plăcuțe: $200 pe acțiune. Alex cu 3 acțiuni primește $2.000, Bo cu 2 primește $1.000, Cy cu 1 nu primește bonus. Acțiunile nu se consumă pentru bonus. Apoi poți combina vânzarea la $200, schimbul a 2 pentru 1 Tower în limita stocului și păstrarea pentru un viitor Luxor.",
+	"tutorial.mechanics.ties":
+		"La egalitate pe primul loc, liderii împart ambele bonusuri; ceilalți nu primesc nimic. Cu un singur lider, cei de pe locul doi împart doar bonusul minoritar. Un acționar unic primește ambele. Fiecare parte se rotunjește în sus la următorul multiplu de $100.\n\nDoi lideri egali la Luxor cu prețul $200 primesc fiecare ($2.000 + $1.000) ÷ 2 = $1.500. Acțiunile Luxor păstrate nu valorează nimic până la refondare.",
+	"tutorial.mechanics.safe":
+		"Sigur înseamnă cel puțin 11 plăcuțe: lanțul poate crește și absorbi lanțuri mai mici, dar nu poate fi absorbit.\n\nPoți anunța finalul când toate lanțurile de pe tablă sunt sigure sau unul ajunge la 41 de plăcuțe. Nu trebuie să fie prezente toate șapte. Regulile standard fac încheierea opțională: termini tura, apoi se calculează scorul.",
+	"tutorial.mechanics.growth":
+		"Creșterea nu mărește mereu prețul. Tower la 11 și la 12 plăcuțe rămâne în intervalul 11–20: $700 pe acțiune. Următoarea creștere este la 21 ($800).\n\nDupă plasare poți cumpăra în continuare cel mult 3 acțiuni. Achizițiile pot schimba beneficiarii bonusurilor finale.",
+	"tutorial.mechanics.settlement":
+		"Scorul final plătește bonusurile majoritar și minoritar pentru fiecare lanț activ, apoi vinde toate acțiunile acelor lanțuri la prețurile curente. Acțiunile inactive nu valorează nimic.\n\nLa Tower cu prețul $700, Alex conduce cu 4 acțiuni: $7.000 bonus + $2.800 acțiuni + $6.000 numerar = $15.800. Bo cu 2 acțiuni primește bonusul minoritar de $3.500; Cy cu 1 nu primește bonus. Câștigă cel cu cei mai mulți bani finali, nu cu cele mai multe acțiuni.",
 	"tutorial.label": "Tutorial",
 	"tutorial.complete": "Capitol încheiat",
 	"tutorial.previous": "Pasul anterior",

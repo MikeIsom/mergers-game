@@ -1,1 +1,3 @@
-Build hotel chains, buy their stock and cash in when they merge. Each turn you place a tile on a 12 × 9 grid: tiles next to each other found a chain, chains grow, and when a tile joins two chains the larger one takes over the smaller. Shareholders of the chain taken over collect bonuses and sell or trade their stock. Whoever has the most money at the end wins. A classic stock-market game for 2–6 players, live or asynchronous.
+Build hotel chains, buy their stock and cash in when they merge. Each turn you place a tile on a 12 × 9 grid: tiles next to each other found a chain, chains grow, and when a tile joins two chains the larger one takes over the smaller.
+
+Shareholders of the chain taken over collect bonuses and sell or trade their stock. Whoever has the most money at the end wins. A classic stock-market game for 2–6 players, live or asynchronous.

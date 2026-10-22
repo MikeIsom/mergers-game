@@ -191,6 +191,24 @@ export const it: Catalog = {
 	"chat.waiting": "La chat sarà disponibile quando inizierà la partita",
 	"chat.connecting": "Connessione alla chat…",
 	"chat.readOnly": "La chat è in sola lettura",
+	"tutorial.mechanics.tiles":
+		"Le tessere si collegano lungo i lati, mai in diagonale. Accanto a tessere libere fondano una catena; accanto a una catena la ampliano; tra catene causano una fusione.\n\nUn turno normale: piazzare, risolvere le fusioni, comprare fino a 3 azioni in totale e rifornire la mano. Queste lezioni usano mani preparate più piccole.",
+	"tutorial.mechanics.tiers":
+		"Le catene non hanno poteri speciali. A pari dimensione, Tower e Luxor costano meno; Worldwide, American e Festival costano $100 in più per azione; Imperial e Continental $200 in più. Anche i premi agli azionisti aumentano con questi prezzi.\n\nOgni catena ha 25 azioni. Il fondatore ne riceve una gratis, se disponibile; non conta tra i 3 acquisti consentiti.",
+	"tutorial.mechanics.prices":
+		"Il prezzo dipende dal numero di tessere e dalla fascia della catena, non da quante azioni vengono comprate. Tower costa $200 a 2 tessere, $300 a 3, $400 a 4 e $500 a 5. Poi si usano intervalli: 6–10 tessere costano $600, 11–20 costano $700 e così via. Apri la tabella sotto per tutti gli intervalli e le fasce.\n\nQui, 2 azioni Tower costano $400. Puoi comprare fino a 3 azioni totali di catene attive, se hai denaro e la banca ha azioni. Nei turni ordinari non puoi vendere.",
+	"tutorial.mechanics.merger":
+		"Confronta le dimensioni prima della tessera di collegamento: Tower ha 3 tessere e Luxor 2, quindi sopravvive Tower. Se le catene più grandi sono pari, sceglie chi piazza.\n\nA 11 tessere una catena diventa sicura e non può essere assorbita. Una tessera che unirebbe due catene sicure non è giocabile.",
+	"tutorial.mechanics.bonuses":
+		"I premi si pagano prima di vendere o scambiare, al prezzo della catena assorbita prima della fusione. Il primo azionista riceve 10 volte quel prezzo (maggioranza), il secondo 5 volte (minoranza). Basta avere più azioni degli altri, non oltre la metà.\n\nLuxor ha 2 tessere: $200 per azione. Alex con 3 azioni riceve $2.000, Bo con 2 riceve $1.000, Cy con 1 nessun premio. Non si consumano azioni per ricevere premi. Poi puoi combinare vendita a $200, scambio di 2 per 1 Tower finché disponibile, e conservazione per una futura Luxor.",
+	"tutorial.mechanics.ties":
+		"In caso di parità al primo posto, i primi dividono entrambi i premi e nessun altro ne riceve. Con un primo unico, i secondi a pari merito dividono solo il premio di minoranza. Un unico azionista riceve entrambi. Ogni quota si arrotonda per eccesso a $100.\n\nDue primi a pari merito in Luxor a $200 ricevono ciascuno ($2.000 + $1.000) ÷ 2 = $1.500. Le azioni Luxor conservate non valgono nulla finché Luxor non viene rifondata.",
+	"tutorial.mechanics.safe":
+		"Sicura significa almeno 11 tessere: la catena può crescere e assorbirne di più piccole, ma non essere assorbita.\n\nPuoi annunciare la fine quando tutte le catene presenti sono sicure, oppure una raggiunge 41 tessere. Non devono essere presenti tutte e sette. Con le regole standard è facoltativo: completi il tuo turno e poi si calcolano i risultati.",
+	"tutorial.mechanics.growth":
+		"Crescere non aumenta sempre il prezzo. Tower a 11 e a 12 tessere resta nell’intervallo 11–20: $700 per azione. Il prossimo aumento è a 21 tessere ($800).\n\nDopo il piazzamento puoi ancora comprare fino a 3 azioni. Gli acquisti possono cambiare chi riceve i premi finali.",
+	"tutorial.mechanics.settlement":
+		"Il conteggio finale assegna i premi di maggioranza e minoranza per ogni catena attiva, poi vende tutte le sue azioni al prezzo corrente. Le azioni inattive non valgono nulla.\n\nCon Tower a $700, Alex è primo con 4 azioni: $7.000 di premio + $2.800 di azioni + $6.000 in contanti = $15.800. Bo con 2 azioni riceve il premio di minoranza di $3.500, Cy con 1 nessun premio. Vince chi ha più denaro finale, non più azioni.",
 	"tutorial.label": "Tutorial",
 	"tutorial.complete": "Capitolo completato",
 	"tutorial.previous": "Passo precedente",

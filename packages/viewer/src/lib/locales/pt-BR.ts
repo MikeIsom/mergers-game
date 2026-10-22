@@ -190,6 +190,24 @@ export const ptBR: Catalog = {
 	"chat.waiting": "O chat estará disponível quando o jogo começar",
 	"chat.connecting": "Conectando ao chat…",
 	"chat.readOnly": "O chat é somente para leitura",
+	"tutorial.mechanics.tiles":
+		"As peças se conectam pelos lados, nunca na diagonal. Junto de peças soltas, sua peça funda uma rede; junto de uma rede, amplia-a; entre redes, provoca uma fusão.\n\nUm turno normal: colocar, resolver fusões, comprar até 3 ações no total e repor a mão. Estas lições usam mãos preparadas menores.",
+	"tutorial.mechanics.tiers":
+		"As redes não têm poderes especiais. Com o mesmo tamanho, Tower e Luxor são mais baratas; Worldwide, American e Festival custam $100 a mais por ação; Imperial e Continental, $200 a mais. Os bônus dos acionistas também aumentam com esses preços.\n\nCada rede tem 25 ações. O fundador ganha uma grátis, se disponível; ela não conta entre as 3 compras permitidas.",
+	"tutorial.mechanics.prices":
+		"O preço depende do número de peças e da categoria da rede, não de quantas ações são compradas. Tower custa $200 com 2 peças, $300 com 3, $400 com 4 e $500 com 5. Depois há faixas: 6–10 peças custam $600, 11–20 custam $700, e assim por diante. Abra a tabela abaixo para ver todas as faixas e categorias.\n\nAqui, 2 ações Tower custam $400. Você pode comprar até 3 ações no total de redes ativas, se tiver dinheiro e houver ações no banco. Turnos comuns não permitem vender.",
+	"tutorial.mechanics.merger":
+		"Compare os tamanhos antes da peça de ligação: Tower tem 3 peças e Luxor 2, então Tower sobrevive. Se as maiores redes empatarem, quem colocou a peça escolhe.\n\nCom 11 peças, uma rede fica segura e não pode ser absorvida. Uma peça que uniria duas redes seguras não pode ser jogada.",
+	"tutorial.mechanics.bonuses":
+		"Os bônus são pagos antes de vender ou trocar, pelo preço da rede absorvida antes da fusão. O maior acionista ganha 10 × esse preço (maioria); o segundo, 5 × (minoria). Basta ter mais ações que os outros, não mais da metade.\n\nLuxor tem 2 peças: $200 por ação. Alex, com 3 ações, ganha $2.000; Bo, com 2, $1.000; Cy, com 1, nenhum bônus. Receber o bônus não consome ações. Depois você pode combinar venda por $200, troca de 2 por 1 Tower enquanto houver estoque e conservação para uma futura Luxor.",
+	"tutorial.mechanics.ties":
+		"Em empate pelo primeiro lugar, os líderes dividem os dois bônus; ninguém mais recebe. Com um único primeiro, os segundos empatados dividem apenas o bônus de minoria. Um acionista único recebe ambos. Cada parcela é arredondada para cima até o próximo múltiplo de $100.\n\nDois líderes empatados em Luxor a $200 recebem cada um ($2.000 + $1.000) ÷ 2 = $1.500. Ações Luxor guardadas não valem nada até a rede ser fundada novamente.",
+	"tutorial.mechanics.safe":
+		"Segura significa pelo menos 11 peças: a rede ainda pode crescer e absorver redes menores, mas não pode ser absorvida.\n\nVocê pode anunciar o fim quando todas as redes presentes forem seguras ou uma atingir 41 peças. Não é preciso ter todas as sete no tabuleiro. Pelas regras padrão, encerrar é opcional: termine seu turno e depois faça a contagem.",
+	"tutorial.mechanics.growth":
+		"Crescer nem sempre aumenta o preço. Tower com 11 e com 12 peças fica na mesma faixa 11–20: $700 por ação. O próximo aumento ocorre com 21 peças ($800).\n\nApós colocar a peça, você ainda pode comprar até 3 ações. Essas compras podem mudar quem recebe os bônus finais.",
+	"tutorial.mechanics.settlement":
+		"A contagem final paga os bônus de maioria e minoria de cada rede ativa e vende todas as ações dessas redes pelo preço atual. Ações inativas não valem nada.\n\nCom Tower a $700, Alex lidera com 4 ações: $7.000 de bônus + $2.800 em ações + $6.000 em dinheiro = $15.800. Bo, com 2 ações, recebe o bônus de minoria de $3.500; Cy, com 1, nenhum bônus. Vence quem termina com mais dinheiro, não mais ações.",
 	"tutorial.label": "Tutorial",
 	"tutorial.complete": "Capítulo concluído",
 	"tutorial.previous": "Etapa anterior",

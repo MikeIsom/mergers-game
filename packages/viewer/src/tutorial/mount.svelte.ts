@@ -51,6 +51,7 @@ export const mountTutorial: TutorialMount = async (target, options) => {
 	const guide = mount(Guide, {
 		target: guideHost,
 		props: {
+			chapter: options.chapter as Chapter,
 			get snapshot() {
 				return snapshot;
 			},
@@ -58,6 +59,7 @@ export const mountTutorial: TutorialMount = async (target, options) => {
 			lang: store.lang,
 			nextChapter: options.nextChapter,
 		},
+		context: new Map([[STORE, store]]),
 	});
 	const app = mount(App, { target: gameHost, props: { store }, context: new Map([[STORE, store]]) });
 	const unsubscribe = controller.subscribe((value) => {
@@ -65,7 +67,8 @@ export const mountTutorial: TutorialMount = async (target, options) => {
 		wrapper.dataset.step = String(value.step);
 		wrapper.dataset.completed = String(value.completed);
 		options.nextChapter?.onVisibilityChange?.(value.completed);
-		gameHost.inert = value.busy || value.completed;
+		gameHost.inert = value.busy;
+		store.readOnly = value.completed;
 		if (!value.busy) {
 			store.setState(stripSecret(value.state, 0));
 		}

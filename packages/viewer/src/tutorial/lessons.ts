@@ -17,6 +17,16 @@ export const CHAPTERS = ["founding", "mergers", "scoring"] as const;
 export type Chapter = (typeof CHAPTERS)[number];
 const tile = (label: string) => parseTile(label)!;
 
+const EXPLANATIONS = {
+	founding: ["tiles", "tiers", "prices"],
+	mergers: ["merger", "bonuses", "ties"],
+	scoring: ["safe", "growth", "settlement"],
+} as const;
+
+export function explanation(chapter: Chapter, index: number, lang: Lang): string {
+	return lang.t(`tutorial.mechanics.${EXPLANATIONS[chapter][index]!}`);
+}
+
 export function preparedPosition(chapter: Chapter): GameState {
 	const game = initGame(3, {}, `acquire-tutorial-${chapter}-1`);
 	game.board.fill(null);

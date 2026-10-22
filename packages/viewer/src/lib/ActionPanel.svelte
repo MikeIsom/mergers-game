@@ -352,6 +352,26 @@
 	}
 	.buy {
 		margin: 0 0 6px;
+		table-layout: fixed;
+	}
+	.buy th,
+	.buy td {
+		padding: 4px 3px;
+		overflow-wrap: anywhere;
+	}
+	.buy th:nth-child(2) {
+		width: 56px;
+	}
+	.buy th:nth-child(3) {
+		width: 44px;
+	}
+	.buy th:last-child {
+		width: 128px;
+	}
+	.buy :global(.mark) {
+		/* Keep both touch targets visible on narrow phones; the chain name can wrap below its mark. */
+		white-space: normal;
+		flex-wrap: wrap;
 	}
 	.stepper {
 		white-space: nowrap;

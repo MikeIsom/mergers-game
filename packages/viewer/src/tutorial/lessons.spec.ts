@@ -72,6 +72,14 @@ for (const chapter of CHAPTERS) {
 				assert.equal(state.seats[0]!.cash, 8200);
 				assert.equal(state.seats[0]!.shares.tower, 1);
 				assert.equal(state.seats[0]!.shares.luxor, 0);
+				// These are the worked majority/minority example shown by the lesson.
+				const bonus = state.log.find((entry) => entry.type === "bonuses");
+				assert.equal(bonus?.chain, "luxor");
+				assert.equal(bonus?.size, 2);
+				assert.deepEqual(bonus?.payouts, [
+					{ seat: 0, amount: 2000 },
+					{ seat: 1, amount: 1000 },
+				]);
 			}
 			if (chapter === "scoring") {
 				assert.equal(state.ended, true);

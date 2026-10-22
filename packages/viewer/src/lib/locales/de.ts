@@ -168,6 +168,24 @@ export const de: Catalog = {
 	"chat.waiting": "Der Chat ist verfügbar, sobald das Spiel beginnt",
 	"chat.connecting": "Chat wird verbunden…",
 	"chat.readOnly": "Chat ist schreibgeschützt",
+	"tutorial.mechanics.tiles":
+		"Plättchen verbinden sich über Kanten, nie diagonal. Neben freien Plättchen gründet dein Plättchen eine Kette; neben einer Kette erweitert es sie; zwischen Ketten löst es eine Fusion aus.\n\nEin normaler Zug: legen, Fusionen abwickeln, insgesamt bis zu 3 Aktien kaufen und die Hand auffüllen. Diese Lektionen verwenden kleinere vorbereitete Hände.",
+	"tutorial.mechanics.tiers":
+		"Ketten haben keine Sonderfähigkeiten. Bei gleicher Größe sind Tower und Luxor am günstigsten; Worldwide, American und Festival kosten $100 mehr je Aktie, Imperial und Continental $200 mehr. Auch die Aktionärsboni steigen mit diesen Preisen.\n\nJede Kette hat 25 Aktien. Der Gründer erhält eine Gratisaktie, sofern vorhanden; sie zählt nicht zu den 3 erlaubten Käufen.",
+	"tutorial.mechanics.prices":
+		"Der Aktienpreis hängt von Größe und Preisklasse der Kette ab, nicht von der Zahl gekaufter Aktien. Tower kostet bei 2 Plättchen $200, bei 3 $300, bei 4 $400 und bei 5 $500. Danach gelten Bereiche: 6–10 Plättchen kosten $600, 11–20 kosten $700 usw. Die Preistabelle unten zeigt alle Bereiche und Klassen.\n\nHier kosten 2 Tower-Aktien $400. Du darfst insgesamt bis zu 3 Aktien aktiver Ketten kaufen, sofern Bargeld und Bankbestand reichen. In normalen Zügen kannst du nicht verkaufen.",
+	"tutorial.mechanics.merger":
+		"Vergleiche die Größen vor dem verbindenden Plättchen: Tower hat 3, Luxor 2, also bleibt Tower bestehen. Bei Gleichstand der größten Ketten entscheidet der legende Spieler.\n\nAb 11 Plättchen ist eine Kette sicher und kann nicht übernommen werden. Ein Plättchen, das zwei sichere Ketten verbinden würde, ist unspielbar.",
+	"tutorial.mechanics.bonuses":
+		"Boni werden vor Verkauf und Tausch zum Preis der übernommenen Kette vor der Fusion gezahlt. Der größte Aktionär erhält das Zehnfache (Mehrheitsbonus), der zweitgrößte das Fünffache (Minderheitsbonus). Die meisten Aktien genügen; mehr als die Hälfte ist nicht nötig.\n\nLuxor hat 2 Plättchen: $200 je Aktie. Alex erhält mit 3 Aktien $2.000, Bo mit 2 Aktien $1.000, Cy mit 1 Aktie keinen Bonus. Dafür werden keine Aktien abgegeben. Danach kannst du für $200 verkaufen, je 2 gegen 1 Tower-Aktie aus dem Bankbestand tauschen oder für eine spätere Luxor-Gründung behalten.",
+	"tutorial.mechanics.ties":
+		"Bei Gleichstand auf Platz eins werden beide Boni unter den Führenden geteilt; sonst erhält niemand einen Bonus. Bei einem alleinigen Ersten teilen sich gleiche Zweite nur den Minderheitsbonus. Ein einziger Aktionär erhält beide. Jeder Teilbetrag wird auf volle $100 aufgerundet.\n\nZwei gemeinsame Spitzenaktionäre bei Luxor zu $200 erhalten beispielsweise je ($2.000 + $1.000) ÷ 2 = $1.500. Behaltene Luxor-Aktien sind wertlos, bis Luxor neu gegründet wird.",
+	"tutorial.mechanics.safe":
+		"Sicher bedeutet mindestens 11 Plättchen: Die Kette kann weiter wachsen und kleinere übernehmen, aber selbst nicht übernommen werden.\n\nDu darfst das Ende ansagen, wenn alle vorhandenen Ketten sicher sind oder eine 41 Plättchen erreicht. Es müssen nicht alle sieben auf dem Brett sein. Nach Standardregeln ist die Ansage freiwillig; beende deinen Zug, dann wird abgerechnet.",
+	"tutorial.mechanics.growth":
+		"Wachstum erhöht nicht immer den Preis. Tower liegt mit 11 wie mit 12 Plättchen im Bereich 11–20: $700 je Aktie. Erst bei 21 steigt der Preis auf $800.\n\nNach dem Legen darfst du wie üblich bis zu 3 Aktien kaufen. Das kann die Empfänger der Schlussboni ändern.",
+	"tutorial.mechanics.settlement":
+		"Am Ende werden Mehrheits- und Minderheitsboni für jede aktive Kette gezahlt, danach alle ihre Aktien zum aktuellen Preis verkauft. Inaktive Aktien sind wertlos.\n\nBei $700 für Tower führt Alex mit 4 Aktien: $7.000 Bonus + $2.800 Aktien + $6.000 Bargeld = $15.800. Bo erhält mit 2 Aktien den Minderheitsbonus von $3.500, Cy mit 1 keinen Bonus. Entscheidend ist das Endvermögen, nicht die Aktienzahl.",
 	"tutorial.label": "Tutorial",
 	"tutorial.complete": "Kapitel abgeschlossen",
 	"tutorial.previous": "Vorheriger Schritt",

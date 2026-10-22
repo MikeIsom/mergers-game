@@ -162,6 +162,24 @@ export const vi: Catalog = {
 	"chat.waiting": "Trò chuyện sẽ khả dụng khi trò chơi bắt đầu",
 	"chat.connecting": "Đang kết nối trò chuyện…",
 	"chat.readOnly": "Trò chuyện chỉ cho phép đọc",
+	"tutorial.mechanics.tiles":
+		"Các ô nối nhau qua cạnh, không qua đường chéo. Cạnh các ô rời thì lập chuỗi; cạnh một chuỗi thì mở rộng nó; giữa các chuỗi thì gây sáp nhập.\n\nMột lượt thường: đặt ô, xử lý sáp nhập, mua tổng cộng tối đa 3 cổ phiếu rồi bổ sung bài trên tay. Các bài học dùng tay bài nhỏ được chuẩn bị sẵn.",
+	"tutorial.mechanics.tiers":
+		"Các chuỗi không có năng lực đặc biệt. Cùng kích thước, Tower và Luxor rẻ nhất; Worldwide, American và Festival đắt hơn $100 mỗi cổ phiếu; Imperial và Continental đắt hơn $200. Tiền thưởng cổ đông cũng tăng theo giá.\n\nMỗi chuỗi có 25 cổ phiếu. Người lập chuỗi được 1 cổ phiếu miễn phí nếu còn; nó không tính vào giới hạn mua 3 cổ phiếu.",
+	"tutorial.mechanics.prices":
+		"Giá phụ thuộc vào số ô và hạng giá của chuỗi, không phải số cổ phiếu đã mua. Tower có giá $200 ở 2 ô, $300 ở 3, $400 ở 4 và $500 ở 5. Sau đó tính theo khoảng: 6–10 ô giá $600, 11–20 giá $700, v.v. Mở bảng dưới đây để xem mọi khoảng và hạng giá.\n\nỞ đây, 2 cổ phiếu Tower tốn $400. Bạn có thể mua tổng cộng tối đa 3 cổ phiếu của các chuỗi đang hoạt động nếu đủ tiền và ngân hàng còn hàng. Lượt thường không cho phép bán.",
+	"tutorial.mechanics.merger":
+		"So kích thước trước khi thêm ô nối: Tower có 3 ô, Luxor có 2 nên Tower tồn tại. Nếu các chuỗi lớn nhất bằng nhau, người đặt ô chọn chuỗi tồn tại.\n\nTừ 11 ô, chuỗi trở nên an toàn và không thể bị thâu tóm. Không được đặt ô nối hai chuỗi an toàn.",
+	"tutorial.mechanics.bonuses":
+		"Thưởng được trả trước khi bán hay đổi, theo giá trước sáp nhập của chuỗi bị thâu tóm. Cổ đông lớn nhất nhận 10 × giá (đa số), thứ hai nhận 5 × (thiểu số). Chỉ cần có nhiều cổ phiếu nhất, không cần quá một nửa.\n\nLuxor có 2 ô: $200 mỗi cổ phiếu. Alex có 3 nhận $2.000, Bo có 2 nhận $1.000, Cy có 1 không có thưởng. Nhận thưởng không mất cổ phiếu. Sau đó có thể kết hợp bán giá $200, đổi 2 lấy 1 Tower khi còn hàng, và giữ để chờ Luxor được lập lại.",
+	"tutorial.mechanics.ties":
+		"Đồng hạng nhất chia cả hai khoản thưởng, những người khác không nhận. Nếu có một người đứng nhất, các người đồng hạng hai chỉ chia thưởng thiểu số. Cổ đông duy nhất nhận cả hai. Mỗi phần được làm tròn lên bội số $100.\n\nHai người đồng hạng nhất Luxor giá $200 mỗi người nhận ($2.000 + $1.000) ÷ 2 = $1.500. Cổ phiếu Luxor giữ lại không có giá trị cho đến khi chuỗi được lập lại.",
+	"tutorial.mechanics.safe":
+		"An toàn nghĩa là ít nhất 11 ô: chuỗi vẫn có thể lớn lên và thâu tóm chuỗi nhỏ hơn nhưng không bị thâu tóm.\n\nCó thể tuyên bố kết thúc khi mọi chuỗi trên bàn đều an toàn hoặc một chuỗi đạt 41 ô. Không cần đủ cả bảy chuỗi. Theo luật chuẩn, kết thúc là tùy chọn: hoàn thành lượt hiện tại rồi tính điểm.",
+	"tutorial.mechanics.growth":
+		"Lớn lên không phải lúc nào cũng tăng giá. Tower ở 11 và 12 ô đều trong khoảng 11–20: $700 mỗi cổ phiếu. Lần tăng tiếp theo là ở 21 ô ($800).\n\nSau khi đặt, bạn vẫn được mua tối đa 3 cổ phiếu như thường lệ. Việc mua có thể thay đổi người nhận thưởng cuối game.",
+	"tutorial.mechanics.settlement":
+		"Tính điểm cuối game trả thưởng đa số và thiểu số cho mỗi chuỗi hoạt động, rồi bán mọi cổ phiếu của các chuỗi đó theo giá hiện tại. Cổ phiếu chuỗi không hoạt động không có giá trị.\n\nVới Tower giá $700, Alex dẫn đầu với 4 cổ phiếu: $7.000 thưởng + $2.800 cổ phiếu + $6.000 tiền mặt = $15.800. Bo có 2 nhận thưởng thiểu số $3.500; Cy có 1 không có thưởng. Người thắng có nhiều tiền cuối game nhất, không phải nhiều cổ phiếu nhất.",
 	"tutorial.label": "Hướng dẫn",
 	"tutorial.complete": "Hoàn thành chương",
 	"tutorial.previous": "Bước trước",
