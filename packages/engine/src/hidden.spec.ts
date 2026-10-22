@@ -124,7 +124,7 @@ test("§13 each viewer's state hides exactly the private fields and passes every
 						});
 
 						const masked = withoutSecrets(view, player) as Record<string, unknown>;
-						const expected = withoutSecrets(state, player) as Record<string, unknown>;
+						const expected = withoutSecrets({ ...state, supportsTurnDrafts: true }, player) as Record<string, unknown>;
 						assert.deepEqual(masked, expected, "§13 the board, chains, bank, merger and log stay public");
 					}
 					assert.deepEqual(state, before, "stripSecret never changes the real state");

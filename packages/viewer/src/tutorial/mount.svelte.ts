@@ -38,7 +38,9 @@ export const mountTutorial: TutorialMount = async (target, options) => {
 	wrapper.append(guideHost, gameHost);
 	target.append(wrapper);
 	const store = new ViewerStore((move) => {
-		void controller.play(move);
+		if (move.type !== "turn") {
+			void controller.play(move);
+		}
 		return true;
 	});
 	store.player = 0;

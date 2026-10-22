@@ -27,6 +27,13 @@ export type Move =
 	| { type: "dispose"; sell: number; trade: number }
 	| { type: "buy"; shares: Partial<Shares> };
 
+/** The complete private move sequence since the last saved position. */
+export interface TurnRequest {
+	type: "turn";
+	from: number;
+	moves: Move[];
+}
+
 export interface MergerState {
 	/** The merging tile; it sits on the board as a loose tile until the board update (§7.3). */
 	tile: Tile;
@@ -72,6 +79,10 @@ export type LogEntry =
 	| { type: "result"; cash: number[]; ranks: number[] };
 
 export interface GameState {
+	/** Transient response only; toSave never persists this private draft. */
+	tentative?: { player: number; from: number };
+	/** Viewer capability flag, added only by the BGS wrapper. */
+	supportsTurnDrafts?: true;
 	seed: string;
 	rngCounter: number;
 	options: GameOptions;

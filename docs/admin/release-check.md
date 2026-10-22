@@ -1,12 +1,19 @@
-# Acquire private beta — 22 October 2026
+# Acquire private beta — 23 October 2026
 
-Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.10`.
+Private BGS registration: `acquire`, version `1`. Engine `0.0.2`, viewer `0.0.11`.
 Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 
 ## Validation
 
-- `pnpm check`: formatting, lint, TypeScript/Svelte checks, 198 engine tests,
-  56 viewer/tutorial tests, and the production build. Two pre-existing lint warnings
+- Undo keeps unfinished choices in a private server-validated draft. Repeated placement/founding
+  revisions never persist undo entries or award time. One increment is earned per completed turn;
+  other players' merger disposal decisions each earn their own increment. Drawing tiles, revealing
+  merger bonuses, ending the game or handing off a decision commits the draft. Checks cover stale
+  requests, hidden-information masking, replay, bank mode, four-hands, teams and dropped players.
+  Desktop/phone checks exercise repeated undo, saved-state refreshes, final history and clock totals.
+
+- `pnpm check`: formatting, lint, TypeScript/Svelte checks, 207 engine tests,
+  60 viewer/tutorial tests, and the production build. Two pre-existing lint warnings
   remain (an unused test import and Svelte's `bind:this` assignment).
 - Protocol diagnostics: all eight required engine methods; full core/chat/replay
   viewer coverage, preferences, avatars and theme handlers. Protocol `0.10.0` is the

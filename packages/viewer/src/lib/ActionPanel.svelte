@@ -64,6 +64,20 @@
 
 {#if moves.length > 0 && !store.sending}
 	<section class="panel" aria-label={t("panel.label")}>
+		{#if store.canUndo}
+			<button type="button" class="actionable undo" onclick={() => store.undo()}>
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					aria-hidden="true"><path d="M9 4 3 10l6 6M3 10h11a7 7 0 0 1 0 14" transform="translate(0 -2)" /></svg
+				>
+				{t("turn.undo")}
+			</button>
+		{/if}
 		{#if legal("announce")}
 			<div class="announce">
 				{#if confirmAnnounce}
@@ -268,6 +282,12 @@
 {/if}
 
 <style>
+	.panel .undo {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		margin-inline-start: auto;
+	}
 	.panel {
 		background: var(--panel);
 		padding: 10px 12px 12px;

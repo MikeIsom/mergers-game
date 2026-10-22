@@ -117,7 +117,7 @@ BASE=https://admin.boardgamers.space/api/admin/gameinfo/acquire
 
 # Engine: the raw npm-pack tarball; this sets engine.package on version 1.
 curl -X POST "$BASE/1/engine" -H "$AUTH" -H "Content-Type: application/octet-stream" \
-	--data-binary @packages/engine/acquire-engine-0.0.1.tgz
+	--data-binary @packages/engine/acquire-engine-0.0.2.tgz
 
 # Viewer files: one POST each with a shared bundle id; each returns the hosted URL.
 BUNDLE=acquire-$(git rev-parse --short HEAD)
@@ -139,6 +139,18 @@ Bump `packages/engine/package.json`'s version and upload the new tarball to the 
 version integer: ongoing games pick up the new engine within about a minute. A new version
 integer only affects new games. Upload the engine and viewer together whenever the move or
 state format changes, since they are coupled.
+
+From engine 0.0.2 / viewer 0.0.11, live moves use a private turn draft (`type: "turn"`,
+`from: <saved log length>`, `moves: [...]`). The engine validates the complete sequence
+from the saved position. It returns `toSave: undefined` while choices remain reversible,
+and sends the acting player a stripped `preview` inside the log response. The viewer
+undoes by dropping one cached action/view; it never rewrites published log entries.
+The complete sequence commits when a decision passes to another player, tiles are drawn,
+bonuses reveal information or the game ends. Refreshing the page discards unfinished choices.
+`timeIncrements` counts completed turns and other players' merger disposal decisions;
+revising a private draft earns no time. Publish the engine first: its capability flag
+allows the viewer to keep using atomic moves with older engines. Older viewers, tutorials
+and analysis retain the original atomic protocol.
 
 ## Before making a version public
 

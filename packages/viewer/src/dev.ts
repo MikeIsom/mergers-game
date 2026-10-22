@@ -256,8 +256,22 @@ if (params.has("tutorial")) {
 	sendPreferences();
 	emitter.on("move", (move) => {
 		if (viewAs !== undefined) {
-			engine.move(state, structuredClone(move), viewAs);
-			sync();
+			try {
+				const result = engine.move(structuredClone(state), structuredClone(move), viewAs);
+				const saved = engine.toSave(result);
+				if (saved) {
+					state = saved;
+					sync();
+				} else {
+					emitter.emit("gamelog", {
+						start: state.log.length,
+						data: engine.logSlice(result, { start: state.log.length, player: viewAs }),
+					});
+				}
+				emitter.emit("move:result", { move, ok: true });
+			} catch (error) {
+				emitter.emit("move:result", { move, ok: false, error: String(error) });
+			}
 		}
 	});
 	sync();

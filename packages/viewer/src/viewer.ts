@@ -1,6 +1,6 @@
 import { mount, tick, unmount } from "svelte";
 import { registerViewer } from "@boardgamers/protocol/viewer";
-import type { GameState, Move } from "acquire-engine";
+import type { GameState, Move, TurnRequest } from "acquire-engine";
 import App from "./App.svelte";
 import { resolveLocale } from "./lib/i18n";
 import { initialTheme, themeCss } from "./lib/palette";
@@ -9,25 +9,33 @@ import { STORE, ViewerStore } from "./lib/store.svelte";
 import "./lib/theme.css";
 import { mountTutorial } from "./tutorial/mount.svelte";
 
-export const viewer = registerViewer<GameState, Move>(
+export const viewer = registerViewer<GameState, Move | TurnRequest>(
 	"acquire",
-	({ target, move, setReplayInfo }) => {
+	({ target, move, setReplayInfo, fetchState }) => {
 		const style = document.createElement("style");
 		style.textContent = themeCss();
 		document.head.append(style);
-		const store = new ViewerStore(move);
 		const sounds = createActionSounds(target);
+		const store = new ViewerStore(move, { turnDrafts: true, onState: (state) => sounds.onState(state) });
 		store.theme = initialTheme();
 		const app = mount(App, { target, props: { store }, context: new Map([[STORE, store]]) });
 		return {
 			chat: store.chat,
 			async onState(state) {
-				sounds.onState(state);
 				store.setState(state);
 				await tick();
 			},
+			async onLog({ data }) {
+				const preview = (data as { preview?: GameState } | undefined)?.preview;
+				if (preview) {
+					store.preview(preview);
+				} else {
+					fetchState();
+				}
+				await tick();
+			},
 			onPlayer({ index }) {
-				store.player = index;
+				store.setPlayer(index);
 			},
 			onPreferences(preferences) {
 				sounds.onPreferences(preferences);
@@ -56,10 +64,8 @@ export const viewer = registerViewer<GameState, Move>(
 				sounds.onReplayEnd();
 				store.replayAt = undefined;
 			},
-			onMoveResult({ ok }) {
-				if (!ok) {
-					store.sending = false;
-				}
+			onMoveResult({ move, ok }) {
+				store.moveResult(move, ok);
 			},
 			destroy() {
 				sounds.destroy();

@@ -20,7 +20,8 @@ export const en = {
 	// Decision panel
 	"panel.label": "Your decision",
 	"panel.sending": "Sending…",
-	"announce.ask": "End the game after this turn? This cannot be undone.",
+	"turn.undo": "Undo",
+	"announce.ask": "End the game after this turn?",
 	"announce.confirm": "Announce the end",
 	"announce.cancel": "Keep playing",
 	"announce.open": "Announce the end…",

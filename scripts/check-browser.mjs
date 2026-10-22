@@ -407,6 +407,67 @@ try {
 	assert.equal(await page.locator("main .board").first().innerText(), after);
 	report.scenarios.push("real tile move through the built viewer and state refresh");
 
+	// Private drafts run through the real BGS-shaped engine response, never through a local rules shortcut.
+	for (const width of [1280, 390]) {
+		await page.setViewportSize({ width, height: 900 });
+		await open("players=3&hotseat=0&view=0&theme=dark");
+		const original = await page.evaluate(async () => {
+			const { preparedPosition } = await import("/src/tutorial/lessons.ts");
+			window.acquireDev.load(preparedPosition("founding"));
+			window.undoRequests = [];
+			window.acquireDev.emitter.on("move", (request) => window.undoRequests.push(request));
+			return JSON.stringify(window.acquireDev.state);
+		});
+		await settle();
+		const boardBefore = await page.locator("main .board").first().innerText();
+		const undo = page.getByRole("button", { name: "Undo", exact: true });
+		for (let repeat = 0; repeat < 3; repeat++) {
+			await page.locator(".board").getByRole("button", { name: "Place 2A", exact: true }).click();
+			await undo.waitFor();
+			assert.ok((await undo.boundingBox()).height >= 44, "undo is a full touch target");
+			await page.locator(".choices button").filter({ hasText: "Tower" }).click();
+			await page.waitForSelector("table.buy");
+			assert.equal(await page.evaluate(() => JSON.stringify(window.acquireDev.state)), original);
+			await page.evaluate(() => window.acquireDev.emitter.emit("state:updated"));
+			await settle();
+			assert.equal(await page.locator("table.buy").count(), 1, "saved-state refresh preserves private choices");
+			const count = await page.evaluate(() => window.undoRequests.length);
+			await undo.click();
+			await page.waitForSelector(".choices");
+			await undo.click();
+			await page.waitForSelector(".square.playable");
+			assert.equal(await page.locator("main .board").first().innerText(), boardBefore);
+			assert.equal(
+				await page.evaluate(() => window.undoRequests.length),
+				count,
+				"undo sends no history-writing action"
+			);
+			assert.equal(await undo.count(), 0);
+		}
+		await page.locator(".board").getByRole("button", { name: "Place 2A", exact: true }).click();
+		await page.locator(".choices button").filter({ hasText: "Luxor" }).click();
+		await page.waitForSelector("table.buy");
+		await page.screenshot({ path: new URL(`undo-${width}.png`, output).pathname, fullPage: true });
+		await page.locator(".panel .primary").click();
+		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
+		await settle();
+		assert.equal(await undo.count(), 0, "no undo after drawing and handing over");
+		const committed = await page.evaluate(() => ({
+			moves: window.acquireDev.state.log.filter((e) => e.type === "move").map((e) => e.move),
+			increments: window.acquireDev.engine.timeIncrements(window.acquireDev.state),
+		}));
+		assert.deepEqual(committed.moves, [
+			{ type: "place", tile: "2A" },
+			{ type: "found", chain: "luxor" },
+			{ type: "buy", shares: {} },
+		]);
+		assert.deepEqual(committed.increments, [1, 0, 0]);
+		assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
+	}
+	report.scenarios.push(
+		"desktop/phone undo, repeated private revisions, refresh, no undo network calls, one saved turn and one clock increment"
+	);
+
 	// The desktop used to stack every supporting panel in one tall sidebar. Check the rendered
 	// arrangement and height, not only horizontal overflow, before creating gallery images.
 	await page.setViewportSize({ width: 1280, height: 900 });
@@ -576,7 +637,13 @@ try {
 					.getByRole("button", { name: chapter === "founding" ? "2A" : "4A", exact: true })
 					.click();
 				await page.locator("main .panel .primary").click();
-				await page.waitForSelector('.acquire-tutorial[data-step="1"]');
+				await page.waitForSelector('.acquire-tutorial[data-step="1"]').catch(async (error) => {
+					await page.screenshot({ path: new URL("tutorial-failure.png", output).pathname, fullPage: true });
+					throw new Error(
+						`${chapter} ${locale} ${width}px: ${await page.locator("#app").innerText()}\n${errors.join("\n")}`,
+						{ cause: error }
+					);
+				});
 				if (chapter === "founding") {
 					await page.locator(".choices button").filter({ hasText: "Tower" }).click();
 					await page.waitForSelector('.acquire-tutorial[data-step="2"]');
