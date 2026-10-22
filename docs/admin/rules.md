@@ -1,3 +1,5 @@
+# Acquire — Rules
+
 ## Goal
 
 Finish with the most money. You earn it by buying stock in hotel chains early, collecting bonuses when chains are taken over, and selling your stock at the end.
