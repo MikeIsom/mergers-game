@@ -17,7 +17,7 @@ fields (the admin panel can translate them); the viewer itself is already transl
 ## Links
 
 - **bgg:** https://boardgamegeek.com/boardgame/5/acquire
-- **source:** the public repository URL, once the repository is published (it has no remote yet).
+- **source:** https://github.com/MikeIsom/mergers-game
 - **publisher / purchase:** Renegade Game Studios' Acquire page, if you want one. Optional.
 
 ## Tags
