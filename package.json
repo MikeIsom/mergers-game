@@ -1,0 +1,28 @@
+{
+	"name": "acquire",
+	"version": "0.0.0",
+	"private": true,
+	"description": "Acquire for boardgamers.space (engine + viewer)",
+	"license": "AGPL-3.0-only",
+	"type": "module",
+	"scripts": {
+		"dev": "pnpm --filter acquire-viewer dev",
+		"build": "pnpm --filter acquire-engine build && pnpm --filter acquire-viewer build",
+		"test": "pnpm --filter acquire-engine test && pnpm --filter acquire-engine build && pnpm --filter acquire-viewer test",
+		"tsc": "pnpm --filter acquire-engine tsc && pnpm --filter acquire-engine build && pnpm --filter acquire-viewer tsc",
+		"fmt": "oxfmt",
+		"fmt:check": "oxfmt --check",
+		"lint": "oxlint",
+		"check": "pnpm fmt:check && pnpm lint && pnpm tsc && pnpm test && pnpm build"
+	},
+	"devDependencies": {
+		"oxfmt": "0.61.0",
+		"oxlint": "1.76.0",
+		"svelte": "5.56.8"
+	},
+	"engines": {
+		"node": ">=24",
+		"pnpm": ">=11"
+	},
+	"packageManager": "pnpm@11.11.0"
+}

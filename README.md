@@ -1,0 +1,55 @@
+# Acquire for boardgamers.space
+
+An unofficial implementation of Sid Sackson's Acquire for [boardgamers.space](https://www.boardgamers.space),
+for 2 to 6 players. Not affiliated with or endorsed by Hasbro, Avalon Hill, Renegade Game
+Studios or any other publisher of Acquire.
+
+- `packages/engine`: the rules engine. `wrapper.ts` implements the BGS Engine API.
+- `packages/viewer`: the Svelte viewer, built as one IIFE bundle for the BGS iframe.
+- `rules.md`: the rules the engine follows. Tests cite its section numbers.
+- `docs/registering.md`: how to publish the engine and viewer to BGS.
+- `docs/admin/`: the text, pictogram and screenshots for the BGS admin panel.
+
+## Setup
+
+Requires Node 24 and pnpm 11 (`corepack enable pnpm` provides pnpm).
+
+```bash
+pnpm install
+pnpm check
+```
+
+`pnpm check` formats, lints, type-checks, runs the tests and builds both packages. To run it
+before every commit, enable the hook with `git config core.hooksPath .githooks`.
+
+## Playing locally
+
+```bash
+pnpm build
+pnpm dev
+```
+
+Open http://localhost:5173. The test page runs the engine in the browser and shows the viewer
+as each player sees it. With hot seat on, it switches to whoever must act, so one person can
+play every seat. The toolbar plays random moves, jumps to the next merger, and switches
+player, theme, language and colour-blind mode.
+
+URL parameters: `players=2..6`, `seed=...`, `publicHoldings=1`, `teamPlay=1`, `autoEnd=1`,
+`endSize=31`, `twoPlayerMode=fourHands`, `theme=light|dark`, `locale=de`, `moves=50` (random
+moves on load), `merger=1` (continue to the next merger).
+
+## What ships
+
+The test page (`packages/viewer/index.html`, `src/dev.ts`, `dev-badge.svg`) is never part of
+what BGS runs, so nothing needs removing for live:
+
+- The viewer build bundles only `src/viewer.ts` and what it imports, into
+  `acquire-viewer.iife.js` and `acquire-viewer.css`.
+- The engine package (`pnpm pack` in `packages/engine`) contains only `dist/` and
+  `package.json`.
+
+Each GitHub Release has the built engine package and viewer files attached, ready to upload.
+
+## Licence
+
+AGPL-3.0. See [LICENSE](LICENSE).

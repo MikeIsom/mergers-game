@@ -1,0 +1,30 @@
+{
+	"name": "acquire-viewer",
+	"version": "0.0.1",
+	"private": true,
+	"description": "Browser viewer for Acquire on boardgamers.space",
+	"license": "AGPL-3.0-only",
+	"type": "module",
+	"main": "dist/acquire-viewer.iife.js",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"tsc": "svelte-check --tsconfig ./tsconfig.json",
+		"test": "node --test \"src/**/*.spec.ts\""
+	},
+	"dependencies": {
+		"@boardgamers/protocol": "0.10.0",
+		"acquire-engine": "workspace:*"
+	},
+	"devDependencies": {
+		"@sveltejs/vite-plugin-svelte": "7.2.0",
+		"@types/node": "24.10.1",
+		"svelte": "5.56.8",
+		"svelte-check": "4.7.4",
+		"typescript": "5.9.3",
+		"vite": "8.2.0"
+	},
+	"engines": {
+		"node": ">=24"
+	}
+}

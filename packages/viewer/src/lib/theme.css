@@ -1,0 +1,84 @@
+/* Square corners everywhere; outlines only on things the player can act on. */
+.acquire,
+.acquire * {
+	box-sizing: border-box;
+	border-radius: 0 !important;
+}
+
+/* Colour variables come from palette.ts (themeCss), the same values the palette test checks. */
+.acquire {
+	color: var(--ink);
+	background: var(--page);
+	font-family:
+		system-ui,
+		-apple-system,
+		"Segoe UI",
+		Roboto,
+		sans-serif;
+	font-size: 15px;
+	line-height: 1.4;
+	padding: 12px;
+}
+
+.acquire h2 {
+	font-size: 14px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	margin: 0 0 6px;
+	padding: 0 0 2px;
+	box-shadow: inset 0 -3px 0 var(--accent);
+	display: inline-block;
+}
+
+.acquire table {
+	border-collapse: collapse;
+	width: 100%;
+	font-size: 14px;
+}
+
+.acquire th,
+.acquire td {
+	padding: 4px 6px;
+	text-align: left;
+	border: none;
+}
+
+.acquire th {
+	font-weight: 600;
+	color: var(--ink-muted);
+	font-size: 12px;
+}
+
+.acquire tbody tr:nth-child(odd) {
+	background: var(--panel-alt);
+}
+
+.acquire .num {
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+
+.acquire .hidden-value {
+	color: var(--ink-muted);
+	font-style: italic;
+}
+
+/* 2.5px, not 2px: outlines snap to device pixels, and 2px drops to 1.6px at 125% scaling. */
+.acquire .actionable {
+	outline: 2.5px solid var(--ink);
+	outline-offset: -2.5px;
+	cursor: pointer;
+}
+
+/* Keyboard focus has its own indicator, distinct from the actionable outline and always on top. */
+.acquire :focus-visible {
+	outline: 3px solid var(--focus) !important;
+	outline-offset: 3px !important;
+	box-shadow: 0 0 0 6px var(--page);
+}
+
+.acquire button:disabled {
+	outline: none;
+	cursor: default;
+}

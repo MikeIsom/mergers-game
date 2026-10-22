@@ -1,0 +1,8 @@
+node_modules
+dist
+dist-test
+.vite
+.pnpm-store
+*.local
+*.tgz
+release/

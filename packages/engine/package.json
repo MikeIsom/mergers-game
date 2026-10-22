@@ -1,0 +1,45 @@
+{
+	"name": "acquire-engine",
+	"version": "0.0.1",
+	"description": "Acquire rules engine for boardgamers.space",
+	"license": "AGPL-3.0-only",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		},
+		"./wrapper": {
+			"types": "./dist/wrapper.d.ts",
+			"default": "./dist/wrapper.js"
+		},
+		"./wrapper.js": {
+			"types": "./dist/wrapper.d.ts",
+			"default": "./dist/wrapper.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"scripts": {
+		"build": "tsc -p tsconfig.build.json",
+		"prepack": "pnpm build",
+		"tsc": "tsc --noEmit",
+		"test": "tsc -p tsconfig.test.json && node --test \"dist-test/src/*.spec.js\""
+	},
+	"dependencies": {
+		"seedrandom": "3.0.5"
+	},
+	"devDependencies": {
+		"@boardgamers/protocol": "0.10.0",
+		"@types/node": "24.10.1",
+		"@types/seedrandom": "3.0.8",
+		"typescript": "5.9.3"
+	},
+	"engines": {
+		"node": ">=24"
+	}
+}
