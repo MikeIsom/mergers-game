@@ -206,7 +206,7 @@ export const pl: Catalog = {
 	"tutorial.mechanics.merger":
 		"Porównaj rozmiary przed dodaniem płytki łączącej: Tower ma 3 płytki, Luxor 2, więc Tower przetrwa. Przy remisie największych sieci wybiera gracz kładący płytkę.\n\nOd 11 płytek sieć jest bezpieczna i nie można jej przejąć. Płytki, która połączyłaby dwie bezpieczne sieci, nie można zagrać.",
 	"tutorial.mechanics.bonuses":
-		"Premie wypłaca się przed sprzedażą i wymianą, według ceny przejmowanej sieci sprzed fuzji. Największy akcjonariusz otrzymuje 10 × cenę (premia większościowa), drugi 5 × (mniejszościowa). Wystarczy mieć najwięcej akcji, nie ponad połowę.\n\nLuxor ma 2 płytki: $200 za akcję. Alex z 3 akcjami dostaje $2000, Bo z 2 dostaje $1000, Cy z 1 nie dostaje premii. Akcji nie oddaje się za premię. Potem można łączyć sprzedaż po $200, wymianę 2 za 1 Tower do wyczerpania zapasu i zachowanie na przyszły Luxor.",
+		"Podczas fuzji premie otrzymują tylko akcjonariusze przejmowanych sieci; akcje sieci, która przetrwa, nie dają premii za tę fuzję. Premie wypłaca się przed sprzedażą lub wymianą, według ceny akcji przejmowanej sieci sprzed fuzji: 10 × dla największego akcjonariusza (większość), 5 × dla drugiego (mniejszość). Wystarczy mieć najwięcej akcji, nie ponad połowę.\n\nLuxor ma 2 płytki: $200 za akcję. Alex z 3 akcjami dostaje $2000, Bo z 2 dostaje $1000, Cy z 1 nie dostaje premii. Akcji nie oddaje się za premię. Potem można łączyć sprzedaż po $200, wymianę 2 za 1 Tower do wyczerpania zapasu i zachowanie na przyszły Luxor.",
 	"tutorial.mechanics.ties":
 		"Przy remisie na pierwszym miejscu liderzy dzielą obie premie, a inni nic nie dostają. Przy jednym liderze remisujący drudzy dzielą tylko premię mniejszościową. Jedyny akcjonariusz dostaje obie. Każdą część zaokrągla się w górę do pełnych $100.\n\nDwaj równi liderzy Luxor po $200 dostają po ($2000 + $1000) ÷ 2 = $1500. Zachowane akcje Luxor nie mają wartości, dopóki sieć nie powstanie ponownie.",
 	"tutorial.mechanics.safe":
@@ -214,7 +214,7 @@ export const pl: Catalog = {
 	"tutorial.mechanics.growth":
 		"Rozrost nie zawsze podnosi cenę. Tower z 11 i 12 płytkami mieści się w tym samym przedziale 11–20: $700 za akcję. Kolejny wzrost następuje przy 21 płytkach ($800).\n\nPo położeniu płytki nadal możesz kupić do 3 akcji. Zakupy mogą zmienić odbiorców końcowych premii.",
 	"tutorial.mechanics.settlement":
-		"Na koniec wypłaca się premie większościowe i mniejszościowe każdej aktywnej sieci, a potem sprzedaje wszystkie jej akcje po aktualnych cenach. Akcje nieaktywnych sieci są bezwartościowe.\n\nPrzy cenie Tower $700 prowadzi Alex z 4 akcjami: $7000 premii + $2800 akcji + $6000 gotówki = $15 800. Bo z 2 akcjami otrzymuje premię mniejszościową $3500, Cy z 1 żadnej. Wygrywa największa końcowa gotówka, nie liczba akcji.",
+		"Na koniec gry każda aktywna sieć wypłaca premie większościowe i mniejszościowe, także sieci bezpieczne, których nie można przejąć. Dlatego tabela podaje premie dla 41 i więcej płytek. Następnie wszystkie akcje aktywnych sieci sprzedaje się po bieżących cenach; akcje nieaktywnych sieci są bezwartościowe.\n\nPrzy cenie Tower $700 prowadzi Alex z 4 akcjami: $7000 premii + $2800 akcji + $6000 gotówki = $15 800. Bo z 2 akcjami otrzymuje premię mniejszościową $3500, Cy z 1 żadnej. Wygrywa największa końcowa gotówka, nie liczba akcji.",
 	"tutorial.label": "Samouczek",
 	"tutorial.complete": "Rozdział ukończony",
 	"tutorial.previous": "Poprzedni krok",

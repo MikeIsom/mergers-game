@@ -192,7 +192,7 @@ export const en = {
 	"tutorial.mechanics.merger":
 		"Compare chain sizes before the connecting tile is added: Tower has 3 tiles and Luxor 2, so Tower survives. If largest chains tie, the player placing the tile chooses.\n\nA chain becomes safe at 11 tiles and can never be taken over. A tile that would join two safe chains cannot be played.",
 	"tutorial.mechanics.bonuses":
-		"Bonuses are paid before anyone sells or trades, using the absorbed chain’s pre-merger price. The largest shareholder gets 10 × that price (majority); the second largest gets 5 × (minority). You need the most shares, not more than half.\n\nLuxor has 2 tiles, so a share is $200. Alex’s 3 shares earn $2,000; Bo’s 2 earn $1,000; Cy’s 1 earns no bonus. Shares are not spent to collect bonuses. Then you may mix selling at $200, trading 2 for 1 Tower share while stock lasts, and keeping shares for a future Luxor.",
+		"During a merger, only shareholders of absorbed chains get bonuses; shares in the surviving chain earn none. Bonuses are paid before selling or trading, at the absorbed chain’s pre-merger price: 10 × for the largest holder (majority) and 5 × for the second largest (minority). You need the most shares, not more than half.\n\nLuxor has 2 tiles, so a share is $200. Alex’s 3 shares earn $2,000; Bo’s 2 earn $1,000; Cy’s 1 earns no bonus. Shares are not spent to collect bonuses. Then you may mix selling at $200, trading 2 for 1 Tower share while stock lasts, and keeping shares for a future Luxor.",
 	"tutorial.mechanics.ties":
 		"Bonus ties: tied largest holders split both bonuses; nobody else receives one. With a sole largest holder, tied runners-up split only the minority bonus. A lone shareholder receives both. Round each split payout up to the next $100.\n\nFor example, two players tied for most Luxor shares at $200 each receive ($2,000 + $1,000) ÷ 2 = $1,500. Kept Luxor shares have no value unless Luxor is founded again.",
 	"tutorial.mechanics.safe":
@@ -200,7 +200,7 @@ export const en = {
 	"tutorial.mechanics.growth":
 		"Growing does not always raise the price. Tower at 11 and 12 tiles is in the same 11–20 band: $700 per share. Its next rise is at 21 tiles ($800).\n\nAfter placing, you still have the usual chance to buy up to 3 shares. Those purchases can change who receives the final bonuses.",
 	"tutorial.mechanics.settlement":
-		"Final scoring pays majority and minority bonuses for every active chain, then sells all shares in those chains at their current prices. Inactive shares are worth nothing.\n\nAt Tower’s $700 price, Alex’s 4 shares lead: $7,000 bonus + $2,800 stock + $6,000 cash = $15,800. Bo’s 2 shares earn the $3,500 minority bonus; Cy’s 1 earns no bonus. Winning depends on final cash, not the number of shares.",
+		"At the end of the game, every active chain pays majority and minority bonuses, including safe chains that cannot be absorbed. This is why the table lists bonuses for 41+ tiles. Then sell all shares in active chains at their current prices; inactive shares are worth nothing.\n\nAt Tower’s $700 price, Alex’s 4 shares lead: $7,000 bonus + $2,800 stock + $6,000 cash = $15,800. Bo’s 2 shares earn the $3,500 minority bonus; Cy’s 1 earns no bonus. Winning depends on final cash, not the number of shares.",
 	"tutorial.label": "Tutorial",
 	"tutorial.complete": "Chapter complete",
 	"tutorial.previous": "Previous step",

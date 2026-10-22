@@ -177,7 +177,7 @@ export const da: Catalog = {
 	"tutorial.mechanics.merger":
 		"Sammenlign størrelserne før forbindelsesbrikken: Tower har 3 brikker og Luxor 2, så Tower overlever. Hvis de største kæder er lige store, vælger spilleren, der lægger brikken.\n\nVed 11 brikker bliver en kæde sikker og kan ikke overtages. En brik, der ville forbinde to sikre kæder, kan ikke spilles.",
 	"tutorial.mechanics.bonuses":
-		"Bonusser udbetales før salg og bytte til den overtagne kædes pris før fusionen. Den største aktionær får 10 × prisen (majoritet), den næststørste 5 × (minoritet). Flest aktier er nok; over halvdelen kræves ikke.\n\nLuxor har 2 brikker: $200 pr. aktie. Alex får $2.000 med 3 aktier, Bo $1.000 med 2, Cy ingen bonus med 1. Aktier bruges ikke op ved bonusudbetaling. Derefter kan du kombinere salg til $200, bytte af 2 til 1 Tower fra banken og at beholde aktier til en senere Luxor.",
+		"Ved en fusion får kun aktionærerne i de overtagne kæder bonus; aktier i den overlevende kæde giver ingen fusionsbonus. Bonus udbetales før salg og bytte til den overtagne kædes aktiekurs før fusionen: 10 × til den største aktionær (majoritet), 5 × til den næststørste (minoritet). Flest aktier er nok; over halvdelen kræves ikke.\n\nLuxor har 2 brikker: $200 pr. aktie. Alex får $2.000 med 3 aktier, Bo $1.000 med 2, Cy ingen bonus med 1. Aktier bruges ikke op ved bonusudbetaling. Derefter kan du kombinere salg til $200, bytte af 2 til 1 Tower fra banken og at beholde aktier til en senere Luxor.",
 	"tutorial.mechanics.ties":
 		"Delte førstepladser deler begge bonusser; ingen andre får noget. Med én førsteplads deler lige andenpladser kun minoritetsbonussen. En eneste aktionær får begge. Hver andel rundes op til nærmeste $100.\n\nTo lige største Luxor-aktionærer ved $200 får hver ($2.000 + $1.000) ÷ 2 = $1.500. Beholdte Luxor-aktier er værdiløse, indtil Luxor grundlægges igen.",
 	"tutorial.mechanics.safe":
@@ -185,7 +185,7 @@ export const da: Catalog = {
 	"tutorial.mechanics.growth":
 		"Vækst hæver ikke altid prisen. Tower med 11 og 12 brikker ligger i samme interval 11–20: $700 pr. aktie. Næste stigning er ved 21 brikker ($800).\n\nEfter placeringen må du stadig købe op til 3 aktier. Det kan ændre, hvem der får slutbonusserne.",
 	"tutorial.mechanics.settlement":
-		"Slutopgørelsen betaler majoritets- og minoritetsbonus for hver aktiv kæde og sælger derefter alle deres aktier til de aktuelle priser. Inaktive aktier er værdiløse.\n\nVed Towers pris på $700 fører Alex med 4 aktier: $7.000 bonus + $2.800 aktier + $6.000 kontant = $15.800. Bo får minoritetsbonussen på $3.500 med 2 aktier; Cy får ingen med 1. Slutbeløbet afgør vinderen, ikke antallet af aktier.",
+		"Ved spillets slutning betaler hver aktiv kæde majoritets- og minoritetsbonus, også sikre kæder, der ikke kan overtages. Derfor viser tabellen bonusser for 41 eller flere brikker. Derefter sælges alle aktier i aktive kæder til de aktuelle kurser; aktier i inaktive kæder er værdiløse.\n\nVed Towers pris på $700 fører Alex med 4 aktier: $7.000 bonus + $2.800 aktier + $6.000 kontant = $15.800. Bo får minoritetsbonussen på $3.500 med 2 aktier; Cy får ingen med 1. Slutbeløbet afgør vinderen, ikke antallet af aktier.",
 	"tutorial.label": "Introduktion",
 	"tutorial.complete": "Kapitel gennemført",
 	"tutorial.previous": "Forrige trin",

@@ -171,7 +171,7 @@ export const vi: Catalog = {
 	"tutorial.mechanics.merger":
 		"So kích thước trước khi thêm ô nối: Tower có 3 ô, Luxor có 2 nên Tower tồn tại. Nếu các chuỗi lớn nhất bằng nhau, người đặt ô chọn chuỗi tồn tại.\n\nTừ 11 ô, chuỗi trở nên an toàn và không thể bị thâu tóm. Không được đặt ô nối hai chuỗi an toàn.",
 	"tutorial.mechanics.bonuses":
-		"Thưởng được trả trước khi bán hay đổi, theo giá trước sáp nhập của chuỗi bị thâu tóm. Cổ đông lớn nhất nhận 10 × giá (đa số), thứ hai nhận 5 × (thiểu số). Chỉ cần có nhiều cổ phiếu nhất, không cần quá một nửa.\n\nLuxor có 2 ô: $200 mỗi cổ phiếu. Alex có 3 nhận $2.000, Bo có 2 nhận $1.000, Cy có 1 không có thưởng. Nhận thưởng không mất cổ phiếu. Sau đó có thể kết hợp bán giá $200, đổi 2 lấy 1 Tower khi còn hàng, và giữ để chờ Luxor được lập lại.",
+		"Khi sáp nhập, chỉ cổ đông của các chuỗi bị thâu tóm nhận thưởng; cổ phiếu của chuỗi tồn tại không được thưởng sáp nhập. Thưởng được trả trước khi bán hoặc đổi, theo giá cổ phiếu trước sáp nhập của chuỗi bị thâu tóm: 10 × cho cổ đông lớn nhất (đa số), 5 × cho người đứng thứ hai (thiểu số). Chỉ cần có nhiều cổ phiếu nhất, không cần quá một nửa.\n\nLuxor có 2 ô: $200 mỗi cổ phiếu. Alex có 3 nhận $2.000, Bo có 2 nhận $1.000, Cy có 1 không có thưởng. Nhận thưởng không mất cổ phiếu. Sau đó có thể kết hợp bán giá $200, đổi 2 lấy 1 Tower khi còn hàng, và giữ để chờ Luxor được lập lại.",
 	"tutorial.mechanics.ties":
 		"Đồng hạng nhất chia cả hai khoản thưởng, những người khác không nhận. Nếu có một người đứng nhất, các người đồng hạng hai chỉ chia thưởng thiểu số. Cổ đông duy nhất nhận cả hai. Mỗi phần được làm tròn lên bội số $100.\n\nHai người đồng hạng nhất Luxor giá $200 mỗi người nhận ($2.000 + $1.000) ÷ 2 = $1.500. Cổ phiếu Luxor giữ lại không có giá trị cho đến khi chuỗi được lập lại.",
 	"tutorial.mechanics.safe":
@@ -179,7 +179,7 @@ export const vi: Catalog = {
 	"tutorial.mechanics.growth":
 		"Lớn lên không phải lúc nào cũng tăng giá. Tower ở 11 và 12 ô đều trong khoảng 11–20: $700 mỗi cổ phiếu. Lần tăng tiếp theo là ở 21 ô ($800).\n\nSau khi đặt, bạn vẫn được mua tối đa 3 cổ phiếu như thường lệ. Việc mua có thể thay đổi người nhận thưởng cuối game.",
 	"tutorial.mechanics.settlement":
-		"Tính điểm cuối game trả thưởng đa số và thiểu số cho mỗi chuỗi hoạt động, rồi bán mọi cổ phiếu của các chuỗi đó theo giá hiện tại. Cổ phiếu chuỗi không hoạt động không có giá trị.\n\nVới Tower giá $700, Alex dẫn đầu với 4 cổ phiếu: $7.000 thưởng + $2.800 cổ phiếu + $6.000 tiền mặt = $15.800. Bo có 2 nhận thưởng thiểu số $3.500; Cy có 1 không có thưởng. Người thắng có nhiều tiền cuối game nhất, không phải nhiều cổ phiếu nhất.",
+		"Cuối game, mọi chuỗi đang hoạt động đều trả thưởng đa số và thiểu số, kể cả chuỗi an toàn không thể bị thâu tóm. Vì vậy bảng giá có thưởng cho chuỗi từ 41 ô trở lên. Sau đó mọi cổ phiếu của chuỗi đang hoạt động được bán theo giá hiện tại; cổ phiếu của chuỗi không hoạt động không có giá trị.\n\nVới Tower giá $700, Alex dẫn đầu với 4 cổ phiếu: $7.000 thưởng + $2.800 cổ phiếu + $6.000 tiền mặt = $15.800. Bo có 2 nhận thưởng thiểu số $3.500; Cy có 1 không có thưởng. Người thắng có nhiều tiền cuối game nhất, không phải nhiều cổ phiếu nhất.",
 	"tutorial.label": "Hướng dẫn",
 	"tutorial.complete": "Hoàn thành chương",
 	"tutorial.previous": "Bước trước",

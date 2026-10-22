@@ -1,6 +1,6 @@
 # Acquire private beta — 22 October 2026
 
-Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.8`.
+Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.9`.
 Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 
 ## Validation
@@ -57,7 +57,9 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 - Keep chain letters visible for everyone in both themes.
 - Explain tile adjacency, chain price tiers (no special abilities), price bands,
   majority/minority bonuses and ties, safe chains, and final payouts alongside
-  the tutorial actions in all 17 languages. Include an expandable price table
+  the tutorial actions in all 17 languages. Explicitly distinguish absorbed-chain merger bonuses
+  from final bonuses for every active chain, including safe chains and the 41+ price bands.
+  Include an expandable price table
   within the buying lesson. Keep references usable after chapter completion;
   only game moves are disabled.
 
