@@ -22,8 +22,7 @@ fields (the admin panel can translate them); the viewer itself is already transl
 
 ## Tags
 
-Use **economic**, from BGS’s shared tag list. Useful missing categories to propose are
-**tile placement** and **stock holding**; do not substitute unrelated tags.
+Use **economic**, **tile placement** and **stock holding** from BGS’s shared tag list.
 
 ## Screenshots
 

@@ -4,7 +4,7 @@
 		"title": "Acquire"
 	},
 	"releaseYear": 1964,
-	"tags": ["economic"],
+	"tags": ["economic", "tile-placement", "stock-holding"],
 	"players": [2, 3, 4, 5, 6],
 	"public": false,
 	"description": "Build hotel chains, buy their stock and cash in when they merge. Each turn you place a tile on a 12 × 9 grid: tiles next to each other found a chain, chains grow, and when a tile joins two chains the larger one takes over the smaller.\n\nShareholders of the chain taken over collect bonuses and sell or trade their stock. Whoever has the most money at the end wins. A classic stock-market game for 2–6 players, live or asynchronous.",
