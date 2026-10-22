@@ -26,7 +26,7 @@ export const de: Catalog = {
 	"place.merges": "fusioniert {chains}",
 	"place.button": "{tile} legen",
 	"place.another": "Anderes wählen",
-	"place.choose": "Wähle ein Plättchen von deiner Hand.",
+	"place.choose": "Wähle ein hervorgehobenes Feld oder ein Plättchen aus deiner Hand.",
 	"place.none": "Keines deiner Plättchen kann gelegt werden.",
 	"place.pass": "Ohne Legen weiter",
 	"found.prompt": "Benenne die neue Kette. Du erhältst eine Gratisaktie.",

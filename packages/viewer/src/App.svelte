@@ -26,6 +26,7 @@
 				<Board
 					{state}
 					selected={store.selected}
+					onselect={(tile) => (store.selected = tile)}
 					onconfirm={() =>
 						store.selected !== undefined && store.send({ type: "place", tile: tileLabel(store.selected) })}
 				/>
@@ -51,8 +52,7 @@
 </main>
 
 <style>
-	/* Narrow screens: one column, decision and board together so a selected square and its confirm
-	   button are both visible. No viewport-height units: BGS sizes the iframe to its content. */
+	/* Keep the decision and board together on narrow screens. */
 	.layout {
 		display: grid;
 		gap: 20px;
@@ -68,7 +68,6 @@
 	}
 	.board {
 		grid-area: board;
-		max-width: 660px;
 	}
 	.hand {
 		grid-area: hand;

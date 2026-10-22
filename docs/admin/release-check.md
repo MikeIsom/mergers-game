@@ -1,12 +1,12 @@
 # Acquire private beta — 22 October 2026
 
-Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.4`.
+Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.5`.
 Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 
 ## Validation
 
 - `pnpm check`: formatting, lint, TypeScript/Svelte checks, 198 engine tests,
-  52 viewer/tutorial tests, and the production build. Two pre-existing lint warnings
+  51 viewer/tutorial tests, and the production build. Two pre-existing lint warnings
   remain (an unused test import and Svelte's `bind:this` assignment).
 - Protocol diagnostics: all eight required engine methods; full core/chat/replay
   viewer coverage, preferences, avatars and theme handlers. Protocol `0.10.0` is the
@@ -25,6 +25,10 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 - Screenshots and a machine-readable report are generated in `release/qa/`.
   The gallery uses three distinct views, each with light and dark variants. Height
   checks prevent oversized captures; desktop panels and the full-log toggle are checked.
+- Wide-screen checks cover the full-window background, outer margins, board sizing,
+  permanently visible chat, player colors, and preservation of chat drafts when appearance changes.
+- Hand markers remain visible between turns, but only legal moves are clickable. Browser checks
+  cover selecting and confirming from the board, spectator privacy, and hiding markers in replay.
 
 ## Fixes made for beta
 
@@ -43,6 +47,9 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
   show eight recent log entries with the full history available on demand. Gallery
   captures frame the game instead of including an entire scrolling phone page.
 - Split the game description into two paragraphs.
+- Remove outer iframe margins and paint the full document with the game theme. Let the board
+  fill its desktop column, keep chat open, and use consistent player colors in the table and chat.
+- Use chain letters in both color modes; reserve extra symbols for players.
 - Explain tile adjacency, chain price tiers (no special abilities), price bands,
   majority/minority bonuses and ties, safe chains, and final payouts alongside
   the tutorial actions in all 17 languages. Include an expandable price table
@@ -71,7 +78,6 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
   <https://boardgamegeek.com/boardgame/5/acquire>.
 - Upload the original transparent `pictogram.svg`, English rules as the CMS page
   `acquire:rules`, and `gameinfo.json` for the initial version/configuration.
-- Use the existing `economic` tag. Suggested additions to BGS's shared list:
-  `tile placement` and `stock holding`.
+- Tags: `economic`, `tile-placement` and `stock-holding`.
 - Intended beta accounts: not2cool, Spock and AlphaZero. GitHub collaborator:
   MikeIsom, write permission (requires accepting GitHub's invitation).

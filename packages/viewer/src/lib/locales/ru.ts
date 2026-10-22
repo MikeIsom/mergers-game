@@ -26,7 +26,7 @@ export const ru: Catalog = {
 	"place.merges": "сливает {chains}",
 	"place.button": "Выложить {tile}",
 	"place.another": "Выбрать другую",
-	"place.choose": "Выберите фишку с руки.",
+	"place.choose": "Выберите выделенную клетку или тайл из руки.",
 	"place.none": "Ни одну из ваших фишек нельзя выложить.",
 	"place.pass": "Продолжить без выкладки",
 	"found.prompt": "Назовите новую сеть. Вы получаете одну бесплатную акцию.",

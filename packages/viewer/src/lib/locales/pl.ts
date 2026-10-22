@@ -26,7 +26,7 @@ export const pl: Catalog = {
 	"place.merges": "łączy {chains}",
 	"place.button": "Połóż {tile}",
 	"place.another": "Wybierz inną",
-	"place.choose": "Wybierz płytkę z ręki.",
+	"place.choose": "Wybierz wyróżnione pole lub kafelek z ręki.",
 	"place.none": "Żadnej z twoich płytek nie można położyć.",
 	"place.pass": "Kontynuuj bez kładzenia",
 	"found.prompt": "Nazwij nową sieć. Otrzymujesz jedną darmową akcję.",

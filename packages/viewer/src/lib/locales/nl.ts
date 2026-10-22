@@ -26,7 +26,7 @@ export const nl: Catalog = {
 	"place.merges": "fuseert {chains}",
 	"place.button": "Leg {tile}",
 	"place.another": "Kies een andere",
-	"place.choose": "Kies een tegel uit je hand.",
+	"place.choose": "Kies een gemarkeerd vak of een tegel uit je hand.",
 	"place.none": "Geen van je tegels kan gelegd worden.",
 	"place.pass": "Verder zonder te leggen",
 	"found.prompt": "Geef de nieuwe keten een naam. Je krijgt één gratis aandeel.",

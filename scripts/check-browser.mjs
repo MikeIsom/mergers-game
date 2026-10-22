@@ -79,6 +79,113 @@ try {
 	assert.equal(report.diagnostics.compatible, true);
 	assert.equal(report.diagnostics.recommended.percent, 100);
 
+	for (const theme of ["light", "dark"]) {
+		await page.setViewportSize({ width: 1920, height: 1280 });
+		await open(`players=4&moves=95&publicHoldings=1&theme=${theme}`);
+		const geometry = await page.evaluate(() => {
+			const main = document.querySelector("main");
+			const column = document.querySelector(".layout > .board");
+			const frame = column.querySelector(".frame");
+			return {
+				margin: getComputedStyle(document.body).margin,
+				page: getComputedStyle(main).backgroundColor,
+				canvas: getComputedStyle(document.documentElement).backgroundColor,
+				body: getComputedStyle(document.body).backgroundColor,
+				left: main.getBoundingClientRect().left,
+				right: main.getBoundingClientRect().right,
+				board: frame.getBoundingClientRect().width,
+				column: column.getBoundingClientRect().width,
+			};
+		});
+		assert.equal(geometry.margin, "0px");
+		assert.equal(geometry.canvas, geometry.page);
+		assert.equal(geometry.body, geometry.page);
+		assert.equal(geometry.left, 0);
+		assert.equal(geometry.right, 1920);
+		assert.ok(geometry.board > 750, "board uses the wide desktop column");
+		assert.ok(Math.abs(geometry.board - geometry.column) < 1);
+		assert.equal(await page.locator(".chat summary").isVisible(), false);
+		assert.equal(await page.locator(".chat-composer").isVisible(), true);
+		await page.screenshot({ path: new URL(`fullscreen-${theme}.png`, output).pathname });
+	}
+	report.scenarios.push("full-window theme background, no outer gutters, wider board and permanently visible chat");
+
+	await open("players=4&hotseat=0&view=0&theme=dark");
+	const inspectHand = async (view) => {
+		const expected = await page.evaluate((view) => {
+			const dev = window.acquireDev;
+			const player =
+				view === "acting"
+					? dev.engine.currentPlayer(dev.state)
+					: view === "waiting"
+						? (dev.engine.currentPlayer(dev.state) + 1) % 4
+						: undefined;
+			const state = dev.engine.stripSecret(structuredClone(dev.state), player);
+			dev.emitter.emit("player", { index: player });
+			dev.emitter.emit("state", state);
+			return player === undefined
+				? []
+				: state.seats
+						.flatMap((seat, index) =>
+							state.seatOwner[index] === player
+								? seat.hand.filter((tile) => tile !== dev.rules.HIDDEN).map(dev.rules.tileLabel)
+								: []
+						)
+						.sort();
+		}, view);
+		await settle();
+		assert.deepEqual((await page.locator(".square.held .coord").allTextContents()).sort(), expected);
+	};
+	await inspectHand("waiting");
+	assert.equal(await page.locator(".square.playable").count(), 0, "waiting players cannot submit a tile");
+	await inspectHand("spectator");
+	await inspectHand("acting");
+	await open("players=4&theme=dark");
+	const beforeBoardMove = await page.evaluate(() => window.acquireDev.state.log.length);
+	await page.locator(".square.playable").first().click();
+	assert.equal(
+		await page.evaluate(() => window.acquireDev.state.log.length),
+		beforeBoardMove,
+		"first click previews the move"
+	);
+	assert.equal(await page.locator(".square.selected").count(), 1);
+	await page.locator(".square.selected").click();
+	await page.waitForFunction((length) => window.acquireDev.state.log.length > length, beforeBoardMove);
+	await page.evaluate(() => window.acquireDev.emitter.emit("replay:start"));
+	await settle();
+	assert.equal(
+		await page.locator(".square.held").count(),
+		0,
+		"replay does not project the current hand onto old boards"
+	);
+	report.scenarios.push(
+		"own hand visible while waiting, spectator privacy, board selection/confirmation and replay isolation"
+	);
+
+	await open("players=4&moves=95&theme=light&colorBlind=1");
+	assert.equal(await page.locator(".chain .letter").count(), await page.locator(".square.chain").count());
+	assert.equal(await page.locator(".pattern, .patterned").count(), 0);
+	assert.ok((await page.locator(".chat .player-symbol").count()) > 0);
+	const authorColors = await page
+		.locator(".chat .player-name")
+		.evaluateAll((names) => names.map((name) => getComputedStyle(name).color));
+	assert.equal(new Set(authorColors).size, 2, "chat authors have distinct player colors");
+	await page.locator(".chat-composer input").fill("Unsent draft");
+	await preferences({
+		locale: "en",
+		colorBlind: true,
+		bgs: { players: [{}, {}, {}, {}], playerColors: ["#13b7c8", "#111111", "#ffffff", "#3aa35b"] },
+	});
+	assert.equal(
+		await page.locator(".chat-composer input").inputValue(),
+		"Unsent draft",
+		"appearance updates preserve chat drafts"
+	);
+	await page.locator(".chat-composer input").fill("");
+	report.scenarios.push(
+		"chain letters without redundant patterns; player colors/symbols in chat and live appearance updates"
+	);
+
 	for (const [width, height] of [
 		[1280, 900],
 		[390, 844],

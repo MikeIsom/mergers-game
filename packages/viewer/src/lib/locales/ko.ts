@@ -26,7 +26,7 @@ export const ko: Catalog = {
 	"place.merges": "{chains}을(를) 합병합니다",
 	"place.button": "{tile} 놓기",
 	"place.another": "다른 타일 고르기",
-	"place.choose": "손에서 타일 하나를 고르세요.",
+	"place.choose": "강조된 칸이나 손에 있는 타일을 선택하세요.",
 	"place.none": "놓을 수 있는 타일이 없습니다.",
 	"place.pass": "놓지 않고 계속하기",
 	"found.prompt": "새 체인의 이름을 고르세요. 무료 주식 1주를 받습니다.",

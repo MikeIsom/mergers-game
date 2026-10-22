@@ -26,7 +26,7 @@ export const zhCN: Catalog = {
 	"place.merges": "合并 {chains}",
 	"place.button": "放置 {tile}",
 	"place.another": "换一块",
-	"place.choose": "从手中选择一块板块。",
+	"place.choose": "选择一个高亮方格或手中的板块。",
 	"place.none": "你没有可以放置的板块。",
 	"place.pass": "不放置，继续",
 	"found.prompt": "为新连锁命名。你将获得一股免费股票。",

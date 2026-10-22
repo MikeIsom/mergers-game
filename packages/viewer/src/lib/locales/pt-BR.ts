@@ -26,7 +26,7 @@ export const ptBR: Catalog = {
 	"place.merges": "funde {chains}",
 	"place.button": "Colocar {tile}",
 	"place.another": "Escolher outra",
-	"place.choose": "Escolha uma peça da sua mão.",
+	"place.choose": "Escolha uma casa destacada ou uma peça da sua mão.",
 	"place.none": "Nenhuma das suas peças pode ser colocada.",
 	"place.pass": "Continuar sem colocar",
 	"found.prompt": "Dê nome à nova rede. Você recebe uma ação grátis.",

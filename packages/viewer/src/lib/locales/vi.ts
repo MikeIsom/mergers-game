@@ -26,7 +26,7 @@ export const vi: Catalog = {
 	"place.merges": "sáp nhập {chains}",
 	"place.button": "Đặt {tile}",
 	"place.another": "Chọn ô khác",
-	"place.choose": "Chọn một ô trên tay.",
+	"place.choose": "Chọn một ô được đánh dấu hoặc một ô trên tay bạn.",
 	"place.none": "Không ô nào của bạn đặt được.",
 	"place.pass": "Tiếp tục mà không đặt",
 	"found.prompt": "Đặt tên cho chuỗi mới. Bạn nhận một cổ phiếu miễn phí.",

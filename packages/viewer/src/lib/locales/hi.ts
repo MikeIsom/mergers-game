@@ -26,7 +26,7 @@ export const hi: Catalog = {
 	"place.merges": "{chains} का विलय करती है",
 	"place.button": "{tile} रखें",
 	"place.another": "दूसरी चुनें",
-	"place.choose": "अपने हाथ से एक टाइल चुनें।",
+	"place.choose": "कोई हाइलाइट किया हुआ खाना या अपने हाथ से एक टाइल चुनें।",
 	"place.none": "आपकी कोई भी टाइल रखी नहीं जा सकती।",
 	"place.pass": "बिना रखे आगे बढ़ें",
 	"found.prompt": "नई श्रृंखला का नाम चुनें। आपको एक मुफ़्त शेयर मिलेगा।",

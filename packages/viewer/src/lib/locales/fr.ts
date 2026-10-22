@@ -26,7 +26,7 @@ export const fr: Catalog = {
 	"place.merges": "fusionne {chains}",
 	"place.button": "Poser {tile}",
 	"place.another": "Choisir une autre",
-	"place.choose": "Choisissez une tuile de votre main.",
+	"place.choose": "Choisissez une case en surbrillance ou une tuile de votre main.",
 	"place.none": "Aucune de vos tuiles ne peut être posée.",
 	"place.pass": "Continuer sans poser",
 	"found.prompt": "Nommez la nouvelle chaîne. Vous recevez une action gratuite.",

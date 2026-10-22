@@ -26,7 +26,7 @@ export const it: Catalog = {
 	"place.merges": "fonde {chains}",
 	"place.button": "Piazza {tile}",
 	"place.another": "Scegline un'altra",
-	"place.choose": "Scegli una tessera dalla tua mano.",
+	"place.choose": "Scegli una casella evidenziata o una tessera dalla tua mano.",
 	"place.none": "Nessuna delle tue tessere può essere piazzata.",
 	"place.pass": "Continua senza piazzare",
 	"found.prompt": "Dai un nome alla nuova catena. Ricevi un'azione gratuita.",

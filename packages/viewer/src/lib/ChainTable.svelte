@@ -32,7 +32,7 @@
 			<tbody>
 				{#each rows as row (row.chain)}
 					<tr class:inactive={row.size === 0}>
-						<td><ChainMark chain={row.chain} withName patterned={store.colorBlind} /></td>
+						<td><ChainMark chain={row.chain} withName /></td>
 						<td class="num">
 							{#if row.size === 0}
 								{t("chains.notOnBoard")}

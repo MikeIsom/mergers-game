@@ -26,7 +26,7 @@ export const da: Catalog = {
 	"place.merges": "fusionerer {chains}",
 	"place.button": "Læg {tile}",
 	"place.another": "Vælg en anden",
-	"place.choose": "Vælg en brik fra din hånd.",
+	"place.choose": "Vælg et fremhævet felt eller en brik fra din hånd.",
 	"place.none": "Ingen af dine brikker kan lægges.",
 	"place.pass": "Fortsæt uden at lægge",
 	"found.prompt": "Navngiv den nye kæde. Du får én gratis aktie.",

@@ -31,7 +31,7 @@ export const en = {
 	"place.merges": "merges {chains}",
 	"place.button": "Place {tile}",
 	"place.another": "Choose another",
-	"place.choose": "Choose a tile from your hand.",
+	"place.choose": "Choose a highlighted square or a tile from your hand.",
 	"place.none": "None of your tiles can be placed.",
 	"place.pass": "Continue without placing",
 	"found.prompt": "Name the new chain. You receive one free share.",

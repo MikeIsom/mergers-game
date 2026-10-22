@@ -2,6 +2,7 @@
 	import { PLAYER_SYMBOL_IDS, playerSymbolSvg } from "@boardgamers/protocol/player-symbols";
 	import type { GameState } from "acquire-engine";
 	import { seatName } from "./format";
+	import { playerColor, playerInk } from "./playerAppearance";
 	import { useStore } from "./store.svelte";
 
 	/** `playerOnly` names the player without a seat number (fourHands results are per player). */
@@ -11,7 +12,7 @@
 	// BGS appearance data is per real player; in fourHands two seats share one player.
 	const player = $derived(game.seatOwner[seat] ?? seat);
 	const avatar = $derived(store.avatars[player]);
-	const color = $derived(store.appearance?.playerColors[player]);
+	const color = $derived(playerColor(player, store.appearance?.playerColors));
 	const symbol = $derived(
 		store.appearance?.playerSymbols?.[player] ??
 			(store.colorBlind ? PLAYER_SYMBOL_IDS[player % PLAYER_SYMBOL_IDS.length] : undefined)
@@ -21,11 +22,15 @@
 
 <span class="player">
 	{#if avatar}<img class="avatar" src={avatar} alt="" />{/if}
-	<!-- The player colour is only ever this narrow bar, never a fill, so it can't pass for a chain. -->
-	{#if color}<span class="color" style:background={color} aria-hidden="true"></span>{/if}
+	<span class="color" style:background={color} aria-hidden="true"></span>
 	<!-- Catalogued symbol SVGs only: an unknown value renders nothing. -->
 	{#if symbol}<span class="symbol" aria-hidden="true">{@html playerSymbolSvg(symbol)}</span>{/if}
-	<span class="name">{playerOnly ? game.seats[seat]!.name : seatName(game, seat, store.lang)}</span>
+	<span
+		class="player-name"
+		style:--player-ink-light={playerInk(color, "light")}
+		style:--player-ink-dark={playerInk(color, "dark")}
+		>{playerOnly ? game.seats[seat]!.name : seatName(game, seat, store.lang)}</span
+	>
 	{#if badge}<img class="badge" src={badge.url} alt={badge.label} title={badge.label} />{/if}
 </span>
 

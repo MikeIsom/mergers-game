@@ -1,3 +1,9 @@
+html:has(.acquire),
+body:has(.acquire) {
+	margin: 0;
+	background: var(--page);
+}
+
 /* Square corners everywhere; outlines only on things the player can act on. */
 .acquire,
 .acquire * {
@@ -18,6 +24,18 @@
 	font-size: 15px;
 	line-height: 1.4;
 	padding: 12px;
+}
+
+.acquire .player-name {
+	color: var(--player-ink-light);
+}
+.acquire[data-theme="dark"] .player-name {
+	color: var(--player-ink-dark);
+}
+@media (prefers-color-scheme: dark) {
+	.acquire:not([data-theme]) .player-name {
+		color: var(--player-ink-dark);
+	}
 }
 
 .acquire h2 {

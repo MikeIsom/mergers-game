@@ -26,7 +26,7 @@ export const zhTW: Catalog = {
 	"place.merges": "合併 {chains}",
 	"place.button": "放置 {tile}",
 	"place.another": "換一塊",
-	"place.choose": "從手中選擇一塊板塊。",
+	"place.choose": "選擇一個醒目方格或手中的板塊。",
 	"place.none": "你沒有可以放置的板塊。",
 	"place.pass": "不放置，繼續",
 	"found.prompt": "為新連鎖命名。你將獲得一股免費股票。",

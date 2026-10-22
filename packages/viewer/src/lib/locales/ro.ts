@@ -26,7 +26,7 @@ export const ro: Catalog = {
 	"place.merges": "unește {chains}",
 	"place.button": "Plasează {tile}",
 	"place.another": "Alege alta",
-	"place.choose": "Alege o piesă din mână.",
+	"place.choose": "Alege o căsuță evidențiată sau o plăcuță din mână.",
 	"place.none": "Niciuna dintre piesele tale nu poate fi plasată.",
 	"place.pass": "Continuă fără să plasezi",
 	"found.prompt": "Numește lanțul nou. Primești o acțiune gratuită.",

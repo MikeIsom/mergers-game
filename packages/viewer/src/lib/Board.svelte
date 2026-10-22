@@ -1,17 +1,29 @@
 <script lang="ts">
-	import { BOARD_COLUMNS, BOARD_ROWS, tileLabel, type GameState, type Tile } from "acquire-engine";
+	import {
+		BOARD_COLUMNS,
+		BOARD_ROWS,
+		HIDDEN,
+		parseTile,
+		tileLabel,
+		tileLegality,
+		type GameState,
+		type Tile,
+	} from "acquire-engine";
+	import { ofType } from "./decisions";
 	import { chainName } from "./format";
-	import { CHAIN_STYLES, patternCss } from "./palette";
+	import { CHAIN_STYLES } from "./palette";
 	import { useStore } from "./store.svelte";
 
 	let {
 		state,
 		selected,
+		onselect,
 		onconfirm,
 	}: {
 		state: GameState;
 		/** A tile selected in the hand: its square is highlighted and clicking it places the tile. */
 		selected?: Tile;
+		onselect?: (tile: Tile) => void;
 		onconfirm?: () => void;
 	} = $props();
 
@@ -23,6 +35,14 @@
 	const pendingTile = $derived(state.merger?.tile ?? state.pendingTile);
 	const store = useStore();
 	const t = $derived(store.lang.t);
+	const playable = $derived(new Set(ofType(store.moves, "place").map((move) => parseTile(move.tile)!)));
+	const held = $derived(
+		new Set(
+			store.replayAt === undefined && !store.readOnly
+				? store.seats.flatMap((seat) => state.seats[seat]?.hand.filter((tile) => tile !== HIDDEN) ?? [])
+				: []
+		)
+	);
 </script>
 
 <div class="frame" dir="ltr">
@@ -39,17 +59,31 @@
 				{@const tile = tileAt(row, column)}
 				{@const cell = state.board[tile] ?? null}
 				{@const label = tileLabel(tile)}
-				{#if tile === selected && cell === null}
+				{@const legality = held.has(tile) ? tileLegality(state.board, tile) : undefined}
+				{#if playable.has(tile) && cell === null}
 					<button
 						type="button"
-						class="square empty selected actionable"
-						aria-label={t("board.place", { tile: label })}
-						onclick={() => onconfirm?.()}
+						class="square empty held playable actionable"
+						class:selected={tile === selected}
+						aria-label={tile === selected ? t("board.place", { tile: label }) : label}
+						aria-pressed={tile === selected}
+						disabled={store.sending}
+						onclick={() => (tile === selected ? onconfirm?.() : onselect?.(tile))}
 					>
 						<span class="coord">{label}</span>
 					</button>
 				{:else if cell === null}
-					<div class="square empty" aria-label={t("board.empty", { tile: label })}>
+					<div
+						class="square empty"
+						class:held={held.has(tile)}
+						class:unavailable={legality !== undefined && legality !== "playable"}
+						aria-label={held.has(tile) ? `${label} — ${t("hand.yours")}` : t("board.empty", { tile: label })}
+						title={legality === "permanentlyUnplayable"
+							? t("hand.dead")
+							: legality === "temporarilyUnplayable"
+								? t("hand.eighth")
+								: undefined}
+					>
 						<span class="coord">{label}</span>
 					</div>
 				{:else if cell === "loose"}
@@ -64,15 +98,8 @@
 						style:color={style.text}
 						aria-label={t("board.chain", { tile: label, chain: chainName(cell) })}
 					>
-						{#if store.colorBlind}
-							<!-- Colour-blind mode: the chain's pattern, with the letter on a solid patch so its
-							     contrast never changes. Edge labels give the coordinate. -->
-							<span class="pattern" style:background={patternCss(style.pattern, style.patternInk)}></span>
-							<span class="letter patch" style:background={style.fill}>{style.letter}</span>
-						{:else}
-							<span class="corner-label">{label}</span>
-							<span class="letter">{style.letter}</span>
-						{/if}
+						<span class="corner-label">{label}</span>
+						<span class="letter">{style.letter}</span>
 					</div>
 				{/if}
 			{/each}
@@ -86,7 +113,6 @@
 		grid-template-columns: 16px minmax(0, 1fr);
 		grid-template-rows: 18px auto;
 		width: 100%;
-		max-width: 660px;
 	}
 	/* Edge labels use the same 2px padding and gaps as the board so they line up with squares. */
 	.numbers,
@@ -137,17 +163,30 @@
 		font-size: 10px;
 		color: var(--on-empty);
 	}
-	/* The selected tile's square: page colour plus an accent outline, since the accent is only
-	   2.92:1 against the grey. */
+	.empty.held {
+		background: var(--panel);
+		border: 2px dashed var(--ink-muted);
+	}
+	.empty.held .coord {
+		font-size: 12px;
+		font-weight: 700;
+		color: var(--ink);
+	}
+	.empty.playable {
+		border-color: transparent;
+	}
+	.empty.unavailable {
+		background: var(--empty);
+		border-color: var(--on-empty);
+	}
+	.empty.unavailable .coord {
+		color: var(--on-empty);
+		text-decoration: line-through;
+	}
 	.empty.selected {
 		background: var(--page);
 		outline: 4px solid var(--accent);
 		outline-offset: -4px;
-	}
-	.empty.selected .coord {
-		font-size: 12px;
-		font-weight: 700;
-		color: var(--ink);
 	}
 	/* A loose tile is black with a light coordinate. */
 	.loose {
@@ -182,18 +221,6 @@
 		.loose .coord {
 			font-size: 10px;
 		}
-	}
-	.chain .pattern {
-		position: absolute;
-		inset: 0;
-	}
-	.chain .patch {
-		position: relative;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 58%;
-		height: 58%;
 	}
 	.chain .corner-label {
 		position: absolute;
