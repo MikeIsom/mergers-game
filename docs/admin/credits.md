@@ -2,4 +2,4 @@
 
 This is an unofficial open-source implementation of Acquire for boardgamers.space. Not affiliated with or endorsed by Hasbro, Avalon Hill, Renegade Game Studios or any other publisher of Acquire. The rules text, chain colours, chain marks and artwork in this implementation are its own; no text or artwork from any published edition is used.
 
-Digital implementation: [MikeIsom](https://github.com/MikeIsom/mergers-game). BGS integration and interactive tutorials: Boardgamers.
+Digital implementation: [not2cool](https://boardgamers.space/user/not2cool).
