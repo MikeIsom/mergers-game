@@ -2,7 +2,8 @@
 	import { PLAYER_SYMBOL_IDS, playerSymbolSvg } from "@boardgamers/protocol/player-symbols";
 	import type { GameState } from "acquire-engine";
 	import { seatName } from "./format";
-	import { playerColor, playerInk } from "./playerAppearance";
+	import { playerColor } from "./playerAppearance";
+	import { themeInk } from "./palette";
 	import { useStore } from "./store.svelte";
 
 	/** `playerOnly` names the player without a seat number (fourHands results are per player). */
@@ -27,8 +28,8 @@
 	{#if symbol}<span class="symbol" aria-hidden="true">{@html playerSymbolSvg(symbol)}</span>{/if}
 	<span
 		class="player-name"
-		style:--player-ink-light={playerInk(color, "light")}
-		style:--player-ink-dark={playerInk(color, "dark")}
+		style:--name-ink-light={themeInk(color, "light")}
+		style:--name-ink-dark={themeInk(color, "dark")}
 		>{playerOnly ? game.seats[seat]!.name : seatName(game, seat, store.lang)}</span
 	>
 	{#if badge}<img class="badge" src={badge.url} alt={badge.label} title={badge.label} />{/if}

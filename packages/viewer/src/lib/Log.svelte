@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { GameState } from "acquire-engine";
-	import { describeEntry } from "./format";
+	import { describeEntryParts, type LogPart } from "./format";
+	import { CHAIN_STYLES, themeInk } from "./palette";
+	import { playerColor } from "./playerAppearance";
 	import { useStore } from "./store.svelte";
 
 	let { state: game }: { state: GameState } = $props();
@@ -15,8 +17,12 @@
 	// Newest first; "turn" entries become headings that group the lines below them.
 	const lines = $derived(
 		game.log
-			.map((entry, index) => ({ index, turn: entry.type === "turn", text: describeEntry(game, entry, store.lang) }))
-			.filter((line): line is { index: number; turn: boolean; text: string } => line.text !== undefined)
+			.map((entry, index) => ({
+				index,
+				turn: entry.type === "turn",
+				parts: describeEntryParts(game, entry, store.lang),
+			}))
+			.filter((line): line is { index: number; turn: boolean; parts: LogPart[] } => line.parts !== undefined)
 			.reverse()
 	);
 </script>
@@ -25,7 +31,23 @@
 	<h2>{t("log.title")}</h2>
 	<ol class="log">
 		{#each showAll ? lines : lines.slice(0, RECENT) as line (line.index)}
-			<li class:turn={line.turn}>{line.text}</li>
+			<li class:turn={line.turn}>
+				{#each line.parts as part}
+					{#if part.kind === "player" || part.kind === "chain"}
+						{@const color =
+							part.kind === "player"
+								? playerColor(game.seatOwner[part.seat] ?? part.seat, store.appearance?.playerColors)
+								: CHAIN_STYLES[part.chain].fill}
+						<span
+							class="name"
+							class:player-name={part.kind === "player"}
+							class:chain-name={part.kind === "chain"}
+							style:--name-ink-light={themeInk(color, "light")}
+							style:--name-ink-dark={themeInk(color, "dark")}>{part.text}</span
+						>
+					{:else if part.kind === "money"}<span class="money">{part.text}</span>{:else}{part.text}{/if}
+				{/each}
+			</li>
 		{/each}
 	</ol>
 	{#if lines.length > RECENT}
@@ -49,6 +71,14 @@
 		margin-top: 6px;
 		font-weight: 600;
 		background: var(--panel-alt);
+	}
+	.name,
+	.money {
+		font-weight: 600;
+	}
+	.money {
+		white-space: nowrap;
+		font-variant-numeric: tabular-nums;
 	}
 	.more {
 		margin: 8px 0 0;

@@ -45,7 +45,7 @@ export class ViewerStore {
 	analysis = $state(false);
 	/** The shared BGS chat, one controller per viewer launch. */
 	readonly chat = new ChatController();
-	/** BGS's shared colour-blind setting: adds a pattern to every chain tile and table marker. */
+	/** BGS's shared colour-blind setting: supplies default player symbols. */
 	colorBlind = $state(false);
 	/** The BGS light/dark setting; undefined until BGS sends one (prefers-color-scheme applies). */
 	theme = $state<"light" | "dark" | undefined>();

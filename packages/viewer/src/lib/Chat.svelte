@@ -2,7 +2,8 @@
 	import { untrack } from "svelte";
 	import { mountChat } from "@boardgamers/protocol/chat/dom";
 	import { PLAYER_SYMBOL_IDS, playerSymbolSvg } from "@boardgamers/protocol/player-symbols";
-	import { playerColor, playerInk } from "./playerAppearance";
+	import { playerColor } from "./playerAppearance";
+	import { themeInk } from "./palette";
 	import { useStore } from "./store.svelte";
 
 	const store = useStore();
@@ -26,8 +27,8 @@
 						const player = message.playerIndex;
 						const color = playerColor(player, store.appearance?.playerColors);
 						name.className = "player-name";
-						name.style.setProperty("--player-ink-light", playerInk(color, "light"));
-						name.style.setProperty("--player-ink-dark", playerInk(color, "dark"));
+						name.style.setProperty("--name-ink-light", themeInk(color, "light"));
+						name.style.setProperty("--name-ink-dark", themeInk(color, "dark"));
 						const marker = document.createElement("span");
 						marker.className = "player-color";
 						marker.style.background = color;

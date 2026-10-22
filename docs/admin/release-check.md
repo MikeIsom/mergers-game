@@ -1,12 +1,12 @@
 # Acquire private beta — 22 October 2026
 
-Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.5`.
+Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.6`.
 Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 
 ## Validation
 
 - `pnpm check`: formatting, lint, TypeScript/Svelte checks, 198 engine tests,
-  51 viewer/tutorial tests, and the production build. Two pre-existing lint warnings
+  53 viewer/tutorial tests, and the production build. Two pre-existing lint warnings
   remain (an unused test import and Svelte's `bind:this` assignment).
 - Protocol diagnostics: all eight required engine methods; full core/chat/replay
   viewer coverage, preferences, avatars and theme handlers. Protocol `0.10.0` is the
@@ -27,6 +27,9 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
   checks prevent oversized captures; desktop panels and the full-log toggle are checked.
 - Wide-screen checks cover the full-window background, outer margins, board sizing,
   permanently visible chat, player colors, and preservation of chat drafts when appearance changes.
+- Log names use the same player colors as the table and chat. Chain names use their chain colors;
+  cash retains its currency symbol with emphasized, tabular digits. Checks cover both themes,
+  contrast, translated word order and player names that match chain names.
 - Hand markers remain visible between turns, but only legal moves are clickable. Browser checks
   cover selecting and confirming from the board, spectator privacy, and hiding markers in replay.
 

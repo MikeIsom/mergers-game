@@ -77,11 +77,22 @@ const BANK_TILE_KEYS = {
 } as const satisfies Record<string, MessageKey>;
 
 /** One log line, or undefined for entries that another line already describes. */
-export function describeEntry(state: GameState, entry: LogEntry, lang: Lang): string | undefined {
-	const { t, list, money } = lang;
-	const seat = (index: number) => seatName(state, index, lang);
+export function describeEntry(
+	state: GameState,
+	entry: LogEntry,
+	lang: Lang,
+	format: {
+		seat?: (index: number) => string;
+		chain?: (id: ChainId) => string;
+		money?: (amount: number) => string;
+	} = {}
+): string | undefined {
+	const { t, list } = lang;
+	const money = format.money ?? lang.money;
+	const seat = format.seat ?? ((index: number) => seatName(state, index, lang));
+	const chain = format.chain ?? chainName;
 	const tiles = (count: number) => t("tiles", { count });
-	const shares = (count: number, chain: ChainId) => t("log.shares", { count, chain: chainName(chain) });
+	const shares = (count: number, id: ChainId) => t("log.shares", { count, chain: chain(id) });
 	switch (entry.type) {
 		case "init":
 			return t("log.init", { count: entry.players });
@@ -104,11 +115,11 @@ export function describeEntry(state: GameState, entry: LogEntry, lang: Lang): st
 				case "place":
 					return t(entry.auto ? "log.placedAuto" : "log.placed", { name, tile: entry.move.tile });
 				case "survivor":
-					return t(entry.auto ? "log.survivorAuto" : "log.survivor", { name, chain: chainName(entry.move.chain) });
+					return t(entry.auto ? "log.survivorAuto" : "log.survivor", { name, chain: chain(entry.move.chain) });
 				case "defunctOrder":
 					return t(entry.auto ? "log.orderAuto" : "log.order", {
 						name,
-						chains: list(entry.move.chains.map(chainName)),
+						chains: list(entry.move.chains.map(chain)),
 					});
 				default:
 					return undefined;
@@ -119,23 +130,21 @@ export function describeEntry(state: GameState, entry: LogEntry, lang: Lang): st
 		case "founded":
 			return t(entry.bonus ? "log.founded" : "log.foundedNoShare", {
 				name: seat(entry.seat),
-				chain: chainName(entry.chain),
+				chain: chain(entry.chain),
 				tiles: tiles(entry.size),
 			});
 		case "grew":
-			return t("log.grew", { chain: chainName(entry.chain), tiles: tiles(entry.size) });
+			return t("log.grew", { chain: chain(entry.chain), tiles: tiles(entry.size) });
 		case "merger": {
-			const chains = list(
-				Object.entries(entry.sizes).map(([chain, size]) => `${chainName(chain as ChainId)} (${size})`)
-			);
+			const chains = list(Object.entries(entry.sizes).map(([id, size]) => `${chain(id as ChainId)} (${size})`));
 			return entry.byBank
 				? t("log.mergerBank", { tile: tileLabel(entry.tile), chains })
 				: t("log.merger", { name: seat(entry.seat), tile: tileLabel(entry.tile), chains });
 		}
 		case "mergerPlan":
-			return t("log.mergerPlan", { survivor: chainName(entry.survivor), chains: list(entry.defunct.map(chainName)) });
+			return t("log.mergerPlan", { survivor: chain(entry.survivor), chains: list(entry.defunct.map(chain)) });
 		case "bonuses": {
-			const params = { chain: chainName(entry.chain), size: entry.size };
+			const params = { chain: chain(entry.chain), size: entry.size };
 			const paid = entry.payouts.map(({ seat: s, amount }) => `${seat(s)} ${money(amount)}`);
 			let line =
 				paid.length > 0 ? t("log.bonuses", { ...params, payouts: list(paid) }) : t("log.bonusesNobody", params);
@@ -161,11 +170,11 @@ export function describeEntry(state: GameState, entry: LogEntry, lang: Lang): st
 				: t("log.disposedNothing", { name: seat(entry.seat) });
 		}
 		case "merged":
-			return t("log.merged", { chain: chainName(entry.survivor), tiles: tiles(entry.size) });
+			return t("log.merged", { chain: chain(entry.survivor), tiles: tiles(entry.size) });
 		case "bankTile":
 			return t(BANK_TILE_KEYS[entry.result], { tile: tileLabel(entry.tile) });
 		case "bought": {
-			const bought = Object.entries(entry.shares).map(([chain, n]) => `${n} ${chainName(chain as ChainId)}`);
+			const bought = Object.entries(entry.shares).map(([id, n]) => `${n} ${chain(id as ChainId)}`);
 			return bought.length > 0
 				? t("log.bought", { name: seat(entry.seat), shares: list(bought), cost: money(entry.cost) })
 				: t("log.boughtNothing", { name: seat(entry.seat) });
@@ -184,10 +193,42 @@ export function describeEntry(state: GameState, entry: LogEntry, lang: Lang): st
 			return t("log.finalSale", {
 				name: seat(entry.seat),
 				count: entry.shares,
-				chain: chainName(entry.chain),
+				chain: chain(entry.chain),
 				amount: money(entry.proceeds),
 			});
 		case "result":
 			return t("log.result", { results: list(entry.cash.map((cash, s) => `${seat(s)} ${money(cash)}`)) });
 	}
+}
+
+export type LogPart =
+	| { kind: "text" | "money"; text: string }
+	| { kind: "player"; seat: number; text: string }
+	| { kind: "chain"; chain: ChainId; text: string };
+
+/** Preserve translated word order and lists without matching names or inserting HTML. */
+export function describeEntryParts(state: GameState, entry: LogEntry, lang: Lang): LogPart[] | undefined {
+	const references: LogPart[] = [];
+	const token = (part: LogPart) => `\uFFF9${references.push(part) - 1}\uFFFB`;
+	const line = describeEntry(state, entry, lang, {
+		seat: (seat) => token({ kind: "player", seat, text: seatName(state, seat, lang) }),
+		chain: (chain) => token({ kind: "chain", chain, text: chainName(chain) }),
+		money: (amount) => token({ kind: "money", text: lang.money(amount) }),
+	});
+	if (line === undefined) {
+		return undefined;
+	}
+	const parts: LogPart[] = [];
+	let offset = 0;
+	for (const match of line.matchAll(/\uFFF9(\d+)\uFFFB/g)) {
+		if (match.index > offset) {
+			parts.push({ kind: "text", text: line.slice(offset, match.index) });
+		}
+		parts.push(references[Number(match[1])] ?? { kind: "text", text: match[0] });
+		offset = match.index + match[0].length;
+	}
+	if (offset < line.length) {
+		parts.push({ kind: "text", text: line.slice(offset) });
+	}
+	return parts;
 }

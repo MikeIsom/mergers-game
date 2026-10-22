@@ -1,4 +1,5 @@
 import type { ChainId } from "acquire-engine";
+import { contrastRatio, hexToRgb } from "./color.ts";
 
 export interface Theme {
 	page: string;
@@ -145,3 +146,24 @@ export const OKABE_ITO_ORIGIN: Partial<Record<ChainId, string>> = {
 	festival: "#009e73",
 	continental: "#56b4e9",
 };
+
+/** Keep colored text readable across every surface in the current theme. */
+export function themeInk(color: string, mode: "light" | "dark"): string {
+	const theme = THEMES[mode];
+	const rgb = hexToRgb(color);
+	const ink = hexToRgb(theme.ink);
+	for (let step = 0; step <= 20; step++) {
+		const mix = step / 20;
+		const candidate = `#${rgb
+			.map((value, i) =>
+				Math.round((value * (1 - mix) + ink[i]! * mix) * 255)
+					.toString(16)
+					.padStart(2, "0")
+			)
+			.join("")}`;
+		if ([theme.page, theme.panel, theme.panelAlt].every((background) => contrastRatio(candidate, background) >= 4.5)) {
+			return candidate;
+		}
+	}
+	return theme.ink;
+}

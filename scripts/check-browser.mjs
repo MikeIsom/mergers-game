@@ -106,9 +106,39 @@ try {
 		assert.ok(Math.abs(geometry.board - geometry.column) < 1);
 		assert.equal(await page.locator(".chat summary").isVisible(), false);
 		assert.equal(await page.locator(".chat-composer").isVisible(), true);
+		const logAppearance = await page.evaluate(() => {
+			const colors = Object.fromEntries(
+				[...document.querySelectorAll(".players .player-name")].map((name) => [
+					name.textContent,
+					getComputedStyle(name).color,
+				])
+			);
+			return {
+				playersMatch: [...document.querySelectorAll(".log .player-name")].every(
+					(name) => getComputedStyle(name).color === colors[name.textContent]
+				),
+				chains: [
+					...new Set([...document.querySelectorAll(".log .chain-name")].map((name) => getComputedStyle(name).color)),
+				],
+				money: [...document.querySelectorAll(".log .money")].map((amount) => ({
+					text: amount.textContent,
+					weight: getComputedStyle(amount).fontWeight,
+					numbers: getComputedStyle(amount).fontVariantNumeric,
+				})),
+			};
+		});
+		assert.equal(logAppearance.playersMatch, true, "log player colors match the player table in each theme");
+		assert.ok(logAppearance.chains.length >= 3, "chain names retain distinct colors in the log");
+		assert.ok(logAppearance.money.length > 0);
+		for (const amount of logAppearance.money) {
+			assert.match(amount.text, /^\$/);
+			assert.equal(amount.weight, "600");
+			assert.equal(amount.numbers, "tabular-nums");
+		}
 		await page.screenshot({ path: new URL(`fullscreen-${theme}.png`, output).pathname });
 	}
 	report.scenarios.push("full-window theme background, no outer gutters, wider board and permanently visible chat");
+	report.scenarios.push("consistent player colors, distinct chain names and emphasized cash in light/dark logs");
 
 	await open("players=4&hotseat=0&view=0&theme=dark");
 	const inspectHand = async (view) => {
@@ -174,12 +204,39 @@ try {
 	await preferences({
 		locale: "en",
 		colorBlind: true,
-		bgs: { players: [{}, {}, {}, {}], playerColors: ["#13b7c8", "#111111", "#ffffff", "#3aa35b"] },
+		bgs: {
+			players: [{ pro: true }, { pro: true }, { pro: true }, { pro: false }],
+			playerColors: ["#13b7c8", "#111111", "#ffffff", "#3aa35b"],
+		},
 	});
 	assert.equal(
 		await page.locator(".chat-composer input").inputValue(),
 		"Unsent draft",
 		"appearance updates preserve chat drafts"
+	);
+	const customAppearance = await page.evaluate(() => {
+		const names = Object.fromEntries(
+			[...document.querySelectorAll(".players .player-name")].map((name) => [
+				name.textContent,
+				getComputedStyle(name).color,
+			])
+		);
+		return {
+			markers: [...document.querySelectorAll(".players .color")].map((marker) => marker.style.background),
+			matches: [...document.querySelectorAll(".log .player-name, .chat .player-name")].every(
+				(name) => getComputedStyle(name).color === names[name.textContent]
+			),
+		};
+	});
+	assert.deepEqual(
+		customAppearance.markers,
+		["rgb(19, 183, 200)", "rgb(17, 17, 17)", "rgb(255, 255, 255)", "rgb(58, 163, 91)"],
+		"BGS supporter colors take precedence over game defaults"
+	);
+	assert.equal(
+		customAppearance.matches,
+		true,
+		"custom supporter colors update consistently in the table, chat and log"
 	);
 	await page.locator(".chat-composer input").fill("");
 	report.scenarios.push(

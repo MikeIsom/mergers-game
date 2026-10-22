@@ -26,15 +26,18 @@ body:has(.acquire) {
 	padding: 12px;
 }
 
-.acquire .player-name {
-	color: var(--player-ink-light);
+.acquire .player-name,
+.acquire .chain-name {
+	color: var(--name-ink-light);
 }
-.acquire[data-theme="dark"] .player-name {
-	color: var(--player-ink-dark);
+.acquire[data-theme="dark"] .player-name,
+.acquire[data-theme="dark"] .chain-name {
+	color: var(--name-ink-dark);
 }
 @media (prefers-color-scheme: dark) {
-	.acquire:not([data-theme]) .player-name {
-		color: var(--player-ink-dark);
+	.acquire:not([data-theme]) .player-name,
+	.acquire:not([data-theme]) .chain-name {
+		color: var(--name-ink-dark);
 	}
 }
 
