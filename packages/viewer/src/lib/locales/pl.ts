@@ -215,6 +215,25 @@ export const pl: Catalog = {
 		"Rozrost nie zawsze podnosi cenę. Tower z 11 i 12 płytkami mieści się w tym samym przedziale 11–20: $700 za akcję. Kolejny wzrost następuje przy 21 płytkach ($800).\n\nPo położeniu płytki nadal możesz kupić do 3 akcji. Zakupy mogą zmienić odbiorców końcowych premii.",
 	"tutorial.mechanics.settlement":
 		"Na koniec gry każda aktywna sieć wypłaca premie większościowe i mniejszościowe, także sieci bezpieczne, których nie można przejąć. Dlatego tabela podaje premie dla 41 i więcej płytek. Następnie wszystkie akcje aktywnych sieci sprzedaje się po bieżących cenach; akcje nieaktywnych sieci są bezwartościowe.\n\nPrzy cenie Tower $700 prowadzi Alex z 4 akcjami: $7000 premii + $2800 akcji + $6000 gotówki = $15 800. Bo z 2 akcjami otrzymuje premię mniejszościową $3500, Cy z 1 żadnej. Wygrywa największa końcowa gotówka, nie liczba akcji.",
+	"tutorial.founding.3": "Bo i Cy rozegrali swoje tury. Połóż 3A, aby powiększyć Tower z 2 do 3 płytek.",
+	"tutorial.founding.4": "Kup jeszcze 1 akcję Tower za 300 $ i potwierdź.",
+	"tutorial.mechanics.firstGrowth":
+		"Rozbudowa istniejącej sieci nie daje darmowej akcji. Przy 3 płytkach cena Tower rośnie z 200 $ do 300 $.\n\nTwoje wcześniejsze akcje też mają nową wartość, ale sam rozwój nie wypłaca od razu gotówki.",
+	"tutorial.mechanics.buyGrowth":
+		"Masz już 3 akcje Tower. Kupno kolejnej daje 4 akcje i łączny wydatek 700 $.\n\nW każdej turze możesz kupić do 3 nowych akcji. Możesz też nic nie kupować i oszczędzać.",
+	"tutorial.mergers.3": "Połóż 8F między Worldwide a Festival. Obie sieci mają 2 płytki.",
+	"tutorial.mergers.4": "Wybierz Worldwide jako sieć przejmującą.",
+	"tutorial.mergers.5":
+		"Otrzymujesz obie premie Festival. Zachowaj akcję Festival: zostaw sprzedaż i wymianę na 0, a następnie potwierdź.",
+	"tutorial.mergers.6": "Wybierz „Nic nie kupuj i zakończ turę”, aby zakończyć drugą fuzję.",
+	"tutorial.mechanics.equalMerger":
+		"Gdy największe sieci mają ten sam rozmiar, gracz kładący łączącą płytkę wybiera sieć przejmującą. Liczba akcji nie rozstrzyga remisu.\n\nTutaj obie mają 2 płytki. Posiadasz jedyną akcję Festival poza bankiem.",
+	"tutorial.mechanics.survivorChoice":
+		"Wybór Worldwide oznacza przejęcie Festival. Festival ma średni poziom cenowy: przy 2 płytkach akcja jest warta 300 $.\n\nJako jedyny akcjonariusz otrzymasz obie premie: 3000 $ + 1500 $ = 4500 $. Worldwide nie wypłaca premii za fuzję.",
+	"tutorial.mechanics.keepShares":
+		"Zachowanie akcji nic nie kosztuje. Festival znika z planszy, ale zachowujesz akcję i premię 4500 $.\n\nAkcja może się przydać, jeśli Festival powstanie ponownie. Jeśli na koniec sieć jest nieaktywna, akcja jest bezwartościowa; nie można jej sprzedać podczas zwykłej tury.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide ma teraz 5 płytek, wliczając łączącą, więc akcje kosztują 600 $.\n\nPremie i sprzedaż korzystały ze starej ceny Festival; nowe zakupy korzystają z nowej ceny Worldwide. Po fuzji możesz kupić do 3 akcji aktywnych sieci.",
 	"tutorial.label": "Samouczek",
 	"tutorial.complete": "Rozdział ukończony",
 	"tutorial.previous": "Poprzedni krok",
@@ -228,7 +247,7 @@ export const pl: Catalog = {
 	"tutorial.founding.2":
 		"Kup 2 akcje Tower przyciskiem + i potwierdź. W turze można kupić do 3 akcji; tutaj każda kosztuje $200.",
 	"tutorial.founding.done":
-		"Masz 3 akcje Tower i wydano $400. Tura: połóż kafelek, rozpatrz skutki, kup do 3 akcji, a następnie dobierz kafelek.",
+		"Masz 4 akcje Tower i wydano 700 $: jedna bezpłatna akcja założyciela, dwie po 200 $ i jedna za 300 $. Rozwój podnosi ceny na progach z tabeli.",
 	"tutorial.mergers.title": "Rozpatrz fuzję",
 	"tutorial.mergers.0":
 		"Połóż 4A między Tower (3 kafelki) a Luxor (2). Większa sieć przetrwa; liczba akcji o tym nie decyduje.",

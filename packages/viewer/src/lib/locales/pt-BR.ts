@@ -208,6 +208,25 @@ export const ptBR: Catalog = {
 		"Crescer nem sempre aumenta o preço. Tower com 11 e com 12 peças fica na mesma faixa 11–20: $700 por ação. O próximo aumento ocorre com 21 peças ($800).\n\nApós colocar a peça, você ainda pode comprar até 3 ações. Essas compras podem mudar quem recebe os bônus finais.",
 	"tutorial.mechanics.settlement":
 		"No fim do jogo, toda rede ativa paga bônus de maioria e minoria, inclusive as redes seguras que não podem ser absorvidas. Por isso a tabela inclui bônus para 41 ou mais peças. Depois, todas as ações das redes ativas são vendidas pelos preços atuais; ações de redes inativas não valem nada.\n\nCom Tower a $700, Alex lidera com 4 ações: $7.000 de bônus + $2.800 em ações + $6.000 em dinheiro = $15.800. Bo, com 2 ações, recebe o bônus de minoria de $3.500; Cy, com 1, nenhum bônus. Vence quem termina com mais dinheiro, não mais ações.",
+	"tutorial.founding.3": "Bo e Cy já jogaram. Coloque 3A para ampliar Tower de 2 para 3 peças.",
+	"tutorial.founding.4": "Compre mais 1 ação de Tower por $300 e confirme.",
+	"tutorial.mechanics.firstGrowth":
+		"Ampliar uma rede existente não dá uma ação grátis. Com 3 peças, o preço de Tower sobe de $200 para $300.\n\nSuas ações anteriores também passam a valer o novo preço, mas o crescimento não paga dinheiro imediatamente.",
+	"tutorial.mechanics.buyGrowth":
+		"Você já tem 3 ações de Tower. Comprar mais uma leva o total a 4, com $700 gastos.\n\nEm cada turno, você pode comprar até 3 novas ações. Também pode não comprar nada e guardar dinheiro.",
+	"tutorial.mergers.3": "Coloque 8F entre Worldwide e Festival. Ambas têm 2 peças.",
+	"tutorial.mergers.4": "Escolha Worldwide como a rede sobrevivente.",
+	"tutorial.mergers.5":
+		"Você recebeu os dois bônus de Festival. Guarde sua ação de Festival: deixe venda e troca em 0 e confirme.",
+	"tutorial.mergers.6": "Escolha “Não comprar e encerrar turno” para concluir a segunda fusão.",
+	"tutorial.mechanics.equalMerger":
+		"Quando as maiores redes empatam em tamanho, quem coloca a peça de ligação escolhe a sobrevivente. O número de ações não desempata.\n\nAqui, ambas têm 2 peças. Você tem a única ação de Festival fora do banco.",
+	"tutorial.mechanics.survivorChoice":
+		"Ao escolher Worldwide, Festival será absorvida. Festival está na faixa de preço intermediária: com 2 peças, cada ação vale $300.\n\nComo único acionista, você receberá os dois bônus: $3.000 + $1.500 = $4.500. Worldwide não paga bônus de fusão.",
+	"tutorial.mechanics.keepShares":
+		"Guardar ações não custa nada. Festival sai do tabuleiro, mas você mantém a ação e o bônus de $4.500.\n\nA ação pode ser útil se Festival for fundada novamente. Se continuar inativa no final, não valerá nada; turnos comuns não permitem vendê-la.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide agora tem 5 peças, incluindo a de ligação: suas ações custam $600.\n\nBônus e vendas usaram o preço antigo de Festival; novas compras usam o novo preço de Worldwide. Após uma fusão, você pode comprar até 3 ações de redes ativas.",
 	"tutorial.label": "Tutorial",
 	"tutorial.complete": "Capítulo concluído",
 	"tutorial.previous": "Etapa anterior",
@@ -221,7 +240,7 @@ export const ptBR: Catalog = {
 	"tutorial.founding.2":
 		"Compre 2 ações Tower com o botão + e confirme. Você pode comprar até 3 ações por turno; aqui cada uma custa $200.",
 	"tutorial.founding.done":
-		"Você tem 3 ações Tower e gastou $400. Um turno: colocar uma peça, resolver seus efeitos, comprar até 3 ações e pegar uma peça.",
+		"Você tem 4 ações de Tower e gastou $700: uma grátis pela fundação, duas a $200 e uma a $300. O crescimento aumenta o preço nos limites indicados na tabela.",
 	"tutorial.mergers.title": "Resolva uma fusão",
 	"tutorial.mergers.0":
 		"Coloque 4A entre Tower (3 peças) e Luxor (2). A rede maior sobrevive; a quantidade de ações não decide isso.",

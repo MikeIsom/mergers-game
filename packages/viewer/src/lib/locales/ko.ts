@@ -180,6 +180,25 @@ export const ko: Catalog = {
 		"성장해도 주가가 항상 오르지는 않습니다. Tower의 타일이 11개든 12개든 11–20 구간이므로 주당 $700입니다. 다음 상승은 21개일 때 $800입니다.\n\n타일을 놓은 뒤에도 평소처럼 3주까지 구매할 수 있습니다. 이 구매가 최종 보너스 수령자를 바꿀 수 있습니다.",
 	"tutorial.mechanics.settlement":
 		"게임 종료 시 모든 활성 체인이 다수·소수 보너스를 지급합니다. 흡수될 수 없는 안전한 체인도 마찬가지입니다. 그래서 가격표에 타일 41개 이상인 체인의 보너스도 나옵니다. 그다음 활성 체인의 모든 주식을 현재 가격에 팝니다. 비활성 체인의 주식은 가치가 없습니다.\n\nTower 주가가 $700일 때 4주인 Alex가 1위입니다. 보너스 $7,000 + 주식 $2,800 + 현금 $6,000 = $15,800입니다. 2주인 Bo는 소수 보너스 $3,500을 받고, 1주인 Cy는 받지 못합니다. 승리는 주식 수가 아닌 최종 현금으로 정합니다.",
+	"tutorial.founding.3": "Bo와 Cy가 차례를 마쳤습니다. 3A를 놓아 Tower를 2칸에서 3칸으로 늘리세요.",
+	"tutorial.founding.4": "Tower 주식 1주를 $300에 더 사고 확인하세요.",
+	"tutorial.mechanics.firstGrowth":
+		"기존 체인을 확장해도 무료 주식을 받지 않습니다. 3칸이 되면 Tower 주가가 $200에서 $300으로 오릅니다.\n\n이미 가진 주식에도 새 가격이 적용되지만, 성장 자체로 즉시 현금을 받지는 않습니다.",
+	"tutorial.mechanics.buyGrowth":
+		"이미 Tower 주식 3주가 있습니다. 1주를 더 사면 4주가 되고 총 지출은 $700입니다.\n\n매 차례마다 새로 최대 3주를 살 수 있습니다. 아무것도 사지 않고 현금을 아껴도 됩니다.",
+	"tutorial.mergers.3": "Worldwide와 Festival 사이에 8F를 놓으세요. 둘 다 2칸입니다.",
+	"tutorial.mergers.4": "존속할 체인으로 Worldwide를 선택하세요.",
+	"tutorial.mergers.5":
+		"Festival의 두 보너스를 모두 받았습니다. Festival 주식을 보유하세요. 판매와 교환을 0으로 두고 확인하세요.",
+	"tutorial.mergers.6": "“구매 없이 차례 종료”를 선택해 두 번째 합병을 마치세요.",
+	"tutorial.mechanics.equalMerger":
+		"가장 큰 체인들의 크기가 같으면 연결 타일을 놓은 플레이어가 존속할 체인을 고릅니다. 주식 수로 동률을 가리지 않습니다.\n\n여기서는 두 체인 모두 2칸입니다. 은행 밖의 유일한 Festival 주식을 당신이 갖고 있습니다.",
+	"tutorial.mechanics.survivorChoice":
+		"Worldwide를 고르면 Festival이 흡수됩니다. Festival은 중간 가격 등급이므로 2칸일 때 주당 $300입니다.\n\n유일한 주주이므로 두 보너스를 모두 받습니다. $3,000 + $1,500 = $4,500입니다. Worldwide는 합병 보너스를 지급하지 않습니다.",
+	"tutorial.mechanics.keepShares":
+		"주식을 보유하는 데 비용은 들지 않습니다. Festival은 보드에서 사라지지만 주식과 $4,500 보너스는 남습니다.\n\nFestival이 다시 창립되면 주식이 유용해질 수 있습니다. 게임 종료 시에도 비활성 상태라면 가치가 없으며, 일반 차례에는 팔 수 없습니다.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide는 연결 타일을 포함해 이제 5칸이며 주가는 $600입니다.\n\n보너스와 판매에는 Festival의 이전 주가를 썼고, 새 구매에는 Worldwide의 새 주가를 씁니다. 합병 후에도 활성 체인의 주식을 합쳐 최대 3주까지 살 수 있습니다.",
 	"tutorial.label": "튜토리얼",
 	"tutorial.complete": "챕터 완료",
 	"tutorial.previous": "이전 단계",
@@ -193,7 +212,7 @@ export const ko: Catalog = {
 	"tutorial.founding.2":
 		"+ 버튼으로 Tower 주식 2주를 사고 확인하세요. 한 턴에 최대 3주를 살 수 있으며, 여기서는 한 주에 $200입니다.",
 	"tutorial.founding.done":
-		"$400를 써서 Tower 주식 3주를 보유했습니다. 턴 순서: 타일 놓기, 효과 처리, 최대 3주 구매, 타일 뽑기.",
+		"Tower 주식 4주를 보유하며 총 $700을 썼습니다. 창립 보상 1주는 무료이고, 2주는 각각 $200, 1주는 $300이었습니다. 체인이 커지면 가격표의 구간에 따라 주가가 오릅니다.",
 	"tutorial.mergers.title": "합병 처리하기",
 	"tutorial.mergers.0":
 		"Tower(타일 3개)와 Luxor(2개) 사이에 4A를 놓으세요. 더 큰 체인이 살아남습니다. 주식 수로 결정하지 않습니다.",

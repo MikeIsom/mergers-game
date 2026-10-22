@@ -18,8 +18,8 @@ export type Chapter = (typeof CHAPTERS)[number];
 const tile = (label: string) => parseTile(label)!;
 
 const EXPLANATIONS = {
-	founding: ["tiles", "tiers", "prices"],
-	mergers: ["merger", "bonuses", "ties"],
+	founding: ["tiles", "tiers", "prices", "firstGrowth", "buyGrowth"],
+	mergers: ["merger", "bonuses", "ties", "equalMerger", "survivorChoice", "keepShares", "afterTie"],
 	scoring: ["safe", "growth", "settlement"],
 } as const;
 
@@ -43,6 +43,7 @@ export function preparedPosition(chapter: Chapter): GameState {
 	});
 	if (chapter === "founding") {
 		game.board[tile("1A")] = "loose";
+		game.seats[0]!.hand.push(tile("3A"));
 	} else if (chapter === "mergers") {
 		for (const label of ["1A", "2A", "3A"]) {
 			game.board[tile(label)] = "tower";
@@ -50,7 +51,14 @@ export function preparedPosition(chapter: Chapter): GameState {
 		for (const label of ["5A", "6A"]) {
 			game.board[tile(label)] = "luxor";
 		}
-		game.seats[0]!.hand = [tile("4A")];
+		for (const label of ["6F", "7F"]) {
+			game.board[tile(label)] = "worldwide";
+		}
+		for (const label of ["9F", "10F"]) {
+			game.board[tile(label)] = "festival";
+		}
+		game.seats[0]!.shares.festival = 1;
+		game.seats[0]!.hand = [tile("4A"), tile("8F")];
 		game.seats.forEach((seat, index) => {
 			seat.shares.luxor = [3, 2, 1][index]!;
 		});
@@ -97,12 +105,18 @@ export function lesson(chapter: Chapter, locale: Locale): TutorialOptions<GameSt
 					step(lang, chapter, 0, (move) => move.type === "place" && move.tile === "2A"),
 					step(lang, chapter, 1, (move) => move.type === "found" && move.chain === "tower"),
 					step(lang, chapter, 2, (move) => buy({ tower: 2 }, move)),
+					step(lang, chapter, 3, (move) => move.type === "place" && move.tile === "3A"),
+					step(lang, chapter, 4, (move) => buy({ tower: 1 }, move)),
 				]
 			: chapter === "mergers"
 				? [
 						step(lang, chapter, 0, (move) => move.type === "place" && move.tile === "4A"),
 						step(lang, chapter, 1, (move) => move.type === "dispose" && move.sell === 1 && move.trade === 2),
 						step(lang, chapter, 2, (move) => buy({}, move)),
+						step(lang, chapter, 3, (move) => move.type === "place" && move.tile === "8F"),
+						step(lang, chapter, 4, (move) => move.type === "survivor" && move.chain === "worldwide"),
+						step(lang, chapter, 5, (move) => move.type === "dispose" && move.sell === 0 && move.trade === 0),
+						step(lang, chapter, 6, (move) => buy({}, move)),
 					]
 				: [
 						step(lang, chapter, 0, (move) => move.type === "announce"),
@@ -112,12 +126,23 @@ export function lesson(chapter: Chapter, locale: Locale): TutorialOptions<GameSt
 	return {
 		game: "acquire",
 		id: chapter,
-		version: 1,
+		version: chapter === "scoring" ? 1 : 2,
 		initialState: () => preparedPosition(chapter),
 		move(state, move) {
+			const nextRound = chapter !== "scoring" && state.turn === 1 && move.type === "buy";
 			applyMove(state, move, 0);
 			while (state.phase === "dispose" && currentSeat(state) !== 0) {
 				applyMove(state, { type: "dispose", sell: 0, trade: 0 }, currentSeat(state)!);
+			}
+			if (nextRound) {
+				// Two quiet opponent turns bring the learner back to the next prepared tile.
+				for (const [seat, label] of [
+					[1, "12I"],
+					[2, "10I"],
+				] as const) {
+					applyMove(state, { type: "place", tile: label }, seat);
+					applyMove(state, { type: "buy", shares: {} }, seat);
+				}
 			}
 			return state;
 		},

@@ -209,6 +209,25 @@ export const it: Catalog = {
 		"Crescere non aumenta sempre il prezzo. Tower a 11 e a 12 tessere resta nell’intervallo 11–20: $700 per azione. Il prossimo aumento è a 21 tessere ($800).\n\nDopo il piazzamento puoi ancora comprare fino a 3 azioni. Gli acquisti possono cambiare chi riceve i premi finali.",
 	"tutorial.mechanics.settlement":
 		"A fine partita ogni catena attiva paga i premi di maggioranza e minoranza, comprese le catene sicure che non possono essere assorbite. Per questo la tabella riporta premi per 41 o più tessere. Poi tutte le azioni delle catene attive vengono vendute ai prezzi correnti; quelle delle catene inattive non valgono nulla.\n\nCon Tower a $700, Alex è primo con 4 azioni: $7.000 di premio + $2.800 di azioni + $6.000 in contanti = $15.800. Bo con 2 azioni riceve il premio di minoranza di $3.500, Cy con 1 nessun premio. Vince chi ha più denaro finale, non più azioni.",
+	"tutorial.founding.3": "Bo e Cy hanno giocato. Piazza 3A per far crescere Tower da 2 a 3 tessere.",
+	"tutorial.founding.4": "Compra un’altra azione Tower per 300 $, poi conferma.",
+	"tutorial.mechanics.firstGrowth":
+		"Ingrandire una catena esistente non dà azioni gratuite. A 3 tessere, il prezzo di Tower sale da 200 $ a 300 $.\n\nAnche le tue vecchie azioni assumono il nuovo valore, ma la crescita non paga subito denaro.",
+	"tutorial.mechanics.buyGrowth":
+		"Hai già 3 azioni Tower. Comprandone un’altra arrivi a 4, con una spesa totale di 700 $.\n\nOgni turno puoi comprare fino a 3 nuove azioni. Puoi anche non comprare nulla e risparmiare.",
+	"tutorial.mergers.3": "Piazza 8F tra Worldwide e Festival. Entrambe hanno 2 tessere.",
+	"tutorial.mergers.4": "Scegli Worldwide come catena superstite.",
+	"tutorial.mergers.5":
+		"Hai ricevuto entrambi i premi Festival. Conserva la tua azione Festival: lascia vendita e scambio a 0, poi conferma.",
+	"tutorial.mergers.6": "Scegli “Non comprare e termina il turno” per concludere la seconda fusione.",
+	"tutorial.mechanics.equalMerger":
+		"Se le catene più grandi hanno la stessa dimensione, il giocatore che piazza la tessera di collegamento sceglie la superstite. Il numero di azioni non risolve la parità.\n\nQui entrambe hanno 2 tessere. Possiedi l’unica azione Festival fuori dalla banca.",
+	"tutorial.mechanics.survivorChoice":
+		"Scegliendo Worldwide, Festival viene assorbita. Festival è nella fascia di prezzo intermedia: a 2 tessere ogni azione vale 300 $.\n\nEssendo l’unico azionista, riceverai entrambi i premi: 3.000 $ + 1.500 $ = 4.500 $. Worldwide non paga premi di fusione.",
+	"tutorial.mechanics.keepShares":
+		"Conservare azioni non costa nulla. Festival lascia il tabellone, ma mantieni l’azione e il premio di 4.500 $.\n\nL’azione può tornare utile se Festival viene rifondata. Se resta inattiva alla fine, non vale nulla; nei turni normali non puoi venderla.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide ha ora 5 tessere, inclusa quella di collegamento: le sue azioni costano 600 $.\n\nPremi e vendite usavano il vecchio prezzo di Festival; i nuovi acquisti usano il nuovo prezzo di Worldwide. Dopo una fusione puoi comprare fino a 3 azioni di catene attive.",
 	"tutorial.label": "Tutorial",
 	"tutorial.complete": "Capitolo completato",
 	"tutorial.previous": "Passo precedente",
@@ -222,7 +241,7 @@ export const it: Catalog = {
 	"tutorial.founding.2":
 		"Compra 2 azioni Tower con + e conferma. Puoi comprare fino a 3 azioni per turno; qui ciascuna costa $200.",
 	"tutorial.founding.done":
-		"Hai 3 azioni Tower e hai speso $400. Un turno: posa una tessera, risolvi gli effetti, compra fino a 3 azioni e pesca una tessera.",
+		"Hai 4 azioni Tower e hai speso 700 $: una gratuita come fondatore, due da 200 $ e una da 300 $. La crescita aumenta i prezzi alle soglie indicate nella tabella.",
 	"tutorial.mergers.title": "Risolvi una fusione",
 	"tutorial.mergers.0":
 		"Posa 4A tra Tower (3 tessere) e Luxor (2). Sopravvive la catena più grande; il numero di azioni non decide il vincitore.",

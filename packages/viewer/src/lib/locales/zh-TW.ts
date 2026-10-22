@@ -179,6 +179,24 @@ export const zhTW: Catalog = {
 		"擴張不一定漲價。Tower在11塊與12塊時都屬於11–20區間，每股$700。下次漲價要到21塊（$800）。\n\n放置後仍可照常購買至多3股。這些購買可能改變最終獎勵的歸屬。",
 	"tutorial.mechanics.settlement":
 		"遊戲結束時，每個活躍連鎖都發放多數與少數獎勵，包括無法被吞併的安全連鎖。因此價格表也列出41塊以上連鎖的獎勵。之後按當前股價出售所有活躍連鎖的股票；不活躍連鎖的股票沒有價值。\n\nTower每股$700時，持4股的Alex領先：獎勵$7,000 + 股票$2,800 + 現金$6,000 = $15,800。Bo持2股獲少數獎勵$3,500；Cy持1股無獎勵。勝負看最終現金，而非持股數量。",
+	"tutorial.founding.3": "Bo 和 Cy 已完成回合。放置 3A，讓 Tower 從 2 格擴展到 3 格。",
+	"tutorial.founding.4": "再以 $300 購買 1 股 Tower，然後確認。",
+	"tutorial.mechanics.firstGrowth":
+		"擴張既有連鎖不會獲得免費股票。達到 3 格時，Tower 的股價從 $200 漲至 $300。\n\n你原有的股票也按新價格計值，但擴張不會立即支付現金。",
+	"tutorial.mechanics.buyGrowth":
+		"你已有 3 股 Tower。再買 1 股後共有 4 股，總支出為 $700。\n\n每個回合都可以新購最多 3 股。你也可以不買，保留現金。",
+	"tutorial.mergers.3": "在 Worldwide 和 Festival 之間放置 8F。兩者都占 2 格。",
+	"tutorial.mergers.4": "選擇 Worldwide 作為存續連鎖。",
+	"tutorial.mergers.5": "你已獲得 Festival 的兩項獎金。保留 Festival 股票：將出售與交換保持為 0，然後確認。",
+	"tutorial.mergers.6": "選擇「不購買並結束回合」，完成第二次合併。",
+	"tutorial.mechanics.equalMerger":
+		"當最大的連鎖規模相同時，由放置連接方塊的玩家選擇存續連鎖。持股數量不能打破平手。\n\n這裡兩家都占 2 格。銀行以外唯一的 Festival 股票在你手中。",
+	"tutorial.mechanics.survivorChoice":
+		"選擇 Worldwide 後，Festival 將被吸收。Festival 屬於中階價格層級，占 2 格時每股值 $300。\n\n作為唯一股東，你將獲得兩項獎金：$3,000 + $1,500 = $4,500。Worldwide 不支付合併獎金。",
+	"tutorial.mechanics.keepShares":
+		"保留股票無須付費。Festival 離開棋盤，但你仍保留股票和 $4,500 獎金。\n\n如果 Festival 重新創立，股票就可能再次有用。若遊戲結束時仍未營業，股票就毫無價值；一般回合不能出售它。",
+	"tutorial.mechanics.afterTie":
+		"Worldwide 現在共有 5 格，包含連接方塊，因此股價為 $600。\n\n獎金與售股使用 Festival 的舊股價；新購買使用 Worldwide 的新股價。合併後，你仍可購買營業中連鎖的股票，合計最多 3 股。",
 	"tutorial.label": "教學",
 	"tutorial.complete": "章節完成",
 	"tutorial.previous": "上一步",
@@ -190,7 +208,7 @@ export const zhTW: Catalog = {
 	"tutorial.founding.1": "選擇 Tower。若銀行還有股票，創辦者可免費取得一股。",
 	"tutorial.founding.2": "用 + 按鈕購買 2 股 Tower，然後確認。每回合最多可買 3 股；此處每股 $200。",
 	"tutorial.founding.done":
-		"你花了 $400，持有 3 股 Tower。回合順序：放置板塊、處理效果、購買最多 3 股股票，然後抽一塊板塊。",
+		"你擁有 4 股 Tower，總共花費 $700：創立獎勵的 1 股免費、2 股各 $200，以及 1 股 $300。連鎖擴張達到價格表中的門檻時，股價就會上漲。",
 	"tutorial.mergers.title": "處理合併",
 	"tutorial.mergers.0": "將 4A 放在 Tower（3 塊）與 Luxor（2 塊）之間。較大的連鎖飯店存續，不是由股票數量決定。",
 	"tutorial.mergers.1": "你的 3 股 Luxor 帶來 $2,000 的最大股東獎金。賣出 1 股，再用 2 股交換 1 股 Tower，然後確認。",

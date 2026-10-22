@@ -1,12 +1,12 @@
 # Acquire private beta — 22 October 2026
 
-Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.9`.
+Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.10`.
 Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 
 ## Validation
 
 - `pnpm check`: formatting, lint, TypeScript/Svelte checks, 198 engine tests,
-  53 viewer/tutorial tests, and the production build. Two pre-existing lint warnings
+  56 viewer/tutorial tests, and the production build. Two pre-existing lint warnings
   remain (an unused test import and Svelte's `bind:this` assignment).
 - Protocol diagnostics: all eight required engine methods; full core/chat/replay
   viewer coverage, preferences, avatars and theme handlers. Protocol `0.10.0` is the
@@ -15,7 +15,7 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
   of locale and viewport (1280, 844, 390 and 320 pixels), Persian RTL, chain letters,
   chat permissions/sending, analysis chat suppression, every six-player
   and four-hands seat plus spectators, replay/live navigation and real tile moves.
-- All three tutorials run through normal controls on desktop and phone. Checks
+- Tutorials now have 5 founding, 7 merger and 3 scoring steps. They run through normal controls on desktop and phone. Checks
   cover saved progress, reload, step retry, rejected unrelated actions, French and
   Persian resume, the final $15,800 scoring example, reference controls after
   completion, and returning to an earlier step. The price and bonus explanations
@@ -63,15 +63,28 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
   within the buying lesson. Keep references usable after chapter completion;
   only game moves are disabled.
 
+- Add audible tile, founding, merger, share transaction and endgame cues, with layered
+  Web Audio tones. Honor BGS’s global sound preference, and stay silent during initial
+  load, replay, analysis, duplicate state updates and multi-move catch-up.
+- Expand founding with a second turn showing Tower’s price rise from $200 to $300.
+  Add a second merger with an equal-size choice and a sole shareholder’s $4,500 payout.
+  Both expanded chapters use tutorial version 2; scoring retains version 1.
+- Finished-game analysis uses BGS’s default replay/move/view adapters. A local audit
+  checked 12 historical move boundaries across 2/4/6 players and four hands, playing
+  up to 20 hypothetical moves at each without changing the source.
+
 ## Still required before a public release
 
 - Translate the English CMS rules, description, credits and BGS setup/preference
   labels, including the tutorial launcher cards. The in-game UI, journal and
   tutorial content are translated; the engine's plain `simple` last-move summaries
   used by the BGS game list remain English. Do not use automated translation APIs.
-- Implement and test playable historical analysis. The engine supports replay,
-  but has no `createAnalysis`, `analysisMove` or hidden-information scenario
-  implementation. Do not enable ongoing-game analysis.
+- Test finished-game analysis end to end on BGS, including non-move log positions
+  (the current replay rejects those) and dropped-player automation. Historical
+  analysis at valid move boundaries works through BGS’s default adapters without
+  custom `createAnalysis` / `analysisMove` hooks.
+- Implement hidden-information scenarios before enabling ongoing-game analysis.
+  Opponent hands and future draws must be simulated, never copied from the live game.
 - Human playtesting of the private beta, including two-player bank mode, four
   hands, team play, long games and translation quality. Automated coverage is not
   a claim of a complete human rules review.

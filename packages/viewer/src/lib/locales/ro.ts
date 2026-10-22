@@ -208,6 +208,25 @@ export const ro: Catalog = {
 		"Creșterea nu mărește mereu prețul. Tower la 11 și la 12 plăcuțe rămâne în intervalul 11–20: $700 pe acțiune. Următoarea creștere este la 21 ($800).\n\nDupă plasare poți cumpăra în continuare cel mult 3 acțiuni. Achizițiile pot schimba beneficiarii bonusurilor finale.",
 	"tutorial.mechanics.settlement":
 		"La sfârșitul jocului, fiecare lanț activ plătește bonusurile majoritar și minoritar, inclusiv lanțurile sigure care nu pot fi absorbite. De aceea tabelul indică bonusuri pentru 41 sau mai multe plăcuțe. Apoi toate acțiunile lanțurilor active sunt vândute la prețurile curente; acțiunile lanțurilor inactive nu valorează nimic.\n\nLa Tower cu prețul $700, Alex conduce cu 4 acțiuni: $7.000 bonus + $2.800 acțiuni + $6.000 numerar = $15.800. Bo cu 2 acțiuni primește bonusul minoritar de $3.500; Cy cu 1 nu primește bonus. Câștigă cel cu cei mai mulți bani finali, nu cu cele mai multe acțiuni.",
+	"tutorial.founding.3": "Bo și Cy și-au jucat turele. Plasează 3A pentru a mări Tower de la 2 la 3 plăcuțe.",
+	"tutorial.founding.4": "Cumpără încă 1 acțiune Tower pentru 300 $ și confirmă.",
+	"tutorial.mechanics.firstGrowth":
+		"Extinderea unui lanț existent nu oferă o acțiune gratuită. La 3 plăcuțe, prețul Tower crește de la 200 $ la 300 $.\n\nȘi acțiunile tale anterioare folosesc noul preț, dar creșterea nu plătește bani imediat.",
+	"tutorial.mechanics.buyGrowth":
+		"Ai deja 3 acțiuni Tower. Încă una te aduce la 4, cu 700 $ cheltuiți în total.\n\nFiecare tură permite până la 3 achiziții noi. Poți și să nu cumperi nimic, păstrând banii.",
+	"tutorial.mergers.3": "Plasează 8F între Worldwide și Festival. Ambele au 2 plăcuțe.",
+	"tutorial.mergers.4": "Alege Worldwide ca lanț supraviețuitor.",
+	"tutorial.mergers.5":
+		"Ai primit ambele bonusuri Festival. Păstrează acțiunea Festival: lasă vânzarea și schimbul la 0, apoi confirmă.",
+	"tutorial.mergers.6": "Alege „Nu cumpăra și încheie tura” pentru a termina a doua fuziune.",
+	"tutorial.mechanics.equalMerger":
+		"Când cele mai mari lanțuri au aceeași mărime, jucătorul care plasează plăcuța de legătură alege supraviețuitorul. Numărul de acțiuni nu departajează.\n\nAici ambele au 2 plăcuțe. Deții singura acțiune Festival aflată în afara băncii.",
+	"tutorial.mechanics.survivorChoice":
+		"Alegând Worldwide, Festival este absorbit. Festival este în categoria medie de preț: la 2 plăcuțe, o acțiune valorează 300 $.\n\nCa unic acționar, vei primi ambele bonusuri: 3.000 $ + 1.500 $ = 4.500 $. Worldwide nu plătește bonus de fuziune.",
+	"tutorial.mechanics.keepShares":
+		"Păstrarea acțiunilor nu costă nimic. Festival dispare de pe tablă, dar păstrezi acțiunea și bonusul de 4.500 $.\n\nAcțiunea poate fi utilă dacă Festival este fondat din nou. Dacă rămâne inactiv la final, nu valorează nimic; nu o poți vinde în ture obișnuite.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide are acum 5 plăcuțe, inclusiv cea de legătură, deci acțiunile costă 600 $.\n\nBonusurile și vânzările au folosit vechiul preț Festival; noile cumpărări folosesc noul preț Worldwide. După fuziune poți cumpăra până la 3 acțiuni din lanțuri active.",
 	"tutorial.label": "Tutorial",
 	"tutorial.complete": "Capitol încheiat",
 	"tutorial.previous": "Pasul anterior",
@@ -221,7 +240,7 @@ export const ro: Catalog = {
 	"tutorial.founding.2":
 		"Cumpără 2 acțiuni Tower cu butonul + și confirmă. Poți cumpăra până la 3 acțiuni pe tură; aici fiecare costă $200.",
 	"tutorial.founding.done":
-		"Ai 3 acțiuni Tower și ai cheltuit $400. O tură: așezi o plăcuță, rezolvi efectele, cumperi până la 3 acțiuni, apoi tragi o plăcuță.",
+		"Ai 4 acțiuni Tower și ai cheltuit 700 $: una gratuită ca fondator, două la 200 $ și una la 300 $. Creșterea mărește prețul la pragurile din tabel.",
 	"tutorial.mergers.title": "Rezolvă o fuziune",
 	"tutorial.mergers.0":
 		"Așază 4A între Tower (3 plăcuțe) și Luxor (2). Lanțul mai mare supraviețuiește; numărul de acțiuni nu decide câștigătorul.",

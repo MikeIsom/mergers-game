@@ -186,6 +186,25 @@ export const da: Catalog = {
 		"Vækst hæver ikke altid prisen. Tower med 11 og 12 brikker ligger i samme interval 11–20: $700 pr. aktie. Næste stigning er ved 21 brikker ($800).\n\nEfter placeringen må du stadig købe op til 3 aktier. Det kan ændre, hvem der får slutbonusserne.",
 	"tutorial.mechanics.settlement":
 		"Ved spillets slutning betaler hver aktiv kæde majoritets- og minoritetsbonus, også sikre kæder, der ikke kan overtages. Derfor viser tabellen bonusser for 41 eller flere brikker. Derefter sælges alle aktier i aktive kæder til de aktuelle kurser; aktier i inaktive kæder er værdiløse.\n\nVed Towers pris på $700 fører Alex med 4 aktier: $7.000 bonus + $2.800 aktier + $6.000 kontant = $15.800. Bo får minoritetsbonussen på $3.500 med 2 aktier; Cy får ingen med 1. Slutbeløbet afgør vinderen, ikke antallet af aktier.",
+	"tutorial.founding.3": "Bo og Cy har haft deres ture. Læg 3A for at udvide Tower fra 2 til 3 brikker.",
+	"tutorial.founding.4": "Køb 1 Tower-aktie mere for $300, og bekræft.",
+	"tutorial.mechanics.firstGrowth":
+		"Udvidelse af en eksisterende kæde giver ingen gratis aktie. Ved 3 brikker stiger Towers pris fra $200 til $300.\n\nDine tidligere aktier får også den nye værdi, men vækst giver ikke straks kontanter.",
+	"tutorial.mechanics.buyGrowth":
+		"Du ejer allerede 3 Tower-aktier. Én mere giver dig 4 for i alt $700 brugt.\n\nHver tur må du købe op til 3 nye aktier. Du kan også købe ingenting og spare pengene.",
+	"tutorial.mergers.3": "Læg 8F mellem Worldwide og Festival. Begge har 2 brikker.",
+	"tutorial.mergers.4": "Vælg Worldwide som den overlevende kæde.",
+	"tutorial.mergers.5":
+		"Du fik begge Festival-bonusser. Behold din Festival-aktie: Lad salg og bytte stå på 0, og bekræft.",
+	"tutorial.mergers.6": "Vælg “Køb intet og afslut turen” for at afslutte den anden fusion.",
+	"tutorial.mechanics.equalMerger":
+		"Når de største kæder er lige store, vælger spilleren, der lægger den forbindende brik, den overlevende kæde. Antallet af aktier afgør ikke ligheden.\n\nHer har begge kæder 2 brikker. Du ejer den eneste Festival-aktie uden for banken.",
+	"tutorial.mechanics.survivorChoice":
+		"Vælger du Worldwide, bliver Festival overtaget. Festivals mellemste prisniveau giver en aktiepris på $300 ved 2 brikker.\n\nSom eneste aktionær får du begge bonusser: $3.000 + $1.500 = $4.500. Worldwide udbetaler ingen fusionsbonus.",
+	"tutorial.mechanics.keepShares":
+		"Det koster intet at beholde aktier. Festival forlader brættet, men du beholder aktien og bonussen på $4.500.\n\nAktien kan bruges, hvis Festival grundlægges igen. Er kæden stadig inaktiv til sidst, er den værdiløs; du kan ikke sælge den på en almindelig tur.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide har nu 5 brikker inklusive den forbindende brik, så aktierne koster $600.\n\nBonusser og salg brugte Festivals gamle pris; nye køb bruger Worldwides nye pris. Efter en fusion må du købe op til 3 aktier i aktive kæder.",
 	"tutorial.label": "Introduktion",
 	"tutorial.complete": "Kapitel gennemført",
 	"tutorial.previous": "Forrige trin",
@@ -199,7 +218,7 @@ export const da: Catalog = {
 	"tutorial.founding.2":
 		"Køb 2 Tower-aktier med +, og bekræft. Du må købe op til 3 aktier pr. tur; her koster hver $200.",
 	"tutorial.founding.done":
-		"Du har 3 Tower-aktier og har brugt $400. En tur: læg en brik, afvikl virkningerne, køb op til 3 aktier, og træk en brik.",
+		"Du ejer 4 Tower-aktier og har brugt $700: én gratis stifteraktie, to til $200 og én til $300. Vækst hæver aktieprisen ved grænserne i pristabellen.",
 	"tutorial.mergers.title": "Afvikl en fusion",
 	"tutorial.mergers.0":
 		"Læg 4A mellem Tower (3 brikker) og Luxor (2). Den største kæde overlever; antallet af aktier afgør det ikke.",

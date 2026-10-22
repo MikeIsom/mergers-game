@@ -186,6 +186,25 @@ export const nl: Catalog = {
 		"Groei verhoogt niet altijd de prijs. Tower met 11 en met 12 tegels valt in dezelfde groep 11–20: $700 per aandeel. Pas bij 21 tegels wordt dat $800.\n\nNa het plaatsen mag je nog maximaal 3 aandelen kopen. Daarmee kunnen de ontvangers van de eindbonussen veranderen.",
 	"tutorial.mechanics.settlement":
 		"Aan het einde van het spel betaalt elke actieve keten meerderheids- en minderheidsbonussen, ook veilige ketens die niet overgenomen kunnen worden. Daarom vermeldt de tabel ook bonussen voor 41 of meer tegels. Daarna worden alle aandelen in actieve ketens tegen de huidige prijzen verkocht; aandelen in inactieve ketens zijn waardeloos.\n\nBij Tower voor $700 leidt Alex met 4 aandelen: $7.000 bonus + $2.800 aandelen + $6.000 geld = $15.800. Bo krijgt met 2 aandelen de minderheidsbonus van $3.500; Cy met 1 geen bonus. Het eindbedrag bepaalt de winnaar, niet het aantal aandelen.",
+	"tutorial.founding.3": "Bo en Cy hebben hun beurt gehad. Leg 3A om Tower van 2 naar 3 tegels te laten groeien.",
+	"tutorial.founding.4": "Koop nog 1 Tower-aandeel voor $300 en bevestig.",
+	"tutorial.mechanics.firstGrowth":
+		"Een bestaande keten uitbreiden levert geen gratis aandeel op. Bij 3 tegels stijgt Towers koers van $200 naar $300.\n\nOok je eerdere aandelen krijgen de nieuwe waarde, maar groei levert niet meteen contant geld op.",
+	"tutorial.mechanics.buyGrowth":
+		"Je hebt al 3 Tower-aandelen. Met één extra heb je er 4 en heb je in totaal $700 uitgegeven.\n\nElke beurt mag je maximaal 3 nieuwe aandelen kopen. Je kunt ook niets kopen en geld bewaren.",
+	"tutorial.mergers.3": "Leg 8F tussen Worldwide en Festival. Beide hebben 2 tegels.",
+	"tutorial.mergers.4": "Kies Worldwide als overlevende keten.",
+	"tutorial.mergers.5":
+		"Je hebt beide Festival-bonussen ontvangen. Houd je Festival-aandeel: laat verkopen en ruilen op 0 staan en bevestig.",
+	"tutorial.mergers.6": "Kies “Niets kopen en beurt beëindigen” om de tweede fusie af te ronden.",
+	"tutorial.mechanics.equalMerger":
+		"Als de grootste ketens even groot zijn, kiest de speler die de verbindende tegel legt welke overleeft. Het aantal aandelen beslist niet.\n\nHier hebben beide ketens 2 tegels. Jij bezit het enige Festival-aandeel buiten de bank.",
+	"tutorial.mechanics.survivorChoice":
+		"Als je Worldwide kiest, wordt Festival overgenomen. Festival valt in de middelste prijsklasse: bij 2 tegels kost een aandeel $300.\n\nAls enige aandeelhouder krijg je beide bonussen: $3.000 + $1.500 = $4.500. Worldwide betaalt geen fusiebonus.",
+	"tutorial.mechanics.keepShares":
+		"Aandelen houden kost niets. Festival verdwijnt van het bord, maar je houdt het aandeel en de bonus van $4.500.\n\nHet aandeel kan nuttig worden als Festival opnieuw wordt opgericht. Is de keten aan het einde nog inactief, dan is het waardeloos; tijdens gewone beurten kun je het niet verkopen.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide heeft nu 5 tegels, inclusief de verbindende tegel. De aandelen kosten dus $600.\n\nBonussen en verkopen gebruikten Festivals oude koers; nieuwe aankopen gebruiken Worldwides nieuwe koers. Na een fusie mag je maximaal 3 aandelen van actieve ketens kopen.",
 	"tutorial.label": "Handleiding",
 	"tutorial.complete": "Hoofdstuk voltooid",
 	"tutorial.previous": "Vorige stap",
@@ -199,7 +218,7 @@ export const nl: Catalog = {
 	"tutorial.founding.2":
 		"Koop met + 2 Tower-aandelen en bevestig. Je mag maximaal 3 aandelen per beurt kopen; hier kost elk aandeel $200.",
 	"tutorial.founding.done":
-		"Je hebt 3 Tower-aandelen en hebt $400 uitgegeven. Een beurt: leg een tegel, handel de gevolgen af, koop maximaal 3 aandelen en trek een tegel.",
+		"Je bezit 4 Tower-aandelen en hebt $700 uitgegeven: één gratis oprichtersaandeel, twee van $200 en één van $300. Groei verhoogt de koers bij de grenzen in de prijstabel.",
 	"tutorial.mergers.title": "Handel een fusie af",
 	"tutorial.mergers.0":
 		"Leg 4A tussen Tower (3 tegels) en Luxor (2). De grotere keten blijft bestaan; het aantal aandelen bepaalt dat niet.",

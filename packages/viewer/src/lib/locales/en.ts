@@ -201,6 +201,25 @@ export const en = {
 		"Growing does not always raise the price. Tower at 11 and 12 tiles is in the same 11–20 band: $700 per share. Its next rise is at 21 tiles ($800).\n\nAfter placing, you still have the usual chance to buy up to 3 shares. Those purchases can change who receives the final bonuses.",
 	"tutorial.mechanics.settlement":
 		"At the end of the game, every active chain pays majority and minority bonuses, including safe chains that cannot be absorbed. This is why the table lists bonuses for 41+ tiles. Then sell all shares in active chains at their current prices; inactive shares are worth nothing.\n\nAt Tower’s $700 price, Alex’s 4 shares lead: $7,000 bonus + $2,800 stock + $6,000 cash = $15,800. Bo’s 2 shares earn the $3,500 minority bonus; Cy’s 1 earns no bonus. Winning depends on final cash, not the number of shares.",
+	"tutorial.founding.3": "Bo and Cy have taken their turns. Place 3A to grow Tower from 2 to 3 tiles.",
+	"tutorial.founding.4": "Buy 1 more Tower share for $300, then confirm.",
+	"tutorial.mechanics.firstGrowth":
+		"Growing an existing chain gives no free share. At 3 tiles, Tower’s price rises from $200 to $300.\n\nYour earlier shares use the new price too, but growth does not pay cash immediately.",
+	"tutorial.mechanics.buyGrowth":
+		"You already own 3 Tower shares. Buying one more brings you to 4, for $700 spent in total.\n\nEach turn allows up to 3 new purchases. You may also buy nothing and save your cash.",
+	"tutorial.mergers.3": "Place 8F between Worldwide and Festival. Both have 2 tiles.",
+	"tutorial.mergers.4": "Choose Worldwide as the surviving chain.",
+	"tutorial.mergers.5":
+		"You received both Festival bonuses. Keep your Festival share: leave sell and trade at 0, then confirm.",
+	"tutorial.mergers.6": "Choose “Buy nothing and end turn” to finish the second merger.",
+	"tutorial.mechanics.equalMerger":
+		"When the largest chains tie in size, the player placing the connecting tile chooses the survivor. Share counts do not break the tie.\n\nHere both chains have 2 tiles. You own Festival’s only share.",
+	"tutorial.mechanics.survivorChoice":
+		"Choosing Worldwide absorbs Festival. At 2 tiles, Festival’s middle price tier makes each share worth $300.\n\nAs its sole shareholder, you will receive both bonuses: $3,000 + $1,500 = $4,500. Worldwide pays no merger bonus.",
+	"tutorial.mechanics.keepShares":
+		"Keeping shares costs nothing. Festival leaves the board, but you keep its share and the $4,500 bonus.\n\nThe share matters if Festival is founded again. If still inactive at the end, it is worthless; ordinary turns do not allow selling it.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide now has 5 tiles, including the connecting tile, so its shares cost $600.\n\nBonuses and sales used Festival’s old price; new purchases use Worldwide’s new price. After a merger, you may buy up to 3 shares across active chains.",
 	"tutorial.label": "Tutorial",
 	"tutorial.complete": "Chapter complete",
 	"tutorial.previous": "Previous step",
@@ -214,7 +233,7 @@ export const en = {
 	"tutorial.founding.2":
 		"Buy 2 Tower shares with the + button, then confirm. You can buy up to 3 shares per turn; here each costs $200.",
 	"tutorial.founding.done":
-		"You own 3 Tower shares and spent $400. A turn is: place a tile, resolve its effects, buy up to 3 shares, then draw a tile.",
+		"You own 4 Tower shares and spent $700: one free founder’s share, two at $200, and one at $300. Growing a chain raises share prices at the thresholds in the price table.",
 	"tutorial.mergers.title": "Resolve a merger",
 	"tutorial.mergers.0":
 		"Place 4A between Tower (3 tiles) and Luxor (2). The larger chain survives; its share count does not decide the winner.",

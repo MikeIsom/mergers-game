@@ -180,6 +180,25 @@ export const vi: Catalog = {
 		"Lớn lên không phải lúc nào cũng tăng giá. Tower ở 11 và 12 ô đều trong khoảng 11–20: $700 mỗi cổ phiếu. Lần tăng tiếp theo là ở 21 ô ($800).\n\nSau khi đặt, bạn vẫn được mua tối đa 3 cổ phiếu như thường lệ. Việc mua có thể thay đổi người nhận thưởng cuối game.",
 	"tutorial.mechanics.settlement":
 		"Cuối game, mọi chuỗi đang hoạt động đều trả thưởng đa số và thiểu số, kể cả chuỗi an toàn không thể bị thâu tóm. Vì vậy bảng giá có thưởng cho chuỗi từ 41 ô trở lên. Sau đó mọi cổ phiếu của chuỗi đang hoạt động được bán theo giá hiện tại; cổ phiếu của chuỗi không hoạt động không có giá trị.\n\nVới Tower giá $700, Alex dẫn đầu với 4 cổ phiếu: $7.000 thưởng + $2.800 cổ phiếu + $6.000 tiền mặt = $15.800. Bo có 2 nhận thưởng thiểu số $3.500; Cy có 1 không có thưởng. Người thắng có nhiều tiền cuối game nhất, không phải nhiều cổ phiếu nhất.",
+	"tutorial.founding.3": "Bo và Cy đã chơi lượt của họ. Đặt 3A để Tower tăng từ 2 lên 3 ô.",
+	"tutorial.founding.4": "Mua thêm 1 cổ phiếu Tower với giá $300 rồi xác nhận.",
+	"tutorial.mechanics.firstGrowth":
+		"Mở rộng chuỗi hiện có không cho cổ phiếu miễn phí. Khi đạt 3 ô, giá Tower tăng từ $200 lên $300.\n\nCổ phiếu bạn đã có cũng theo giá mới, nhưng việc mở rộng không trả tiền mặt ngay.",
+	"tutorial.mechanics.buyGrowth":
+		"Bạn đã có 3 cổ phiếu Tower. Mua thêm một sẽ thành 4, với tổng chi phí $700.\n\nMỗi lượt được mua tối đa 3 cổ phiếu mới. Bạn cũng có thể không mua gì để giữ tiền.",
+	"tutorial.mergers.3": "Đặt 8F giữa Worldwide và Festival. Cả hai đều có 2 ô.",
+	"tutorial.mergers.4": "Chọn Worldwide làm chuỗi tồn tại.",
+	"tutorial.mergers.5":
+		"Bạn đã nhận cả hai khoản thưởng Festival. Giữ cổ phiếu Festival: để bán và đổi ở 0 rồi xác nhận.",
+	"tutorial.mergers.6": "Chọn “Không mua và kết thúc lượt” để hoàn tất vụ sáp nhập thứ hai.",
+	"tutorial.mechanics.equalMerger":
+		"Khi các chuỗi lớn nhất bằng nhau, người đặt ô nối chọn chuỗi tồn tại. Số cổ phiếu không quyết định kết quả hòa.\n\nỞ đây, mỗi chuỗi có 2 ô. Bạn giữ cổ phiếu Festival duy nhất ngoài ngân hàng.",
+	"tutorial.mechanics.survivorChoice":
+		"Chọn Worldwide sẽ khiến Festival bị thâu tóm. Festival thuộc nhóm giá trung bình: ở 2 ô, mỗi cổ phiếu trị giá $300.\n\nLà cổ đông duy nhất, bạn nhận cả hai khoản thưởng: $3.000 + $1.500 = $4.500. Worldwide không trả thưởng sáp nhập.",
+	"tutorial.mechanics.keepShares":
+		"Giữ cổ phiếu không tốn phí. Festival rời bàn, nhưng bạn vẫn giữ cổ phiếu và khoản thưởng $4.500.\n\nCổ phiếu có thể hữu ích nếu Festival được thành lập lại. Nếu vẫn không hoạt động khi kết thúc, nó vô giá trị; lượt thường không cho phép bán nó.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide nay có 5 ô, tính cả ô nối, nên cổ phiếu có giá $600.\n\nTiền thưởng và bán cổ phiếu dùng giá cũ của Festival; giao dịch mua mới dùng giá mới của Worldwide. Sau sáp nhập, bạn được mua tối đa 3 cổ phiếu thuộc các chuỗi đang hoạt động.",
 	"tutorial.label": "Hướng dẫn",
 	"tutorial.complete": "Hoàn thành chương",
 	"tutorial.previous": "Bước trước",
@@ -193,7 +212,7 @@ export const vi: Catalog = {
 	"tutorial.founding.2":
 		"Dùng nút + để mua 2 cổ phiếu Tower rồi xác nhận. Mỗi lượt được mua tối đa 3 cổ phiếu; ở đây mỗi cổ phiếu giá $200.",
 	"tutorial.founding.done":
-		"Bạn có 3 cổ phiếu Tower và đã chi $400. Một lượt: đặt ô, xử lý hiệu ứng, mua tối đa 3 cổ phiếu rồi rút một ô.",
+		"Bạn có 4 cổ phiếu Tower và đã chi $700: một cổ phiếu sáng lập miễn phí, hai cổ phiếu giá $200 và một giá $300. Chuỗi phát triển sẽ tăng giá cổ phiếu tại các ngưỡng trong bảng giá.",
 	"tutorial.mergers.title": "Xử lý sáp nhập",
 	"tutorial.mergers.0":
 		"Đặt 4A giữa Tower (3 ô) và Luxor (2 ô). Chuỗi lớn hơn tồn tại; số cổ phiếu không quyết định điều này.",

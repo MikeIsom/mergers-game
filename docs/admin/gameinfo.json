@@ -35,7 +35,14 @@
 		},
 		"entryPoint": "dist/wrapper.js"
 	},
-	"preferences": [],
+	"preferences": [
+		{
+			"name": "sound",
+			"label": "Game sounds",
+			"type": "checkbox",
+			"default": true
+		}
+	],
 	"options": [
 		{
 			"name": "publicHoldings",
@@ -94,15 +101,15 @@
 		"chapters": [
 			{
 				"id": "founding",
-				"version": 1,
+				"version": 2,
 				"title": "Found a chain",
-				"description": "Place a tile, found a hotel chain and buy your first shares."
+				"description": "Found and grow a hotel chain, then buy shares before and after its price rises."
 			},
 			{
 				"id": "mergers",
-				"version": 1,
+				"version": 2,
 				"title": "Resolve a merger",
-				"description": "Collect shareholder bonuses, then sell, trade or keep your stock."
+				"description": "Resolve two mergers: compare sizes, choose a tied survivor, collect bonuses, and sell, trade or keep shares."
 			},
 			{
 				"id": "scoring",

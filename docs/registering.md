@@ -102,7 +102,8 @@ source maps in devtools, `acquire-viewer.iife.js.map`, together. Then set:
 - Replayable: on.
 - Full screen on mobile: off. The layout is width-based and works at content height.
 - Tutorials: copy `tutorial` from `docs/admin/gameinfo.json` (founding, mergers and scoring).
-  All three are interactive and translated into the 17 viewer locales.
+  All three are interactive and translated into the 17 viewer locales: 5 founding steps,
+  7 merger steps and 3 scoring steps.
 
 Save, open the game page, create a private game, and play.
 
@@ -145,7 +146,9 @@ BGS's release checklist, and where this repo stands:
 
 - Protocol: core, chat, replay, preferences and avatar handlers are implemented.
 - Replays and analysis: the engine exports `replay`, and the viewer's replay controls rebuild
-  each position from the public log. Analysis of ongoing games stays off.
+  each position from the public log. BGS’s default adapters support finished-game
+  analysis at move boundaries. Ongoing-game analysis stays off until hidden-information
+  scenarios are implemented.
 - Mobile: phone portrait and landscape, tablet and desktop, both themes, 44px touch targets.
 - History: no tentative or revisable moves.
 - Color accessibility: chain letters and player names are always visible; no separate mode is needed.

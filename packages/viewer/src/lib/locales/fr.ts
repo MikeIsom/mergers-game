@@ -204,6 +204,25 @@ export const fr: Catalog = {
 		"Grandir ne fait pas toujours monter le prix. À 11 comme à 12 tuiles, Tower reste dans le palier 11–20 : 700 $ par action. Le prochain palier est à 21 tuiles (800 $).\n\nAprès la pose, vous pouvez encore acheter jusqu’à 3 actions. Ces achats peuvent modifier l’attribution des primes finales.",
 	"tutorial.mechanics.settlement":
 		"À la fin de la partie, chaque chaîne active verse les primes majoritaire et minoritaire, même les chaînes sûres qui ne peuvent pas être absorbées. Voilà pourquoi le tableau indique des primes pour 41 tuiles et plus. Toutes les actions des chaînes actives sont ensuite vendues à leur prix actuel ; celles des chaînes inactives ne valent rien.\n\nÀ 700 $ l’action Tower, Alex est premier avec 4 actions : 7 000 $ de prime + 2 800 $ d’actions + 6 000 $ en espèces = 15 800 $. Bo reçoit la prime minoritaire de 3 500 $ avec 2 actions ; Cy n’a aucune prime avec 1. C’est l’argent final qui détermine la victoire, pas le nombre d’actions.",
+	"tutorial.founding.3": "Bo et Cy ont joué. Posez 3A pour faire passer Tower de 2 à 3 tuiles.",
+	"tutorial.founding.4": "Achetez 1 action Tower supplémentaire pour 300 $, puis confirmez.",
+	"tutorial.mechanics.firstGrowth":
+		"Agrandir une chaîne existante ne donne pas d’action gratuite. À 3 tuiles, le prix de Tower passe de 200 $ à 300 $.\n\nVos anciennes actions valent aussi ce nouveau prix, mais la croissance ne rapporte pas d’argent immédiatement.",
+	"tutorial.mechanics.buyGrowth":
+		"Vous avez déjà 3 actions Tower. En acheter une de plus vous en donne 4, pour 700 $ dépensés au total.\n\nChaque tour autorise jusqu’à 3 nouveaux achats. Vous pouvez aussi ne rien acheter et économiser.",
+	"tutorial.mergers.3": "Posez 8F entre Worldwide et Festival. Les deux ont 2 tuiles.",
+	"tutorial.mergers.4": "Choisissez Worldwide comme chaîne survivante.",
+	"tutorial.mergers.5":
+		"Vous avez reçu les deux primes Festival. Gardez votre action : laissez vente et échange à 0, puis confirmez.",
+	"tutorial.mergers.6": "Choisissez « Ne rien acheter et terminer » pour conclure la deuxième fusion.",
+	"tutorial.mechanics.equalMerger":
+		"Quand les plus grandes chaînes ont la même taille, le joueur qui pose la tuile de liaison choisit la survivante. Le nombre d’actions ne départage pas l’égalité.\n\nIci, chaque chaîne a 2 tuiles. Vous possédez la seule action Festival en circulation.",
+	"tutorial.mechanics.survivorChoice":
+		"Choisir Worldwide entraîne l’absorption de Festival. À 2 tuiles, son niveau de prix intermédiaire donne une valeur de 300 $ à chaque action.\n\nComme unique actionnaire, vous recevrez les deux primes : 3 000 $ + 1 500 $ = 4 500 $. Worldwide ne verse aucune prime de fusion.",
+	"tutorial.mechanics.keepShares":
+		"Garder des actions ne coûte rien. Festival quitte le plateau, mais vous gardez son action et la prime de 4 500 $.\n\nL’action peut servir si Festival est refondée. Si la chaîne reste inactive à la fin, elle ne vaut rien ; un tour ordinaire ne permet pas de la vendre.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide a maintenant 5 tuiles, dont la tuile de liaison : ses actions coûtent 600 $.\n\nPrimes et ventes utilisaient l’ancien prix de Festival ; les nouveaux achats utilisent le nouveau prix de Worldwide. Après une fusion, vous pouvez acheter jusqu’à 3 actions de chaînes actives.",
 	"tutorial.label": "Tutoriel",
 	"tutorial.complete": "Chapitre terminé",
 	"tutorial.previous": "Étape précédente",
@@ -217,7 +236,7 @@ export const fr: Catalog = {
 	"tutorial.founding.2":
 		"Achetez 2 actions Tower avec le bouton +, puis confirmez. Vous pouvez acheter jusqu’à 3 actions par tour ; ici, chacune coûte 200 $.",
 	"tutorial.founding.done":
-		"Vous avez 3 actions Tower et avez dépensé 400 $. À chaque tour : posez une tuile, résolvez ses effets, achetez jusqu’à 3 actions, puis piochez une tuile.",
+		"Vous avez 4 actions Tower et avez dépensé 700 $ : une action de fondateur gratuite, deux à 200 $ et une à 300 $. La croissance augmente le prix des actions aux seuils du tableau.",
 	"tutorial.mergers.title": "Résoudre une fusion",
 	"tutorial.mergers.0":
 		"Placez 4A entre Tower (3 tuiles) et Luxor (2). La plus grande chaîne survit ; le nombre d’actions ne détermine pas le vainqueur.",

@@ -63,6 +63,29 @@ try {
 	browser = await chromium.launch({ headless: true });
 	const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, hasTouch: true });
 	page.on("pageerror", (error) => errors.push(error.message));
+	await page.addInitScript(() => {
+		const NativeAudioContext = window.AudioContext;
+		window.acquireAudioProbe = { starts: 0, closes: 0, contexts: 0 };
+		window.AudioContext = class extends NativeAudioContext {
+			constructor(...args) {
+				super(...args);
+				window.acquireAudioProbe.contexts++;
+			}
+			createOscillator() {
+				const node = super.createOscillator();
+				const start = node.start.bind(node);
+				node.start = (...args) => {
+					window.acquireAudioProbe.starts++;
+					start(...args);
+				};
+				return node;
+			}
+			close() {
+				window.acquireAudioProbe.closes++;
+				return super.close();
+			}
+		};
+	});
 	const settle = async () =>
 		page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
 	const open = async (params = "") => {
@@ -296,6 +319,46 @@ try {
 	assert.equal(await page.locator(".chat").count(), 1);
 	report.scenarios.push("chat send acknowledgement, localized permissions, live language change, analysis hides chat");
 
+	await open("players=4&theme=light");
+	assert.deepEqual(await page.evaluate(() => window.acquireAudioProbe), { starts: 0, closes: 0, contexts: 0 });
+	await preferences({ locale: "en", sound: false });
+	await page.locator("section.hand button").first().click();
+	assert.equal(await page.evaluate(() => window.acquireAudioProbe.contexts), 0, "mute does not even open audio");
+	await preferences({ locale: "en", sound: true });
+	await page.locator("section.hand button").first().click();
+	await page.locator(".square.playable").first().click();
+	await page.waitForFunction(() => window.acquireAudioProbe.starts > 0);
+	const audible = await page.evaluate(() => window.acquireAudioProbe.starts);
+	const soundState = await page.evaluate(() => {
+		const dev = window.acquireDev;
+		const state = dev.engine.stripSecret(structuredClone(dev.state), dev.engine.currentPlayer(dev.state));
+		dev.emitter.emit("state", state);
+		return state;
+	});
+	assert.equal(await page.evaluate(() => window.acquireAudioProbe.starts), audible, "duplicate state stays quiet");
+	// Feed one new public action through the protocol while muted, replaying, or analysing.
+	for (const mode of ["muted", "replay", "analysis"]) {
+		await preferences({ locale: "en", sound: mode !== "muted", analysis: mode === "analysis" });
+		if (mode === "replay") {
+			await page.evaluate(() => window.acquireDev.emitter.emit("replay:start"));
+		}
+		await page.evaluate((state) => window.acquireDev.emitter.emit("state", state), soundState);
+		await page.evaluate((state) => {
+			state.log.push({ type: "move", seat: 0, move: { type: "place", tile: "12I" } });
+			window.acquireDev.emitter.emit("state", state);
+		}, soundState);
+		await settle();
+		assert.equal(await page.evaluate(() => window.acquireAudioProbe.starts), audible, `${mode} stays quiet`);
+		if (mode === "replay") {
+			await page.evaluate(() => window.acquireDev.emitter.emit("replay:end"));
+		}
+	}
+	await page.evaluate(() => window.acquire.destroy());
+	assert.equal(await page.evaluate(() => window.acquireAudioProbe.closes), 1, "viewer teardown closes audio");
+	report.scenarios.push(
+		"real Web Audio cues after interaction, silent initial load/duplicates, live mute, replay/analysis suppression and teardown"
+	);
+
 	for (const mode of ["players=6", "players=2&twoPlayerMode=fourHands"]) {
 		await open(`${mode}&moves=35&hotseat=0&view=0`);
 		const count = mode.startsWith("players=6") ? 6 : 2;
@@ -438,6 +501,26 @@ try {
 				await page.getByRole("button", { name: "Buy one more Tower", exact: true }).click();
 			}
 			await page.locator("main .panel button.primary").click();
+			if (chapter !== "scoring") {
+				await page.waitForSelector('.acquire-tutorial[data-step="3"]');
+				assert.match(await page.locator(".status").innerText(), /Alex/);
+				await place(chapter === "founding" ? "3A" : "8F");
+				await page.waitForSelector('.acquire-tutorial[data-step="4"]');
+				if (chapter === "founding") {
+					assert.match(await page.locator(".guide").innerText(), /\$300/);
+					await page.getByRole("button", { name: "Buy one more Tower", exact: true }).click();
+				} else {
+					await page.locator(".choices button").filter({ hasText: "Festival" }).click();
+					await page.getByRole("alert").waitFor();
+					await page.locator(".choices button").filter({ hasText: "Worldwide" }).click();
+					await page.waitForSelector('.acquire-tutorial[data-step="5"]');
+					assert.match(await page.locator(".guide").innerText(), /\$4,500/);
+					// Default 0/0 keeps the Festival share after both bonuses are paid.
+					await page.locator("main .panel button.primary").click();
+					await page.waitForSelector('.acquire-tutorial[data-step="6"]');
+				}
+				await page.locator("main .panel button.primary").click();
+			}
 			await page.waitForSelector('.acquire-tutorial[data-completed="true"]');
 			// Finishing used to make the entire game inert, including reference controls.
 			assert.equal(await page.locator("main .panel button").count(), 0);
@@ -466,12 +549,13 @@ try {
 			}
 			await page.screenshot({ path: new URL(`tutorial-${chapter}-${width}.png`, output).pathname, fullPage: true });
 			await page.locator(".guide nav button").first().click();
-			await page.waitForSelector('.acquire-tutorial[data-step="2"][data-completed="false"]');
+			const lastStep = { founding: 4, mergers: 6, scoring: 2 }[chapter];
+			await page.waitForSelector(`.acquire-tutorial[data-step="${lastStep}"][data-completed="false"]`);
 			assert.equal(await page.locator("main .panel button.primary").count(), 1, "previous step restores game actions");
 		}
 	}
 	report.scenarios.push(
-		"three tutorials completed through real controls on desktop and phone; reload, retry, rejected move, French/Persian resume, final scoring and usable references after completion"
+		"three tutorials (5/7/3 steps) completed through real controls on desktop and phone; growth pricing, tied survivor, sole shareholder bonuses, reload, retry, rejected move, French/Persian resume and usable references after completion"
 	);
 
 	// The new explanations are longer than action prompts. Exercise the price and bonus lessons
@@ -487,7 +571,10 @@ try {
 					},
 					{ chapter, locale }
 				);
-				await page.locator("section.hand button").click();
+				await page
+					.locator("section.hand")
+					.getByRole("button", { name: chapter === "founding" ? "2A" : "4A", exact: true })
+					.click();
 				await page.locator("main .panel .primary").click();
 				await page.waitForSelector('.acquire-tutorial[data-step="1"]');
 				if (chapter === "founding") {
@@ -501,6 +588,42 @@ try {
 					await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1),
 					`${chapter} ${locale} ${width}px explanation overflow`
 				);
+				if (chapter === "founding") {
+					await page.locator(".guide .toggle").click();
+					const buyMore = page
+						.locator("main .panel .buy tbody tr")
+						.filter({ hasText: "Tower" })
+						.getByRole("button")
+						.last();
+					await buyMore.click();
+					await buyMore.click();
+				} else {
+					await page.locator("main .panel .steppers button").nth(1).click();
+					await page.locator("main .panel .steppers button").nth(3).click();
+				}
+				await page.locator("main .panel .primary").click();
+				if (chapter === "mergers") {
+					await page.locator("main .panel .primary").click();
+				}
+				await page.waitForSelector('.acquire-tutorial[data-step="3"]');
+				await page
+					.locator("section.hand")
+					.getByRole("button", { name: chapter === "founding" ? "3A" : "8F", exact: true })
+					.click();
+				await page.locator("main .panel .primary").click();
+				await page.waitForSelector('.acquire-tutorial[data-step="4"]');
+				assert.ok(
+					await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1),
+					"new explanation fits"
+				);
+				if (chapter === "mergers") {
+					await page.locator(".choices button").filter({ hasText: "Worldwide" }).click();
+					await page.waitForSelector('.acquire-tutorial[data-step="5"]');
+				}
+				assert.ok(
+					await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1),
+					"new bonus lesson fits"
+				);
 				report.tutorialLayouts.push({ width, locale, chapter });
 				if (["en", "fr", "fa"].includes(locale)) {
 					await page.screenshot({
@@ -512,7 +635,7 @@ try {
 		}
 	}
 	report.scenarios.push(
-		"share-price and bonus explanations in all 17 languages at desktop and 320px, with the tutorial price table open"
+		"share-price and bonus explanations plus added growth and tied-merger steps in all 17 languages at desktop and 320px"
 	);
 
 	await page.emulateMedia({ colorScheme: "dark" });

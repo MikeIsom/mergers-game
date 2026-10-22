@@ -186,6 +186,25 @@ export const de: Catalog = {
 		"Wachstum erhöht nicht immer den Preis. Tower liegt mit 11 wie mit 12 Plättchen im Bereich 11–20: $700 je Aktie. Erst bei 21 steigt der Preis auf $800.\n\nNach dem Legen darfst du wie üblich bis zu 3 Aktien kaufen. Das kann die Empfänger der Schlussboni ändern.",
 	"tutorial.mechanics.settlement":
 		"Am Spielende zahlt jede aktive Kette Mehrheits- und Minderheitsprämien, auch sichere Ketten, die nicht übernommen werden können. Deshalb enthält die Tabelle Prämien für 41 oder mehr Plättchen. Danach werden alle Aktien aktiver Ketten zum aktuellen Kurs verkauft; Aktien inaktiver Ketten sind wertlos.\n\nBei $700 für Tower führt Alex mit 4 Aktien: $7.000 Bonus + $2.800 Aktien + $6.000 Bargeld = $15.800. Bo erhält mit 2 Aktien den Minderheitsbonus von $3.500, Cy mit 1 keinen Bonus. Entscheidend ist das Endvermögen, nicht die Aktienzahl.",
+	"tutorial.founding.3": "Bo und Cy haben gespielt. Lege 3A, um Tower von 2 auf 3 Plättchen zu vergrößern.",
+	"tutorial.founding.4": "Kaufe 1 weitere Tower-Aktie für 300 $ und bestätige.",
+	"tutorial.mechanics.firstGrowth":
+		"Beim Vergrößern einer bestehenden Kette gibt es keine kostenlose Aktie. Mit 3 Plättchen steigt Towers Preis von 200 $ auf 300 $.\n\nAuch deine bisherigen Aktien haben den neuen Wert, aber Wachstum zahlt nicht sofort Geld aus.",
+	"tutorial.mechanics.buyGrowth":
+		"Du besitzt bereits 3 Tower-Aktien. Mit einer weiteren hast du 4 und insgesamt 700 $ ausgegeben.\n\nPro Zug darfst du bis zu 3 neue Aktien kaufen. Du kannst auch nichts kaufen und Geld sparen.",
+	"tutorial.mergers.3": "Lege 8F zwischen Worldwide und Festival. Beide haben 2 Plättchen.",
+	"tutorial.mergers.4": "Wähle Worldwide als überlebende Kette.",
+	"tutorial.mergers.5":
+		"Du hast beide Festival-Boni erhalten. Behalte deine Festival-Aktie: Lass Verkauf und Tausch auf 0 und bestätige.",
+	"tutorial.mergers.6": "Wähle „Nichts kaufen und Zug beenden“, um die zweite Fusion abzuschließen.",
+	"tutorial.mechanics.equalMerger":
+		"Sind die größten Ketten gleich groß, wählt die Person, die das verbindende Plättchen legt, die überlebende Kette. Aktienzahlen entscheiden nicht.\n\nHier haben beide Ketten 2 Plättchen. Du besitzt die einzige Festival-Aktie außerhalb der Bank.",
+	"tutorial.mechanics.survivorChoice":
+		"Mit Worldwide als Überlebender wird Festival übernommen. Festival gehört zur mittleren Preisstufe: Bei 2 Plättchen ist eine Aktie 300 $ wert.\n\nAls einziger Aktionär erhältst du beide Boni: 3.000 $ + 1.500 $ = 4.500 $. Worldwide zahlt keinen Fusionsbonus.",
+	"tutorial.mechanics.keepShares":
+		"Aktien zu behalten kostet nichts. Festival verschwindet vom Brett, aber du behältst die Aktie und den Bonus von 4.500 $.\n\nDie Aktie wird wieder nützlich, wenn Festival neu gegründet wird. Bleibt die Kette am Ende inaktiv, ist sie wertlos; in gewöhnlichen Zügen darfst du sie nicht verkaufen.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide hat nun einschließlich des verbindenden Plättchens 5 Plättchen. Seine Aktien kosten 600 $.\n\nBoni und Verkäufe nutzten Festivals alten Preis; neue Käufe nutzen Worldwides neuen Preis. Nach einer Fusion darfst du bis zu 3 Aktien aktiver Ketten kaufen.",
 	"tutorial.label": "Tutorial",
 	"tutorial.complete": "Kapitel abgeschlossen",
 	"tutorial.previous": "Vorheriger Schritt",
@@ -199,7 +218,7 @@ export const de: Catalog = {
 	"tutorial.founding.2":
 		"Kaufe mit + 2 Tower-Aktien und bestätige. Pro Zug darfst du bis zu 3 Aktien kaufen; hier kostet jede $200.",
 	"tutorial.founding.done":
-		"Du besitzt 3 Tower-Aktien und hast $400 ausgegeben. Ein Zug: Plättchen legen, Auswirkungen abwickeln, bis zu 3 Aktien kaufen, dann ein Plättchen ziehen.",
+		"Du besitzt 4 Tower-Aktien und hast 700 $ ausgegeben: eine kostenlose Gründeraktie, zwei für je 200 $ und eine für 300 $. Wachstum erhöht die Aktienpreise an den Schwellen der Preistabelle.",
 	"tutorial.mergers.title": "Eine Fusion abwickeln",
 	"tutorial.mergers.0":
 		"Lege 4A zwischen Tower (3 Plättchen) und Luxor (2). Die größere Kette bleibt bestehen; die Aktienzahl entscheidet das nicht.",

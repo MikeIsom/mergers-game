@@ -4,6 +4,7 @@ import type { GameState, Move } from "acquire-engine";
 import App from "./App.svelte";
 import { resolveLocale } from "./lib/i18n";
 import { initialTheme, themeCss } from "./lib/palette";
+import { createActionSounds } from "./lib/sounds";
 import { STORE, ViewerStore } from "./lib/store.svelte";
 import "./lib/theme.css";
 import { mountTutorial } from "./tutorial/mount.svelte";
@@ -15,11 +16,13 @@ export const viewer = registerViewer<GameState, Move>(
 		style.textContent = themeCss();
 		document.head.append(style);
 		const store = new ViewerStore(move);
+		const sounds = createActionSounds(target);
 		store.theme = initialTheme();
 		const app = mount(App, { target, props: { store }, context: new Map([[STORE, store]]) });
 		return {
 			chat: store.chat,
 			async onState(state) {
+				sounds.onState(state);
 				store.setState(state);
 				await tick();
 			},
@@ -27,6 +30,7 @@ export const viewer = registerViewer<GameState, Move>(
 				store.player = index;
 			},
 			onPreferences(preferences) {
+				sounds.onPreferences(preferences);
 				store.appearance = preferences.bgs;
 				store.analysis = preferences.analysis === true;
 				store.locale = resolveLocale(preferences.locale);
@@ -38,6 +42,7 @@ export const viewer = registerViewer<GameState, Move>(
 				store.theme = dark ? "dark" : "light";
 			},
 			onReplayStart() {
+				sounds.onReplayStart();
 				const { start, end } = store.replayRange();
 				store.replayAt = end;
 				setReplayInfo({ start, current: end, end });
@@ -48,6 +53,7 @@ export const viewer = registerViewer<GameState, Move>(
 				setReplayInfo({ start, current: store.replayAt, end });
 			},
 			onReplayEnd() {
+				sounds.onReplayEnd();
 				store.replayAt = undefined;
 			},
 			onMoveResult({ ok }) {
@@ -56,6 +62,7 @@ export const viewer = registerViewer<GameState, Move>(
 				}
 			},
 			destroy() {
+				sounds.destroy();
 				style.remove();
 				void unmount(app);
 			},
