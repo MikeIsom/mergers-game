@@ -70,8 +70,12 @@
 	}
 	.info {
 		grid-area: info;
+		min-width: 0;
 		display: grid;
 		gap: 16px;
+	}
+	.info > :global(section) {
+		min-width: 0;
 	}
 	/* Tablets and phones in landscape: the board beside the decision and hand. */
 	@media (min-width: 700px) {

@@ -152,6 +152,45 @@ export const ko: Catalog = {
 	"log.finalSale": "{name}: {chain} {count}주를 {amount}에 팖",
 	"log.result": "최종 현금: {results}",
 	"chat.label": "채팅",
+	"chat.suggestions": "멘션 추천",
+	"chat.game": "게임",
+	"chat.unread": "읽지 않음: {count}",
+	"chat.signIn": "채팅하려면 로그인하세요",
+	"chat.confirmAccount": "채팅하려면 계정을 인증하세요",
+	"chat.playersOnly": "플레이어만 메시지를 보낼 수 있습니다",
+	"chat.disabled": "채팅이 비활성화되었습니다",
+	"chat.waiting": "게임이 시작되면 채팅을 사용할 수 있습니다",
+	"chat.connecting": "채팅 연결 중…",
+	"chat.readOnly": "채팅은 읽기 전용입니다",
+	"tutorial.label": "튜토리얼",
+	"tutorial.complete": "챕터 완료",
+	"tutorial.previous": "이전 단계",
+	"tutorial.retry": "단계 다시 하기",
+	"tutorial.restart": "챕터 다시 시작",
+	"tutorial.next": "다음 챕터",
+	"tutorial.founding.title": "체인 설립하기",
+	"tutorial.founding.0":
+		"Alex로 플레이합니다. 손에서 2A를 선택해 1A 옆에 놓으세요. 인접한 독립 타일 두 개가 호텔 체인을 만듭니다.",
+	"tutorial.founding.1": "Tower를 선택하세요. 은행에 주식이 남아 있으면 설립자는 주식 한 주를 무료로 받습니다.",
+	"tutorial.founding.2":
+		"+ 버튼으로 Tower 주식 2주를 사고 확인하세요. 한 턴에 최대 3주를 살 수 있으며, 여기서는 한 주에 $200입니다.",
+	"tutorial.founding.done":
+		"$400를 써서 Tower 주식 3주를 보유했습니다. 턴 순서: 타일 놓기, 효과 처리, 최대 3주 구매, 타일 뽑기.",
+	"tutorial.mergers.title": "합병 처리하기",
+	"tutorial.mergers.0":
+		"Tower(타일 3개)와 Luxor(2개) 사이에 4A를 놓으세요. 더 큰 체인이 살아남습니다. 주식 수로 결정하지 않습니다.",
+	"tutorial.mergers.1":
+		"Luxor 주식 3주로 최대 주주 보너스 $2,000를 받았습니다. 1주를 팔고 2주를 Tower 1주로 교환한 다음 확인하세요.",
+	"tutorial.mergers.2": "다른 주주들은 Luxor 주식을 보유했습니다. 아무것도 사지 않고 턴을 마치세요.",
+	"tutorial.mergers.done":
+		"판매로 $200, 교환으로 Tower 1주를 받았습니다. 보유한 Luxor 주식은 체인이 다시 설립되면 유용합니다. 최대 주주가 동률이면 두 보너스를 합쳐 나눕니다. 안전한 체인(타일 11개 이상)은 인수할 수 없습니다.",
+	"tutorial.scoring.title": "게임 종료와 점수",
+	"tutorial.scoring.0":
+		"Tower는 타일 11개로 안전합니다. 모든 활성 체인이 안전하므로 종료를 선언하고 확인하세요. 어떤 체인이든 타일 41개에 도달해도 선언할 수 있습니다.",
+	"tutorial.scoring.1": "선언 후에도 자신의 턴을 마칩니다. 12A를 놓아 Tower를 확장하세요.",
+	"tutorial.scoring.2": "아무것도 사지 않고 턴을 마치세요. 모든 활성 체인의 보너스를 지급하고 주식을 매각합니다.",
+	"tutorial.scoring.done":
+		"Alex가 $15,800로 승리합니다: 현금 $6,000 + 최대 주주 보너스 $7,000 + 주당 $700인 주식 4주. 비활성 체인의 주식은 가치가 없습니다. 돈이 가장 많으면 승리하며, 동률은 공동 승리입니다.",
 	"chat.title": "채팅",
 	"chat.message": "메시지",
 	"chat.placeholder": "메시지…",

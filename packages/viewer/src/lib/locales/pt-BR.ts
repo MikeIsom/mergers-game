@@ -180,6 +180,46 @@ export const ptBR: Catalog = {
 	"log.finalSale": "{name} vendeu {count} {chain} por {amount}",
 	"log.result": "Dinheiro final: {results}",
 	"chat.label": "Chat",
+	"chat.suggestions": "Sugestões de menções",
+	"chat.game": "Jogo",
+	"chat.unread": "Não lidas: {count}",
+	"chat.signIn": "Entre para conversar",
+	"chat.confirmAccount": "Confirme sua conta para conversar",
+	"chat.playersOnly": "Só jogadores podem enviar mensagens",
+	"chat.disabled": "Chat desativado",
+	"chat.waiting": "O chat estará disponível quando o jogo começar",
+	"chat.connecting": "Conectando ao chat…",
+	"chat.readOnly": "O chat é somente para leitura",
+	"tutorial.label": "Tutorial",
+	"tutorial.complete": "Capítulo concluído",
+	"tutorial.previous": "Etapa anterior",
+	"tutorial.retry": "Repetir etapa",
+	"tutorial.restart": "Reiniciar capítulo",
+	"tutorial.next": "Próximo capítulo",
+	"tutorial.founding.title": "Funde uma rede",
+	"tutorial.founding.0":
+		"Você joga como Alex. Selecione 2A na mão e coloque ao lado de 1A. Duas peças soltas adjacentes fundam uma rede de hotéis.",
+	"tutorial.founding.1": "Escolha Tower. O fundador recebe uma ação grátis, se houver uma no banco.",
+	"tutorial.founding.2":
+		"Compre 2 ações Tower com o botão + e confirme. Você pode comprar até 3 ações por turno; aqui cada uma custa $200.",
+	"tutorial.founding.done":
+		"Você tem 3 ações Tower e gastou $400. Um turno: colocar uma peça, resolver seus efeitos, comprar até 3 ações e pegar uma peça.",
+	"tutorial.mergers.title": "Resolva uma fusão",
+	"tutorial.mergers.0":
+		"Coloque 4A entre Tower (3 peças) e Luxor (2). A rede maior sobrevive; a quantidade de ações não decide isso.",
+	"tutorial.mergers.1":
+		"Suas 3 ações Luxor renderam o bônus majoritário de $2.000. Venda 1 ação e troque 2 por 1 ação Tower, depois confirme.",
+	"tutorial.mergers.2": "Os outros acionistas mantiveram suas ações Luxor. Não compre nada e encerre o turno.",
+	"tutorial.mergers.done":
+		"Você recebeu $200 pela venda e 1 ação Tower pela troca. Ações Luxor guardadas voltam a valer se a rede for fundada novamente. Empates na maioria dividem ambos os bônus. Redes seguras (11+ peças) não podem ser absorvidas.",
+	"tutorial.scoring.title": "Encerre e pontue",
+	"tutorial.scoring.0":
+		"Tower tem 11 peças e está segura. Todas as redes ativas estão seguras: anuncie o fim e confirme. Também é possível quando qualquer rede chega a 41 peças.",
+	"tutorial.scoring.1": "Você ainda pode terminar seu turno. Coloque 12A para expandir Tower.",
+	"tutorial.scoring.2":
+		"Não compre nada e encerre o turno. O jogo pagará os bônus e venderá as ações de todas as redes ativas.",
+	"tutorial.scoring.done":
+		"Alex vence com $15.800: $6.000 em dinheiro + $7.000 de bônus majoritário + 4 ações de $700. Ações de redes inativas não valem nada. Vence quem tem mais dinheiro; empates dividem a vitória.",
 	"chat.title": "Chat",
 	"chat.message": "Mensagem",
 	"chat.placeholder": "Mensagem…",

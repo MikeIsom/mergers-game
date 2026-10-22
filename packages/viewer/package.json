@@ -1,6 +1,6 @@
 {
 	"name": "acquire-viewer",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"private": true,
 	"description": "Browser viewer for Acquire on boardgamers.space",
 	"license": "AGPL-3.0-only",

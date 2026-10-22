@@ -1,0 +1,122 @@
+{
+	"label": "Acquire",
+	"displayTitle": {
+		"title": "Acquire"
+	},
+	"releaseYear": 1964,
+	"tags": ["economic"],
+	"players": [2, 3, 4, 5, 6],
+	"public": false,
+	"description": "Build hotel chains, buy their stock and cash in when they merge. Each turn you place a tile on a 12 × 9 grid: tiles next to each other found a chain, chains grow, and when a tile joins two chains the larger one takes over the smaller. Shareholders of the chain taken over collect bonuses and sell or trade their stock. Whoever has the most money at the end wins. A classic stock-market game for 2–6 players, live or asynchronous.",
+	"rules": "[Rules](/page/acquire:rules)",
+	"credits": "**Acquire** was designed by **Sid Sackson**, first published by 3M in 1964, and is currently published by Renegade Game Studios.\n\nThis is an unofficial open-source implementation of Acquire for boardgamers.space. Not affiliated with or endorsed by Hasbro, Avalon Hill, Renegade Game Studios or any other publisher of Acquire. The rules text, chain colours, chain marks and artwork in this implementation are its own; no text or artwork from any published edition is used.\n\nDigital implementation: [MikeIsom](https://github.com/MikeIsom/mergers-game). BGS integration and interactive tutorials: Boardgamers.",
+	"links": {
+		"source": "https://github.com/boardgamers/mergers-game",
+		"bgg": "https://boardgamegeek.com/boardgame/5/acquire",
+		"publisher": "https://renegadegamestudios.com/acquire/",
+		"buy": "https://renegadegamestudios.com/acquire/"
+	},
+	"viewer": {
+		"url": "",
+		"dependencies": {
+			"scripts": [],
+			"stylesheets": []
+		},
+		"topLevelVariable": "acquire",
+		"chat": true,
+		"integratedControls": ["chat"],
+		"replayable": true,
+		"fullScreenMobile": false
+	},
+	"engine": {
+		"package": {
+			"name": "",
+			"version": ""
+		},
+		"entryPoint": "dist/wrapper.js"
+	},
+	"preferences": [
+		{
+			"name": "colorBlind",
+			"label": "Color-blind mode",
+			"type": "checkbox",
+			"default": false
+		}
+	],
+	"options": [
+		{
+			"name": "publicHoldings",
+			"label": "Public holdings (everyone sees all stock and cash)",
+			"type": "checkbox",
+			"default": false
+		},
+		{
+			"name": "teamPlay",
+			"label": "Team play (4 players: seats 1+3 against 2+4)",
+			"type": "checkbox",
+			"default": false
+		},
+		{
+			"name": "twoPlayerMode",
+			"label": "Two-player mode",
+			"type": "select",
+			"default": "bank",
+			"items": [
+				{
+					"name": "bank",
+					"label": "Bank as third shareholder"
+				},
+				{
+					"name": "fourHands",
+					"label": "Four hands (each player controls two seats)"
+				}
+			]
+		},
+		{
+			"name": "autoEnd",
+			"label": "End automatically when an end condition is met",
+			"type": "checkbox",
+			"default": false
+		},
+		{
+			"name": "endSize",
+			"label": "Chain size that ends the game",
+			"type": "select",
+			"default": "41",
+			"items": [
+				{
+					"name": "41",
+					"label": "41 tiles (standard)"
+				},
+				{
+					"name": "31",
+					"label": "31 tiles (shorter game)"
+				}
+			]
+		}
+	],
+	"settings": [],
+	"expansions": [],
+	"tutorial": {
+		"chapters": [
+			{
+				"id": "founding",
+				"version": 1,
+				"title": "Found a chain",
+				"description": "Place a tile, found a hotel chain and buy your first shares."
+			},
+			{
+				"id": "mergers",
+				"version": 1,
+				"title": "Resolve a merger",
+				"description": "Collect shareholder bonuses, then sell, trade or keep your stock."
+			},
+			{
+				"id": "scoring",
+				"version": 1,
+				"title": "End and score",
+				"description": "Learn when to end the game and how the final payout works."
+			}
+		]
+	}
+}

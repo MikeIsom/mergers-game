@@ -13,11 +13,13 @@
 		"fmt": "oxfmt",
 		"fmt:check": "oxfmt --check",
 		"lint": "oxlint",
-		"check": "pnpm fmt:check && pnpm lint && pnpm tsc && pnpm test && pnpm build"
+		"check": "pnpm fmt:check && pnpm lint && pnpm tsc && pnpm test && pnpm build",
+		"test:browser": "pnpm build && node scripts/check-browser.mjs"
 	},
 	"devDependencies": {
 		"oxfmt": "0.61.0",
 		"oxlint": "1.76.0",
+		"playwright": "1.62.1",
 		"svelte": "5.56.8"
 	},
 	"engines": {

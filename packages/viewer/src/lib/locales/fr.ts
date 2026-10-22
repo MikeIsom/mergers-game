@@ -176,6 +176,47 @@ export const fr: Catalog = {
 	"log.finalSale": "{name} vend {count} {chain} pour {amount}",
 	"log.result": "Argent final : {results}",
 	"chat.label": "Discussion",
+	"chat.suggestions": "Suggestions de mentions",
+	"chat.game": "Partie",
+	"chat.unread": "Non lus : {count}",
+	"chat.signIn": "Connectez-vous pour discuter",
+	"chat.confirmAccount": "Confirmez votre compte pour discuter",
+	"chat.playersOnly": "Seuls les joueurs peuvent envoyer des messages",
+	"chat.disabled": "Discussion désactivée",
+	"chat.waiting": "La discussion sera disponible au début de la partie",
+	"chat.connecting": "Connexion à la discussion…",
+	"chat.readOnly": "Discussion en lecture seule",
+	"tutorial.label": "Tutoriel",
+	"tutorial.complete": "Chapitre terminé",
+	"tutorial.previous": "Étape précédente",
+	"tutorial.retry": "Rejouer l’étape",
+	"tutorial.restart": "Recommencer",
+	"tutorial.next": "Chapitre suivant",
+	"tutorial.founding.title": "Fonder une chaîne",
+	"tutorial.founding.0":
+		"Vous jouez Alex. Sélectionnez 2A dans votre main, puis placez-la à côté de 1A. Deux tuiles libres adjacentes fondent une chaîne hôtelière.",
+	"tutorial.founding.1": "Choisissez Tower. Le fondateur reçoit une action gratuite, s’il en reste à la banque.",
+	"tutorial.founding.2":
+		"Achetez 2 actions Tower avec le bouton +, puis confirmez. Vous pouvez acheter jusqu’à 3 actions par tour ; ici, chacune coûte 200 $.",
+	"tutorial.founding.done":
+		"Vous avez 3 actions Tower et avez dépensé 400 $. À chaque tour : posez une tuile, résolvez ses effets, achetez jusqu’à 3 actions, puis piochez une tuile.",
+	"tutorial.mergers.title": "Résoudre une fusion",
+	"tutorial.mergers.0":
+		"Placez 4A entre Tower (3 tuiles) et Luxor (2). La plus grande chaîne survit ; le nombre d’actions ne détermine pas le vainqueur.",
+	"tutorial.mergers.1":
+		"Vos 3 actions Luxor ont rapporté la prime majoritaire de 2 000 $. Vendez 1 action et échangez-en 2 contre 1 action Tower, puis confirmez.",
+	"tutorial.mergers.2":
+		"Les autres actionnaires ont conservé leurs actions Luxor. Choisissez de ne rien acheter et de terminer le tour.",
+	"tutorial.mergers.done":
+		"La vente vous a rapporté 200 $ et l’échange 1 action Tower. Les actions Luxor conservées serviront si Luxor est refondée. En cas d’égalité majoritaire, les deux primes sont partagées ; les chaînes sûres (11 tuiles ou plus) ne peuvent pas être absorbées.",
+	"tutorial.scoring.title": "Terminer et compter",
+	"tutorial.scoring.0":
+		"Tower a 11 tuiles et est sûre. Toutes les chaînes actives sont sûres : annoncez la fin, puis confirmez. Vous pouvez aussi l’annoncer dès qu’une chaîne atteint 41 tuiles.",
+	"tutorial.scoring.1": "L’annonce vous laisse terminer votre tour. Placez 12A pour agrandir Tower.",
+	"tutorial.scoring.2":
+		"Choisissez de ne rien acheter et de terminer le tour. Les primes sont versées et les actions des chaînes actives sont vendues.",
+	"tutorial.scoring.done":
+		"Alex gagne avec 15 800 $ : 6 000 $ en espèces + 7 000 $ de prime majoritaire + 4 actions à 700 $. Les actions des chaînes inactives ne valent rien. Le plus riche gagne ; les ex æquo partagent la victoire.",
 	"chat.title": "Discussion",
 	"chat.message": "Message",
 	"chat.placeholder": "Message…",

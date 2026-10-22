@@ -180,6 +180,46 @@ export const ro: Catalog = {
 	"log.finalSale": "{name} vinde {count} {chain} pentru {amount}",
 	"log.result": "Bani la final: {results}",
 	"chat.label": "Chat",
+	"chat.suggestions": "Sugestii de mențiuni",
+	"chat.game": "Joc",
+	"chat.unread": "Necitite: {count}",
+	"chat.signIn": "Autentifică-te pentru a discuta",
+	"chat.confirmAccount": "Confirmă contul pentru a discuta",
+	"chat.playersOnly": "Doar jucătorii pot trimite mesaje",
+	"chat.disabled": "Chat dezactivat",
+	"chat.waiting": "Chatul va fi disponibil la începutul jocului",
+	"chat.connecting": "Se conectează chatul…",
+	"chat.readOnly": "Chatul este doar pentru citire",
+	"tutorial.label": "Tutorial",
+	"tutorial.complete": "Capitol încheiat",
+	"tutorial.previous": "Pasul anterior",
+	"tutorial.retry": "Repetă pasul",
+	"tutorial.restart": "Reia capitolul",
+	"tutorial.next": "Capitolul următor",
+	"tutorial.founding.title": "Înființează un lanț",
+	"tutorial.founding.0":
+		"Joci ca Alex. Alege 2A din mână și așaz-o lângă 1A. Două plăcuțe libere alăturate înființează un lanț hotelier.",
+	"tutorial.founding.1": "Alege Tower. Fondatorul primește o acțiune gratuită, dacă banca mai are una.",
+	"tutorial.founding.2":
+		"Cumpără 2 acțiuni Tower cu butonul + și confirmă. Poți cumpăra până la 3 acțiuni pe tură; aici fiecare costă $200.",
+	"tutorial.founding.done":
+		"Ai 3 acțiuni Tower și ai cheltuit $400. O tură: așezi o plăcuță, rezolvi efectele, cumperi până la 3 acțiuni, apoi tragi o plăcuță.",
+	"tutorial.mergers.title": "Rezolvă o fuziune",
+	"tutorial.mergers.0":
+		"Așază 4A între Tower (3 plăcuțe) și Luxor (2). Lanțul mai mare supraviețuiește; numărul de acțiuni nu decide câștigătorul.",
+	"tutorial.mergers.1":
+		"Cele 3 acțiuni Luxor ți-au adus bonusul majoritar de $2.000. Vinde 1 acțiune și schimbă 2 pe 1 acțiune Tower, apoi confirmă.",
+	"tutorial.mergers.2": "Ceilalți acționari și-au păstrat acțiunile Luxor. Alege să nu cumperi nimic și încheie tura.",
+	"tutorial.mergers.done":
+		"Ai primit $200 din vânzare și 1 acțiune Tower din schimb. Acțiunile Luxor păstrate contează dacă lanțul reapare. La egalitate pentru majoritate se împart ambele bonusuri. Lanțurile sigure (11+ plăcuțe) nu pot fi preluate.",
+	"tutorial.scoring.title": "Încheiere și punctaj",
+	"tutorial.scoring.0":
+		"Tower are 11 plăcuțe și este sigur. Toate lanțurile active sunt sigure: anunță sfârșitul și confirmă. Poți anunța și când un lanț ajunge la 41 de plăcuțe.",
+	"tutorial.scoring.1": "Anunțul îți permite să termini tura. Așază 12A pentru a extinde Tower.",
+	"tutorial.scoring.2":
+		"Nu cumpăra nimic și încheie tura. Jocul plătește bonusurile și vinde acțiunile tuturor lanțurilor active.",
+	"tutorial.scoring.done":
+		"Alex câștigă cu $15.800: $6.000 numerar + $7.000 bonus majoritar + 4 acțiuni la $700. Acțiunile lanțurilor inactive nu valorează nimic. Câștigă cei mai mulți bani; la egalitate victoria se împarte.",
 	"chat.title": "Chat",
 	"chat.message": "Mesaj",
 	"chat.placeholder": "Mesaj…",

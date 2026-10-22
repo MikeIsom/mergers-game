@@ -173,6 +173,46 @@ export const en = {
 
 	// Chat panel (the shared BGS panel's own labels)
 	"chat.label": "Chat",
+	"chat.suggestions": "Mention suggestions",
+	"chat.game": "Game",
+	"chat.unread": "Unread: {count}",
+	"chat.signIn": "Sign in to chat",
+	"chat.confirmAccount": "Confirm your account to chat",
+	"chat.playersOnly": "Only players can send messages",
+	"chat.disabled": "Chat disabled",
+	"chat.waiting": "Chat will be available when the game starts",
+	"chat.connecting": "Chat is connecting…",
+	"chat.readOnly": "Chat is read-only",
+	"tutorial.label": "Tutorial",
+	"tutorial.complete": "Chapter complete",
+	"tutorial.previous": "Previous step",
+	"tutorial.retry": "Retry step",
+	"tutorial.restart": "Restart chapter",
+	"tutorial.next": "Next chapter",
+	"tutorial.founding.title": "Found a chain",
+	"tutorial.founding.0":
+		"You play Alex. Select 2A in your hand, then place it beside 1A. Two adjacent loose tiles found a hotel chain.",
+	"tutorial.founding.1": "Choose Tower. Its founder receives one free share, if the bank has one.",
+	"tutorial.founding.2":
+		"Buy 2 Tower shares with the + button, then confirm. You can buy up to 3 shares per turn; here each costs $200.",
+	"tutorial.founding.done":
+		"You own 3 Tower shares and spent $400. A turn is: place a tile, resolve its effects, buy up to 3 shares, then draw a tile.",
+	"tutorial.mergers.title": "Resolve a merger",
+	"tutorial.mergers.0":
+		"Place 4A between Tower (3 tiles) and Luxor (2). The larger chain survives; its share count does not decide the winner.",
+	"tutorial.mergers.1":
+		"Your 3 Luxor shares earned the $2,000 majority bonus. Sell 1 share and trade 2 for 1 Tower share, then confirm.",
+	"tutorial.mergers.2": "The other shareholders kept their Luxor shares. Choose “Buy nothing and end turn” to finish.",
+	"tutorial.mergers.done":
+		"You received $200 from selling and 1 Tower share from trading. Kept Luxor shares matter if Luxor is founded again. Tied majorities split both bonuses; safe chains (11+ tiles) cannot be taken over.",
+	"tutorial.scoring.title": "End and score",
+	"tutorial.scoring.0":
+		"Tower has 11 tiles and is safe. All active chains are safe, so choose “Announce the end…” and confirm. You may also announce when any chain reaches 41 tiles.",
+	"tutorial.scoring.1": "Announcing still lets you finish your turn. Place 12A to grow Tower.",
+	"tutorial.scoring.2":
+		"Choose “Buy nothing and end turn”. The game will pay bonuses and sell shares in every active chain.",
+	"tutorial.scoring.done":
+		"Alex wins with $15,800: $6,000 cash + $7,000 majority bonus + 4 shares at $700. Shares in inactive chains are worthless. The most money wins; ties share the win.",
 	"chat.title": "Chat",
 	"chat.message": "Message",
 	"chat.placeholder": "Message…",

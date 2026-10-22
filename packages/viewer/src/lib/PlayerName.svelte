@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { playerSymbolSvg } from "@boardgamers/protocol/player-symbols";
+	import { PLAYER_SYMBOL_IDS, playerSymbolSvg } from "@boardgamers/protocol/player-symbols";
 	import type { GameState } from "acquire-engine";
 	import { seatName } from "./format";
 	import { useStore } from "./store.svelte";
@@ -12,7 +12,10 @@
 	const player = $derived(game.seatOwner[seat] ?? seat);
 	const avatar = $derived(store.avatars[player]);
 	const color = $derived(store.appearance?.playerColors[player]);
-	const symbol = $derived(store.appearance?.playerSymbols?.[player]);
+	const symbol = $derived(
+		store.appearance?.playerSymbols?.[player] ??
+			(store.colorBlind ? PLAYER_SYMBOL_IDS[player % PLAYER_SYMBOL_IDS.length] : undefined)
+	);
 	const badge = $derived(store.appearance?.players[player]?.pro ? store.appearance.supporterBadge : undefined);
 </script>
 

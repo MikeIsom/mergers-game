@@ -20,6 +20,35 @@
 				sending: t("chat.sending"),
 				empty: t("chat.empty"),
 				edited: t("chat.edited"),
+				suggestions: t("chat.suggestions"),
+				game: t("chat.game"),
+				unread: (count) => t("chat.unread", { count }),
+				date: (date) => date.toLocaleDateString(store.locale, { dateStyle: "long" }),
+				status: (state) => {
+					if (state.disabled) {
+						return t("chat.disabled");
+					}
+					if (!state.enabled) {
+						return t("chat.connecting");
+					}
+					if (state.canSend) {
+						return "";
+					}
+					switch (state.reason) {
+						case "not-logged-in":
+							return t("chat.signIn");
+						case "not-confirmed":
+							return t("chat.confirmAccount");
+						case "not-a-player":
+							return t("chat.playersOnly");
+						case "chat-disabled":
+							return t("chat.disabled");
+						case "no-game":
+							return t("chat.waiting");
+						default:
+							return t("chat.readOnly");
+					}
+				},
 			},
 		});
 		return () => panel.destroy();

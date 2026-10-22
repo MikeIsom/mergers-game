@@ -53,3 +53,14 @@ Each GitHub Release has the built engine package and viewer files attached, read
 ## Licence
 
 AGPL-3.0. See [LICENSE](LICENSE).
+
+## Interactive tutorials and browser checks
+
+After `pnpm build`, open the dev server with `?bundle=1&tutorial=founding` (or
+`mergers`, `scoring`). Add `&locale=fr` to switch languages. Tutorials use the real
+engine, remember progress locally and support replaying a step or restarting.
+
+`pnpm test:browser` starts its own Vite server on port 5191 and checks the compiled
+viewer, not a source-only preview. Install Chromium once with
+`pnpm exec playwright install chromium`. Screenshots and the report go to ignored
+`release/qa/`. Set `ACQUIRE_TEST_URL` to reuse an existing dev server.

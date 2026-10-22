@@ -158,6 +158,46 @@ export const nl: Catalog = {
 	"log.finalSale": "{name} verkoopt {count} {chain} voor {amount}",
 	"log.result": "Eindbedrag: {results}",
 	"chat.label": "Chat",
+	"chat.suggestions": "Suggesties voor vermeldingen",
+	"chat.game": "Spel",
+	"chat.unread": "Ongelezen: {count}",
+	"chat.signIn": "Log in om te chatten",
+	"chat.confirmAccount": "Bevestig je account om te chatten",
+	"chat.playersOnly": "Alleen spelers kunnen berichten sturen",
+	"chat.disabled": "Chat uitgeschakeld",
+	"chat.waiting": "De chat is beschikbaar zodra het spel begint",
+	"chat.connecting": "Verbinden met de chat…",
+	"chat.readOnly": "De chat is alleen-lezen",
+	"tutorial.label": "Handleiding",
+	"tutorial.complete": "Hoofdstuk voltooid",
+	"tutorial.previous": "Vorige stap",
+	"tutorial.retry": "Stap herhalen",
+	"tutorial.restart": "Opnieuw beginnen",
+	"tutorial.next": "Volgend hoofdstuk",
+	"tutorial.founding.title": "Richt een keten op",
+	"tutorial.founding.0":
+		"Je speelt Alex. Kies 2A uit je hand en leg die naast 1A. Twee aangrenzende losse tegels richten een hotelketen op.",
+	"tutorial.founding.1": "Kies Tower. De oprichter krijgt een gratis aandeel als de bank er nog een heeft.",
+	"tutorial.founding.2":
+		"Koop met + 2 Tower-aandelen en bevestig. Je mag maximaal 3 aandelen per beurt kopen; hier kost elk aandeel $200.",
+	"tutorial.founding.done":
+		"Je hebt 3 Tower-aandelen en hebt $400 uitgegeven. Een beurt: leg een tegel, handel de gevolgen af, koop maximaal 3 aandelen en trek een tegel.",
+	"tutorial.mergers.title": "Handel een fusie af",
+	"tutorial.mergers.0":
+		"Leg 4A tussen Tower (3 tegels) en Luxor (2). De grotere keten blijft bestaan; het aantal aandelen bepaalt dat niet.",
+	"tutorial.mergers.1":
+		"Je 3 Luxor-aandelen leverden de meerderheidsbonus van $2.000 op. Verkoop 1 aandeel en ruil er 2 voor 1 Tower-aandeel. Bevestig daarna.",
+	"tutorial.mergers.2": "De andere aandeelhouders behielden hun Luxor-aandelen. Koop niets en beëindig je beurt.",
+	"tutorial.mergers.done":
+		"Je kreeg $200 van de verkoop en 1 Tower-aandeel door de ruil. Behouden Luxor-aandelen tellen weer mee als de keten opnieuw wordt opgericht. Bij een gedeelde meerderheid worden beide bonussen verdeeld. Veilige ketens (11+ tegels) kunnen niet worden overgenomen.",
+	"tutorial.scoring.title": "Einde en telling",
+	"tutorial.scoring.0":
+		"Tower heeft 11 tegels en is veilig. Alle actieve ketens zijn veilig: kondig het einde aan en bevestig. Dat mag ook zodra een keten 41 tegels bereikt.",
+	"tutorial.scoring.1": "Je mag je beurt nog afmaken. Leg 12A om Tower uit te breiden.",
+	"tutorial.scoring.2":
+		"Koop niets en beëindig je beurt. Het spel betaalt bonussen en verkoopt aandelen van alle actieve ketens.",
+	"tutorial.scoring.done":
+		"Alex wint met $15.800: $6.000 contant + $7.000 meerderheidsbonus + 4 aandelen van $700. Aandelen van inactieve ketens zijn waardeloos. Het meeste geld wint; bij gelijkstand wordt de overwinning gedeeld.",
 	"chat.title": "Chat",
 	"chat.message": "Bericht",
 	"chat.placeholder": "Bericht…",

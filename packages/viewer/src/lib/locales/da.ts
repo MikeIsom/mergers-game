@@ -158,6 +158,46 @@ export const da: Catalog = {
 	"log.finalSale": "{name} sælger {count} {chain} for {amount}",
 	"log.result": "Penge til slut: {results}",
 	"chat.label": "Chat",
+	"chat.suggestions": "Forslag til omtaler",
+	"chat.game": "Spil",
+	"chat.unread": "Ulæste: {count}",
+	"chat.signIn": "Log ind for at chatte",
+	"chat.confirmAccount": "Bekræft din konto for at chatte",
+	"chat.playersOnly": "Kun spillere kan sende beskeder",
+	"chat.disabled": "Chat deaktiveret",
+	"chat.waiting": "Chatten bliver tilgængelig, når spillet starter",
+	"chat.connecting": "Forbinder til chatten…",
+	"chat.readOnly": "Chatten er skrivebeskyttet",
+	"tutorial.label": "Introduktion",
+	"tutorial.complete": "Kapitel gennemført",
+	"tutorial.previous": "Forrige trin",
+	"tutorial.retry": "Gentag trin",
+	"tutorial.restart": "Start forfra",
+	"tutorial.next": "Næste kapitel",
+	"tutorial.founding.title": "Grundlæg en kæde",
+	"tutorial.founding.0":
+		"Du spiller Alex. Vælg 2A fra hånden, og læg den ved siden af 1A. To tilstødende løse brikker grundlægger en hotelkæde.",
+	"tutorial.founding.1": "Vælg Tower. Grundlæggeren får en gratis aktie, hvis banken har en.",
+	"tutorial.founding.2":
+		"Køb 2 Tower-aktier med +, og bekræft. Du må købe op til 3 aktier pr. tur; her koster hver $200.",
+	"tutorial.founding.done":
+		"Du har 3 Tower-aktier og har brugt $400. En tur: læg en brik, afvikl virkningerne, køb op til 3 aktier, og træk en brik.",
+	"tutorial.mergers.title": "Afvikl en fusion",
+	"tutorial.mergers.0":
+		"Læg 4A mellem Tower (3 brikker) og Luxor (2). Den største kæde overlever; antallet af aktier afgør det ikke.",
+	"tutorial.mergers.1":
+		"Dine 3 Luxor-aktier gav majoritetsbonussen på $2.000. Sælg 1 aktie, og byt 2 til 1 Tower-aktie. Bekræft derefter.",
+	"tutorial.mergers.2": "De andre aktionærer beholdt deres Luxor-aktier. Køb ingenting, og afslut turen.",
+	"tutorial.mergers.done":
+		"Du fik $200 fra salget og 1 Tower-aktie fra byttet. Beholdte Luxor-aktier tæller igen, hvis kæden genopstår. Ved delt flertal deles begge bonusser. Sikre kæder (11+ brikker) kan ikke overtages.",
+	"tutorial.scoring.title": "Afslut og opgør",
+	"tutorial.scoring.0":
+		"Tower har 11 brikker og er sikker. Alle aktive kæder er sikre: annoncer afslutningen, og bekræft. Det kan også gøres, når en kæde når 41 brikker.",
+	"tutorial.scoring.1": "Du må stadig afslutte din tur. Læg 12A for at udvide Tower.",
+	"tutorial.scoring.2":
+		"Køb ingenting, og afslut turen. Spillet udbetaler bonusser og sælger aktier i alle aktive kæder.",
+	"tutorial.scoring.done":
+		"Alex vinder med $15.800: $6.000 kontant + $7.000 majoritetsbonus + 4 aktier til $700. Aktier i inaktive kæder er værdiløse. Flest penge vinder; ved lighed deles sejren.",
 	"chat.title": "Chat",
 	"chat.message": "Besked",
 	"chat.placeholder": "Besked…",

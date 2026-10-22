@@ -152,6 +152,46 @@ export const vi: Catalog = {
 	"log.finalSale": "{name} bán {count} {chain} được {amount}",
 	"log.result": "Tiền cuối cùng: {results}",
 	"chat.label": "Trò chuyện",
+	"chat.suggestions": "Gợi ý nhắc tên",
+	"chat.game": "Trò chơi",
+	"chat.unread": "Chưa đọc: {count}",
+	"chat.signIn": "Đăng nhập để trò chuyện",
+	"chat.confirmAccount": "Xác nhận tài khoản để trò chuyện",
+	"chat.playersOnly": "Chỉ người chơi mới có thể gửi tin nhắn",
+	"chat.disabled": "Trò chuyện đã bị tắt",
+	"chat.waiting": "Trò chuyện sẽ khả dụng khi trò chơi bắt đầu",
+	"chat.connecting": "Đang kết nối trò chuyện…",
+	"chat.readOnly": "Trò chuyện chỉ cho phép đọc",
+	"tutorial.label": "Hướng dẫn",
+	"tutorial.complete": "Hoàn thành chương",
+	"tutorial.previous": "Bước trước",
+	"tutorial.retry": "Làm lại bước",
+	"tutorial.restart": "Bắt đầu lại",
+	"tutorial.next": "Chương tiếp theo",
+	"tutorial.founding.title": "Thành lập chuỗi",
+	"tutorial.founding.0":
+		"Bạn chơi vai Alex. Chọn 2A trên tay rồi đặt cạnh 1A. Hai ô độc lập kề nhau tạo thành một chuỗi khách sạn.",
+	"tutorial.founding.1": "Chọn Tower. Người sáng lập nhận một cổ phiếu miễn phí nếu ngân hàng còn cổ phiếu.",
+	"tutorial.founding.2":
+		"Dùng nút + để mua 2 cổ phiếu Tower rồi xác nhận. Mỗi lượt được mua tối đa 3 cổ phiếu; ở đây mỗi cổ phiếu giá $200.",
+	"tutorial.founding.done":
+		"Bạn có 3 cổ phiếu Tower và đã chi $400. Một lượt: đặt ô, xử lý hiệu ứng, mua tối đa 3 cổ phiếu rồi rút một ô.",
+	"tutorial.mergers.title": "Xử lý sáp nhập",
+	"tutorial.mergers.0":
+		"Đặt 4A giữa Tower (3 ô) và Luxor (2 ô). Chuỗi lớn hơn tồn tại; số cổ phiếu không quyết định điều này.",
+	"tutorial.mergers.1":
+		"3 cổ phiếu Luxor mang lại thưởng cổ đông lớn nhất $2.000. Bán 1 cổ phiếu, đổi 2 lấy 1 cổ phiếu Tower rồi xác nhận.",
+	"tutorial.mergers.2": "Các cổ đông khác giữ cổ phiếu Luxor. Không mua gì và kết thúc lượt.",
+	"tutorial.mergers.done":
+		"Bạn nhận $200 từ bán và 1 cổ phiếu Tower từ đổi. Cổ phiếu Luxor giữ lại có ích nếu chuỗi được lập lại. Đồng hạng lớn nhất chia cả hai khoản thưởng. Chuỗi an toàn (11 ô trở lên) không thể bị thâu tóm.",
+	"tutorial.scoring.title": "Kết thúc và tính điểm",
+	"tutorial.scoring.0":
+		"Tower có 11 ô và an toàn. Mọi chuỗi đang hoạt động đều an toàn: tuyên bố kết thúc rồi xác nhận. Cũng có thể tuyên bố khi một chuỗi đạt 41 ô.",
+	"tutorial.scoring.1": "Bạn vẫn được hoàn tất lượt sau khi tuyên bố. Đặt 12A để mở rộng Tower.",
+	"tutorial.scoring.2":
+		"Không mua gì và kết thúc lượt. Trò chơi trả thưởng và bán cổ phiếu của mọi chuỗi đang hoạt động.",
+	"tutorial.scoring.done":
+		"Alex thắng với $15.800: $6.000 tiền mặt + $7.000 thưởng cổ đông lớn nhất + 4 cổ phiếu giá $700. Cổ phiếu chuỗi không hoạt động không có giá trị. Nhiều tiền nhất thắng; bằng nhau cùng thắng.",
 	"chat.title": "Trò chuyện",
 	"chat.message": "Tin nhắn",
 	"chat.placeholder": "Tin nhắn…",

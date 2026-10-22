@@ -1,0 +1,14 @@
+.acquire-tutorial {
+	padding: 0;
+	min-height: 100vh;
+}
+.acquire-tutorial .tutorial-top {
+	position: sticky;
+	top: 0;
+	z-index: 5;
+}
+@media (max-width: 699px) {
+	.acquire-tutorial .tutorial-top {
+		position: static;
+	}
+}

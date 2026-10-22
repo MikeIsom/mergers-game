@@ -67,6 +67,6 @@ export class ViewerStore {
 		if (this.sending) {
 			return;
 		}
-		this.sending = this.sendMove(move);
+		this.sending = this.sendMove($state.snapshot(move));
 	}
 }

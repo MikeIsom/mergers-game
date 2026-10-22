@@ -158,6 +158,46 @@ export const de: Catalog = {
 	"log.finalSale": "{name} verkauft {count} {chain} für {amount}",
 	"log.result": "Endstand: {results}",
 	"chat.label": "Chat",
+	"chat.suggestions": "Erwähnungsvorschläge",
+	"chat.game": "Spiel",
+	"chat.unread": "Ungelesen: {count}",
+	"chat.signIn": "Zum Chatten anmelden",
+	"chat.confirmAccount": "Bestätige dein Konto, um zu chatten",
+	"chat.playersOnly": "Nur Spieler können Nachrichten senden",
+	"chat.disabled": "Chat deaktiviert",
+	"chat.waiting": "Der Chat ist verfügbar, sobald das Spiel beginnt",
+	"chat.connecting": "Chat wird verbunden…",
+	"chat.readOnly": "Chat ist schreibgeschützt",
+	"tutorial.label": "Tutorial",
+	"tutorial.complete": "Kapitel abgeschlossen",
+	"tutorial.previous": "Vorheriger Schritt",
+	"tutorial.retry": "Schritt wiederholen",
+	"tutorial.restart": "Neu beginnen",
+	"tutorial.next": "Nächstes Kapitel",
+	"tutorial.founding.title": "Eine Kette gründen",
+	"tutorial.founding.0":
+		"Du spielst Alex. Wähle 2A auf deiner Hand und lege es neben 1A. Zwei benachbarte freie Plättchen gründen eine Hotelkette.",
+	"tutorial.founding.1": "Wähle Tower. Der Gründer erhält eine kostenlose Aktie, sofern die Bank noch eine hat.",
+	"tutorial.founding.2":
+		"Kaufe mit + 2 Tower-Aktien und bestätige. Pro Zug darfst du bis zu 3 Aktien kaufen; hier kostet jede $200.",
+	"tutorial.founding.done":
+		"Du besitzt 3 Tower-Aktien und hast $400 ausgegeben. Ein Zug: Plättchen legen, Auswirkungen abwickeln, bis zu 3 Aktien kaufen, dann ein Plättchen ziehen.",
+	"tutorial.mergers.title": "Eine Fusion abwickeln",
+	"tutorial.mergers.0":
+		"Lege 4A zwischen Tower (3 Plättchen) und Luxor (2). Die größere Kette bleibt bestehen; die Aktienzahl entscheidet das nicht.",
+	"tutorial.mergers.1":
+		"Deine 3 Luxor-Aktien bringen dir den Mehrheitsbonus von $2.000. Verkaufe 1 Aktie und tausche 2 gegen 1 Tower-Aktie, dann bestätige.",
+	"tutorial.mergers.2": "Die anderen Aktionäre behalten ihre Luxor-Aktien. Kaufe nichts und beende den Zug.",
+	"tutorial.mergers.done":
+		"Du erhältst $200 durch den Verkauf und 1 Tower-Aktie durch den Tausch. Behaltene Luxor-Aktien zählen wieder, wenn Luxor neu gegründet wird. Bei gleicher Mehrheit werden beide Boni geteilt. Sichere Ketten (ab 11 Plättchen) können nicht übernommen werden.",
+	"tutorial.scoring.title": "Spielende und Wertung",
+	"tutorial.scoring.0":
+		"Tower hat 11 Plättchen und ist sicher. Alle aktiven Ketten sind sicher: Kündige das Spielende an und bestätige. Das geht auch, sobald eine Kette 41 Plättchen erreicht.",
+	"tutorial.scoring.1": "Du darfst deinen Zug noch beenden. Lege 12A, um Tower zu vergrößern.",
+	"tutorial.scoring.2":
+		"Kaufe nichts und beende den Zug. Für jede aktive Kette werden Boni ausgezahlt und Aktien verkauft.",
+	"tutorial.scoring.done":
+		"Alex gewinnt mit $15.800: $6.000 Bargeld + $7.000 Mehrheitsbonus + 4 Aktien zu $700. Aktien inaktiver Ketten sind wertlos. Das meiste Geld gewinnt; Gleichstände teilen den Sieg.",
 	"chat.title": "Chat",
 	"chat.message": "Nachricht",
 	"chat.placeholder": "Nachricht…",

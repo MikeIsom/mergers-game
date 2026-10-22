@@ -18,34 +18,36 @@
 
 <section aria-label={t("chains.label")}>
 	<h2>{t("chains.title")}</h2>
-	<table>
-		<thead>
-			<tr>
-				<th>{t("chains.chain")}</th>
-				<th class="num">{t("chains.size")}</th>
-				<th class="num">{t("chains.price")}</th>
-				<th class="num">{t("chains.bank")}</th>
-				{#if seats.length > 0}<th class="num">{t("chains.yours")}</th>{/if}
-			</tr>
-		</thead>
-		<tbody>
-			{#each rows as row (row.chain)}
-				<tr class:inactive={row.size === 0}>
-					<td><ChainMark chain={row.chain} withName patterned={store.colorBlind} /></td>
-					<td class="num">
-						{#if row.size === 0}
-							{t("chains.notOnBoard")}
-						{:else}
-							{row.size}{#if row.size >= SAFE_SIZE}<span class="safe">{t("chains.safe")}</span>{/if}
-						{/if}
-					</td>
-					<td class="num">{row.price === undefined ? "" : store.lang.money(row.price)}</td>
-					<td class="num">{store.lang.count(row.bank)}</td>
-					{#if seats.length > 0}<td class="num">{row.held}</td>{/if}
+	<div class="table-scroll">
+		<table>
+			<thead>
+				<tr>
+					<th>{t("chains.chain")}</th>
+					<th class="num">{t("chains.size")}</th>
+					<th class="num">{t("chains.price")}</th>
+					<th class="num">{t("chains.bank")}</th>
+					{#if seats.length > 0}<th class="num">{t("chains.yours")}</th>{/if}
 				</tr>
-			{/each}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				{#each rows as row (row.chain)}
+					<tr class:inactive={row.size === 0}>
+						<td><ChainMark chain={row.chain} withName patterned={store.colorBlind} /></td>
+						<td class="num">
+							{#if row.size === 0}
+								{t("chains.notOnBoard")}
+							{:else}
+								{row.size}{#if row.size >= SAFE_SIZE}<span class="safe">{t("chains.safe")}</span>{/if}
+							{/if}
+						</td>
+						<td class="num">{row.price === undefined ? "" : store.lang.money(row.price)}</td>
+						<td class="num">{store.lang.count(row.bank)}</td>
+						{#if seats.length > 0}<td class="num">{row.held}</td>{/if}
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</div>
 </section>
 
 <style>

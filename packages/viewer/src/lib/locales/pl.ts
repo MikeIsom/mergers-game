@@ -187,6 +187,45 @@ export const pl: Catalog = {
 	"log.finalSale": "{name} sprzedaje {count} {chain} za {amount}",
 	"log.result": "Gotówka na koniec: {results}",
 	"chat.label": "Czat",
+	"chat.suggestions": "Propozycje wzmianek",
+	"chat.game": "Gra",
+	"chat.unread": "Nieprzeczytane: {count}",
+	"chat.signIn": "Zaloguj się, aby rozmawiać",
+	"chat.confirmAccount": "Potwierdź konto, aby rozmawiać",
+	"chat.playersOnly": "Tylko gracze mogą wysyłać wiadomości",
+	"chat.disabled": "Czat wyłączony",
+	"chat.waiting": "Czat będzie dostępny po rozpoczęciu gry",
+	"chat.connecting": "Łączenie z czatem…",
+	"chat.readOnly": "Czat tylko do odczytu",
+	"tutorial.label": "Samouczek",
+	"tutorial.complete": "Rozdział ukończony",
+	"tutorial.previous": "Poprzedni krok",
+	"tutorial.retry": "Powtórz krok",
+	"tutorial.restart": "Zacznij od nowa",
+	"tutorial.next": "Następny rozdział",
+	"tutorial.founding.title": "Załóż sieć",
+	"tutorial.founding.0":
+		"Grasz jako Alex. Wybierz 2A z ręki i połóż obok 1A. Dwa sąsiednie niezależne kafelki tworzą sieć hoteli.",
+	"tutorial.founding.1": "Wybierz Tower. Założyciel otrzymuje darmową akcję, jeśli bank ma jeszcze taką akcję.",
+	"tutorial.founding.2":
+		"Kup 2 akcje Tower przyciskiem + i potwierdź. W turze można kupić do 3 akcji; tutaj każda kosztuje $200.",
+	"tutorial.founding.done":
+		"Masz 3 akcje Tower i wydano $400. Tura: połóż kafelek, rozpatrz skutki, kup do 3 akcji, a następnie dobierz kafelek.",
+	"tutorial.mergers.title": "Rozpatrz fuzję",
+	"tutorial.mergers.0":
+		"Połóż 4A między Tower (3 kafelki) a Luxor (2). Większa sieć przetrwa; liczba akcji o tym nie decyduje.",
+	"tutorial.mergers.1":
+		"Twoje 3 akcje Luxor przyniosły premię większościową $2 000. Sprzedaj 1 akcję i wymień 2 na 1 akcję Tower, potem potwierdź.",
+	"tutorial.mergers.2": "Pozostali akcjonariusze zachowali akcje Luxor. Nie kupuj nic i zakończ turę.",
+	"tutorial.mergers.done":
+		"Sprzedaż dała $200, a wymiana 1 akcję Tower. Zachowane akcje Luxor przydadzą się, jeśli sieć powstanie ponownie. Remis większości oznacza podział obu premii. Bezpiecznej sieci (11+ kafelków) nie można przejąć.",
+	"tutorial.scoring.title": "Koniec i punktacja",
+	"tutorial.scoring.0":
+		"Tower ma 11 kafelków i jest bezpieczna. Wszystkie aktywne sieci są bezpieczne: ogłoś koniec i potwierdź. Można też ogłosić koniec, gdy dowolna sieć osiągnie 41 kafelków.",
+	"tutorial.scoring.1": "Po ogłoszeniu końca nadal kończysz swoją turę. Połóż 12A, aby powiększyć Tower.",
+	"tutorial.scoring.2": "Nie kupuj nic i zakończ turę. Gra wypłaci premie i sprzeda akcje wszystkich aktywnych sieci.",
+	"tutorial.scoring.done":
+		"Alex wygrywa z $15 800: $6 000 gotówki + $7 000 premii większościowej + 4 akcje po $700. Akcje nieaktywnych sieci są bezwartościowe. Wygrywa najbogatszy; remis daje wspólne zwycięstwo.",
 	"chat.title": "Czat",
 	"chat.message": "Wiadomość",
 	"chat.placeholder": "Wiadomość…",

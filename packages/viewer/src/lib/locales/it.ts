@@ -181,6 +181,46 @@ export const it: Catalog = {
 	"log.finalSale": "{name} vende {count} {chain} per {amount}",
 	"log.result": "Denaro finale: {results}",
 	"chat.label": "Chat",
+	"chat.suggestions": "Suggerimenti per le menzioni",
+	"chat.game": "Partita",
+	"chat.unread": "Non letti: {count}",
+	"chat.signIn": "Accedi per chattare",
+	"chat.confirmAccount": "Conferma il tuo account per chattare",
+	"chat.playersOnly": "Solo i giocatori possono inviare messaggi",
+	"chat.disabled": "Chat disattivata",
+	"chat.waiting": "La chat sarà disponibile quando inizierà la partita",
+	"chat.connecting": "Connessione alla chat…",
+	"chat.readOnly": "La chat è in sola lettura",
+	"tutorial.label": "Tutorial",
+	"tutorial.complete": "Capitolo completato",
+	"tutorial.previous": "Passo precedente",
+	"tutorial.retry": "Ripeti passo",
+	"tutorial.restart": "Ricomincia",
+	"tutorial.next": "Capitolo successivo",
+	"tutorial.founding.title": "Fonda una catena",
+	"tutorial.founding.0":
+		"Giochi come Alex. Seleziona 2A dalla mano e posizionala accanto a 1A. Due tessere libere adiacenti fondano una catena alberghiera.",
+	"tutorial.founding.1": "Scegli Tower. Il fondatore riceve un’azione gratuita, se la banca ne ha una.",
+	"tutorial.founding.2":
+		"Compra 2 azioni Tower con + e conferma. Puoi comprare fino a 3 azioni per turno; qui ciascuna costa $200.",
+	"tutorial.founding.done":
+		"Hai 3 azioni Tower e hai speso $400. Un turno: posa una tessera, risolvi gli effetti, compra fino a 3 azioni e pesca una tessera.",
+	"tutorial.mergers.title": "Risolvi una fusione",
+	"tutorial.mergers.0":
+		"Posa 4A tra Tower (3 tessere) e Luxor (2). Sopravvive la catena più grande; il numero di azioni non decide il vincitore.",
+	"tutorial.mergers.1":
+		"Le tue 3 azioni Luxor hanno fruttato il premio di maggioranza di $2.000. Vendi 1 azione e scambiane 2 con 1 Tower, poi conferma.",
+	"tutorial.mergers.2": "Gli altri azionisti hanno conservato le azioni Luxor. Non comprare nulla e termina il turno.",
+	"tutorial.mergers.done":
+		"Hai ricevuto $200 dalla vendita e 1 azione Tower dallo scambio. Le azioni Luxor conservate contano se la catena viene rifondata. In caso di maggioranza pari si dividono entrambi i premi. Le catene sicure (11+ tessere) non possono essere assorbite.",
+	"tutorial.scoring.title": "Fine e punteggio",
+	"tutorial.scoring.0":
+		"Tower ha 11 tessere ed è sicura. Tutte le catene attive sono sicure: annuncia la fine e conferma. Puoi farlo anche quando una catena raggiunge 41 tessere.",
+	"tutorial.scoring.1": "Puoi comunque completare il turno. Posa 12A per ingrandire Tower.",
+	"tutorial.scoring.2":
+		"Non comprare nulla e termina il turno. Il gioco paga i premi e vende le azioni di tutte le catene attive.",
+	"tutorial.scoring.done":
+		"Alex vince con $15.800: $6.000 in contanti + $7.000 di premio di maggioranza + 4 azioni da $700. Le azioni delle catene inattive non valgono nulla. Vince chi ha più denaro; a pari merito la vittoria è condivisa.",
 	"chat.title": "Chat",
 	"chat.message": "Messaggio",
 	"chat.placeholder": "Messaggio…",

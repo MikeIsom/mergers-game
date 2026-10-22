@@ -102,6 +102,8 @@ source maps in devtools, `acquire-viewer.iife.js.map`, together. Then set:
   chat panel sits beside the log and is hidden in analysis mode.
 - Replayable: on.
 - Full screen on mobile: off. The layout is width-based and works at content height.
+- Tutorials: copy `tutorial` from `docs/admin/gameinfo.json` (founding, mergers and scoring).
+  All three are interactive and translated into the 17 viewer locales.
 
 Save, open the game page, create a private game, and play.
 
@@ -152,3 +154,5 @@ BGS's release checklist, and where this repo stands:
   comes from the English `simple` line that `logSlice` adds to each log entry.
 - Admin panel content (rules page, pictogram, credits, description, links, screenshots) is in
   `docs/admin/`; its README says where each file goes.
+
+The October 2026 private-beta audit is in [admin/release-check.md](admin/release-check.md).
