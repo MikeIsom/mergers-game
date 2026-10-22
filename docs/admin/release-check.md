@@ -1,6 +1,6 @@
 # Acquire private beta — 22 October 2026
 
-Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.2`.
+Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.3`.
 Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 
 ## Validation

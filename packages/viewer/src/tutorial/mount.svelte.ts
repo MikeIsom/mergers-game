@@ -44,7 +44,7 @@ export const mountTutorial: TutorialMount = async (target, options) => {
 	store.player = 0;
 	store.locale = locale;
 	store.analysis = true;
-	store.theme = initialTheme();
+	store.theme = initialTheme() ?? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 	wrapper.dataset.theme = store.theme;
 	store.setState(stripSecret(controller.snapshot.state, 0));
 	let snapshot = $state(controller.snapshot);

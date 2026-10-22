@@ -244,6 +244,12 @@ try {
 		"three tutorials completed through real controls on desktop and phone; reload, retry, rejected move, French/Persian resume and final scoring"
 	);
 
+	await page.emulateMedia({ colorScheme: "dark" });
+	await page.reload();
+	await page.waitForSelector('.acquire-tutorial[data-theme="dark"]');
+	await page.emulateMedia({ colorScheme: "light" });
+	await page.waitForSelector('.acquire-tutorial[data-theme="light"]');
+
 	await page.evaluate(() => window.acquire.destroy());
 	await settle();
 	assert.equal(await page.locator("main").count(), 0);
