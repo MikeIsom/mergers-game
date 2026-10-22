@@ -192,10 +192,10 @@ try {
 		"own hand visible while waiting, spectator privacy, board selection/confirmation and replay isolation"
 	);
 
-	await open("players=4&moves=95&theme=light&colorBlind=1");
+	await open("players=4&moves=95&theme=light");
 	assert.equal(await page.locator(".chain .letter").count(), await page.locator(".square.chain").count());
 	assert.equal(await page.locator(".pattern, .patterned").count(), 0);
-	assert.ok((await page.locator(".chat .player-symbol").count()) > 0);
+	assert.equal(await page.locator(".player .symbol, .chat .player-symbol").count(), 0);
 	const authorColors = await page
 		.locator(".chat .player-name")
 		.evaluateAll((names) => names.map((name) => getComputedStyle(name).color));
@@ -207,12 +207,18 @@ try {
 		bgs: {
 			players: [{ pro: true }, { pro: true }, { pro: true }, { pro: false }],
 			playerColors: ["#13b7c8", "#111111", "#ffffff", "#3aa35b"],
+			playerSymbols: ["circle", "triangle", "square", "diamond"],
 		},
 	});
 	assert.equal(
 		await page.locator(".chat-composer input").inputValue(),
 		"Unsent draft",
 		"appearance updates preserve chat drafts"
+	);
+	assert.equal(
+		await page.locator(".player .symbol, .chat .player-symbol").count(),
+		0,
+		"old BGS preferences do not restore redundant symbols"
 	);
 	const customAppearance = await page.evaluate(() => {
 		const names = Object.fromEntries(
@@ -240,7 +246,7 @@ try {
 	);
 	await page.locator(".chat-composer input").fill("");
 	report.scenarios.push(
-		"chain letters without redundant patterns; player colors/symbols in chat and live appearance updates"
+		"always-visible chain letters, no redundant symbols, player colors and live appearance updates"
 	);
 
 	for (const [width, height] of [
@@ -256,11 +262,11 @@ try {
 			assert.equal(await page.locator("main").getAttribute("dir"), locale === "fa" ? "rtl" : "ltr");
 			const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
 			assert.ok(scrollWidth <= width + 1, `${locale} ${width}px: page overflow ${scrollWidth}`);
-			assert.ok((await page.locator(".player .symbol").count()) >= 4, "default color-blind player symbols");
+			assert.equal(await page.locator(".player .symbol").count(), 0);
 			report.layouts.push({ width, height, locale, scrollWidth });
 		}
 	}
-	report.scenarios.push("17 live languages at four viewport sizes, touch controls, RTL and default player symbols");
+	report.scenarios.push("17 live languages at four viewport sizes, touch controls and RTL");
 
 	await page.setViewportSize({ width: 390, height: 844 });
 	await preferences({ locale: "fr", colorBlind: true });

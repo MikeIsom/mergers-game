@@ -32,8 +32,7 @@ In Boardgames, choose + New game and fill in:
 - **Label:** `Acquire`.
 - **Players:** `[2, 3, 4, 5, 6]`. Player counts are not a game option.
 - **Options:** paste the declarations below.
-- **Preferences:** the shared colour-blind setting:
-  `[{ "name": "colorBlind", "label": "Color-blind mode", "type": "checkbox", "default": false }]`.
+- **Preferences:** none (`[]`). Chain letters and player names identify everything without relying on color.
 - **Settings:** none.
 - **Public:** off.
 
@@ -149,7 +148,7 @@ BGS's release checklist, and where this repo stands:
   each position from the public log. Analysis of ongoing games stays off.
 - Mobile: phone portrait and landscape, tablet and desktop, both themes, 44px touch targets.
 - History: no tentative or revisable moves.
-- Colour-blind mode: declare the `colorBlind` preference (step 2).
+- Color accessibility: chain letters and player names are always visible; no separate mode is needed.
 - Languages: the viewer is translated into all 17 BGS locales. The game list's last-move text
   comes from the English `simple` line that `logSlice` adds to each log entry.
 - Admin panel content (rules page, pictogram, credits, description, links, screenshots) is in

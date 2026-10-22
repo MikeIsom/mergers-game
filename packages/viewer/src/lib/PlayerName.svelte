@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { PLAYER_SYMBOL_IDS, playerSymbolSvg } from "@boardgamers/protocol/player-symbols";
 	import type { GameState } from "acquire-engine";
 	import { seatName } from "./format";
 	import { playerColor } from "./playerAppearance";
@@ -14,18 +13,12 @@
 	const player = $derived(game.seatOwner[seat] ?? seat);
 	const avatar = $derived(store.avatars[player]);
 	const color = $derived(playerColor(player, store.appearance?.playerColors));
-	const symbol = $derived(
-		store.appearance?.playerSymbols?.[player] ??
-			(store.colorBlind ? PLAYER_SYMBOL_IDS[player % PLAYER_SYMBOL_IDS.length] : undefined)
-	);
 	const badge = $derived(store.appearance?.players[player]?.pro ? store.appearance.supporterBadge : undefined);
 </script>
 
 <span class="player">
 	{#if avatar}<img class="avatar" src={avatar} alt="" />{/if}
 	<span class="color" style:background={color} aria-hidden="true"></span>
-	<!-- Catalogued symbol SVGs only: an unknown value renders nothing. -->
-	{#if symbol}<span class="symbol" aria-hidden="true">{@html playerSymbolSvg(symbol)}</span>{/if}
 	<span
 		class="player-name"
 		style:--name-ink-light={themeInk(color, "light")}
@@ -50,16 +43,6 @@
 	.color {
 		width: 4px;
 		height: 16px;
-	}
-	.symbol {
-		display: inline-flex;
-		width: 12px;
-		height: 12px;
-		color: var(--ink);
-	}
-	.symbol :global(svg) {
-		width: 100%;
-		height: 100%;
 	}
 	.badge {
 		width: 16px;

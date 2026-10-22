@@ -1,6 +1,6 @@
 # Acquire private beta — 22 October 2026
 
-Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.6`.
+Private BGS registration: `acquire`, version `1`. Engine `0.0.1`, viewer `0.0.7`.
 Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 
 ## Validation
@@ -12,8 +12,8 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
   viewer coverage, preferences, avatars and theme handlers. Protocol `0.10.0` is the
   latest published npm version checked for this release.
 - `pnpm test:browser` loads the compiled IIFE and CSS. It covers 68 combinations
-  of locale and viewport (1280, 844, 390 and 320 pixels), Persian RTL, color-blind
-  symbols, chat permissions/sending, analysis chat suppression, every six-player
+  of locale and viewport (1280, 844, 390 and 320 pixels), Persian RTL, chain letters,
+  chat permissions/sending, analysis chat suppression, every six-player
   and four-hands seat plus spectators, replay/live navigation and real tile moves.
 - All three tutorials run through normal controls on desktop and phone. Checks
   cover saved progress, reload, step retry, rejected unrelated actions, French and
@@ -41,7 +41,8 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 - Contain wide player/chain tables on narrow screens, without widening the page.
 - Keep both stock-purchase buttons visible on narrow phones, including languages
   with longer table headings.
-- Supply default player symbols in color-blind mode when BGS sends no assignments.
+- Remove the redundant color-blind toggle and player symbols. Names and chain letters identify
+  everything without relying on color; BGS supporter colors remain supported.
 - Translate shared chat permissions, unread counts and dates in all 17 locales.
 - Add three interactive tutorials: founding, mergers and scoring. Lesson text and
   controls are translated in all 17 locales; progress is stored locally.
@@ -52,7 +53,7 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 - Split the game description into two paragraphs.
 - Remove outer iframe margins and paint the full document with the game theme. Let the board
   fill its desktop column, keep chat open, and use consistent player colors in the table and chat.
-- Use chain letters in both color modes; reserve extra symbols for players.
+- Keep chain letters visible for everyone in both themes.
 - Explain tile adjacency, chain price tiers (no special abilities), price bands,
   majority/minority bonuses and ties, safe chains, and final payouts alongside
   the tutorial actions in all 17 languages. Include an expandable price table

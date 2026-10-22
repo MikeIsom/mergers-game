@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { untrack } from "svelte";
 	import { mountChat } from "@boardgamers/protocol/chat/dom";
-	import { PLAYER_SYMBOL_IDS, playerSymbolSvg } from "@boardgamers/protocol/player-symbols";
 	import { playerColor } from "./playerAppearance";
 	import { themeInk } from "./palette";
 	import { useStore } from "./store.svelte";
@@ -34,16 +33,6 @@
 						marker.style.background = color;
 						marker.setAttribute("aria-hidden", "true");
 						author.append(marker);
-						const symbol =
-							store.appearance?.playerSymbols?.[player] ??
-							(store.colorBlind ? PLAYER_SYMBOL_IDS[player % PLAYER_SYMBOL_IDS.length] : undefined);
-						if (symbol) {
-							const mark = document.createElement("span");
-							mark.className = "player-symbol";
-							mark.setAttribute("aria-hidden", "true");
-							mark.innerHTML = playerSymbolSvg(symbol);
-							author.append(mark);
-						}
 					}
 					author.append(name);
 					return author;
@@ -92,7 +81,6 @@
 	});
 	$effect(() => {
 		void store.appearance;
-		void store.colorBlind;
 		untrack(() => panel?.refresh());
 	});
 </script>
@@ -126,11 +114,6 @@
 	.chat :global(.player-color) {
 		width: 4px;
 		height: 16px;
-	}
-	.chat :global(.player-symbol),
-	.chat :global(.player-symbol svg) {
-		width: 12px;
-		height: 12px;
 	}
 	.chat :global(.bgs-game-chat input),
 	.chat :global(.bgs-game-chat button:not(:disabled)) {

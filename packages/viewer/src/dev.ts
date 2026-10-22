@@ -135,16 +135,10 @@ if (params.has("tutorial")) {
 		sync();
 	});
 	hot.append(hotBox, " Hot seat (view as whoever must act)");
-	// The shared BGS colour-blind preference, sent the way BGS sends preferences.
-	const blind = document.createElement("label");
-	const blindBox = document.createElement("input");
-	blindBox.type = "checkbox";
-	blindBox.checked = params.get("colorBlind") === "1";
-	// Player appearance as BGS sends it: host-resolved colours, symbols and Supporter flags in player
+	// Player appearance as BGS sends it: host-resolved colours and Supporter flags in player
 	// order, plus avatars. Avatars are neutral silhouettes and the badge is served by the dev server,
 	// so the dev page needs no network. BGS requires the badge URL to be http(s).
 	const COLORS = ["#4595d1", "#e68b32", "#8a5cc2", "#3aa35b", "#d14545", "#7a7a7a"];
-	const SYMBOLS = ["circle", "triangle", "square", "diamond", "plus", "star"] as const;
 	const svg = (body: string) =>
 		`data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">${body}</svg>`)}`;
 	const avatars = NAMES.slice(0, players).map(() =>
@@ -156,7 +150,6 @@ if (params.has("tutorial")) {
 		players: NAMES.slice(0, players).map((_, i) => ({ pro: i === 1 })),
 		supporterBadge: { url: `${location.origin}/dev-badge.svg`, label: "Supporter" },
 		playerColors: COLORS.slice(0, players),
-		playerSymbols: SYMBOLS.slice(0, players),
 	};
 	// The BGS interface language, sent as preferences.locale.
 	const language = document.createElement("select");
@@ -168,11 +161,8 @@ if (params.has("tutorial")) {
 		history.replaceState(null, "", url);
 		sendPreferences();
 	});
-	const sendPreferences = () =>
-		emitter.emit("preferences", { colorBlind: blindBox.checked, bgs: appearance, locale: language.value });
+	const sendPreferences = () => emitter.emit("preferences", { bgs: appearance, locale: language.value });
 	emitter.emit("avatars", avatars);
-	blindBox.addEventListener("change", sendPreferences);
-	blind.append(blindBox, " Colour-blind mode");
 	// Theme as BGS would send it. "Not sent" leaves the viewer on its prefers-color-scheme fallback,
 	// which can only be restored by reloading, as in BGS before the first theme event.
 	const theme = document.createElement("select");
@@ -213,7 +203,7 @@ if (params.has("tutorial")) {
 		replayLabel.textContent = "";
 		emitter.emit("replay:end");
 	});
-	bar.append(select, theme, language, hot, blind, replayLabel, status);
+	bar.append(select, theme, language, hot, replayLabel, status);
 
 	// For poking at positions from the browser console: window.acquireDev.load(state).
 	(window as unknown as { acquireDev: unknown }).acquireDev = {

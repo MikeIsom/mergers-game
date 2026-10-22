@@ -34,7 +34,7 @@ export class ViewerStore {
 	selected = $state<Tile | undefined>();
 	/** Player avatars from BGS, in player order. */
 	avatars = $state<string[]>([]);
-	/** BGS player appearance (colours, symbols, Supporter badges), in player order; cosmetic only. */
+	/** BGS player appearance (colours and Supporter badges), in player order; cosmetic only. */
 	appearance = $state<PlayerAppearance | undefined>();
 	/** BGS interface language (preferences.locale), English until BGS sends one. */
 	locale = $state<Locale>("en");
@@ -45,8 +45,6 @@ export class ViewerStore {
 	analysis = $state(false);
 	/** The shared BGS chat, one controller per viewer launch. */
 	readonly chat = new ChatController();
-	/** BGS's shared colour-blind setting: supplies default player symbols. */
-	colorBlind = $state(false);
 	/** The BGS light/dark setting; undefined until BGS sends one (prefers-color-scheme applies). */
 	theme = $state<"light" | "dark" | undefined>();
 	/** True between sending a move and receiving the resulting state, so it cannot be sent twice. */

@@ -27,7 +27,6 @@ export const viewer = registerViewer<GameState, Move>(
 				store.player = index;
 			},
 			onPreferences(preferences) {
-				store.colorBlind = preferences.colorBlind === true;
 				store.appearance = preferences.bgs;
 				store.analysis = preferences.analysis === true;
 				store.locale = resolveLocale(preferences.locale);

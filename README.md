@@ -32,7 +32,7 @@ pnpm dev
 Open http://localhost:5173. The test page runs the engine in the browser and shows the viewer
 as each player sees it. With hot seat on, it switches to whoever must act, so one person can
 play every seat. The toolbar plays random moves, jumps to the next merger, and switches
-player, theme, language and colour-blind mode.
+player, theme and language.
 
 URL parameters: `players=2..6`, `seed=...`, `publicHoldings=1`, `teamPlay=1`, `autoEnd=1`,
 `endSize=31`, `twoPlayerMode=fourHands`, `theme=light|dark`, `locale=de`, `moves=50` (random
