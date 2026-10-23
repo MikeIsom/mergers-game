@@ -131,6 +131,18 @@ try {
 		assert.match(await page.locator(".merger-price strong").innerText(), /\$500\s*→\s*\$800/);
 		assert.match(await page.locator(".merger-price .size").innerText(), /7 tiles/);
 		assert.match(await page.locator(".steppers .label").first().innerText(), /\$400/);
+		assert.match(await page.locator(".sell-all").innerText(), /Sell all · \$2,800/);
+		assert.match(await page.locator(".trade-max").innerText(), /Trade 6 for 3\s+Stock value \+\$0/);
+		const beforePreset = await page.evaluate(() => JSON.stringify(window.acquireDev.state));
+		await page.locator(".sell-all").click();
+		assert.deepEqual(await page.locator(".steppers .value").allTextContents(), ["7", "0", "0"]);
+		await page.locator(".trade-max").click();
+		assert.deepEqual(await page.locator(".steppers .value").allTextContents(), ["0", "6", "1"]);
+		assert.equal(
+			await page.evaluate(() => JSON.stringify(window.acquireDev.state)),
+			beforePreset,
+			"presets wait for Confirm"
+		);
 		for (const locale of locales) {
 			await preferences({ locale });
 			assert.ok(
@@ -143,6 +155,86 @@ try {
 	}
 	report.scenarios.push(
 		"post-merger price visible before trading; original sale price unchanged; all 17 locales at desktop, phone and 320px"
+	);
+
+	// Trade totals use the new survivor price, leave odd shares held, and obey available bank stock.
+	for (const [kind, stock, expectedTrade, value] of [
+		["gain", 25, 6, "+$600"],
+		["loss", 25, 6, "−$1,200"],
+		["gain", 1, 2, "+$200"],
+		["gain", 0, 0, undefined],
+	]) {
+		await page.setViewportSize({ width: 390, height: 844 });
+		await open("players=3&theme=dark");
+		await page.evaluate(
+			({ state, kind, stock }) => {
+				const { allTiles, parseTile, CHAIN_IDS, applyMove } = window.acquireDev.rules;
+				if (kind === "loss") {
+					state.board.fill(null);
+					for (let col = 1; col <= 5; col++) {
+						state.board[parseTile(`${col}A`)] = "tower";
+					}
+					for (let col = 7; col <= 10; col++) {
+						state.board[parseTile(`${col}A`)] = "festival";
+					}
+					state.seats[0].hand = [parseTile("6A")];
+				}
+				for (const seat of state.seats) {
+					for (const chain of CHAIN_IDS) {
+						seat.shares[chain] = 0;
+					}
+				}
+				state.seats[0].shares[kind === "loss" ? "festival" : "luxor"] = 7;
+				state.seats[1].shares.tower = 25 - stock;
+				const held = new Set(state.seats.flatMap((seat) => seat.hand));
+				state.pool = allTiles().filter((tile) => state.board[tile] === null && !held.has(tile));
+				for (const chain of CHAIN_IDS) {
+					state.bank[chain] = 25 - state.seats.reduce((sum, seat) => sum + seat.shares[chain], 0);
+				}
+				applyMove(state, { type: "place", tile: kind === "loss" ? "6A" : "4A" }, 0);
+				window.acquireDev.load(state);
+			},
+			{ state: preparedPosition("mergers"), kind, stock }
+		);
+		await page.waitForSelector(".trade-max");
+		await page.locator(".sell-all").click();
+		if (expectedTrade) {
+			assert.ok((await page.locator(".trade-max").innerText()).includes(`Stock value ${value}`));
+			await page.locator(".trade-max").click();
+			assert.deepEqual(await page.locator(".steppers .value").allTextContents(), [
+				"0",
+				String(expectedTrade),
+				String(7 - expectedTrade),
+			]);
+			if (kind === "gain" && stock === 25) {
+				for (const width of [1280, 390, 320]) {
+					await page.setViewportSize({ width, height: 900 });
+					for (const theme of ["dark", "light"]) {
+						await page.evaluate((theme) => window.acquireDev.emitter.emit("theme", { dark: theme === "dark" }), theme);
+						await settle();
+						await page
+							.locator(".controls")
+							.screenshot({ path: new URL(`merger-shortcuts-${theme}-${width}.png`, output).pathname });
+					}
+				}
+			}
+		} else {
+			assert.equal(await page.locator(".trade-max").isDisabled(), true);
+			assert.deepEqual(await page.locator(".steppers .value").allTextContents(), ["7", "0", "0"]);
+		}
+		const cashBefore = await page.evaluate(() => window.acquireDev.state.seats[0].cash);
+		await page.locator(".panel button.primary").click();
+		await page.waitForSelector("table.buy");
+		// Disposal remains an undoable private draft until this player finishes buying.
+		await page.getByRole("button", { name: "Buy nothing and end turn", exact: true }).click();
+		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
+		const result = await page.evaluate(() => window.acquireDev.state.seats[0]);
+		assert.equal(result.shares.tower, expectedTrade / 2);
+		assert.equal(result.shares[kind === "loss" ? "festival" : "luxor"], expectedTrade ? 7 - expectedTrade : 0);
+		assert.equal(result.cash - cashBefore, expectedTrade ? 0 : 1400);
+	}
+	report.scenarios.push(
+		"merger sell-all and maximum-trade presets: positive/zero/negative stock value, odd leftovers, limited/empty bank, confirmation and unchanged cash for trades"
 	);
 
 	for (const width of [1280, 390, 320]) {
@@ -771,8 +863,8 @@ try {
 					await buyMore.click();
 					await buyMore.click();
 				} else {
-					await page.locator("main .panel .steppers button").nth(1).click();
-					await page.locator("main .panel .steppers button").nth(3).click();
+					await page.locator("main .panel .steppers .quantity button").nth(1).click();
+					await page.locator("main .panel .steppers .quantity button").nth(3).click();
 				}
 				await page.locator("main .panel .primary").click();
 				if (chapter === "mergers") {

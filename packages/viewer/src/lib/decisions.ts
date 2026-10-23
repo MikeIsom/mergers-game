@@ -66,6 +66,15 @@ export function canDispose(moves: Move[], sell: number, trade: number): boolean 
 	return ofType(moves, "dispose").some((move) => move.sell === sell && move.trade === trade);
 }
 
+/** Presets respect the engine's stock limit; maximum trading keeps every unpaired share. */
+export function disposalPresets(moves: Move[]) {
+	const choices = ofType(moves, "dispose");
+	return {
+		sell: choices.filter((move) => move.trade === 0).sort((a, b) => b.sell - a.sell)[0],
+		trade: choices.filter((move) => move.sell === 0 && move.trade > 0).sort((a, b) => b.trade - a.trade)[0],
+	};
+}
+
 /** Chains that may come next after `prefix` in some legal defunct order. */
 export function nextDefunctChoices(moves: Move[], prefix: ChainId[]): ChainId[] {
 	const next = new Set<ChainId>();
