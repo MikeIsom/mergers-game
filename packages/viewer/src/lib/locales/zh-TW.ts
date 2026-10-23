@@ -69,6 +69,7 @@ export const zhTW: Catalog = {
 	"hand.of": "{name} 的板塊",
 	"hand.none": "沒有板塊",
 	"hand.dead": "死板塊：會合併安全連鎖",
+	"hand.deadReplacement": "在你的回合結束時更換",
 	"hand.eighth": "無法創立第 8 個連鎖",
 	"chains.label": "飯店連鎖",
 	"chains.title": "連鎖",

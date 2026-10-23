@@ -77,6 +77,7 @@ export const en = {
 	"hand.of": "Tiles of {name}",
 	"hand.none": "No tiles",
 	"hand.dead": "dead: would merge safe chains",
+	"hand.deadReplacement": "Replaced at the end of your turn",
 	"hand.eighth": "can't found an 8th chain",
 
 	// Chain and price tables

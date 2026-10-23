@@ -75,6 +75,7 @@ export const pl: Catalog = {
 	"hand.of": "Płytki gracza {name}",
 	"hand.none": "Brak płytek",
 	"hand.dead": "martwa: połączyłaby bezpieczne sieci",
+	"hand.deadReplacement": "Wymiana na koniec twojej tury",
 	"hand.eighth": "nie można założyć 8. sieci",
 	"chains.label": "Sieci hoteli",
 	"chains.title": "Sieci",

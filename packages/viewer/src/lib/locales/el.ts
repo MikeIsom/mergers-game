@@ -70,6 +70,7 @@ export const el: Catalog = {
 	"hand.of": "Πλακίδια του/της {name}",
 	"hand.none": "Κανένα πλακίδιο",
 	"hand.dead": "νεκρό: θα συγχώνευε ασφαλείς αλυσίδες",
+	"hand.deadReplacement": "Αντικατάσταση στο τέλος του γύρου σου",
 	"hand.eighth": "δεν ιδρύεται 8η αλυσίδα",
 	"chains.label": "Αλυσίδες ξενοδοχείων",
 	"chains.title": "Αλυσίδες",

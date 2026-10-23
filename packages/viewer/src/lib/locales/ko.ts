@@ -70,6 +70,7 @@ export const ko: Catalog = {
 	"hand.of": "{name}의 타일",
 	"hand.none": "타일 없음",
 	"hand.dead": "죽은 타일: 안전한 체인끼리 합병하게 됨",
+	"hand.deadReplacement": "내 차례가 끝나면 교체됩니다",
 	"hand.eighth": "8번째 체인은 세울 수 없음",
 	"chains.label": "호텔 체인",
 	"chains.title": "체인",

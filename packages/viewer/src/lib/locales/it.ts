@@ -74,6 +74,7 @@ export const it: Catalog = {
 	"hand.of": "Tessere di {name}",
 	"hand.none": "Nessuna tessera",
 	"hand.dead": "morta: fonderebbe catene sicure",
+	"hand.deadReplacement": "Sostituite alla fine del tuo turno",
 	"hand.eighth": "non si può fondare un'8ª catena",
 	"chains.label": "Catene alberghiere",
 	"chains.title": "Catene",

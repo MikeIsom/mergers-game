@@ -3,6 +3,7 @@
 	import { ofType } from "./decisions";
 	import { seatName } from "./format";
 	import type { ViewerStore } from "./store.svelte";
+	import TileStatusIcon from "./TileStatusIcon.svelte";
 
 	let { store }: { store: ViewerStore } = $props();
 	const t = $derived(store.lang.t);
@@ -14,7 +15,7 @@
 	function why(tile: Tile): string {
 		const legality = tileLegality(state.board, tile);
 		if (legality === "permanentlyUnplayable") {
-			return t("hand.dead");
+			return `${t("hand.dead")}. ${t("hand.deadReplacement")}.`;
 		}
 		if (legality === "temporarilyUnplayable") {
 			return t("hand.eighth");
@@ -30,10 +31,14 @@
 {#each store.seats as seat (seat)}
 	<!-- Masked tiles can only appear while a new seat's state is still arriving; never show them. -->
 	{@const hand = sortTiles(state.seats[seat]!.hand.filter((tile) => tile !== HIDDEN))}
+	{@const dead = hand.filter((tile) => tileLegality(state.board, tile) === "permanentlyUnplayable")}
+	{@const paused = hand.filter((tile) => tileLegality(state.board, tile) === "temporarilyUnplayable")}
 	<section class="hand" aria-label={t("hand.of", { name: seatName(state, seat, store.lang) })}>
 		<h2>{store.seats.length > 1 ? t("hand.seat", { seat: seat + 1 }) : t("hand.yours")}</h2>
 		<div class="tiles">
 			{#each hand as tile, index (index)}
+				{@const permanent = dead.includes(tile)}
+				{@const blocked = permanent || paused.includes(tile)}
 				{#if playable.has(tile)}
 					<button
 						type="button"
@@ -45,21 +50,47 @@
 						onclick={() => choose(tile)}>{tileLabel(tile)}</button
 					>
 				{:else}
-					<span class="tile" title={why(tile)}>
-						{tileLabel(tile)}
-						{#if why(tile)}<small>{why(tile)}</small>{/if}
+					<span
+						class="tile"
+						class:dead={permanent}
+						class:paused={paused.includes(tile)}
+						title={why(tile)}
+						role="img"
+						aria-label={blocked ? `${tileLabel(tile)} — ${why(tile)}` : tileLabel(tile)}
+					>
+						<span class="coordinate">{tileLabel(tile)}</span>
+						{#if blocked}<span class="tile-status"><TileStatusIcon {permanent} /></span>{/if}
 					</span>
 				{/if}
 			{:else}
 				<span class="none">{t("hand.none")}</span>
 			{/each}
 		</div>
+		{#if dead.length || paused.length}
+			<ul class="tile-notes">
+				{#if dead.length}
+					<li class="dead-note">
+						<TileStatusIcon permanent={true} />
+						<span><bdi>{dead.map(tileLabel).join(", ")}</bdi> — {t("hand.deadReplacement")}</span>
+					</li>
+				{/if}
+				{#if paused.length}
+					<li class="paused-note">
+						<TileStatusIcon permanent={false} />
+						<span><bdi>{paused.map(tileLabel).join(", ")}</bdi> — {t("hand.eighth")}</span>
+					</li>
+				{/if}
+			</ul>
+		{/if}
 	</section>
 {/each}
 
 <style>
 	.hand {
 		margin: 12px 0 0;
+	}
+	.hand:first-child {
+		margin-top: 0;
 	}
 	/* Six tiles fit on one row; the 12px gaps leave room for outlines drawn outside the tiles. */
 	.tiles {
@@ -97,13 +128,42 @@
 	.tile.actionable.selected {
 		outline: 4px solid var(--accent);
 	}
-	.tile small {
-		font-size: 9px;
-		font-weight: 400;
-		line-height: 1.1;
-		text-align: center;
-		padding: 0 2px;
-		color: var(--on-loose);
+	.tile.dead,
+	.tile.paused {
+		gap: 3px;
+		color: color-mix(in srgb, var(--on-loose) 76%, var(--loose));
+	}
+	.tile.dead {
+		background-image: repeating-linear-gradient(135deg, transparent 0 5px, #ffffff14 5px 7px);
+	}
+	.dead .coordinate {
+		background: var(--loose);
+		padding: 0 3px;
+	}
+	.tile-status {
+		display: flex;
+		background: var(--loose);
+	}
+	.tile-notes {
+		list-style: none;
+		margin: 4px 0 0;
+		padding: 0;
+		max-width: 388px;
+		font-size: 12px;
+		color: var(--ink-muted);
+	}
+	.tile-notes li {
+		display: flex;
+		align-items: start;
+		gap: 6px;
+		margin-top: 4px;
+	}
+	.tile-notes :global(svg) {
+		flex: 0 0 auto;
+	}
+	.tile-notes bdi {
+		font-weight: 600;
+		color: var(--ink);
 	}
 	.none {
 		color: var(--ink-muted);

@@ -69,6 +69,7 @@ export const hi: Catalog = {
 	"hand.of": "{name} की टाइलें",
 	"hand.none": "कोई टाइल नहीं",
 	"hand.dead": "बेकार: सुरक्षित श्रृंखलाओं का विलय कर देगी",
+	"hand.deadReplacement": "आपकी बारी के अंत में बदल दी जाएँगी",
 	"hand.eighth": "8वीं श्रृंखला स्थापित नहीं हो सकती",
 	"chains.label": "होटल श्रृंखलाएँ",
 	"chains.title": "श्रृंखलाएँ",

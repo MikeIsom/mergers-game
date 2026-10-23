@@ -70,6 +70,7 @@ export const nl: Catalog = {
 	"hand.of": "Tegels van {name}",
 	"hand.none": "Geen tegels",
 	"hand.dead": "dood: zou veilige ketens fuseren",
+	"hand.deadReplacement": "Worden aan het einde van je beurt vervangen",
 	"hand.eighth": "kan geen 8e keten stichten",
 	"chains.label": "Hotelketens",
 	"chains.title": "Ketens",

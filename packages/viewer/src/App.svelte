@@ -103,6 +103,7 @@
 	   instead of letting chat and history make one very tall sidebar. */
 	@media (min-width: 1200px) {
 		.layout {
+			row-gap: 16px;
 			grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr) minmax(320px, 1fr);
 			grid-template-areas:
 				"board controls market"

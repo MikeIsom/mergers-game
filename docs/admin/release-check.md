@@ -1,9 +1,14 @@
 # Acquire private beta — 23 October 2026
 
-Private BGS registration: `acquire`, version `1`. Engine `0.0.2`, viewer `0.0.12`.
+Private BGS registration: `acquire`, version `1`. Engine `0.0.2`, viewer `0.0.13`.
 Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 
 ## Validation
+
+- Dead hand tiles use hatching and a prohibition symbol with a readable coordinate. A compact
+  note explains replacement at turn end; temporary blocks use a separate pause symbol and reason.
+  Dead board markers use the same hatching. Browser checks cover equal tile heights, both themes,
+  all 17 languages and desktop/390/320-pixel widths.
 
 - Merger disposal shows the surviving chain's price after this merger before players sell or trade.
   Verified the reported Festival (3) / Imperial (3) case: Imperial grows from $500 to $800 at

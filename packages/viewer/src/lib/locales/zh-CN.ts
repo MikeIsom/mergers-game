@@ -69,6 +69,7 @@ export const zhCN: Catalog = {
 	"hand.of": "{name} 的板块",
 	"hand.none": "没有板块",
 	"hand.dead": "死板块：会合并安全连锁",
+	"hand.deadReplacement": "在你的回合结束时更换",
 	"hand.eighth": "无法创立第 8 个连锁",
 	"chains.label": "酒店连锁",
 	"chains.title": "连锁",

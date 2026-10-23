@@ -70,6 +70,7 @@ export const vi: Catalog = {
 	"hand.of": "Ô của {name}",
 	"hand.none": "Không có ô",
 	"hand.dead": "ô chết: sẽ sáp nhập các chuỗi an toàn",
+	"hand.deadReplacement": "Được thay khi kết thúc lượt của bạn",
 	"hand.eighth": "không thể lập chuỗi thứ 8",
 	"chains.label": "Chuỗi khách sạn",
 	"chains.title": "Chuỗi",

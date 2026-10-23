@@ -74,7 +74,14 @@
 						class="square empty"
 						class:held={held.has(tile)}
 						class:unavailable={legality !== undefined && legality !== "playable"}
-						aria-label={held.has(tile) ? `${label} — ${t("hand.yours")}` : t("board.empty", { tile: label })}
+						class:dead={legality === "permanentlyUnplayable"}
+						aria-label={legality === "permanentlyUnplayable"
+							? `${label} — ${t("hand.dead")}`
+							: legality === "temporarilyUnplayable"
+								? `${label} — ${t("hand.eighth")}`
+								: held.has(tile)
+									? `${label} — ${t("hand.yours")}`
+									: t("board.empty", { tile: label })}
 						title={legality === "permanentlyUnplayable"
 							? t("hand.dead")
 							: legality === "temporarilyUnplayable"
@@ -178,7 +185,14 @@
 	}
 	.empty.unavailable .coord {
 		color: var(--on-empty);
-		text-decoration: line-through;
+		background: var(--empty);
+	}
+	.empty.dead {
+		background-image: repeating-linear-gradient(
+			135deg,
+			transparent 0 5px,
+			color-mix(in srgb, var(--on-empty) 18%, transparent) 5px 7px
+		);
 	}
 	.empty.selected {
 		background: var(--page);

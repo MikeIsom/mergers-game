@@ -70,6 +70,7 @@ export const da: Catalog = {
 	"hand.of": "{name}s brikker",
 	"hand.none": "Ingen brikker",
 	"hand.dead": "død: ville fusionere sikre kæder",
+	"hand.deadReplacement": "Udskiftes ved slutningen af din tur",
 	"hand.eighth": "kan ikke grundlægge en 8. kæde",
 	"chains.label": "Hotelkæder",
 	"chains.title": "Kæder",

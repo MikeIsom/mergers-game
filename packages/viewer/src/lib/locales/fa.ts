@@ -70,6 +70,7 @@ export const fa: Catalog = {
 	"hand.of": "کاشی‌های {name}",
 	"hand.none": "بدون کاشی",
 	"hand.dead": "مرده: زنجیره‌های امن را ادغام می‌کند",
+	"hand.deadReplacement": "در پایان نوبت شما جایگزین می‌شوند",
 	"hand.eighth": "زنجیره‌ی هشتم ممکن نیست",
 	"chains.label": "زنجیره‌های هتل",
 	"chains.title": "زنجیره‌ها",

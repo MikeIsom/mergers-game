@@ -70,6 +70,7 @@ export const de: Catalog = {
 	"hand.of": "Plättchen von {name}",
 	"hand.none": "Keine Plättchen",
 	"hand.dead": "tot: würde sichere Ketten fusionieren",
+	"hand.deadReplacement": "Werden am Ende deines Zuges ersetzt",
 	"hand.eighth": "keine 8. Kette möglich",
 	"chains.label": "Hotelketten",
 	"chains.title": "Ketten",

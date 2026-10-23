@@ -75,6 +75,7 @@ export const ru: Catalog = {
 	"hand.of": "Фишки игрока {name}",
 	"hand.none": "Нет фишек",
 	"hand.dead": "мёртвая: слила бы защищённые сети",
+	"hand.deadReplacement": "Заменяются в конце вашего хода",
 	"hand.eighth": "нельзя основать 8-ю сеть",
 	"chains.label": "Гостиничные сети",
 	"chains.title": "Сети",

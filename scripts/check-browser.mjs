@@ -145,6 +145,70 @@ try {
 		"post-merger price visible before trading; original sale price unchanged; all 17 locales at desktop, phone and 320px"
 	);
 
+	for (const width of [1280, 390, 320]) {
+		await page.setViewportSize({ width, height: 900 });
+		await open("players=3&theme=dark");
+		await page.evaluate((state) => {
+			const { parseTile, allTiles } = window.acquireDev.rules;
+			state.board.fill(null);
+			const fill = (chain, labels) => labels.forEach((label) => (state.board[parseTile(label)] = chain));
+			fill("tower", [...Array.from({ length: 9 }, (_, i) => `${i + 1}C`), "4B", "5B"]);
+			fill(
+				"luxor",
+				Array.from({ length: 11 }, (_, i) => `${i + 1}E`)
+			);
+			fill("worldwide", ["1G", "2G"]);
+			fill("american", ["4G", "5G"]);
+			fill("festival", ["7G", "8G"]);
+			fill("imperial", ["10G", "11G"]);
+			fill("continental", ["1I", "2I"]);
+			fill("loose", ["12H"]);
+			state.seats[0].hand = ["2B", "3B", "5D", "6I", "10D", "12I"].map(parseTile);
+			const remaining = allTiles().filter((tile) => state.board[tile] === null && !state.seats[0].hand.includes(tile));
+			for (const seat of state.seats.slice(1)) {
+				seat.hand = remaining.splice(0, 6);
+			}
+			state.pool = remaining;
+			window.acquireDev.load(state);
+		}, preparedPosition("mergers"));
+		await page.waitForSelector(".hand .tile.dead");
+		assert.equal(await page.locator(".hand .tile.dead .coordinate").innerText(), "5D");
+		assert.equal(await page.locator(".hand .tile.paused .coordinate").innerText(), "12I");
+		assert.equal(await page.locator(".hand .tile small").count(), 0);
+		assert.match(await page.locator(".dead-note").innerText(), /5D.*Replaced at the end of your turn/);
+		assert.match(await page.locator(".paused-note").innerText(), /12I.*can't found an 8th chain/);
+		assert.match(await page.locator(".square.dead").getAttribute("aria-label"), /5D.*would merge safe chains/);
+		assert.equal(await page.locator("button.tile.dead, button.tile.paused, button.square.dead").count(), 0);
+		for (const theme of ["dark", "light"]) {
+			await page.evaluate((theme) => window.acquireDev.emitter.emit("theme", { dark: theme === "dark" }), theme);
+			for (const locale of locales) {
+				await preferences({ locale });
+				assert.ok(
+					await page.evaluate(() => {
+						const tiles = [...document.querySelectorAll(".hand .tile")];
+						const height = tiles[0].getBoundingClientRect().height;
+						return (
+							document.documentElement.scrollWidth <= innerWidth + 1 &&
+							tiles.every(
+								(tile) =>
+									Math.abs(tile.getBoundingClientRect().height - height) < 1 &&
+									tile.scrollHeight <= tile.clientHeight + 1
+							)
+						);
+					}),
+					`dead/temporary tile ${locale} ${theme} ${width}px`
+				);
+			}
+			await preferences({ locale: "en" });
+			await page
+				.locator("section.hand")
+				.screenshot({ path: new URL(`dead-tiles-${theme}-${width}.png`, output).pathname });
+		}
+	}
+	report.scenarios.push(
+		"dead tiles and temporary blocks: distinct symbols, readable coordinates and notes, equal tile heights, all locales in both themes"
+	);
+
 	for (const theme of ["light", "dark"]) {
 		await page.setViewportSize({ width: 1920, height: 1280 });
 		await open(`players=4&moves=95&publicHoldings=1&theme=${theme}`);

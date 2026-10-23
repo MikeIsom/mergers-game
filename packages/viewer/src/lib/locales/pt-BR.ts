@@ -74,6 +74,7 @@ export const ptBR: Catalog = {
 	"hand.of": "Peças de {name}",
 	"hand.none": "Nenhuma peça",
 	"hand.dead": "morta: fundiria redes seguras",
+	"hand.deadReplacement": "Substituição no fim do seu turno",
 	"hand.eighth": "não dá para fundar uma 8ª rede",
 	"chains.label": "Redes de hotéis",
 	"chains.title": "Redes",

@@ -74,6 +74,7 @@ export const fr: Catalog = {
 	"hand.of": "Tuiles de {name}",
 	"hand.none": "Aucune tuile",
 	"hand.dead": "morte : fusionnerait des chaînes sûres",
+	"hand.deadReplacement": "Remplacement à la fin de votre tour",
 	"hand.eighth": "impossible de fonder une 8e chaîne",
 	"chains.label": "Chaînes d’hôtels",
 	"chains.title": "Chaînes",

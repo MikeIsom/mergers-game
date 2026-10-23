@@ -74,6 +74,7 @@ export const ro: Catalog = {
 	"hand.of": "Piesele lui {name}",
 	"hand.none": "Nicio piesă",
 	"hand.dead": "moartă: ar uni lanțuri sigure",
+	"hand.deadReplacement": "Înlocuire la sfârșitul turei tale",
 	"hand.eighth": "nu se poate înființa un al 8-lea lanț",
 	"chains.label": "Lanțuri hoteliere",
 	"chains.title": "Lanțuri",
