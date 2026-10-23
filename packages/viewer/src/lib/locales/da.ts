@@ -40,6 +40,7 @@ export const da: Catalog = {
 	"dispose.takenOver": "{defunct} bliver opslugt af {survivor}.",
 	"dispose.holding": { one: "Du har {count} {chain}-aktie.", other: "Du har {count} {chain}-aktier." },
 	"dispose.sell": "Sælg til {price}",
+	"dispose.afterMerger": "Aktiekurs efter denne fusion",
 	"dispose.trade": "Byt 2 for 1",
 	"dispose.keep": "Behold",
 	"dispose.receive": "+{count} {chain}",

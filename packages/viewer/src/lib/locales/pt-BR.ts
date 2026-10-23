@@ -44,6 +44,7 @@ export const ptBR: Catalog = {
 		other: "Você tem {count} ações da {chain}.",
 	},
 	"dispose.sell": "Vender a {price}",
+	"dispose.afterMerger": "Preço da ação após esta fusão",
 	"dispose.trade": "Trocar 2 por 1",
 	"dispose.keep": "Manter",
 	"dispose.receive": "+{count} {chain}",

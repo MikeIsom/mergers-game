@@ -44,6 +44,7 @@ export const fr: Catalog = {
 		other: "Vous détenez {count} actions {chain}.",
 	},
 	"dispose.sell": "Vendre à {price}",
+	"dispose.afterMerger": "Prix de l’action après cette fusion",
 	"dispose.trade": "Échanger 2 contre 1",
 	"dispose.keep": "Garder",
 	"dispose.receive": "+{count} {chain}",

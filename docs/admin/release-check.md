@@ -1,9 +1,15 @@
 # Acquire private beta — 23 October 2026
 
-Private BGS registration: `acquire`, version `1`. Engine `0.0.2`, viewer `0.0.11`.
+Private BGS registration: `acquire`, version `1`. Engine `0.0.2`, viewer `0.0.12`.
 Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 
 ## Validation
+
+- Merger disposal shows the surviving chain's price after this merger before players sell or trade.
+  Verified the reported Festival (3) / Imperial (3) case: Imperial grows from $500 to $800 at
+  7 tiles, while Festival sales remain $400 each. Preview checks include connected loose tiles,
+  unchanged price bands, multi-chain mergers, bank mode and four-hands games. Browser checks cover
+  the price preview in all 17 languages at 1280, 390 and 320 pixels.
 
 - Undo keeps unfinished choices in a private server-validated draft. Repeated placement/founding
   revisions never persist undo entries or award time. One increment is earned per completed turn;
@@ -13,7 +19,7 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
   Desktop/phone checks exercise repeated undo, saved-state refreshes, final history and clock totals.
 
 - `pnpm check`: formatting, lint, TypeScript/Svelte checks, 207 engine tests,
-  60 viewer/tutorial tests, and the production build. Two pre-existing lint warnings
+  63 viewer/tutorial tests, and the production build. Two pre-existing lint warnings
   remain (an unused test import and Svelte's `bind:this` assignment).
 - Protocol diagnostics: all eight required engine methods; full core/chat/replay
   viewer coverage, preferences, avatars and theme handlers. Protocol `0.10.0` is the

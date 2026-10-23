@@ -40,6 +40,7 @@ export const fa: Catalog = {
 	"dispose.takenOver": "{defunct} در {survivor} ادغام می‌شود.",
 	"dispose.holding": { one: "شما {count} سهم {chain} دارید.", other: "شما {count} سهم {chain} دارید." },
 	"dispose.sell": "فروش به {price}",
+	"dispose.afterMerger": "قیمت سهم پس از این ادغام",
 	"dispose.trade": "معاوضه‌ی 2 به 1",
 	"dispose.keep": "نگه‌داشتن",
 	"dispose.receive": "+{count} {chain}",

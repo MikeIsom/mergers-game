@@ -39,6 +39,7 @@ export const hi: Catalog = {
 	"dispose.takenOver": "{defunct} का {survivor} में विलय हो रहा है।",
 	"dispose.holding": { one: "आपके पास {chain} का {count} शेयर है।", other: "आपके पास {chain} के {count} शेयर हैं।" },
 	"dispose.sell": "{price} पर बेचें",
+	"dispose.afterMerger": "इस विलय के बाद शेयर की कीमत",
 	"dispose.trade": "2 के बदले 1",
 	"dispose.keep": "रखें",
 	"dispose.receive": "+{count} {chain}",

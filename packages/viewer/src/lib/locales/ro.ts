@@ -44,6 +44,7 @@ export const ro: Catalog = {
 		other: "Deții {count} de acțiuni {chain}.",
 	},
 	"dispose.sell": "Vinde la {price}",
+	"dispose.afterMerger": "Prețul acțiunii după această fuziune",
 	"dispose.trade": "Schimbă 2 pe 1",
 	"dispose.keep": "Păstrează",
 	"dispose.receive": "+{count} {chain}",

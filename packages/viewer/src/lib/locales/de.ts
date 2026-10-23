@@ -40,6 +40,7 @@ export const de: Catalog = {
 	"dispose.takenOver": "{defunct} wird von {survivor} übernommen.",
 	"dispose.holding": { one: "Du besitzt {count} {chain}-Aktie.", other: "Du besitzt {count} {chain}-Aktien." },
 	"dispose.sell": "Verkaufen zu {price}",
+	"dispose.afterMerger": "Aktienkurs nach dieser Fusion",
 	"dispose.trade": "2 gegen 1 tauschen",
 	"dispose.keep": "Behalten",
 	"dispose.receive": "+{count} {chain}",

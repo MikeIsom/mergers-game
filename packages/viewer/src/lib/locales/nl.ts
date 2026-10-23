@@ -40,6 +40,7 @@ export const nl: Catalog = {
 	"dispose.takenOver": "{defunct} wordt overgenomen door {survivor}.",
 	"dispose.holding": { one: "Je hebt {count} {chain}-aandeel.", other: "Je hebt {count} {chain}-aandelen." },
 	"dispose.sell": "Verkopen voor {price}",
+	"dispose.afterMerger": "Aandelenprijs na deze fusie",
 	"dispose.trade": "2 voor 1 ruilen",
 	"dispose.keep": "Houden",
 	"dispose.receive": "+{count} {chain}",

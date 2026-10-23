@@ -40,6 +40,7 @@ export const el: Catalog = {
 	"dispose.takenOver": "Η {defunct} απορροφάται από την {survivor}.",
 	"dispose.holding": { one: "Έχεις {count} μετοχή {chain}.", other: "Έχεις {count} μετοχές {chain}." },
 	"dispose.sell": "Πώληση προς {price}",
+	"dispose.afterMerger": "Τιμή μετοχής μετά από αυτή τη συγχώνευση",
 	"dispose.trade": "Ανταλλαγή 2 προς 1",
 	"dispose.keep": "Διατήρηση",
 	"dispose.receive": "+{count} {chain}",

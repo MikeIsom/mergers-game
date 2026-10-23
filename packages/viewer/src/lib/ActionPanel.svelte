@@ -11,6 +11,7 @@
 		type Shares,
 	} from "acquire-engine";
 	import ChainMark from "./ChainMark.svelte";
+	import { mergerPreview } from "./mergerPreview";
 	import { adjustShares, canBuy, canDispose, describePlacement, nextDefunctChoices, ofType } from "./decisions";
 	import { chainName } from "./format";
 	import type { ViewerStore } from "./store.svelte";
@@ -48,6 +49,7 @@
 	const m = $derived(game.merger);
 	const disposing = $derived(game.phase === "dispose" && m ? m.current! : undefined);
 	const held = $derived(disposing && seat !== undefined ? game.seats[seat]!.shares[disposing] : 0);
+	const afterMerger = $derived(mergerPreview(game));
 	const sellPrice = $derived(disposing ? sharePrice(disposing, m!.sizes[disposing]!) : 0);
 
 	const buyable = $derived(activeChains(game.board));
@@ -175,13 +177,23 @@
 				onclick={() => (order = [])}>{t("order.reset")}</button
 			>
 		{:else if game.phase === "dispose" && disposing && m}
-			<p class="takeover">
-				<ChainMark chain={disposing} /><span class="arrow" aria-hidden="true">→</span><ChainMark chain={m.survivor!} />
-			</p>
 			<p>
 				{t("dispose.takenOver", { defunct: chainName(disposing), survivor: chainName(m.survivor!) })}
 				{t("dispose.holding", { count: held, chain: chainName(disposing) })}
 			</p>
+			{#if afterMerger}
+				<p class="merger-price">
+					<span class="price-label">{t("dispose.afterMerger")}</span>
+					<ChainMark chain={afterMerger.chain} withName />
+					<strong
+						><bdi dir="ltr"
+							>{#if afterMerger.price !== afterMerger.beforePrice}{money(afterMerger.beforePrice)} →
+							{/if}{money(afterMerger.price)}</bdi
+						></strong
+					>
+					<span class="size">· {t("tiles", { count: afterMerger.size })}</span>
+				</p>
+			{/if}
 			<div class="steppers">
 				<span class="label">{t("dispose.sell", { price: money(sellPrice) })}</span>
 				<button
@@ -282,6 +294,21 @@
 {/if}
 
 <style>
+	.merger-price {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 2px 6px;
+	}
+	.price-label {
+		flex-basis: 100%;
+		color: var(--ink-muted);
+		font-size: 13px;
+	}
+	.merger-price strong {
+		font-variant-numeric: tabular-nums;
+	}
+
 	.panel .undo {
 		display: flex;
 		align-items: center;
@@ -313,15 +340,6 @@
 		background: var(--accent);
 		color: var(--on-accent);
 		font-weight: 600;
-	}
-	.takeover {
-		display: flex;
-		align-items: center;
-		gap: 6px;
-	}
-	/* The arrow runs from the defunct chain to the survivor in either reading direction. */
-	:global([dir="rtl"]) .arrow {
-		transform: scaleX(-1);
 	}
 	.announce {
 		margin: 0 0 10px;

@@ -45,6 +45,7 @@ export const ru: Catalog = {
 		other: "У вас {count} акции {chain}.",
 	},
 	"dispose.sell": "Продать по {price}",
+	"dispose.afterMerger": "Цена акции после этого слияния",
 	"dispose.trade": "Обменять 2 на 1",
 	"dispose.keep": "Оставить",
 	"dispose.receive": "+{count} {chain}",

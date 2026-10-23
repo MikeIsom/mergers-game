@@ -3,6 +3,7 @@ import { spawn } from "node:child_process";
 import { mkdir, writeFile } from "node:fs/promises";
 import { setTimeout as delay } from "node:timers/promises";
 import { chromium } from "playwright";
+import { preparedPosition } from "../packages/viewer/src/tutorial/lessons.ts";
 
 const base = process.env.ACQUIRE_TEST_URL ?? "http://127.0.0.1:5191";
 const server = process.env.ACQUIRE_TEST_URL
@@ -101,6 +102,48 @@ try {
 	report.diagnostics = await page.evaluate(() => window.acquireDev.viewer.diagnostics(["core", "chat", "replay"]));
 	assert.equal(report.diagnostics.compatible, true);
 	assert.equal(report.diagnostics.recommended.percent, 100);
+
+	// Show the known growth before the sell/trade decision, including on narrow/RTL screens.
+	for (const width of [1280, 390, 320]) {
+		await page.setViewportSize({ width, height: 900 });
+		await open("players=3&theme=dark");
+		await page.evaluate((state) => {
+			const { parseTile, allTiles, CHAIN_IDS, applyMove } = window.acquireDev.rules;
+			state.board.fill(null);
+			for (const label of ["1A", "2A", "3A"]) {
+				state.board[parseTile(label)] = "festival";
+			}
+			for (const label of ["5A", "6A", "7A"]) {
+				state.board[parseTile(label)] = "imperial";
+			}
+			state.seats[0].shares.festival = 7;
+			const held = new Set(state.seats.flatMap((seat) => seat.hand));
+			state.pool = allTiles().filter((tile) => state.board[tile] === null && !held.has(tile));
+			for (const chain of CHAIN_IDS) {
+				state.bank[chain] = 25 - state.seats.reduce((sum, seat) => sum + seat.shares[chain], 0);
+			}
+			applyMove(state, { type: "place", tile: "4A" }, 0);
+			applyMove(state, { type: "survivor", chain: "imperial" }, 0);
+			window.acquireDev.load(state);
+		}, preparedPosition("mergers"));
+		await page.waitForSelector(".merger-price");
+		assert.match(await page.locator(".merger-price").innerText(), /Imperial/);
+		assert.match(await page.locator(".merger-price strong").innerText(), /\$500\s*→\s*\$800/);
+		assert.match(await page.locator(".merger-price .size").innerText(), /7 tiles/);
+		assert.match(await page.locator(".steppers .label").first().innerText(), /\$400/);
+		for (const locale of locales) {
+			await preferences({ locale });
+			assert.ok(
+				await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1),
+				`merger price ${locale} ${width}px`
+			);
+		}
+		await preferences({ locale: "en" });
+		await page.screenshot({ path: new URL(`merger-price-${width}.png`, output).pathname, fullPage: true });
+	}
+	report.scenarios.push(
+		"post-merger price visible before trading; original sale price unchanged; all 17 locales at desktop, phone and 320px"
+	);
 
 	for (const theme of ["light", "dark"]) {
 		await page.setViewportSize({ width: 1920, height: 1280 });
@@ -411,13 +454,12 @@ try {
 	for (const width of [1280, 390]) {
 		await page.setViewportSize({ width, height: 900 });
 		await open("players=3&hotseat=0&view=0&theme=dark");
-		const original = await page.evaluate(async () => {
-			const { preparedPosition } = await import("/src/tutorial/lessons.ts");
-			window.acquireDev.load(preparedPosition("founding"));
+		const original = await page.evaluate((state) => {
+			window.acquireDev.load(state);
 			window.undoRequests = [];
 			window.acquireDev.emitter.on("move", (request) => window.undoRequests.push(request));
 			return JSON.stringify(window.acquireDev.state);
-		});
+		}, preparedPosition("founding"));
 		await settle();
 		const boardBefore = await page.locator("main .board").first().innerText();
 		const undo = page.getByRole("button", { name: "Undo", exact: true });

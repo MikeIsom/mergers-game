@@ -45,6 +45,7 @@ export const pl: Catalog = {
 		other: "Masz {count} akcji {chain}.",
 	},
 	"dispose.sell": "Sprzedaj po {price}",
+	"dispose.afterMerger": "Cena akcji po tej fuzji",
 	"dispose.trade": "Wymień 2 za 1",
 	"dispose.keep": "Zatrzymaj",
 	"dispose.receive": "+{count} {chain}",

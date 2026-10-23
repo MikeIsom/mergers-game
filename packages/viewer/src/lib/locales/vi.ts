@@ -40,6 +40,7 @@ export const vi: Catalog = {
 	"dispose.takenOver": "{defunct} bị {survivor} thâu tóm.",
 	"dispose.holding": { other: "Bạn có {count} cổ phiếu {chain}." },
 	"dispose.sell": "Bán giá {price}",
+	"dispose.afterMerger": "Giá cổ phiếu sau lần sáp nhập này",
 	"dispose.trade": "Đổi 2 lấy 1",
 	"dispose.keep": "Giữ",
 	"dispose.receive": "+{count} {chain}",

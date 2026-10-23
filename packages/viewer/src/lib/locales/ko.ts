@@ -40,6 +40,7 @@ export const ko: Catalog = {
 	"dispose.takenOver": "{survivor}이(가) {defunct}을(를) 흡수합니다.",
 	"dispose.holding": { other: "{chain} 주식을 {count}주 가지고 있습니다." },
 	"dispose.sell": "{price}에 팔기",
+	"dispose.afterMerger": "이번 합병 후 주가",
 	"dispose.trade": "2주를 1주로 교환",
 	"dispose.keep": "보유",
 	"dispose.receive": "+{count} {chain}",

@@ -45,6 +45,7 @@ export const en = {
 	"dispose.takenOver": "{defunct} is taken over by {survivor}.",
 	"dispose.holding": { one: "You hold {count} {chain} share.", other: "You hold {count} {chain} shares." },
 	"dispose.sell": "Sell at {price}",
+	"dispose.afterMerger": "Share price after this merger",
 	"dispose.trade": "Trade 2 for 1",
 	"dispose.keep": "Keep",
 	"dispose.receive": "+{count} {chain}",

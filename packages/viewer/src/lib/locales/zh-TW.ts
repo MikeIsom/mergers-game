@@ -39,6 +39,7 @@ export const zhTW: Catalog = {
 	"dispose.takenOver": "{defunct} 被 {survivor} 併購。",
 	"dispose.holding": { other: "你持有 {count} 股 {chain}。" },
 	"dispose.sell": "以 {price} 出售",
+	"dispose.afterMerger": "此次合併後的股價",
 	"dispose.trade": "2 換 1",
 	"dispose.keep": "保留",
 	"dispose.receive": "+{count} {chain}",
