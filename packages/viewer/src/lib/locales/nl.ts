@@ -98,6 +98,15 @@ export const nl: Catalog = {
 	"players.title": "Spelers",
 	"players.player": "Speler",
 	"players.cash": "Geld",
+	"players.netWorth": "Vermogen",
+	"players.worthBreakdown": "Vermogensoverzicht",
+	"players.bonuses": "Bonussen",
+	"players.worthNote":
+		"Contant geld + aandelenwaarde + verwachte meerderheids-/minderheidsbonussen. De schatting verandert met aandelenbezit en fusiekeuzes.",
+	"players.worthBank":
+		"Contant geld + aandelenwaarde. Toekomstige bonussen tellen niet mee: het bankbezit is pas bij uitbetaling bekend.",
+	"players.worthTeams": "BGS-scores tellen beide teamgenoten bij elkaar op.",
+	"players.worthFourHands": "BGS-scores gebruiken je rijkste zitplaats.",
 	"players.stock": "Aandelen",
 	"players.tiles": "Tegels",
 	"players.acting": "is aan zet",

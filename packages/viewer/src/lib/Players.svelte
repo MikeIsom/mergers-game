@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CHAIN_IDS, HIDDEN, currentSeat, type GameState } from "acquire-engine";
+	import { CHAIN_IDS, HIDDEN, currentSeat, isBankMode, projectedNetWorth, type GameState } from "acquire-engine";
 	import ChainMark from "./ChainMark.svelte";
 	import PlayerName from "./PlayerName.svelte";
 	import { useStore } from "./store.svelte";
@@ -9,6 +9,8 @@
 	const acting = $derived(currentSeat(state));
 	const store = useStore();
 	const t = $derived(store.lang.t);
+	// Partial replay log entries are not complete decision states (bonuses/sales may be mid-update).
+	const worth = $derived(store.replayAt === undefined ? projectedNetWorth(state) : undefined);
 </script>
 
 <section aria-label={t("players.label")}>
@@ -18,7 +20,9 @@
 			<thead>
 				<tr>
 					<th>{t("players.player")}</th>
-					<th class="num">{t("players.cash")}</th>
+					<th class="num"
+						>{#if worth}{t("players.netWorth")}<small>{t("players.cash")}</small>{:else}{t("players.cash")}{/if}</th
+					>
 					<th>{t("players.stock")}</th>
 					<th class="num">{t("players.tiles")}</th>
 				</tr>
@@ -37,7 +41,14 @@
 								>{/if}
 							{#if seat.dropped}<span class="tag">{t("players.left")}</span>{/if}
 						</td>
-						<td class="num" class:hidden-value={hidden}>{store.lang.money(seat.cash)}</td>
+						{#if worth}
+							<td class="num net-worth"
+								><strong><bdi dir="ltr">{state.ended ? "" : "≈ "}{store.lang.money(worth[index]!.total)}</bdi></strong
+								><small>{store.lang.money(seat.cash)}</small></td
+							>
+						{:else}
+							<td class="num" class:hidden-value={hidden}>{store.lang.money(seat.cash)}</td>
+						{/if}
 						<td>
 							{#if hidden}
 								<span class="hidden-value">{t("hidden")}</span>
@@ -57,9 +68,58 @@
 			</tbody>
 		</table>
 	</div>
+	{#if worth && !state.ended}
+		<details class="worth-details">
+			<summary>{t("players.worthBreakdown")}</summary>
+			<p>{t(isBankMode(state) ? "players.worthBank" : "players.worthNote")}</p>
+			{#if state.options.teamPlay}<p>{t("players.worthTeams")}</p>{/if}
+			{#if state.players !== state.seats.length}<p>{t("players.worthFourHands")}</p>{/if}
+			<div class="table-scroll">
+				<table>
+					<thead
+						><tr
+							><th>{t("players.player")}</th><th class="num">{t("players.cash")}</th><th class="num"
+								>{t("players.stock")}</th
+							><th class="num">{t("players.bonuses")}</th></tr
+						></thead
+					>
+					<tbody>
+						{#each worth as value, index (index)}
+							<tr
+								><td><PlayerName {state} seat={index} /></td><td class="num">{store.lang.money(value.cash)}</td><td
+									class="num">{store.lang.money(value.stock)}</td
+								><td class="num">{isBankMode(state) ? "—" : store.lang.money(value.bonuses)}</td></tr
+							>
+						{/each}
+					</tbody>
+				</table>
+			</div>
+		</details>
+	{/if}
 </section>
 
 <style>
+	.net-worth {
+		white-space: nowrap;
+	}
+	.net-worth small,
+	th small {
+		display: block;
+		font-size: 12px;
+		font-weight: 400;
+		color: var(--ink-muted);
+	}
+	.worth-details {
+		margin-top: 8px;
+		font-size: 13px;
+	}
+	.worth-details summary {
+		cursor: pointer;
+		color: var(--ink-muted);
+	}
+	.worth-details p {
+		margin: 8px 0;
+	}
 	.you td {
 		font-weight: 600;
 	}

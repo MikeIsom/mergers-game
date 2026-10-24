@@ -298,7 +298,14 @@ Each viewer must only receive information their player is entitled to.
   the *current* holdings and cash are hidden, even though they can be reconstructed
   from the log.
 - **[DECISION] Scores during play:** When `publicHoldings` is off, every player's score
-  is 0 until the game ends. When it is on, the score is the player's live cash.
+  is 0 until the game ends. When it is on, the score is projected net worth: cash,
+  current share sale values and majority/minority bonuses at current holdings (including
+  ties and rounding). Future bonuses are excluded in two-player bank mode because the
+  bank's holding is drawn only at payout. In-progress mergers never count paid bonuses
+  twice; absorbed shares kept after disposal are worth zero, while outstanding disposal
+  shares retain their sale value. The survivor uses its known post-merger size.
+  Team scores combine both seats; four-hands scores use the richest controlled seat.
+  These are estimates during play; final scores remain the actual settled cash.
 
 Hidden information must be stripped on the engine side, not merely hidden in the viewer.
 

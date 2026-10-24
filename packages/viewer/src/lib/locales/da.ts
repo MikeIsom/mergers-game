@@ -98,6 +98,15 @@ export const da: Catalog = {
 	"players.title": "Spillere",
 	"players.player": "Spiller",
 	"players.cash": "Penge",
+	"players.netWorth": "Formue",
+	"players.worthBreakdown": "Formueoversigt",
+	"players.bonuses": "Bonusser",
+	"players.worthNote":
+		"Kontanter + aktieværdi + forventede majoritets-/minoritetsbonusser. Skønnet ændrer sig med aktiebeholdninger og fusionsvalg.",
+	"players.worthBank":
+		"Kontanter + aktieværdi. Fremtidige bonusser er udeladt: bankens beholdning kendes først ved udbetaling.",
+	"players.worthTeams": "BGS-point lægger begge holdkammerater sammen.",
+	"players.worthFourHands": "BGS-point bruger din rigeste plads.",
 	"players.stock": "Aktier",
 	"players.tiles": "Brikker",
 	"players.acting": "handler nu",

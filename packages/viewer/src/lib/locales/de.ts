@@ -98,6 +98,15 @@ export const de: Catalog = {
 	"players.title": "Spieler",
 	"players.player": "Spieler",
 	"players.cash": "Geld",
+	"players.netWorth": "Vermögen",
+	"players.worthBreakdown": "Vermögensübersicht",
+	"players.bonuses": "Boni",
+	"players.worthNote":
+		"Bargeld + Aktienwert + voraussichtliche Mehrheits-/Minderheitsboni. Die Schätzung ändert sich mit Aktienbesitz und Fusionsentscheidungen.",
+	"players.worthBank":
+		"Bargeld + Aktienwert. Künftige Boni sind ausgeschlossen: Der Aktienbesitz der Bank ist erst bei der Auszahlung bekannt.",
+	"players.worthTeams": "BGS-Punkte addieren beide Teammitglieder.",
+	"players.worthFourHands": "BGS-Punkte richten sich nach deinem reichsten Sitz.",
 	"players.stock": "Aktien",
 	"players.tiles": "Plättchen",
 	"players.acting": "ist am Zug",

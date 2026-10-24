@@ -98,6 +98,15 @@ export const vi: Catalog = {
 	"players.title": "Người chơi",
 	"players.player": "Người chơi",
 	"players.cash": "Tiền",
+	"players.netWorth": "Tổng tài sản",
+	"players.worthBreakdown": "Chi tiết tài sản",
+	"players.bonuses": "Tiền thưởng",
+	"players.worthNote":
+		"Tiền mặt + giá trị cổ phiếu + thưởng đa số/thiểu số dự kiến. Ước tính thay đổi theo lượng cổ phiếu và lựa chọn khi sáp nhập.",
+	"players.worthBank":
+		"Tiền mặt + giá trị cổ phiếu. Không tính thưởng tương lai: số cổ phiếu của ngân hàng chưa được biết cho đến khi trả thưởng.",
+	"players.worthTeams": "Điểm BGS cộng tài sản của cả hai đồng đội.",
+	"players.worthFourHands": "Điểm BGS lấy ghế giàu nhất của bạn.",
 	"players.stock": "Cổ phiếu",
 	"players.tiles": "Ô",
 	"players.acting": "đang quyết định",

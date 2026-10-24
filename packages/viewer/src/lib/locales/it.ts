@@ -103,6 +103,15 @@ export const it: Catalog = {
 	"players.title": "Giocatori",
 	"players.player": "Giocatore",
 	"players.cash": "Denaro",
+	"players.netWorth": "Patrimonio",
+	"players.worthBreakdown": "Dettaglio del patrimonio",
+	"players.bonuses": "Bonus",
+	"players.worthNote":
+		"Contanti + valore delle azioni + bonus di maggioranza/minoranza stimati. La stima varia con le partecipazioni e le scelte nelle fusioni.",
+	"players.worthBank":
+		"Contanti + valore delle azioni. Bonus futuri esclusi: la quota della banca è sconosciuta fino al pagamento.",
+	"players.worthTeams": "I punteggi BGS sommano entrambi i compagni di squadra.",
+	"players.worthFourHands": "I punteggi BGS usano il tuo posto più ricco.",
 	"players.stock": "Azioni",
 	"players.tiles": "Tessere",
 	"players.acting": "sta decidendo",

@@ -1,9 +1,15 @@
 # Acquire private beta — 24 October 2026
 
-Private BGS registration: `acquire`, version `1`. Engine `0.0.2`, viewer `0.0.15`.
+Private BGS registration: `acquire`, version `1`. Engine `0.0.3`, viewer `0.0.16`.
 Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 
 ## Validation
+
+- Public-holdings games show projected net worth and an expandable cash/share/bonus breakdown.
+  BGS scores use the same valuation, combining teammates or taking the richest four-hands seat.
+  Future bank-mode bonuses are excluded. Checks cover ties/rounding, inactive shares, partial
+  mergers without duplicate bonuses, final settlement, privacy and independence from hidden draws.
+  Partial replay entries omit the forecast. All 17 languages are checked on desktop and phones.
 
 - Safe chains have a contrasting double perimeter, with interior tile seams left unchanged.
   The chain table's safe label uses the same double border. Checks cover the 11-tile threshold,
@@ -33,7 +39,7 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
   requests, hidden-information masking, replay, bank mode, four-hands, teams and dropped players.
   Desktop/phone checks exercise repeated undo, saved-state refreshes, final history and clock totals.
 
-- `pnpm check`: formatting, lint, TypeScript/Svelte checks, 207 engine tests,
+- `pnpm check`: formatting, lint, TypeScript/Svelte checks, 214 engine tests,
   66 viewer/tutorial tests, and the production build. Two pre-existing lint warnings
   remain (an unused test import and Svelte's `bind:this` assignment).
 - Protocol diagnostics: all eight required engine methods; full core/chat/replay

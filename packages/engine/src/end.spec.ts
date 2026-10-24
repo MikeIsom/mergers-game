@@ -173,7 +173,7 @@ test("§13 scores are 0 during play while holdings are private, then the final c
 	assert.deepEqual(wrapper.scores(state), [4000, 7000]);
 });
 
-test("§13 scores are live cash while holdings are public", () => {
+test("§13 public net worth equals live cash when no shares are held", () => {
 	const state = scenario({
 		seats: 2,
 		board: SAFE_TOWER,

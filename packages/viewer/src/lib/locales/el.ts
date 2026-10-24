@@ -98,6 +98,15 @@ export const el: Catalog = {
 	"players.title": "Παίκτες",
 	"players.player": "Παίκτης",
 	"players.cash": "Μετρητά",
+	"players.netWorth": "Περιουσία",
+	"players.worthBreakdown": "Ανάλυση περιουσίας",
+	"players.bonuses": "Μπόνους",
+	"players.worthNote":
+		"Μετρητά + αξία μετοχών + εκτιμώμενα μπόνους πλειοψηφίας/μειοψηφίας. Η εκτίμηση αλλάζει με τις μετοχές και τις επιλογές συγχώνευσης.",
+	"players.worthBank":
+		"Μετρητά + αξία μετοχών. Χωρίς μελλοντικά μπόνους: οι μετοχές της τράπεζας αποκαλύπτονται κατά την πληρωμή.",
+	"players.worthTeams": "Τα σκορ BGS αθροίζουν τους δύο συμπαίκτες.",
+	"players.worthFourHands": "Τα σκορ BGS βασίζονται στην πλουσιότερη θέση σου.",
 	"players.stock": "Μετοχές",
 	"players.tiles": "Πλακίδια",
 	"players.acting": "παίζει τώρα",

@@ -103,6 +103,61 @@ try {
 	assert.equal(report.diagnostics.compatible, true);
 	assert.equal(report.diagnostics.recommended.percent, 100);
 
+	for (const width of [1280, 390, 320]) {
+		await page.setViewportSize({ width, height: 900 });
+		await open("players=3&hotseat=0&view=0&theme=dark");
+		await page.evaluate((state) => {
+			state.options.publicHoldings = true;
+			window.acquireDev.load(state);
+		}, preparedPosition("scoring"));
+		await page.waitForSelector(".net-worth");
+		assert.deepEqual(await page.locator(".net-worth strong").allTextContents(), ["≈ $15,800", "≈ $10,900", "≈ $6,700"]);
+		assert.deepEqual(
+			await page.evaluate(() => window.acquireDev.engine.scores(window.acquireDev.state)),
+			[15800, 10900, 6700]
+		);
+		await page.locator(".worth-details summary").click();
+		assert.deepEqual(await page.locator(".worth-details tbody tr").first().locator("td.num").allTextContents(), [
+			"$6,000",
+			"$2,800",
+			"$7,000",
+		]);
+		for (const theme of ["dark", "light"]) {
+			await page.evaluate((theme) => window.acquireDev.emitter.emit("theme", { dark: theme === "dark" }), theme);
+			for (const locale of locales) {
+				await preferences({ locale });
+				assert.ok(
+					await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1),
+					`net worth ${locale} ${theme} ${width}px`
+				);
+			}
+			await preferences({ locale: "en" });
+			await page.locator(".players").screenshot({ path: new URL(`net-worth-${theme}-${width}.png`, output).pathname });
+		}
+		await page.evaluate(() => {
+			const state = structuredClone(window.acquireDev.state);
+			state.options.publicHoldings = false;
+			window.acquireDev.load(state);
+		});
+		await settle();
+		assert.equal(await page.locator(".net-worth, .worth-details").count(), 0);
+		assert.deepEqual(await page.evaluate(() => window.acquireDev.engine.scores(window.acquireDev.state)), [0, 0, 0]);
+	}
+	await open("players=2&publicHoldings=1&theme=dark");
+	await page.locator(".worth-details summary").click();
+	assert.match(await page.locator(".worth-details").innerText(), /Future bonuses excluded/);
+	assert.deepEqual(await page.locator(".worth-details tbody tr td:last-child").allTextContents(), ["—", "—"]);
+	await page.evaluate(() => window.acquireDev.emitter.emit("replay:start"));
+	await settle();
+	assert.equal(
+		await page.locator(".net-worth, .worth-details").count(),
+		0,
+		"partial replay log entries do not show a misleading forecast"
+	);
+	report.scenarios.push(
+		"public net worth and score equality, expandable cash/stock/bonus breakdown, all locales and themes, privacy, bank-mode note and replay masking"
+	);
+
 	// Show the known growth before the sell/trade decision, including on narrow/RTL screens.
 	for (const width of [1280, 390, 320]) {
 		await page.setViewportSize({ width, height: 900 });

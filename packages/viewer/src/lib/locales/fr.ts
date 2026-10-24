@@ -102,6 +102,15 @@ export const fr: Catalog = {
 	"players.title": "Joueurs",
 	"players.player": "Joueur",
 	"players.cash": "Argent",
+	"players.netWorth": "Patrimoine",
+	"players.worthBreakdown": "Détail du patrimoine",
+	"players.bonuses": "Primes",
+	"players.worthNote":
+		"Argent + valeur des actions + primes de majorité/minorité estimées. Cette estimation varie selon les participations et les choix de fusion.",
+	"players.worthBank":
+		"Argent + valeur des actions. Primes futures exclues : la participation de la banque est inconnue avant le versement.",
+	"players.worthTeams": "Les scores BGS cumulent les deux coéquipiers.",
+	"players.worthFourHands": "Les scores BGS retiennent votre siège le plus riche.",
 	"players.stock": "Actions",
 	"players.tiles": "Tuiles",
 	"players.acting": "doit jouer",

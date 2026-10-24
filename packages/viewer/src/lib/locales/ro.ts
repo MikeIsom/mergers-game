@@ -102,6 +102,15 @@ export const ro: Catalog = {
 	"players.title": "Jucători",
 	"players.player": "Jucător",
 	"players.cash": "Bani",
+	"players.netWorth": "Avere",
+	"players.worthBreakdown": "Detaliile averii",
+	"players.bonuses": "Bonusuri",
+	"players.worthNote":
+		"Numerar + valoarea acțiunilor + bonusuri estimate de majoritate/minoritate. Estimarea variază cu deținerile și alegerile la fuziune.",
+	"players.worthBank":
+		"Numerar + valoarea acțiunilor. Fără bonusuri viitoare: deținerea băncii este necunoscută până la plată.",
+	"players.worthTeams": "Scorurile BGS însumează ambii coechipieri.",
+	"players.worthFourHands": "Scorurile BGS folosesc cel mai bogat loc al tău.",
 	"players.stock": "Acțiuni",
 	"players.tiles": "Piese",
 	"players.acting": "acționează acum",
