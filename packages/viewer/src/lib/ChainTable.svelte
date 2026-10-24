@@ -55,8 +55,9 @@
 		color: var(--ink-muted);
 	}
 	.safe {
-		margin-left: 6px;
-		padding: 0 4px;
+		margin-inline-start: 6px;
+		padding: 0 3px;
+		border: 3px double var(--on-accent);
 		font-size: 11px;
 		font-weight: 600;
 		background: var(--accent);

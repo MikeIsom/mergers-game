@@ -1,9 +1,13 @@
-# Acquire private beta — 23 October 2026
+# Acquire private beta — 24 October 2026
 
-Private BGS registration: `acquire`, version `1`. Engine `0.0.2`, viewer `0.0.14`.
+Private BGS registration: `acquire`, version `1`. Engine `0.0.2`, viewer `0.0.15`.
 Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
 
 ## Validation
+
+- Safe chains have a contrasting double perimeter, with interior tile seams left unchanged.
+  The chain table's safe label uses the same double border. Checks cover the 11-tile threshold,
+  irregular shapes and holes, board edges, placement/undo, both themes and narrow screens.
 
 - Merger disposal has sell-all and maximum-trade shortcuts alongside the quantity controls.
   Sale totals use the absorbed chain's price; trade gains/losses compare the shares surrendered
@@ -30,7 +34,7 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
   Desktop/phone checks exercise repeated undo, saved-state refreshes, final history and clock totals.
 
 - `pnpm check`: formatting, lint, TypeScript/Svelte checks, 207 engine tests,
-  64 viewer/tutorial tests, and the production build. Two pre-existing lint warnings
+  66 viewer/tutorial tests, and the production build. Two pre-existing lint warnings
   remain (an unused test import and Svelte's `bind:this` assignment).
 - Protocol diagnostics: all eight required engine methods; full core/chat/replay
   viewer coverage, preferences, avatars and theme handlers. Protocol `0.10.0` is the

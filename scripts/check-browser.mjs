@@ -271,6 +271,10 @@ try {
 		assert.match(await page.locator(".paused-note").innerText(), /12I.*can't found an 8th chain/);
 		assert.match(await page.locator(".square.dead").getAttribute("aria-label"), /5D.*would merge safe chains/);
 		assert.equal(await page.locator("button.tile.dead, button.tile.paused, button.square.dead").count(), 0);
+		assert.equal(await page.locator(".safe-borders g").count(), 2);
+		assert.equal(await page.locator(".square.chain.safe").count(), 22);
+		assert.match(await page.locator(".square.chain.safe").first().getAttribute("aria-label"), /safe/);
+		assert.equal(await page.locator(".safe-borders").evaluate((node) => getComputedStyle(node).pointerEvents), "none");
 		for (const theme of ["dark", "light"]) {
 			await page.evaluate((theme) => window.acquireDev.emitter.emit("theme", { dark: theme === "dark" }), theme);
 			for (const locale of locales) {
@@ -295,10 +299,32 @@ try {
 			await page
 				.locator("section.hand")
 				.screenshot({ path: new URL(`dead-tiles-${theme}-${width}.png`, output).pathname });
+			await page.locator(".frame").screenshot({ path: new URL(`safe-chains-${theme}-${width}.png`, output).pathname });
 		}
 	}
 	report.scenarios.push(
 		"dead tiles and temporary blocks: distinct symbols, readable coordinates and notes, equal tile heights, all locales in both themes"
+	);
+
+	await open("players=3&hotseat=0&view=0&theme=dark");
+	await page.evaluate((state) => {
+		const { allTiles, parseTile } = window.acquireDev.rules;
+		state.board[parseTile("11A")] = null;
+		state.seats[0].hand = [parseTile("11A")];
+		const held = new Set(state.seats.flatMap((seat) => seat.hand));
+		state.pool = allTiles().filter((tile) => state.board[tile] === null && !held.has(tile));
+		window.acquireDev.load(state);
+	}, preparedPosition("scoring"));
+	await settle();
+	assert.equal(await page.locator(".safe-borders").count(), 0);
+	await page.getByRole("button", { name: "Place 11A", exact: true }).click();
+	await page.waitForSelector('.safe-borders [data-chain="tower"]');
+	assert.equal(await page.locator(".square.chain.safe").count(), 11);
+	await page.getByRole("button", { name: "Undo", exact: true }).click();
+	await page.waitForSelector(".safe-borders", { state: "detached" });
+	assert.equal(await page.locator(".square.chain.safe").count(), 0);
+	report.scenarios.push(
+		"safe chain perimeter: both themes, narrow screens, 11-tile threshold, private placement and undo"
 	);
 
 	for (const theme of ["light", "dark"]) {
