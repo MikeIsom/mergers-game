@@ -1,6 +1,20 @@
 import type { Catalog } from "../i18n.ts";
 
 export const zhTW: Catalog = {
+	"swap.title": "股票交換",
+	"swap.note": "購買前可按現價一換一。交換後仍可購買最多 3 股。",
+	"swap.remaining": "本回合剩餘 {count} 股",
+	"swap.unlimited": "不限",
+	"swap.give": "交出（持有股票）",
+	"swap.take": "取得（銀行股票）",
+	"swap.count": "股數",
+	"swap.confirm": "交換股票",
+	"swap.pay": "支付 {amount}",
+	"swap.receive": "收取 {amount}",
+	"swap.even": "無價差",
+	"swap.unavailable": "此數量、交換限額、股票與現金不足以完成交換。",
+	"log.swapped": "{name} 以 {count} 股 {from} 交換 {count} 股 {to} · {cash}",
+
 	loading: "正在載入遊戲…",
 	"status.place": "{name}：放置一塊板塊",
 	"status.found": "{name}：為新連鎖命名",

@@ -1,6 +1,20 @@
 import type { Catalog } from "../i18n.ts";
 
 export const ru: Catalog = {
+	"swap.title": "Обмен акций",
+	"swap.note": "Обменивайте 1:1 по текущим ценам перед покупкой. После этого можно купить до 3 акций.",
+	"swap.remaining": "Осталось за ход: {count}",
+	"swap.unlimited": "Без ограничений",
+	"swap.give": "Отдать (ваши акции)",
+	"swap.take": "Получить (акции банка)",
+	"swap.count": "Акции",
+	"swap.confirm": "Обменять акции",
+	"swap.pay": "Заплатить {amount}",
+	"swap.receive": "Получить {amount}",
+	"swap.even": "Без доплаты",
+	"swap.unavailable": "Обмен невозможен с этим количеством, лимитом, запасом акций и наличными.",
+	"log.swapped": "{name} обменивает {count} {from} на {count} {to} · {cash}",
+
 	loading: "Загрузка игры…",
 	"status.place": "{name}: выложить фишку",
 	"status.found": "{name}: назвать новую сеть",

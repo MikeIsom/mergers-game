@@ -1,6 +1,20 @@
 import type { Catalog } from "../i18n.ts";
 
 export const fa: Catalog = {
+	"swap.title": "تعویض سهام",
+	"swap.note": "پیش از خرید، با قیمت فعلی یک‌به‌یک تعویض کنید. همچنان می‌توانید تا ۳ سهم بخرید.",
+	"swap.remaining": "{count} سهم باقی‌مانده در این نوبت",
+	"swap.unlimited": "نامحدود",
+	"swap.give": "واگذاری (سهام شما)",
+	"swap.take": "دریافت (سهام بانک)",
+	"swap.count": "تعداد سهم",
+	"swap.confirm": "تعویض سهام",
+	"swap.pay": "پرداخت {amount}",
+	"swap.receive": "دریافت {amount}",
+	"swap.even": "بدون اختلاف قیمت",
+	"swap.unavailable": "با این تعداد، سقف تعویض، سهام و وجه نقد، تعویض ممکن نیست.",
+	"log.swapped": "{name} تعداد {count} سهم {from} را با {count} سهم {to} تعویض کرد · {cash}",
+
 	loading: "در حال بارگذاری بازی…",
 	"status.place": "{name} باید یک کاشی بگذارد",
 	"status.found": "{name} باید برای زنجیره‌ی جدید نام انتخاب کند",

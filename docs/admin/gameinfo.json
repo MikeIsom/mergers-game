@@ -93,6 +93,34 @@
 					"label": "31 tiles (shorter game)"
 				}
 			]
+		},
+		{
+			"name": "stockSwap",
+			"label": "Stock swap (shares per turn, optional variant)",
+			"type": "select",
+			"default": "off",
+			"items": [
+				{
+					"name": "off",
+					"label": "Off"
+				},
+				{
+					"name": "3",
+					"label": "3"
+				},
+				{
+					"name": "5",
+					"label": "5"
+				},
+				{
+					"name": "7",
+					"label": "7"
+				},
+				{
+					"name": "unlimited",
+					"label": "Unlimited"
+				}
+			]
 		}
 	],
 	"settings": [],

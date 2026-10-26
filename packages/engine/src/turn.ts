@@ -15,6 +15,12 @@ export function drawTile(state: GameState): Tile | undefined {
  */
 export function buyStepAvailable(state: GameState): boolean {
 	const seat = state.seats[state.activeSeat]!;
+	// A swap may release cash even when buying is unaffordable. Do not use hidden holdings
+	// to decide whether this step is shown; opponents must not learn them from an auto-skip.
+	const active = activeChains(state.board);
+	if (state.options.stockSwap && active.length > 1 && active.some((chain) => state.bank[chain] > 0)) {
+		return true;
+	}
 	const cashIsPublic = state.options.publicHoldings;
 	return activeChains(state.board).some(
 		(chain) => state.bank[chain] > 0 && (!cashIsPublic || sharePrice(chain, chainSize(state.board, chain)) <= seat.cash)

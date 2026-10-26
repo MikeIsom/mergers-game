@@ -59,6 +59,22 @@ Then the survivor absorbs all the tiles. The names of the chains taken over are 
 
 After placing, you may buy up to 3 shares in total, in one or more chains on the board. Prices depend on each chain's current size and stay fixed for the rest of your turn. You can't borrow, and you can't sell stock except in a merger or at the end.
 
+### Optional stock swaps
+
+If the game uses **Stock swap**, after your tile and any mergers are fully resolved you
+may exchange shares with the bank **one for one**, before buying. Both chains must be on
+the board. Give shares you own and take the same number from the bank, paying the current
+price difference or receiving cash if the new shares are cheaper. You must afford the
+payment, and the bank must have enough stock.
+
+For example, two Tower shares at $300 each exchanged for two Continental shares at $700
+each cost $800. Reversing that exchange pays you $800.
+
+The setting is **Off** (default), **3**, **5**, **7** or **Unlimited** shares per turn.
+The allowance is shared across exchanges: giving three shares and receiving three uses
+three of the allowance. You can still buy your usual **up to 3 shares** afterward.
+Swaps can be undone until you finish buying. This is an optional house rule.
+
 ## Price table
 
 Find a chain's size in the column for its tier.
@@ -100,6 +116,7 @@ Your tiles are private. Unless the game was created with **public holdings**, ea
 
 ## Game options
 
+- **Stock swap:** optional 1:1 exchanges with the bank before buying; Off / 3 / 5 / 7 / Unlimited shares per turn (see above).
 - **Public holdings:** everyone's cash and shares are visible.
 - **Team play** (4 players only): seats 1 and 3 play against seats 2 and 4; each team's money is added together at the end.
 - **Two-player mode:** *Bank as third shareholder* (above) or *Four hands*, where each player controls two seats in a normal four-seat game and the player with the single richest seat wins.

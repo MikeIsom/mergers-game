@@ -1,6 +1,20 @@
 import type { Catalog } from "../i18n.ts";
 
 export const hi: Catalog = {
+	"swap.title": "शेयर अदला-बदली",
+	"swap.note": "खरीदने से पहले मौजूदा कीमतों पर 1:1 अदला-बदली करें। फिर भी 3 शेयर तक खरीद सकते हैं।",
+	"swap.remaining": "इस बारी में {count} बाकी",
+	"swap.unlimited": "असीमित",
+	"swap.give": "दें (आपके शेयर)",
+	"swap.take": "लें (बैंक के शेयर)",
+	"swap.count": "शेयर",
+	"swap.confirm": "शेयर बदलें",
+	"swap.pay": "{amount} दें",
+	"swap.receive": "{amount} लें",
+	"swap.even": "कीमत में कोई अंतर नहीं",
+	"swap.unavailable": "इस मात्रा, सीमा, शेयरों और नकद के साथ अदला-बदली उपलब्ध नहीं है।",
+	"log.swapped": "{name} ने {count} {from} के बदले {count} {to} लिए · {cash}",
+
 	loading: "खेल लोड हो रहा है…",
 	"status.place": "{name} को एक टाइल रखनी है",
 	"status.found": "{name} को नई श्रृंखला का नाम चुनना है",

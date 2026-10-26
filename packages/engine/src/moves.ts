@@ -11,6 +11,7 @@ import {
 	startMerger,
 	survivorCandidates,
 } from "./merger.js";
+import { maxStockSwap, swapStock } from "./stock-swap.js";
 import { sharePrice } from "./prices.js";
 import { canAnnounce, endGame } from "./scoring.js";
 import { parseTile, tileLabel, type Tile } from "./tiles.js";
@@ -59,6 +60,15 @@ export function sanitizeMove(state: GameState, raw: unknown, seat: number): Move
 			throw new Error("You must place a tile");
 		}
 		return { type: "pass" };
+	}
+	if (raw.type === "swap") {
+		if (!isChainId(raw.from) || !isChainId(raw.to) || !Number.isInteger(raw.count) || (raw.count as number) < 1) {
+			throw new Error("Choose two different active chains and a positive whole number of shares");
+		}
+		if ((raw.count as number) > maxStockSwap(state, raw.from, raw.to)) {
+			throw new Error("That stock swap exceeds the allowance, your holdings, available bank stock or cash");
+		}
+		return { type: "swap", from: raw.from, to: raw.to, count: raw.count as number };
 	}
 	if (raw.type !== state.phase) {
 		throw new Error(`Expected a "${state.phase}" move`);
@@ -251,6 +261,9 @@ function perform(state: GameState, move: Move, seat: number, auto: boolean): voi
 			break;
 		case "dispose":
 			dispose(state, seat, move.sell, move.trade);
+			break;
+		case "swap":
+			swapStock(state, move.from, move.to, move.count);
 			break;
 		case "buy":
 			buyShares(state, move.shares);

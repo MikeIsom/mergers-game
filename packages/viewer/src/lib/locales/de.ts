@@ -1,6 +1,20 @@
 import type { Catalog } from "../i18n.ts";
 
 export const de: Catalog = {
+	"swap.title": "Aktientausch",
+	"swap.note": "Vor dem Kauf 1:1 zu aktuellen Kursen tauschen. Du darfst weiterhin bis zu 3 Aktien kaufen.",
+	"swap.remaining": "{count} in diesem Zug übrig",
+	"swap.unlimited": "Unbegrenzt",
+	"swap.give": "Abgeben (dein Bestand)",
+	"swap.take": "Erhalten (Bankbestand)",
+	"swap.count": "Aktien",
+	"swap.confirm": "Aktien tauschen",
+	"swap.pay": "{amount} zahlen",
+	"swap.receive": "{amount} erhalten",
+	"swap.even": "Keine Preisdifferenz",
+	"swap.unavailable": "Mit dieser Menge, dem Limit, Aktienbestand und Bargeld ist kein Tausch möglich.",
+	"log.swapped": "{name} tauscht {count} {from} gegen {count} {to} · {cash}",
+
 	loading: "Spiel wird geladen…",
 	"status.place": "{name} legt ein Plättchen",
 	"status.found": "{name} benennt eine neue Kette",

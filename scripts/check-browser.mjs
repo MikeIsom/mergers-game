@@ -103,6 +103,98 @@ try {
 	assert.equal(report.diagnostics.compatible, true);
 	assert.equal(report.diagnostics.recommended.percent, 100);
 
+	// Optional swaps are private drafts, with one shared allowance and separate purchases.
+	for (const width of [1280, 390, 320]) {
+		await page.setViewportSize({ width, height: 900 });
+		await open("players=3&hotseat=0&view=0&theme=dark&stockSwap=3");
+		await page.evaluate((state) => {
+			const { parseTile, allTiles, CHAIN_IDS } = window.acquireDev.rules;
+			state.options.stockSwap = 3;
+			state.board.fill(null);
+			for (const label of ["1A", "2A", "3A"]) {
+				state.board[parseTile(label)] = "tower";
+			}
+			for (const label of ["1E", "2E", "3E", "4E", "5E"]) {
+				state.board[parseTile(label)] = "continental";
+			}
+			state.seats.forEach((seat, index) => {
+				seat.hand = [parseTile(`${9 + index}I`)];
+				for (const chain of CHAIN_IDS) {
+					seat.shares[chain] = 0;
+				}
+			});
+			state.seats[0].shares.tower = 10;
+			state.seats[0].shares.continental = 5;
+			for (const chain of CHAIN_IDS) {
+				state.bank[chain] = 25 - state.seats.reduce((sum, seat) => sum + seat.shares[chain], 0);
+			}
+			const used = new Set(state.seats.flatMap((seat) => seat.hand));
+			state.pool = allTiles().filter((tile) => state.board[tile] === null && !used.has(tile));
+			state.phase = "buy";
+			state.placedThisTurn = true;
+			window.acquireDev.load(state);
+		}, preparedPosition("founding"));
+		await page.locator(".stock-swap summary").click();
+		await page.getByRole("spinbutton", { name: "Shares", exact: true }).fill("2");
+		assert.match(await page.locator(".exchange").innerText(), /Pay \$800/);
+		for (const theme of ["dark", "light"]) {
+			await page.evaluate((theme) => window.acquireDev.emitter.emit("theme", { dark: theme === "dark" }), theme);
+			for (const locale of locales) {
+				await preferences({ locale });
+				assert.ok(
+					await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1),
+					`stock swap ${locale} ${theme} ${width}px`
+				);
+				assert.equal(await page.locator(".stock-swap button").isEnabled(), true);
+			}
+			await preferences({ locale: "en" });
+			await page.locator(".panel").screenshot({ path: new URL(`stock-swap-${theme}-${width}.png`, output).pathname });
+		}
+		const original = await page.evaluate(() => JSON.stringify(window.acquireDev.state));
+		for (let revision = 0; revision < 3; revision++) {
+			await page.getByRole("spinbutton", { name: "Shares", exact: true }).fill("2");
+			await page.getByRole("button", { name: "Swap shares", exact: true }).click();
+			await page.waitForFunction(() => document.querySelector(".stock-swap summary")?.textContent.includes("1 left"));
+			assert.equal(
+				await page.evaluate(() => JSON.stringify(window.acquireDev.state)),
+				original,
+				"swap remains a private draft"
+			);
+			await page.getByRole("button", { name: "Undo", exact: true }).click();
+			await page.waitForFunction(() => document.querySelector(".stock-swap summary")?.textContent.includes("3 left"));
+		}
+		await page.getByRole("spinbutton", { name: "Shares", exact: true }).fill("2");
+		await page.getByRole("button", { name: "Swap shares", exact: true }).click();
+		await page.waitForFunction(() => document.querySelector(".stock-swap summary")?.textContent.includes("1 left"));
+		await page.getByLabel("Give (your stock)", { exact: true }).selectOption("continental");
+		await settle();
+		assert.match(await page.locator(".exchange").innerText(), /Receive \$400/);
+		await page.getByRole("button", { name: "Swap shares", exact: true }).click();
+		await page.waitForFunction(() => document.querySelector(".stock-swap summary")?.textContent.includes("0 left"));
+		for (let i = 0; i < 3; i++) {
+			await page.getByRole("button", { name: "Buy one more Tower", exact: true }).click();
+		}
+		await page.getByRole("button", { name: "Buy for $900 and end turn", exact: true }).click();
+		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
+		assert.deepEqual(
+			await page.evaluate(() => ({
+				cash: window.acquireDev.state.seats[0].cash,
+				swaps: window.acquireDev.state.log.filter((e) => e.type === "swapped").length,
+				increments: window.acquireDev.engine.timeIncrements(window.acquireDev.state),
+			})),
+			{ cash: 4700, swaps: 2, increments: [1, 0, 0] }
+		);
+	}
+	await open("players=3&hotseat=0&view=0");
+	await page.evaluate((state) => {
+		state.phase = "buy";
+		window.acquireDev.load(state);
+	}, preparedPosition("scoring"));
+	assert.equal(await page.locator(".stock-swap").count(), 0, "off never adds UI to existing games");
+	report.scenarios.push(
+		"stock swaps in 17 languages and both themes at 1280/390/320px, pay/receive previews, shared allowance, undo without saved history and a separate three-share purchase"
+	);
+
 	for (const width of [1280, 390, 320]) {
 		await page.setViewportSize({ width, height: 900 });
 		await open("players=3&hotseat=0&view=0&theme=dark");

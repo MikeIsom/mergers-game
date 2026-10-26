@@ -109,6 +109,15 @@ export function positionAt(state: GameState, to: number): PublicPosition {
 				bank[merger!.survivor!] -= entry.traded / 2;
 				break;
 			}
+			case "swapped": {
+				const seat = seats[entry.seat]!;
+				seat.cash -= entry.cost;
+				seat.shares[entry.from] -= entry.count;
+				bank[entry.from] += entry.count;
+				seat.shares[entry.to] += entry.count;
+				bank[entry.to] -= entry.count;
+				break;
+			}
 			case "bought": {
 				const seat = seats[entry.seat]!;
 				seat.cash -= entry.cost;

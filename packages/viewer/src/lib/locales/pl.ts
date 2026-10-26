@@ -1,6 +1,20 @@
 import type { Catalog } from "../i18n.ts";
 
 export const pl: Catalog = {
+	"swap.title": "Wymiana akcji",
+	"swap.note": "Przed zakupem wymieniaj 1:1 po bieżących cenach. Nadal możesz kupić do 3 akcji.",
+	"swap.remaining": "Pozostało w turze: {count}",
+	"swap.unlimited": "Bez limitu",
+	"swap.give": "Oddaj (twoje akcje)",
+	"swap.take": "Otrzymaj (akcje banku)",
+	"swap.count": "Akcje",
+	"swap.confirm": "Wymień akcje",
+	"swap.pay": "Zapłać {amount}",
+	"swap.receive": "Otrzymaj {amount}",
+	"swap.even": "Bez dopłaty",
+	"swap.unavailable": "Wymiana niemożliwa przy tej liczbie, limicie, akcjach i gotówce.",
+	"log.swapped": "{name} wymienia {count} {from} na {count} {to} · {cash}",
+
 	loading: "Wczytywanie gry…",
 	"status.place": "{name} kładzie płytkę",
 	"status.found": "{name} nazywa nową sieć",

@@ -10,6 +10,7 @@ export * from "./src/bonuses.js";
 export * from "./src/merger.js";
 export * from "./src/scoring.js";
 export * from "./src/net-worth.js";
+export { stockSwapsRemaining, stockSwapCost, maxStockSwap } from "./src/stock-swap.js";
 export * from "./src/bank.js";
 export * from "./src/options.js";
 export * from "./src/autoplay.js";

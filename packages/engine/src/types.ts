@@ -25,6 +25,7 @@ export type Move =
 	| { type: "survivor"; chain: ChainId }
 	| { type: "defunctOrder"; chains: ChainId[] }
 	| { type: "dispose"; sell: number; trade: number }
+	| { type: "swap"; from: ChainId; to: ChainId; count: number }
 	| { type: "buy"; shares: Partial<Shares> };
 
 /** The complete private move sequence since the last saved position. */
@@ -70,6 +71,7 @@ export type LogEntry =
 	| { type: "bankTile"; tile: Tile; result: "loose" | "joined" | "merger" | "removed" }
 	| { type: "disposed"; seat: number; chain: ChainId; sold: number; traded: number; held: number; proceeds: number }
 	| { type: "merged"; survivor: ChainId; size: number }
+	| { type: "swapped"; seat: number; from: ChainId; to: ChainId; count: number; cost: number }
 	| { type: "bought"; seat: number; shares: Partial<Shares>; cost: number }
 	| { type: "discarded"; seat: number; tiles: Tile[] }
 	| { type: "drew"; seat: number; count: number }

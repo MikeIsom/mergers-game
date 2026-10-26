@@ -34,7 +34,7 @@ for (const key of ["publicHoldings", "teamPlay", "autoEnd"]) {
 		options[key] = true;
 	}
 }
-for (const key of ["twoPlayerMode", "endSize"]) {
+for (const key of ["twoPlayerMode", "endSize", "stockSwap"]) {
 	const value = params.get(key);
 	if (value) {
 		options[key] = value;

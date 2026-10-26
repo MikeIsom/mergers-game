@@ -57,6 +57,7 @@ export function cueForEntries(entries: readonly LogEntry[]): SoundCue | undefine
 		entries.some(
 			(entry) =>
 				entry.type === "bonuses" ||
+				entry.type === "swapped" ||
 				(entry.type === "bought" && entry.cost > 0) ||
 				(entry.type === "disposed" && (entry.sold > 0 || entry.traded > 0))
 		)

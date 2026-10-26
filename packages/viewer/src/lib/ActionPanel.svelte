@@ -11,6 +11,7 @@
 		type Shares,
 	} from "acquire-engine";
 	import ChainMark from "./ChainMark.svelte";
+	import StockSwap from "./StockSwap.svelte";
 	import { mergerPreview } from "./mergerPreview";
 	import {
 		adjustShares,
@@ -36,6 +37,7 @@
 
 	// Choices being built up before they are sent; reset whenever a new state arrives.
 	let confirmAnnounce = $state(false);
+	let swapOpen = $state(false);
 	let order = $state<ChainId[]>([]);
 	let sell = $state(0);
 	let trade = $state(0);
@@ -293,6 +295,7 @@
 				>{t("dispose.confirm")}</button
 			>
 		{:else if game.phase === "buy"}
+			{#if game.options.stockSwap}<StockSwap {store} bind:open={swapOpen} />{/if}
 			<p>{t("buy.prompt")}</p>
 			{#if buyable.length > 0}
 				<table class="buy">

@@ -1,7 +1,8 @@
 import { applyMove, currentSeat } from "./moves.js";
 import type { GameState, TurnRequest } from "./types.js";
 
-export const MAX_TURN_MOVES = 16;
+// Bound untrusted request work while allowing many optional swaps in a private turn.
+export const MAX_TURN_MOVES = 256;
 
 /** A private draft ends before any new hidden information or another decision is exposed. */
 export function draftCanContinue(before: GameState, after: GameState, player: number): boolean {

@@ -1,6 +1,20 @@
 import type { Catalog } from "../i18n.ts";
 
 export const ko: Catalog = {
+	"swap.title": "주식 교환",
+	"swap.note": "구매 전에 현재 가격으로 1:1 교환합니다. 이후에도 주식을 최대 3주 구매할 수 있습니다.",
+	"swap.remaining": "이번 차례에 {count}주 남음",
+	"swap.unlimited": "무제한",
+	"swap.give": "제공 (보유 주식)",
+	"swap.take": "수령 (은행 주식)",
+	"swap.count": "주식 수",
+	"swap.confirm": "주식 교환",
+	"swap.pay": "{amount} 지불",
+	"swap.receive": "{amount} 수령",
+	"swap.even": "차액 없음",
+	"swap.unavailable": "이 수량, 교환 한도, 주식 및 현금으로는 교환할 수 없습니다.",
+	"log.swapped": "{name}: {from} {count}주를 {to} {count}주로 교환 · {cash}",
+
 	loading: "게임을 불러오는 중…",
 	"status.place": "{name}: 타일을 놓을 차례",
 	"status.found": "{name}: 새 체인의 이름을 정할 차례",

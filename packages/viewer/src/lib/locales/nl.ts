@@ -1,6 +1,20 @@
 import type { Catalog } from "../i18n.ts";
 
 export const nl: Catalog = {
+	"swap.title": "Aandelen ruilen",
+	"swap.note": "Ruil vóór het kopen 1:1 tegen de huidige prijzen. Je mag daarna nog maximaal 3 aandelen kopen.",
+	"swap.remaining": "Nog {count} deze beurt",
+	"swap.unlimited": "Onbeperkt",
+	"swap.give": "Geef (jouw aandelen)",
+	"swap.take": "Ontvang (bankaandelen)",
+	"swap.count": "Aandelen",
+	"swap.confirm": "Ruil aandelen",
+	"swap.pay": "Betaal {amount}",
+	"swap.receive": "Ontvang {amount}",
+	"swap.even": "Geen prijsverschil",
+	"swap.unavailable": "Geen ruil mogelijk met dit aantal, de limiet, aandelen en contanten.",
+	"log.swapped": "{name} ruilt {count} {from} voor {count} {to} · {cash}",
+
 	loading: "Spel laden…",
 	"status.place": "{name} moet een tegel leggen",
 	"status.found": "{name} moet een nieuwe keten een naam geven",

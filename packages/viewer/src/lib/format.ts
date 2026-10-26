@@ -173,6 +173,17 @@ export function describeEntry(
 			return t("log.merged", { chain: chain(entry.survivor), tiles: tiles(entry.size) });
 		case "bankTile":
 			return t(BANK_TILE_KEYS[entry.result], { tile: tileLabel(entry.tile) });
+		case "swapped":
+			return t("log.swapped", {
+				name: seat(entry.seat),
+				count: entry.count,
+				from: chain(entry.from),
+				to: chain(entry.to),
+				cash:
+					entry.cost === 0
+						? t("swap.even")
+						: t(entry.cost > 0 ? "swap.pay" : "swap.receive", { amount: money(Math.abs(entry.cost)) }),
+			});
 		case "bought": {
 			const bought = Object.entries(entry.shares).map(([id, n]) => `${n} ${chain(id as ChainId)}`);
 			return bought.length > 0

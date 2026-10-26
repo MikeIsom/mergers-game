@@ -201,6 +201,23 @@ can be renamed later without touching game logic.
    share, since that would reveal their cash; they get the step and may buy nothing. When
    `publicHoldings` is on, it is also skipped when the player cannot afford any share.
 
+### 9.1 Optional stock swaps (house rule)
+
+With `stockSwap` enabled, after placement (or a skipped placement) and **all** merger
+and bank-tile resolution, the active seat may exchange shares with the bank before buying.
+Each exchange gives N shares of one active chain for N of a different active chain.
+Pay N × (receiving price − giving price), or receive the difference if negative, at current
+post-merger prices. The seat must hold the shares, the bank must have the receiving stock,
+and the seat must afford any payment. No borrowing or direct player trades.
+
+Off is the default. Limits 3, 5 or 7 count shares **given** across all exchanges that turn;
+Unlimited has no share-count cap. Allowances reset for each seat's turn, including four hands.
+Normal purchases of up to 3 shares remain separate and end the turn. An exchange may fund
+those purchases. A swap-enabled buy step is not skipped for lack of cash or secret holdings
+when at least two chains are active and the bank has stock in one. Dropped players skip swaps.
+Swaps and their cash differences are public once committed. Until buying ends the turn,
+swap choices can be undone through the normal private turn draft without extra history or time.
+
 ## 10. Majority Bonuses
 
 Bonuses are paid by the bank, based on how many shares each player holds in the chain
@@ -336,6 +353,7 @@ switches on one engine, not as separate code paths. Defaults reproduce the stand
 | `teamPlay` | true / false | false | Only applies with exactly 4 players. Seats 1 and 3 form one team, seats 2 and 4 the other. All rules are unchanged; at final scoring each team's cash is added together and the team with more wins. **[DECISION]** With `publicHoldings` off, teammates still cannot see each other's holdings. |
 | `twoPlayerMode` | `bank` / `fourHands` | `bank` | Only has an effect with exactly 2 players. `bank` uses §12. `fourHands` runs a normal 4-seat game where each player controls two seats (player A has seats 1 and 3, player B has seats 2 and 4), with no bank shareholder. **[DECISION]** The player who controls the single richest seat wins; seats are not combined. |
 | `autoEnd` | true / false | false | When true, the game ends automatically at the end of the turn in which an end condition (§11.1) first holds, instead of waiting for an announcement. |
+| `stockSwap` | `off` / 3 / 5 / 7 / `unlimited` | `off` | Optional 1:1 exchanges with the bank before buying, paying or receiving the price difference. See §9.1. |
 | `endSize` | 41 / 31 | 41 | The chain size that triggers the end condition in §11.1. Setting 31 gives a shorter game (house rule). Does not change the safe size (11) or the price table. |
 
 **[DECISION]** Invalid combinations are never rejected. An option that does not apply to

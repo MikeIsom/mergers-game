@@ -1,6 +1,20 @@
 import type { Catalog } from "../i18n.ts";
 
 export const ro: Catalog = {
+	"swap.title": "Schimb de acțiuni",
+	"swap.note": "Schimbă 1:1 la prețurile curente înainte de cumpărare. Poți cumpăra în continuare până la 3 acțiuni.",
+	"swap.remaining": "{count} rămase în această tură",
+	"swap.unlimited": "Nelimitat",
+	"swap.give": "Dai (acțiunile tale)",
+	"swap.take": "Primești (stocul băncii)",
+	"swap.count": "Acțiuni",
+	"swap.confirm": "Schimbă acțiuni",
+	"swap.pay": "Plătești {amount}",
+	"swap.receive": "Primești {amount}",
+	"swap.even": "Fără diferență de preț",
+	"swap.unavailable": "Schimb imposibil cu această cantitate, limită, stoc și numerar.",
+	"log.swapped": "{name} schimbă {count} {from} pentru {count} {to} · {cash}",
+
 	loading: "Se încarcă jocul…",
 	"status.place": "{name} trebuie să plaseze o piesă",
 	"status.found": "{name} trebuie să numească un lanț nou",

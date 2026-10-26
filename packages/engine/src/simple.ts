@@ -76,6 +76,8 @@ export function turnSummary(state: GameState, index: number): string {
 			bankMerger = entry.byBank === true;
 		} else if (entry.type === "mergerPlan" && !bankMerger && !placement.startsWith("merged")) {
 			placement = `merged ${list(entry.defunct.map(chainName))} into ${chainName(entry.survivor)}`;
+		} else if (entry.type === "swapped") {
+			parts.push(`swapped ${entry.count} ${chainName(entry.from)} for ${entry.count} ${chainName(entry.to)}`);
 		} else if (entry.type === "bought" && Object.keys(entry.shares).length > 0) {
 			parts.push(`bought ${shareList(entry.shares)}`);
 		} else if (entry.type === "announced") {
@@ -117,6 +119,8 @@ export function simpleLine(state: GameState, entry: LogEntry): string {
 					return `${name} chose the order ${list(move.chains.map(chainName))}${auto}`;
 				case "dispose":
 					return `${name} sold ${move.sell} and traded ${move.trade}${auto}`;
+				case "swap":
+					return `${name} swapped ${move.count} ${chainName(move.from)} for ${move.count} ${chainName(move.to)}`;
 				case "buy": {
 					const bought = shareList(move.shares);
 					return bought ? `${name} bought ${bought}${auto}` : `${name} bought nothing${auto}`;
@@ -174,6 +178,8 @@ export function simpleLine(state: GameState, entry: LogEntry): string {
 			return `${chainName(entry.survivor)} now has ${count(entry.size, "tile")}`;
 		case "bankTile":
 			return `The bank's tile ${tileLabel(entry.tile)} ${BANK_TILE[entry.result]}`;
+		case "swapped":
+			return `${seat(entry.seat)} swapped ${entry.count} ${chainName(entry.from)} for ${entry.count} ${chainName(entry.to)} (${entry.cost > 0 ? "paid " + money(entry.cost) : entry.cost < 0 ? "received " + money(-entry.cost) : "no cash difference"})`;
 		case "bought": {
 			const bought = shareList(entry.shares);
 			return bought

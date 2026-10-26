@@ -7,6 +7,8 @@ export interface GameOptions {
 	twoPlayerMode: "bank" | "fourHands";
 	autoEnd: boolean;
 	endSize: number;
+	/** Omitted when off, preserving the init log of games created before this variant. */
+	stockSwap?: 3 | 5 | 7 | "unlimited";
 }
 
 export interface IgnoredOption {
@@ -65,6 +67,16 @@ export function normalizeOptions(
 			options.endSize = size;
 		} else {
 			ignored.push({ option: "endSize", value: raw.endSize, reason: "unknown value" });
+		}
+	}
+
+	if (raw.stockSwap === "unlimited") {
+		options.stockSwap = "unlimited";
+	} else if (raw.stockSwap !== undefined && raw.stockSwap !== "off") {
+		if ([3, 5, 7, "3", "5", "7"].includes(raw.stockSwap as number | string)) {
+			options.stockSwap = Number(raw.stockSwap) as 3 | 5 | 7;
+		} else {
+			ignored.push({ option: "stockSwap", value: raw.stockSwap, reason: "unknown value" });
 		}
 	}
 

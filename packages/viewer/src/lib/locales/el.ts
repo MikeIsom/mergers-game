@@ -1,6 +1,20 @@
 import type { Catalog } from "../i18n.ts";
 
 export const el: Catalog = {
+	"swap.title": "Ανταλλαγή μετοχών",
+	"swap.note": "Ανταλλάξτε 1:1 στις τρέχουσες τιμές πριν αγοράσετε. Μπορείτε ακόμα να αγοράσετε έως 3 μετοχές.",
+	"swap.remaining": "Απομένουν {count} σε αυτόν τον γύρο",
+	"swap.unlimited": "Απεριόριστες",
+	"swap.give": "Δίνετε (μετοχές σας)",
+	"swap.take": "Παίρνετε (τράπεζα)",
+	"swap.count": "Μετοχές",
+	"swap.confirm": "Ανταλλαγή",
+	"swap.pay": "Πληρωμή {amount}",
+	"swap.receive": "Είσπραξη {amount}",
+	"swap.even": "Χωρίς διαφορά τιμής",
+	"swap.unavailable": "Δεν γίνεται ανταλλαγή με αυτή την ποσότητα, το όριο, τις μετοχές και τα μετρητά.",
+	"log.swapped": "{name}: ανταλλαγή {count} {from} με {count} {to} · {cash}",
+
 	loading: "Φόρτωση παιχνιδιού…",
 	"status.place": "{name}: τοποθέτηση πλακιδίου",
 	"status.found": "{name}: ονομασία νέας αλυσίδας",

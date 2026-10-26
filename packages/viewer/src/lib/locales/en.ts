@@ -2,6 +2,20 @@
 // system and by i18n.spec.ts). {name} placeholders must be kept; plural messages give one form
 // per CLDR plural category of the language. Chain names are never translated.
 export const en = {
+	"swap.title": "Stock swap",
+	"swap.note": "Swap 1:1 at current prices before buying. You may still buy up to 3 shares.",
+	"swap.remaining": "{count} left this turn",
+	"swap.unlimited": "Unlimited",
+	"swap.give": "Give (your stock)",
+	"swap.take": "Receive (bank stock)",
+	"swap.count": "Shares",
+	"swap.confirm": "Swap shares",
+	"swap.pay": "Pay {amount}",
+	"swap.receive": "Receive {amount}",
+	"swap.even": "No cash difference",
+	"swap.unavailable": "No swap available with this quantity, allowance, stock and cash.",
+	"log.swapped": "{name} swapped {count} {from} for {count} {to} · {cash}",
+
 	loading: "Loading game…",
 
 	// Status bar

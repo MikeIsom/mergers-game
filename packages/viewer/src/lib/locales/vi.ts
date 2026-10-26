@@ -1,6 +1,20 @@
 import type { Catalog } from "../i18n.ts";
 
 export const vi: Catalog = {
+	"swap.title": "Đổi cổ phiếu",
+	"swap.note": "Đổi 1:1 theo giá hiện tại trước khi mua. Bạn vẫn được mua tối đa 3 cổ phiếu.",
+	"swap.remaining": "Còn {count} trong lượt này",
+	"swap.unlimited": "Không giới hạn",
+	"swap.give": "Đưa (cổ phiếu của bạn)",
+	"swap.take": "Nhận (cổ phiếu ngân hàng)",
+	"swap.count": "Số cổ phiếu",
+	"swap.confirm": "Đổi cổ phiếu",
+	"swap.pay": "Trả {amount}",
+	"swap.receive": "Nhận {amount}",
+	"swap.even": "Không chênh lệch tiền",
+	"swap.unavailable": "Không thể đổi với số lượng, hạn mức, cổ phiếu và tiền mặt này.",
+	"log.swapped": "{name} đổi {count} {from} lấy {count} {to} · {cash}",
+
 	loading: "Đang tải ván chơi…",
 	"status.place": "{name} cần đặt một ô",
 	"status.found": "{name} cần đặt tên cho chuỗi mới",

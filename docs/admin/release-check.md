@@ -1,9 +1,16 @@
-# Acquire private beta — 24 October 2026
+# Acquire — 26 October 2026
 
-Private BGS registration: `acquire`, version `1`. Engine `0.0.3`, viewer `0.0.16`.
-Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
+BGS registration: `acquire`, version `1`. Engine `0.0.4`, viewer `0.0.17`.
+Source: <https://github.com/boardgamers/mergers-game>. The live game is now public; preserve its current visibility when updating.
 
 ## Validation
+
+- Optional stock swaps default to Off, with 3/5/7/Unlimited shares per turn shared across exchanges.
+  Only active chains may swap 1:1 at current prices after all mergers, respecting bank stock,
+  holdings and cash. Normal three-share purchases remain separate. Engine checks cover allowance
+  resets, refunds, equal prices, bank/cash limits, malformed moves, merger timing, old replays,
+  public replay reconstruction, four hands, private undo and one clock increment per turn.
+  The compact pre-buy controls and public swap log are translated into all 17 languages.
 
 - Public-holdings games show projected net worth and an expandable cash/share/bonus breakdown.
   BGS scores use the same valuation, combining teammates or taking the richest four-hands seat.
@@ -39,7 +46,7 @@ Source: <https://github.com/boardgamers/mergers-game>. Keep `public: false`.
   requests, hidden-information masking, replay, bank mode, four-hands, teams and dropped players.
   Desktop/phone checks exercise repeated undo, saved-state refreshes, final history and clock totals.
 
-- `pnpm check`: formatting, lint, TypeScript/Svelte checks, 214 engine tests,
+- `pnpm check`: formatting, lint, TypeScript/Svelte checks, 222 engine tests,
   66 viewer/tutorial tests, and the production build. Two pre-existing lint warnings
   remain (an unused test import and Svelte's `bind:this` assignment).
 - Protocol diagnostics: all eight required engine methods; full core/chat/replay

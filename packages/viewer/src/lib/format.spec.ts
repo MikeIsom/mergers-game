@@ -8,6 +8,9 @@ test("styled log preserves translations, lists and cash formatting", () => {
 	const state = initGame(3, {}, "log-colors");
 	const entries: LogEntry[] = [
 		...state.log,
+		{ type: "swapped", seat: 0, from: "tower", to: "continental", count: 2, cost: 800 },
+		{ type: "swapped", seat: 0, from: "continental", to: "tower", count: 1, cost: -400 },
+		{ type: "swapped", seat: 0, from: "tower", to: "luxor", count: 1, cost: 0 },
 		{ type: "bought", seat: 0, shares: { tower: 1, luxor: 2 }, cost: 1200 },
 		{ type: "merger", seat: 0, tile: 3, sizes: { tower: 5, luxor: 5 } },
 		{ type: "mergerPlan", survivor: "tower", defunct: ["luxor", "imperial"] },

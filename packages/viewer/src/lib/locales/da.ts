@@ -1,6 +1,20 @@
 import type { Catalog } from "../i18n.ts";
 
 export const da: Catalog = {
+	"swap.title": "Aktiebytte",
+	"swap.note": "Byt 1:1 til aktuelle priser før køb. Du kan stadig købe op til 3 aktier.",
+	"swap.remaining": "{count} tilbage denne tur",
+	"swap.unlimited": "Ubegrænset",
+	"swap.give": "Afgiv (dine aktier)",
+	"swap.take": "Modtag (bankens aktier)",
+	"swap.count": "Aktier",
+	"swap.confirm": "Byt aktier",
+	"swap.pay": "Betal {amount}",
+	"swap.receive": "Modtag {amount}",
+	"swap.even": "Ingen prisforskel",
+	"swap.unavailable": "Intet bytte muligt med dette antal, grænsen, aktierne og kontanterne.",
+	"log.swapped": "{name} bytter {count} {from} for {count} {to} · {cash}",
+
 	loading: "Indlæser spillet…",
 	"status.place": "{name} skal lægge en brik",
 	"status.found": "{name} skal navngive en ny kæde",
