@@ -42,9 +42,16 @@ pixels wide and include the complete decision, board and hand. Do not use full-p
 screenshots: the supporting tables and expanded history make an unreadably tall gallery image.
 The browser checks enforce maximum capture heights and verify the desktop panel arrangement.
 
-## Private beta configuration
+## Live configuration and updates
 
-`gameinfo.json` records the initial private registration, including all three tutorial
-chapters. The engine and viewer URLs are supplied by the upload tools. Keep `public` false.
+Acquire is **public** on BGS as `acquire`, version `1` (verified 27 October 2026).
+Preserve its current visibility when updating.
 
-See [release-check.md](release-check.md) for validation and remaining public-release gaps.
+`gameinfo.json` is the initial-registration template and the source for individual option,
+preference and tutorial declarations. Its `public: false` and empty engine/viewer URLs are
+intentional bootstrap defaults, not instructions for the live game. Never upload the whole
+file over the current configuration. Fetch live metadata and merge only the intended changes.
+
+Follow [the publishing guide](../registering.md) for engine and viewer uploads, CMS updates,
+verification and deployment records. See [release-check.md](release-check.md) for validation
+and remaining work, and [AGENTS.md](../../AGENTS.md) for agent instructions.

@@ -114,7 +114,7 @@ Source: <https://github.com/boardgamers/mergers-game>. The live game is now publ
   checked 12 historical move boundaries across 2/4/6 players and four hands, playing
   up to 20 hypothetical moves at each without changing the source.
 
-## Still required before a public release
+## Remaining work after public release
 
 - Translate the English CMS rules, description, credits and BGS setup/preference
   labels, including the tutorial launcher cards. The in-game UI, journal and
@@ -126,7 +126,7 @@ Source: <https://github.com/boardgamers/mergers-game>. The live game is now publ
   custom `createAnalysis` / `analysisMove` hooks.
 - Implement hidden-information scenarios before enabling ongoing-game analysis.
   Opponent hands and future draws must be simulated, never copied from the live game.
-- Human playtesting of the private beta, including two-player bank mode, four
+- Continued human playtesting, including two-player bank mode, four
   hands, team play, long games and translation quality. Automated coverage is not
   a claim of a complete human rules review.
 
@@ -140,5 +140,5 @@ Source: <https://github.com/boardgamers/mergers-game>. The live game is now publ
 - Upload the original transparent `pictogram.svg`, English rules as the CMS page
   `acquire:rules`, and `gameinfo.json` for the initial version/configuration.
 - Tags: `economic`, `tile-placement` and `stock-holding`.
-- Intended beta accounts: not2cool, Spock and AlphaZero. GitHub collaborator:
+- Initial beta accounts: not2cool, Spock and AlphaZero. GitHub collaborator:
   MikeIsom, write permission (requires accepting GitHub's invitation).

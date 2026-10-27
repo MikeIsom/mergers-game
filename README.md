@@ -4,6 +4,7 @@ An unofficial implementation of Sid Sackson's Acquire for [boardgamers.space](ht
 for 2 to 6 players. Not affiliated with or endorsed by Hasbro, Avalon Hill, Renegade Game
 Studios or any other publisher of Acquire.
 
+- [AGENTS.md](AGENTS.md): agent instructions, current BGS status and publishing workflow.
 - `packages/engine`: the rules engine. `wrapper.ts` implements the BGS Engine API.
 - `packages/viewer`: the Svelte viewer, built as one IIFE bundle for the BGS iframe.
 - `rules.md`: the rules the engine follows. Tests cite its section numbers.
@@ -19,7 +20,7 @@ pnpm install
 pnpm check
 ```
 
-`pnpm check` formats, lints, type-checks, runs the tests and builds both packages. To run it
+`pnpm check` checks formatting, lints, type-checks, runs the tests and builds both packages. To run it
 before every commit, enable the hook with `git config core.hooksPath .githooks`.
 
 ## Playing locally
@@ -35,7 +36,7 @@ play every seat. The toolbar plays random moves, jumps to the next merger, and s
 player, theme and language.
 
 URL parameters: `players=2..6`, `seed=...`, `publicHoldings=1`, `teamPlay=1`, `autoEnd=1`,
-`endSize=31`, `twoPlayerMode=fourHands`, `theme=light|dark`, `locale=de`, `moves=50` (random
+`endSize=31`, `twoPlayerMode=fourHands`, `stockSwap=3` (or `5`, `7`, `unlimited`), `theme=light|dark`, `locale=de`, `moves=50` (random
 moves on load), `merger=1` (continue to the next merger).
 
 ## What ships
