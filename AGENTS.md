@@ -54,6 +54,16 @@ Use Node 24 and pnpm 11. Inspect the working tree before editing and preserve un
   shared across exchanges, separate from the three-share purchase allowance; prices apply
   after all merger resolution. Keep the default Off.
 
+## Setup options and player preferences
+
+For a new setup option, update `docs/admin/gameinfo.json`, the engine's `GameOptions` and
+`normalizeOptions` in `packages/engine/src/options.ts`, the affected rules/UI, and the local
+URL parser in `packages/viewer/src/dev.ts`. Test missing/default/invalid values and replay
+compatibility. A metadata declaration only adds a control; the engine must implement its effect.
+UI-only preferences use the viewer's `onPreferences`; in-game automation needs engine-backed
+player settings. Follow [the configuration checklist](docs/registering.md#adding-a-setup-option)
+for examples, translations, tests and publishing the declaration after its implementation.
+
 ## Publishing
 
 A Git push does not publish to BGS. Follow the user's delivery scope, including any request

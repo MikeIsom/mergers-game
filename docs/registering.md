@@ -151,9 +151,87 @@ Current declaration sources are in [admin/gameinfo.json](admin/gameinfo.json):
 - The **sound** preference, default on, also honoring BGS's global sound setting.
 - Three interactive tutorial chapters: founding, mergers and scoring.
 
-Unticked checkboxes are omitted by BGS; select values arrive as strings. Engine normalization
-must keep old games and replay logs compatible. Setup-option changes apply to new games;
-do not rewrite options inside ongoing games.
+### Adding a setup option
+
+A setup option needs both a BGS declaration and an engine implementation. Adding the
+declaration alone renders a control without implementing the rule.
+
+1. Add or update one entry in `options` in [admin/gameinfo.json](admin/gameinfo.json).
+   Choose a stable `name` matching the engine key. For `checkbox`, use a boolean `default`;
+   for `select`, use string item names and a `default` matching one of them.
+2. Update `GameOptions` and `normalizeOptions` in
+   [options.ts](../packages/engine/src/options.ts), then implement the rule in the engine.
+   BGS passes the creator's choices as the third argument to `wrapper.init`, which forwards
+   them to `initGame`. Unticked checkboxes can be absent; selects arrive as strings. Handle
+   missing, invalid and inapplicable values using the existing normalization conventions.
+   Validate restrictions in the engine even when metadata hides an inapplicable control.
+3. Preserve old defaults, saved states and init-log shape. New optional fields may need to
+   remain absent when disabled: `stockSwap` deliberately does this so old games replay
+   identically. Do not rename or repurpose an existing option/item key or rewrite ongoing
+   games. Player-count restrictions belong in normalization; metadata also supports
+   `requiredPlayers`, `requiredExpansion` and `requiredOption` for conditional setup controls.
+4. Update the affected viewer controls and add the key to the explicit query-parameter
+   lists in [dev.ts](../packages/viewer/src/dev.ts). Local `?stockSwap=3` works because that
+   parser forwards it; arbitrary new query parameters are not forwarded automatically.
+   Update `rules.md`, the CMS rules, and applicable tutorial explanations. Translate new
+   viewer/log text in all catalogs; translate BGS field and item labels separately.
+5. Add engine coverage for the missing/default value, every supported value, invalid input,
+   relevant player counts, rule effects and replay. See
+   [options.spec.ts](../packages/engine/src/options.spec.ts) and
+   [stock-swap.spec.ts](../packages/engine/src/stock-swap.spec.ts). Run the release checks and
+   exercise any affected UI with the option enabled and disabled.
+6. Publish and verify the supporting engine/viewer first. With the BGS admin token, fetch
+   fresh metadata, merge only this declaration by `name` into its `options` array, and PUT
+   `{ "options": [...] }` to `/api/admin/gameinfo/acquire/1`. Preserve the array's other entries,
+   order and fields. Re-fetch to verify, then inspect the BGS creation form and selected
+   values in a test game. Setup choices apply to newly created games.
+
+For reference, this is the existing stock-swap declaration:
+
+```json
+{
+	"name": "stockSwap",
+	"label": "Stock swap (shares per turn, optional variant)",
+	"type": "select",
+	"default": "off",
+	"items": [
+		{ "name": "off", "label": "Off" },
+		{ "name": "3", "label": "3" },
+		{ "name": "5", "label": "5" },
+		{ "name": "7", "label": "7" },
+		{ "name": "unlimited", "label": "Unlimited" }
+	]
+}
+```
+
+### Preferences, settings and other declarations
+
+Choose the declaration according to who consumes the value:
+
+| Field         | Purpose                                   | Implementation                                            |
+| ------------- | ----------------------------------------- | --------------------------------------------------------- |
+| `options`     | Rules chosen by the creator at setup      | Engine `init` and option normalization                    |
+| `preferences` | Each user's presentation preferences      | Viewer `onPreferences` in `packages/viewer/src/viewer.ts` |
+| `settings`    | A player's in-game automation or behavior | Engine `setPlayerSettings` and `playerSettings`           |
+
+These fields share the checkbox/select declaration shape. Preferences must not change game
+rules. `sound` is a shared BGS preference; keep honoring the global value. Acquire currently
+has no in-game `settings` declarations or engine handlers: implement both before adding one.
+Settings updates can contain the full validated settings object; do not assume only one key
+arrives. Test changes against private turn drafts, saved state, and player ownership.
+
+Allowed player counts use the top-level `players` array, not an option. Expansions have their
+own `expansions` declarations and are passed separately to engine `init`; Acquire currently
+has none. Tutorial chapters require both `tutorial.chapters` metadata and matching content
+in `packages/viewer/src/tutorial/lessons.ts`. Preserve stable chapter IDs and follow existing
+chapter-version handling when revising lessons.
+
+The platform's detailed field schema and event contracts are in its
+`apps/docs/docs/guide/game-options.md`, `engine-api.md` and `viewer-api.md` (normally under
+`../boardgamers-mono/`). Merge updates to `preferences`, `settings`, `expansions` and
+`tutorial` into fresh live metadata just as for options; never upload the bootstrap file.
+
+### CMS text
 
 English rules are read and updated at
 `https://admin.boardgamers.space/api/admin/page/acquire:rules/en` using GET and PUT.
