@@ -2,6 +2,7 @@ import { activeChains } from "./board.js";
 import { CHAIN_IDS, MAX_BUY, type ChainId } from "./config.js";
 import { merger } from "./merger.js";
 import { currentSeat, sanitizeMove } from "./moves.js";
+import { maxStockSwap } from "./stock-swap.js";
 import { tileLabel } from "./tiles.js";
 import type { GameState, Move, Shares } from "./types.js";
 
@@ -69,8 +70,19 @@ function phaseCandidates(state: GameState): Move[] {
 			}
 			return moves;
 		}
-		case "buy":
-			return buyCombinations(activeChains(state.board)).map((shares) => ({ type: "buy", shares }));
+		case "buy": {
+			const active = activeChains(state.board);
+			const moves: Move[] = buyCombinations(active).map((shares) => ({ type: "buy", shares }));
+			for (const from of active) {
+				for (const to of active) {
+					const max = maxStockSwap(state, from, to);
+					for (let count = 1; count <= max; count++) {
+						moves.push({ type: "swap", from, to, count });
+					}
+				}
+			}
+			return moves;
+		}
 		default:
 			return [];
 	}

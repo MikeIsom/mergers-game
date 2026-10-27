@@ -1,8 +1,23 @@
 import type { Catalog } from "../i18n.ts";
 
 export const ptBR: Catalog = {
+	"swap.title": "Troca de ações",
+	"swap.note": "Troque 1:1 pelos preços atuais antes de comprar. Você ainda pode comprar até 3 ações.",
+	"swap.remaining": "{count} restantes neste turno",
+	"swap.unlimited": "Ilimitado",
+	"swap.give": "Dar (suas ações)",
+	"swap.take": "Receber (ações do banco)",
+	"swap.count": "Ações",
+	"swap.confirm": "Trocar ações",
+	"swap.pay": "Pagar {amount}",
+	"swap.receive": "Receber {amount}",
+	"swap.even": "Sem diferença de preço",
+	"swap.unavailable": "Troca indisponível com esta quantidade, limite, ações e dinheiro.",
+	"log.swapped": "{name} trocou {count} {from} por {count} {to} · {cash}",
+
 	loading: "Carregando o jogo…",
 	"status.place": "{name} deve colocar uma peça",
+	"status.placeSecond": "{name} deve colocar uma segunda peça",
 	"status.found": "{name} deve dar nome a uma nova rede",
 	"status.survivor": "{name} deve escolher qual rede sobrevive à fusão",
 	"status.defunctOrder": "{name} deve escolher a ordem das redes absorvidas",
@@ -15,7 +30,8 @@ export const ptBR: Catalog = {
 	"status.replayNote": "Você está vendo uma posição anterior. As peças na mão não são mostradas.",
 	"panel.label": "Sua decisão",
 	"panel.sending": "Enviando…",
-	"announce.ask": "Encerrar o jogo depois deste turno? Não dá para desfazer.",
+	"turn.undo": "Desfazer",
+	"announce.ask": "Encerrar o jogo depois deste turno?",
 	"announce.confirm": "Anunciar o fim",
 	"announce.cancel": "Continuar jogando",
 	"announce.open": "Anunciar o fim…",
@@ -26,7 +42,7 @@ export const ptBR: Catalog = {
 	"place.merges": "funde {chains}",
 	"place.button": "Colocar {tile}",
 	"place.another": "Escolher outra",
-	"place.choose": "Escolha uma peça da sua mão.",
+	"place.choose": "Escolha uma casa destacada ou uma peça da sua mão.",
 	"place.none": "Nenhuma das suas peças pode ser colocada.",
 	"place.pass": "Continuar sem colocar",
 	"found.prompt": "Dê nome à nova rede. Você recebe uma ação grátis.",
@@ -43,6 +59,10 @@ export const ptBR: Catalog = {
 		other: "Você tem {count} ações da {chain}.",
 	},
 	"dispose.sell": "Vender a {price}",
+	"dispose.sellAll": "Vender todas",
+	"dispose.tradeMaximum": "Trocar {give} por {receive}",
+	"dispose.stockValue": "Valor das ações",
+	"dispose.afterMerger": "Preço da ação após esta fusão",
 	"dispose.trade": "Trocar 2 por 1",
 	"dispose.keep": "Manter",
 	"dispose.receive": "+{count} {chain}",
@@ -72,7 +92,11 @@ export const ptBR: Catalog = {
 	"hand.of": "Peças de {name}",
 	"hand.none": "Nenhuma peça",
 	"hand.dead": "morta: fundiria redes seguras",
+	"hand.deadReplacement": "Substituição no fim do seu turno",
 	"hand.eighth": "não dá para fundar uma 8ª rede",
+	"hand.deadNextTurn": "Substituição no início do seu próximo turno",
+	"hand.oneFounding": "não dá para fundar uma segunda rede neste turno",
+	"hand.foundOrMerge": "não dá para fundar uma rede e fundir no mesmo turno",
 	"chains.label": "Redes de hotéis",
 	"chains.title": "Redes",
 	"chains.chain": "Rede",
@@ -96,6 +120,15 @@ export const ptBR: Catalog = {
 	"players.title": "Jogadores",
 	"players.player": "Jogador",
 	"players.cash": "Dinheiro",
+	"players.netWorth": "Patrimônio",
+	"players.worthBreakdown": "Detalhes do patrimônio",
+	"players.bonuses": "Bônus",
+	"players.worthNote":
+		"Dinheiro + valor das ações + bônus estimados de maioria/minoria. A estimativa muda com as participações e decisões nas fusões.",
+	"players.worthBank":
+		"Dinheiro + valor das ações. Sem bônus futuros: a participação do banco só é conhecida no pagamento.",
+	"players.worthTeams": "As pontuações BGS somam os dois colegas de equipe.",
+	"players.worthFourHands": "As pontuações BGS usam seu assento mais rico.",
 	"players.stock": "Ações",
 	"players.tiles": "Peças",
 	"players.acting": "jogando agora",
@@ -107,6 +140,7 @@ export const ptBR: Catalog = {
 	"seat.name": "{name} (lugar {seat})",
 	"log.label": "Registro do jogo",
 	"log.title": "Registro",
+	"log.limited": "As jogadas anteriores ficam ocultas até o fim da partida.",
 	"log.recent": "Mostrar só as linhas recentes",
 	"log.all": {
 		one: "Mostrar o registro inteiro (mais {count})",
@@ -180,6 +214,83 @@ export const ptBR: Catalog = {
 	"log.finalSale": "{name} vendeu {count} {chain} por {amount}",
 	"log.result": "Dinheiro final: {results}",
 	"chat.label": "Chat",
+	"chat.suggestions": "Sugestões de menções",
+	"chat.game": "Jogo",
+	"chat.unread": "Não lidas: {count}",
+	"chat.signIn": "Entre para conversar",
+	"chat.confirmAccount": "Confirme sua conta para conversar",
+	"chat.playersOnly": "Só jogadores podem enviar mensagens",
+	"chat.disabled": "Chat desativado",
+	"chat.waiting": "O chat estará disponível quando o jogo começar",
+	"chat.connecting": "Conectando ao chat…",
+	"chat.readOnly": "O chat é somente para leitura",
+	"tutorial.mechanics.tiles":
+		"As peças se conectam pelos lados, nunca na diagonal. Junto de peças soltas, sua peça funda uma rede; junto de uma rede, amplia-a; entre redes, provoca uma fusão.\n\nUm turno normal: colocar, resolver fusões, comprar até 3 ações no total e repor a mão. Estas lições usam mãos preparadas menores.",
+	"tutorial.mechanics.tiers":
+		"As redes não têm poderes especiais. Com o mesmo tamanho, Tower e Luxor são mais baratas; Worldwide, American e Festival custam $100 a mais por ação; Imperial e Continental, $200 a mais. Os bônus dos acionistas também aumentam com esses preços.\n\nCada rede tem 25 ações. O fundador ganha uma grátis, se disponível; ela não conta entre as 3 compras permitidas.",
+	"tutorial.mechanics.prices":
+		"O preço depende do número de peças e da categoria da rede, não de quantas ações são compradas. Tower custa $200 com 2 peças, $300 com 3, $400 com 4 e $500 com 5. Depois há faixas: 6–10 peças custam $600, 11–20 custam $700, e assim por diante. Abra a tabela abaixo para ver todas as faixas e categorias.\n\nAqui, 2 ações Tower custam $400. Você pode comprar até 3 ações no total de redes ativas, se tiver dinheiro e houver ações no banco. Turnos comuns não permitem vender.",
+	"tutorial.mechanics.merger":
+		"Compare os tamanhos antes da peça de ligação: Tower tem 3 peças e Luxor 2, então Tower sobrevive. Se as maiores redes empatarem, quem colocou a peça escolhe.\n\nCom 11 peças, uma rede fica segura e não pode ser absorvida. Uma peça que uniria duas redes seguras não pode ser jogada.",
+	"tutorial.mechanics.bonuses":
+		"Em uma fusão, só os acionistas das redes absorvidas recebem bônus; as ações da rede sobrevivente não rendem bônus de fusão. O pagamento ocorre antes de vender ou trocar, pelo preço da ação da rede absorvida antes da fusão: 10 × para o maior acionista (maioria), 5 × para o segundo (minoria). Basta ter mais ações que os outros, não mais da metade.\n\nLuxor tem 2 peças: $200 por ação. Alex, com 3 ações, ganha $2.000; Bo, com 2, $1.000; Cy, com 1, nenhum bônus. Receber o bônus não consome ações. Depois você pode combinar venda por $200, troca de 2 por 1 Tower enquanto houver estoque e conservação para uma futura Luxor.",
+	"tutorial.mechanics.ties":
+		"Em empate pelo primeiro lugar, os líderes dividem os dois bônus; ninguém mais recebe. Com um único primeiro, os segundos empatados dividem apenas o bônus de minoria. Um acionista único recebe ambos. Cada parcela é arredondada para cima até o próximo múltiplo de $100.\n\nDois líderes empatados em Luxor a $200 recebem cada um ($2.000 + $1.000) ÷ 2 = $1.500. Ações Luxor guardadas não valem nada até a rede ser fundada novamente.",
+	"tutorial.mechanics.safe":
+		"Segura significa pelo menos 11 peças: a rede ainda pode crescer e absorver redes menores, mas não pode ser absorvida.\n\nVocê pode anunciar o fim quando todas as redes presentes forem seguras ou uma atingir 41 peças. Não é preciso ter todas as sete no tabuleiro. Pelas regras padrão, encerrar é opcional: termine seu turno e depois faça a contagem.",
+	"tutorial.mechanics.growth":
+		"Crescer nem sempre aumenta o preço. Tower com 11 e com 12 peças fica na mesma faixa 11–20: $700 por ação. O próximo aumento ocorre com 21 peças ($800).\n\nApós colocar a peça, você ainda pode comprar até 3 ações. Essas compras podem mudar quem recebe os bônus finais.",
+	"tutorial.mechanics.settlement":
+		"No fim do jogo, toda rede ativa paga bônus de maioria e minoria, inclusive as redes seguras que não podem ser absorvidas. Por isso a tabela inclui bônus para 41 ou mais peças. Depois, todas as ações das redes ativas são vendidas pelos preços atuais; ações de redes inativas não valem nada.\n\nCom Tower a $700, Alex lidera com 4 ações: $7.000 de bônus + $2.800 em ações + $6.000 em dinheiro = $15.800. Bo, com 2 ações, recebe o bônus de minoria de $3.500; Cy, com 1, nenhum bônus. Vence quem termina com mais dinheiro, não mais ações.",
+	"tutorial.founding.3": "Bo e Cy já jogaram. Coloque 3A para ampliar Tower de 2 para 3 peças.",
+	"tutorial.founding.4": "Compre mais 1 ação de Tower por $300 e confirme.",
+	"tutorial.mechanics.firstGrowth":
+		"Ampliar uma rede existente não dá uma ação grátis. Com 3 peças, o preço de Tower sobe de $200 para $300.\n\nSuas ações anteriores também passam a valer o novo preço, mas o crescimento não paga dinheiro imediatamente.",
+	"tutorial.mechanics.buyGrowth":
+		"Você já tem 3 ações de Tower. Comprar mais uma leva o total a 4, com $700 gastos.\n\nEm cada turno, você pode comprar até 3 novas ações. Também pode não comprar nada e guardar dinheiro.",
+	"tutorial.mergers.3": "Coloque 8F entre Worldwide e Festival. Ambas têm 2 peças.",
+	"tutorial.mergers.4": "Escolha Worldwide como a rede sobrevivente.",
+	"tutorial.mergers.5":
+		"Você recebeu os dois bônus de Festival. Guarde sua ação de Festival: deixe venda e troca em 0 e confirme.",
+	"tutorial.mergers.6": "Escolha “Não comprar e encerrar turno” para concluir a segunda fusão.",
+	"tutorial.mechanics.equalMerger":
+		"Quando as maiores redes empatam em tamanho, quem coloca a peça de ligação escolhe a sobrevivente. O número de ações não desempata.\n\nAqui, ambas têm 2 peças. Você tem a única ação de Festival fora do banco.",
+	"tutorial.mechanics.survivorChoice":
+		"Ao escolher Worldwide, Festival será absorvida. Festival está na faixa de preço intermediária: com 2 peças, cada ação vale $300.\n\nComo único acionista, você receberá os dois bônus: $3.000 + $1.500 = $4.500. Worldwide não paga bônus de fusão.",
+	"tutorial.mechanics.keepShares":
+		"Guardar ações não custa nada. Festival sai do tabuleiro, mas você mantém a ação e o bônus de $4.500.\n\nA ação pode ser útil se Festival for fundada novamente. Se continuar inativa no final, não valerá nada; turnos comuns não permitem vendê-la.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide agora tem 5 peças, incluindo a de ligação: suas ações custam $600.\n\nBônus e vendas usaram o preço antigo de Festival; novas compras usam o novo preço de Worldwide. Após uma fusão, você pode comprar até 3 ações de redes ativas.",
+	"tutorial.label": "Tutorial",
+	"tutorial.complete": "Capítulo concluído",
+	"tutorial.previous": "Etapa anterior",
+	"tutorial.retry": "Repetir etapa",
+	"tutorial.restart": "Reiniciar capítulo",
+	"tutorial.next": "Próximo capítulo",
+	"tutorial.founding.title": "Funde uma rede",
+	"tutorial.founding.0":
+		"Você joga como Alex. Selecione 2A na mão e coloque ao lado de 1A. Duas peças soltas adjacentes fundam uma rede de hotéis.",
+	"tutorial.founding.1": "Escolha Tower. O fundador recebe uma ação grátis, se houver uma no banco.",
+	"tutorial.founding.2":
+		"Compre 2 ações Tower com o botão + e confirme. Você pode comprar até 3 ações por turno; aqui cada uma custa $200.",
+	"tutorial.founding.done":
+		"Você tem 4 ações de Tower e gastou $700: uma grátis pela fundação, duas a $200 e uma a $300. O crescimento aumenta o preço nos limites indicados na tabela.",
+	"tutorial.mergers.title": "Resolva uma fusão",
+	"tutorial.mergers.0":
+		"Coloque 4A entre Tower (3 peças) e Luxor (2). A rede maior sobrevive; a quantidade de ações não decide isso.",
+	"tutorial.mergers.1":
+		"Suas 3 ações Luxor renderam o bônus majoritário de $2.000. Venda 1 ação e troque 2 por 1 ação Tower, depois confirme.",
+	"tutorial.mergers.2": "Os outros acionistas mantiveram suas ações Luxor. Não compre nada e encerre o turno.",
+	"tutorial.mergers.done":
+		"Você recebeu $200 pela venda e 1 ação Tower pela troca. Ações Luxor guardadas voltam a valer se a rede for fundada novamente. Empates na maioria dividem ambos os bônus. Redes seguras (11+ peças) não podem ser absorvidas.",
+	"tutorial.scoring.title": "Encerre e pontue",
+	"tutorial.scoring.0":
+		"Tower tem 11 peças e está segura. Todas as redes ativas estão seguras: anuncie o fim e confirme. Também é possível quando qualquer rede chega a 41 peças.",
+	"tutorial.scoring.1": "Você ainda pode terminar seu turno. Coloque 12A para expandir Tower.",
+	"tutorial.scoring.2":
+		"Não compre nada e encerre o turno. O jogo pagará os bônus e venderá as ações de todas as redes ativas.",
+	"tutorial.scoring.done":
+		"Alex vence com $15.800: $6.000 em dinheiro + $7.000 de bônus majoritário + 4 ações de $700. Ações de redes inativas não valem nada. Vence quem tem mais dinheiro; empates dividem a vitória.",
 	"chat.title": "Chat",
 	"chat.message": "Mensagem",
 	"chat.placeholder": "Mensagem…",

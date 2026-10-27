@@ -1,8 +1,23 @@
 import type { Catalog } from "../i18n.ts";
 
 export const nl: Catalog = {
+	"swap.title": "Aandelen ruilen",
+	"swap.note": "Ruil vóór het kopen 1:1 tegen de huidige prijzen. Je mag daarna nog maximaal 3 aandelen kopen.",
+	"swap.remaining": "Nog {count} deze beurt",
+	"swap.unlimited": "Onbeperkt",
+	"swap.give": "Geef (jouw aandelen)",
+	"swap.take": "Ontvang (bankaandelen)",
+	"swap.count": "Aandelen",
+	"swap.confirm": "Ruil aandelen",
+	"swap.pay": "Betaal {amount}",
+	"swap.receive": "Ontvang {amount}",
+	"swap.even": "Geen prijsverschil",
+	"swap.unavailable": "Geen ruil mogelijk met dit aantal, de limiet, aandelen en contanten.",
+	"log.swapped": "{name} ruilt {count} {from} voor {count} {to} · {cash}",
+
 	loading: "Spel laden…",
 	"status.place": "{name} moet een tegel leggen",
+	"status.placeSecond": "{name} moet een tweede tegel leggen",
 	"status.found": "{name} moet een nieuwe keten een naam geven",
 	"status.survivor": "{name} moet kiezen welke keten de fusie overleeft",
 	"status.defunctOrder": "{name} moet de volgorde van de overgenomen ketens kiezen",
@@ -15,7 +30,8 @@ export const nl: Catalog = {
 	"status.replayNote": "Je bekijkt een eerdere stand. Tegels in de hand worden niet getoond.",
 	"panel.label": "Jouw beslissing",
 	"panel.sending": "Versturen…",
-	"announce.ask": "Het spel na deze beurt beëindigen? Dit kan niet ongedaan worden gemaakt.",
+	"turn.undo": "Ongedaan maken",
+	"announce.ask": "Het spel na deze beurt beëindigen?",
 	"announce.confirm": "Einde aankondigen",
 	"announce.cancel": "Verder spelen",
 	"announce.open": "Einde aankondigen…",
@@ -26,7 +42,7 @@ export const nl: Catalog = {
 	"place.merges": "fuseert {chains}",
 	"place.button": "Leg {tile}",
 	"place.another": "Kies een andere",
-	"place.choose": "Kies een tegel uit je hand.",
+	"place.choose": "Kies een gemarkeerd vak of een tegel uit je hand.",
 	"place.none": "Geen van je tegels kan gelegd worden.",
 	"place.pass": "Verder zonder te leggen",
 	"found.prompt": "Geef de nieuwe keten een naam. Je krijgt één gratis aandeel.",
@@ -39,6 +55,10 @@ export const nl: Catalog = {
 	"dispose.takenOver": "{defunct} wordt overgenomen door {survivor}.",
 	"dispose.holding": { one: "Je hebt {count} {chain}-aandeel.", other: "Je hebt {count} {chain}-aandelen." },
 	"dispose.sell": "Verkopen voor {price}",
+	"dispose.sellAll": "Alles verkopen",
+	"dispose.tradeMaximum": "Ruil {give} voor {receive}",
+	"dispose.stockValue": "Aandelenwaarde",
+	"dispose.afterMerger": "Aandelenprijs na deze fusie",
 	"dispose.trade": "2 voor 1 ruilen",
 	"dispose.keep": "Houden",
 	"dispose.receive": "+{count} {chain}",
@@ -68,7 +88,11 @@ export const nl: Catalog = {
 	"hand.of": "Tegels van {name}",
 	"hand.none": "Geen tegels",
 	"hand.dead": "dood: zou veilige ketens fuseren",
+	"hand.deadReplacement": "Worden aan het einde van je beurt vervangen",
 	"hand.eighth": "kan geen 8e keten stichten",
+	"hand.deadNextTurn": "Worden aan het begin van je volgende beurt vervangen",
+	"hand.oneFounding": "kan deze beurt geen tweede keten stichten",
+	"hand.foundOrMerge": "kan niet in één beurt een keten stichten én fuseren",
 	"chains.label": "Hotelketens",
 	"chains.title": "Ketens",
 	"chains.chain": "Keten",
@@ -92,6 +116,15 @@ export const nl: Catalog = {
 	"players.title": "Spelers",
 	"players.player": "Speler",
 	"players.cash": "Geld",
+	"players.netWorth": "Vermogen",
+	"players.worthBreakdown": "Vermogensoverzicht",
+	"players.bonuses": "Bonussen",
+	"players.worthNote":
+		"Contant geld + aandelenwaarde + verwachte meerderheids-/minderheidsbonussen. De schatting verandert met aandelenbezit en fusiekeuzes.",
+	"players.worthBank":
+		"Contant geld + aandelenwaarde. Toekomstige bonussen tellen niet mee: het bankbezit is pas bij uitbetaling bekend.",
+	"players.worthTeams": "BGS-scores tellen beide teamgenoten bij elkaar op.",
+	"players.worthFourHands": "BGS-scores gebruiken je rijkste zitplaats.",
 	"players.stock": "Aandelen",
 	"players.tiles": "Tegels",
 	"players.acting": "is aan zet",
@@ -103,6 +136,7 @@ export const nl: Catalog = {
 	"seat.name": "{name} (plaats {seat})",
 	"log.label": "Spelverslag",
 	"log.title": "Verslag",
+	"log.limited": "Eerdere zetten blijven verborgen tot het einde van het spel.",
 	"log.recent": "Alleen recente regels tonen",
 	"log.all": { one: "Hele verslag tonen (nog {count})", other: "Hele verslag tonen (nog {count})" },
 	"log.init": { one: "Nieuw spel voor {count} speler", other: "Nieuw spel voor {count} spelers" },
@@ -158,6 +192,83 @@ export const nl: Catalog = {
 	"log.finalSale": "{name} verkoopt {count} {chain} voor {amount}",
 	"log.result": "Eindbedrag: {results}",
 	"chat.label": "Chat",
+	"chat.suggestions": "Suggesties voor vermeldingen",
+	"chat.game": "Spel",
+	"chat.unread": "Ongelezen: {count}",
+	"chat.signIn": "Log in om te chatten",
+	"chat.confirmAccount": "Bevestig je account om te chatten",
+	"chat.playersOnly": "Alleen spelers kunnen berichten sturen",
+	"chat.disabled": "Chat uitgeschakeld",
+	"chat.waiting": "De chat is beschikbaar zodra het spel begint",
+	"chat.connecting": "Verbinden met de chat…",
+	"chat.readOnly": "De chat is alleen-lezen",
+	"tutorial.mechanics.tiles":
+		"Tegels sluiten langs randen aan, nooit diagonaal. Naast losse tegels sticht je een keten; naast één keten breid je die uit; tussen ketens veroorzaak je een fusie.\n\nEen gewone beurt: plaatsen, fusies afhandelen, in totaal maximaal 3 aandelen kopen en je hand aanvullen. Deze lessen gebruiken kleinere voorbereide handen.",
+	"tutorial.mechanics.tiers":
+		"Ketens hebben geen speciale krachten. Bij gelijke grootte zijn Tower en Luxor het goedkoopst; Worldwide, American en Festival kosten $100 meer per aandeel; Imperial en Continental $200 meer. Ook de aandeelhoudersbonussen stijgen mee.\n\nElke keten heeft 25 aandelen. De oprichter krijgt één gratis aandeel als dat beschikbaar is; dit telt niet mee voor de 3 toegestane aankopen.",
+	"tutorial.mechanics.prices":
+		"De aandelenprijs hangt af van de grootte en prijsklasse van de keten, niet van hoeveel aandelen spelers kopen. Tower kost bij 2 tegels $200, bij 3 $300, bij 4 $400 en bij 5 $500. Daarna gelden groepen: 6–10 tegels kosten $600, 11–20 kosten $700 enzovoort. De prijstabel hieronder toont alle groepen en klassen.\n\nHier kosten 2 Tower-aandelen $400. Je mag in totaal 3 aandelen van actieve ketens kopen, als je genoeg geld hebt en de bank voorraad heeft. Tijdens gewone beurten kun je niet verkopen.",
+	"tutorial.mechanics.merger":
+		"Vergelijk de grootte vóór de verbindende tegel: Tower heeft 3 tegels en Luxor 2, dus Tower blijft bestaan. Bij gelijke grootste ketens kiest de speler die de tegel plaatst.\n\nVanaf 11 tegels is een keten veilig en kan die niet worden overgenomen. Een tegel die twee veilige ketens zou verbinden is onspeelbaar.",
+	"tutorial.mechanics.bonuses":
+		"Bij een fusie krijgen alleen aandeelhouders van overgenomen ketens bonussen; aandelen in de overlevende keten leveren geen fusiebonus op. De bonussen worden vóór verkoop of ruil betaald, tegen de aandelenprijs van de overgenomen keten vóór de fusie: 10 × voor de grootste aandeelhouder (meerderheid), 5 × voor de tweede (minderheid). De meeste aandelen hebben is genoeg, meer dan de helft is niet nodig.\n\nLuxor heeft 2 tegels: $200 per aandeel. Alex krijgt met 3 aandelen $2.000, Bo met 2 aandelen $1.000 en Cy met 1 geen bonus. Je levert hiervoor geen aandelen in. Daarna kun je verkoop voor $200, ruil van 2 voor 1 Tower zolang de voorraad strekt, en bewaren voor een toekomstige Luxor combineren.",
+	"tutorial.mechanics.ties":
+		"Gedeelde eerste plaatsen verdelen beide bonussen; niemand anders krijgt iets. Bij één eerste delen gelijke tweede plaatsen alleen de minderheidsbonus. Een enige aandeelhouder krijgt beide. Rond elk gedeeld bedrag naar boven af op $100.\n\nTwee gedeelde grootste Luxor-aandeelhouders bij $200 krijgen ieder ($2.000 + $1.000) ÷ 2 = $1.500. Bewaarde Luxor-aandelen zijn waardeloos totdat Luxor opnieuw wordt gesticht.",
+	"tutorial.mechanics.safe":
+		"Veilig betekent minstens 11 tegels: de keten kan nog groeien en kleinere ketens overnemen, maar niet zelf worden overgenomen.\n\nJe mag het einde aankondigen als alle aanwezige ketens veilig zijn, of één 41 tegels bereikt. Niet alle zeven hoeven aanwezig te zijn. Volgens de standaardregels is dit vrijwillig; maak je beurt af en reken daarna af.",
+	"tutorial.mechanics.growth":
+		"Groei verhoogt niet altijd de prijs. Tower met 11 en met 12 tegels valt in dezelfde groep 11–20: $700 per aandeel. Pas bij 21 tegels wordt dat $800.\n\nNa het plaatsen mag je nog maximaal 3 aandelen kopen. Daarmee kunnen de ontvangers van de eindbonussen veranderen.",
+	"tutorial.mechanics.settlement":
+		"Aan het einde van het spel betaalt elke actieve keten meerderheids- en minderheidsbonussen, ook veilige ketens die niet overgenomen kunnen worden. Daarom vermeldt de tabel ook bonussen voor 41 of meer tegels. Daarna worden alle aandelen in actieve ketens tegen de huidige prijzen verkocht; aandelen in inactieve ketens zijn waardeloos.\n\nBij Tower voor $700 leidt Alex met 4 aandelen: $7.000 bonus + $2.800 aandelen + $6.000 geld = $15.800. Bo krijgt met 2 aandelen de minderheidsbonus van $3.500; Cy met 1 geen bonus. Het eindbedrag bepaalt de winnaar, niet het aantal aandelen.",
+	"tutorial.founding.3": "Bo en Cy hebben hun beurt gehad. Leg 3A om Tower van 2 naar 3 tegels te laten groeien.",
+	"tutorial.founding.4": "Koop nog 1 Tower-aandeel voor $300 en bevestig.",
+	"tutorial.mechanics.firstGrowth":
+		"Een bestaande keten uitbreiden levert geen gratis aandeel op. Bij 3 tegels stijgt Towers koers van $200 naar $300.\n\nOok je eerdere aandelen krijgen de nieuwe waarde, maar groei levert niet meteen contant geld op.",
+	"tutorial.mechanics.buyGrowth":
+		"Je hebt al 3 Tower-aandelen. Met één extra heb je er 4 en heb je in totaal $700 uitgegeven.\n\nElke beurt mag je maximaal 3 nieuwe aandelen kopen. Je kunt ook niets kopen en geld bewaren.",
+	"tutorial.mergers.3": "Leg 8F tussen Worldwide en Festival. Beide hebben 2 tegels.",
+	"tutorial.mergers.4": "Kies Worldwide als overlevende keten.",
+	"tutorial.mergers.5":
+		"Je hebt beide Festival-bonussen ontvangen. Houd je Festival-aandeel: laat verkopen en ruilen op 0 staan en bevestig.",
+	"tutorial.mergers.6": "Kies “Niets kopen en beurt beëindigen” om de tweede fusie af te ronden.",
+	"tutorial.mechanics.equalMerger":
+		"Als de grootste ketens even groot zijn, kiest de speler die de verbindende tegel legt welke overleeft. Het aantal aandelen beslist niet.\n\nHier hebben beide ketens 2 tegels. Jij bezit het enige Festival-aandeel buiten de bank.",
+	"tutorial.mechanics.survivorChoice":
+		"Als je Worldwide kiest, wordt Festival overgenomen. Festival valt in de middelste prijsklasse: bij 2 tegels kost een aandeel $300.\n\nAls enige aandeelhouder krijg je beide bonussen: $3.000 + $1.500 = $4.500. Worldwide betaalt geen fusiebonus.",
+	"tutorial.mechanics.keepShares":
+		"Aandelen houden kost niets. Festival verdwijnt van het bord, maar je houdt het aandeel en de bonus van $4.500.\n\nHet aandeel kan nuttig worden als Festival opnieuw wordt opgericht. Is de keten aan het einde nog inactief, dan is het waardeloos; tijdens gewone beurten kun je het niet verkopen.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide heeft nu 5 tegels, inclusief de verbindende tegel. De aandelen kosten dus $600.\n\nBonussen en verkopen gebruikten Festivals oude koers; nieuwe aankopen gebruiken Worldwides nieuwe koers. Na een fusie mag je maximaal 3 aandelen van actieve ketens kopen.",
+	"tutorial.label": "Handleiding",
+	"tutorial.complete": "Hoofdstuk voltooid",
+	"tutorial.previous": "Vorige stap",
+	"tutorial.retry": "Stap herhalen",
+	"tutorial.restart": "Opnieuw beginnen",
+	"tutorial.next": "Volgend hoofdstuk",
+	"tutorial.founding.title": "Richt een keten op",
+	"tutorial.founding.0":
+		"Je speelt Alex. Kies 2A uit je hand en leg die naast 1A. Twee aangrenzende losse tegels richten een hotelketen op.",
+	"tutorial.founding.1": "Kies Tower. De oprichter krijgt een gratis aandeel als de bank er nog een heeft.",
+	"tutorial.founding.2":
+		"Koop met + 2 Tower-aandelen en bevestig. Je mag maximaal 3 aandelen per beurt kopen; hier kost elk aandeel $200.",
+	"tutorial.founding.done":
+		"Je bezit 4 Tower-aandelen en hebt $700 uitgegeven: één gratis oprichtersaandeel, twee van $200 en één van $300. Groei verhoogt de koers bij de grenzen in de prijstabel.",
+	"tutorial.mergers.title": "Handel een fusie af",
+	"tutorial.mergers.0":
+		"Leg 4A tussen Tower (3 tegels) en Luxor (2). De grotere keten blijft bestaan; het aantal aandelen bepaalt dat niet.",
+	"tutorial.mergers.1":
+		"Je 3 Luxor-aandelen leverden de meerderheidsbonus van $2.000 op. Verkoop 1 aandeel en ruil er 2 voor 1 Tower-aandeel. Bevestig daarna.",
+	"tutorial.mergers.2": "De andere aandeelhouders behielden hun Luxor-aandelen. Koop niets en beëindig je beurt.",
+	"tutorial.mergers.done":
+		"Je kreeg $200 van de verkoop en 1 Tower-aandeel door de ruil. Behouden Luxor-aandelen tellen weer mee als de keten opnieuw wordt opgericht. Bij een gedeelde meerderheid worden beide bonussen verdeeld. Veilige ketens (11+ tegels) kunnen niet worden overgenomen.",
+	"tutorial.scoring.title": "Einde en telling",
+	"tutorial.scoring.0":
+		"Tower heeft 11 tegels en is veilig. Alle actieve ketens zijn veilig: kondig het einde aan en bevestig. Dat mag ook zodra een keten 41 tegels bereikt.",
+	"tutorial.scoring.1": "Je mag je beurt nog afmaken. Leg 12A om Tower uit te breiden.",
+	"tutorial.scoring.2":
+		"Koop niets en beëindig je beurt. Het spel betaalt bonussen en verkoopt aandelen van alle actieve ketens.",
+	"tutorial.scoring.done":
+		"Alex wint met $15.800: $6.000 contant + $7.000 meerderheidsbonus + 4 aandelen van $700. Aandelen van inactieve ketens zijn waardeloos. Het meeste geld wint; bij gelijkstand wordt de overwinning gedeeld.",
 	"chat.title": "Chat",
 	"chat.message": "Bericht",
 	"chat.placeholder": "Bericht…",

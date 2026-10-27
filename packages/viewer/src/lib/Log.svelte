@@ -1,22 +1,37 @@
 <script lang="ts">
 	import type { GameState } from "acquire-engine";
-	import { describeEntry } from "./format";
+	import { describeEntryParts, type LogPart } from "./format";
+	import { CHAIN_STYLES, themeInk } from "./palette";
+	import { playerColor } from "./playerAppearance";
 	import { useStore } from "./store.svelte";
 
 	let { state: game }: { state: GameState } = $props();
 
 	// The log has no scroll box of its own (nested scrolling traps touch users); it shows the most
 	// recent lines and expands in place.
-	const RECENT = 25;
+	const RECENT = 8;
 	const store = useStore();
 	const t = $derived(store.lang.t);
 	let showAll = $state(false);
 
-	// Newest first; "turn" entries become headings that group the lines below them.
+	// Newest first; "turn" entries become headings that group the lines below them. With a
+	// limited log (rules.md §13), each run of entries the engine withheld becomes one note.
 	const lines = $derived(
 		game.log
-			.map((entry, index) => ({ index, turn: entry.type === "turn", text: describeEntry(game, entry, store.lang) }))
-			.filter((line): line is { index: number; turn: boolean; text: string } => line.text !== undefined)
+			.map((entry, index) => ({
+				index,
+				turn: entry.type === "turn",
+				hidden: entry.type === "hidden",
+				parts:
+					entry.type === "hidden"
+						? game.log[index - 1]?.type === "hidden"
+							? undefined
+							: [{ kind: "text" as const, text: t("log.limited") }]
+						: describeEntryParts(game, entry, store.lang),
+			}))
+			.filter(
+				(line): line is { index: number; turn: boolean; hidden: boolean; parts: LogPart[] } => line.parts !== undefined
+			)
 			.reverse()
 	);
 </script>
@@ -25,7 +40,23 @@
 	<h2>{t("log.title")}</h2>
 	<ol class="log">
 		{#each showAll ? lines : lines.slice(0, RECENT) as line (line.index)}
-			<li class:turn={line.turn}>{line.text}</li>
+			<li class:turn={line.turn} class:hidden={line.hidden}>
+				{#each line.parts as part}
+					{#if part.kind === "player" || part.kind === "chain"}
+						{@const color =
+							part.kind === "player"
+								? playerColor(game.seatOwner[part.seat] ?? part.seat, store.appearance?.playerColors)
+								: CHAIN_STYLES[part.chain].fill}
+						<span
+							class="name"
+							class:player-name={part.kind === "player"}
+							class:chain-name={part.kind === "chain"}
+							style:--name-ink-light={themeInk(color, "light")}
+							style:--name-ink-dark={themeInk(color, "dark")}>{part.text}</span
+						>
+					{:else if part.kind === "money"}<span class="money">{part.text}</span>{:else}{part.text}{/if}
+				{/each}
+			</li>
 		{/each}
 	</ol>
 	{#if lines.length > RECENT}
@@ -49,6 +80,19 @@
 		margin-top: 6px;
 		font-weight: 600;
 		background: var(--panel-alt);
+	}
+	.log li.hidden {
+		margin-top: 6px;
+		color: var(--ink-muted);
+		font-style: italic;
+	}
+	.name,
+	.money {
+		font-weight: 600;
+	}
+	.money {
+		white-space: nowrap;
+		font-variant-numeric: tabular-nums;
 	}
 	.more {
 		margin: 8px 0 0;

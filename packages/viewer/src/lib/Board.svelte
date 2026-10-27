@@ -1,18 +1,29 @@
 <script lang="ts">
-	import { BOARD_COLUMNS, BOARD_ROWS, tileLabel, type GameState, type Tile } from "acquire-engine";
+	import {
+		BOARD_COLUMNS,
+		BOARD_ROWS,
+		HIDDEN,
+		parseTile,
+		tileLabel,
+		tileLegality,
+		type GameState,
+		type Tile,
+	} from "acquire-engine";
+	import { ofType, turnLimit } from "./decisions";
 	import { chainName } from "./format";
-	import { CHAIN_STYLES, patternCss } from "./palette";
+	import { CHAIN_STYLES } from "./palette";
+	import { safeBorders } from "./safeBorders";
 	import { useStore } from "./store.svelte";
 
 	let {
 		state,
 		selected,
-		onconfirm,
+		onplace,
 	}: {
 		state: GameState;
 		/** A tile selected in the hand: its square is highlighted and clicking it places the tile. */
 		selected?: Tile;
-		onconfirm?: () => void;
+		onplace: (tile: Tile) => void;
 	} = $props();
 
 	// Rows A-I down, columns 1-12 across, like the printed board. Tile index = (column - 1) * 9 + row.
@@ -23,6 +34,30 @@
 	const pendingTile = $derived(state.merger?.tile ?? state.pendingTile);
 	const store = useStore();
 	const t = $derived(store.lang.t);
+	const playable = $derived(new Set(ofType(store.moves, "place").map((move) => parseTile(move.tile)!)));
+	const borders = $derived(safeBorders(state.board));
+
+	/** Why one of the viewer's tiles can't be placed now, or undefined. */
+	function heldNote(tile: Tile): string | undefined {
+		const legality = tileLegality(state.board, tile);
+		if (legality === "permanentlyUnplayable") {
+			return t("hand.dead");
+		}
+		if (legality === "temporarilyUnplayable") {
+			return t("hand.eighth");
+		}
+		const seat = store.seats.find((s) => state.seats[s]?.hand.includes(tile));
+		const limit = seat === undefined ? undefined : turnLimit(state, seat, tile);
+		return limit && t(`hand.${limit}`);
+	}
+	const safeChains = $derived(new Set(borders.map(({ chain }) => chain)));
+	const held = $derived(
+		new Set(
+			store.replayAt === undefined && !store.readOnly
+				? store.seats.flatMap((seat) => state.seats[seat]?.hand.filter((tile) => tile !== HIDDEN) ?? [])
+				: []
+		)
+	);
 </script>
 
 <div class="frame" dir="ltr">
@@ -39,17 +74,32 @@
 				{@const tile = tileAt(row, column)}
 				{@const cell = state.board[tile] ?? null}
 				{@const label = tileLabel(tile)}
-				{#if tile === selected && cell === null}
+				{@const legality = held.has(tile) ? tileLegality(state.board, tile) : undefined}
+				{@const note = held.has(tile) ? heldNote(tile) : undefined}
+				{#if playable.has(tile) && cell === null}
 					<button
 						type="button"
-						class="square empty selected actionable"
+						class="square empty held playable actionable"
+						class:selected={tile === selected}
 						aria-label={t("board.place", { tile: label })}
-						onclick={() => onconfirm?.()}
+						disabled={store.sending}
+						onclick={() => onplace(tile)}
 					>
 						<span class="coord">{label}</span>
 					</button>
 				{:else if cell === null}
-					<div class="square empty" aria-label={t("board.empty", { tile: label })}>
+					<div
+						class="square empty"
+						class:held={held.has(tile)}
+						class:unavailable={note !== undefined}
+						class:dead={legality === "permanentlyUnplayable"}
+						aria-label={note !== undefined
+							? `${label} — ${note}`
+							: held.has(tile)
+								? `${label} — ${t("hand.yours")}`
+								: t("board.empty", { tile: label })}
+						title={note}
+					>
 						<span class="coord">{label}</span>
 					</div>
 				{:else if cell === "loose"}
@@ -58,25 +108,37 @@
 					</div>
 				{:else}
 					{@const style = CHAIN_STYLES[cell]}
+					{@const safe = safeChains.has(cell)}
 					<div
 						class="square chain"
+						class:safe
 						style:background={style.fill}
 						style:color={style.text}
-						aria-label={t("board.chain", { tile: label, chain: chainName(cell) })}
+						aria-label={`${t("board.chain", { tile: label, chain: chainName(cell) })}${safe ? ` — ${t("chains.safe")}` : ""}`}
+						title={safe ? `${chainName(cell)} — ${t("chains.safe")}` : undefined}
 					>
-						{#if store.colorBlind}
-							<!-- Colour-blind mode: the chain's pattern, with the letter on a solid patch so its
-							     contrast never changes. Edge labels give the coordinate. -->
-							<span class="pattern" style:background={patternCss(style.pattern, style.patternInk)}></span>
-							<span class="letter patch" style:background={style.fill}>{style.letter}</span>
-						{:else}
-							<span class="corner-label">{label}</span>
-							<span class="letter">{style.letter}</span>
-						{/if}
+						<span class="corner-label">{label}</span>
+						<span class="letter">{style.letter}</span>
 					</div>
 				{/if}
 			{/each}
 		{/each}
+		{#if borders.length > 0}
+			<svg
+				class="safe-borders"
+				viewBox={`0 0 ${BOARD_COLUMNS} ${BOARD_ROWS}`}
+				preserveAspectRatio="none"
+				aria-hidden="true"
+			>
+				{#each borders as { chain, path } (chain)}
+					<g data-chain={chain}>
+						<path d={path} stroke={CHAIN_STYLES[chain].text} stroke-width="5" />
+						<path d={path} stroke={CHAIN_STYLES[chain].fill} stroke-width="3" />
+						<path d={path} stroke={CHAIN_STYLES[chain].text} stroke-width="1" />
+					</g>
+				{/each}
+			</svg>
+		{/if}
 	</div>
 </div>
 
@@ -86,7 +148,6 @@
 		grid-template-columns: 16px minmax(0, 1fr);
 		grid-template-rows: 18px auto;
 		width: 100%;
-		max-width: 660px;
 	}
 	/* Edge labels use the same 2px padding and gaps as the board so they line up with squares. */
 	.numbers,
@@ -110,11 +171,26 @@
 	}
 	/* The dark board shows through 2px gaps between squares; the gaps are not outlines. */
 	.board {
+		position: relative;
 		display: grid;
 		grid-template-columns: repeat(12, minmax(0, 1fr));
 		gap: 2px;
 		padding: 2px;
 		background: var(--gap);
+	}
+	.safe-borders {
+		/* Inset to the centre of the outside gap: each SVG unit is one tile plus its 2px gap. */
+		position: absolute;
+		inset: 1px;
+		width: calc(100% - 2px);
+		height: calc(100% - 2px);
+		overflow: visible;
+		pointer-events: none;
+	}
+	.safe-borders path {
+		fill: none;
+		stroke-linecap: square;
+		vector-effect: non-scaling-stroke;
 	}
 	.square {
 		position: relative;
@@ -137,17 +213,37 @@
 		font-size: 10px;
 		color: var(--on-empty);
 	}
-	/* The selected tile's square: page colour plus an accent outline, since the accent is only
-	   2.92:1 against the grey. */
+	.empty.held {
+		background: var(--panel);
+		border: 2px dashed var(--ink-muted);
+	}
+	.empty.held .coord {
+		font-size: 12px;
+		font-weight: 700;
+		color: var(--ink);
+	}
+	.empty.playable {
+		border-color: transparent;
+	}
+	.empty.unavailable {
+		background: var(--empty);
+		border-color: var(--on-empty);
+	}
+	.empty.unavailable .coord {
+		color: var(--on-empty);
+		background: var(--empty);
+	}
+	.empty.dead {
+		background-image: repeating-linear-gradient(
+			135deg,
+			transparent 0 5px,
+			color-mix(in srgb, var(--on-empty) 18%, transparent) 5px 7px
+		);
+	}
 	.empty.selected {
 		background: var(--page);
 		outline: 4px solid var(--accent);
 		outline-offset: -4px;
-	}
-	.empty.selected .coord {
-		font-size: 12px;
-		font-weight: 700;
-		color: var(--ink);
 	}
 	/* A loose tile is black with a light coordinate. */
 	.loose {
@@ -183,23 +279,15 @@
 			font-size: 10px;
 		}
 	}
-	.chain .pattern {
-		position: absolute;
-		inset: 0;
-	}
-	.chain .patch {
-		position: relative;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 58%;
-		height: 58%;
-	}
 	.chain .corner-label {
 		position: absolute;
 		top: 1px;
 		left: 2px;
 		font-size: 8px;
 		line-height: 1;
+	}
+	.chain.safe .corner-label {
+		top: 4px;
+		left: 5px;
 	}
 </style>

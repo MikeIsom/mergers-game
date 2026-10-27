@@ -1,11 +1,13 @@
 // Which choices the viewer offers. Validity always comes from the engine: these helpers only
 // filter and look up engine.legalMoves(), so no rule is re-implemented here.
 import {
+	blockedThisTurn,
 	CHAIN_IDS,
 	chainSize,
 	currentSeat,
 	legalMoves,
 	placementEffect,
+	turnPlacements,
 	type ChainId,
 	type GameState,
 	type Move,
@@ -43,6 +45,19 @@ export function describePlacement(state: GameState, tile: Tile, lang: Lang): str
 	}
 }
 
+/**
+ * Why `tile` in `seat`'s hand can't be placed this turn under the two-tiles limits
+ * (rules.md §4.1), or undefined when they don't block it.
+ */
+export function turnLimit(state: GameState, seat: number, tile: Tile): "oneFounding" | "foundOrMerge" | undefined {
+	if (seat !== state.activeSeat || state.ended || !blockedThisTurn(state, tile)) {
+		return undefined;
+	}
+	return placementEffect(state.board, tile).kind === "found" && turnPlacements(state).founded
+		? "oneFounding"
+		: "foundOrMerge";
+}
+
 function sameShares(a: Partial<Shares>, b: Partial<Shares>): boolean {
 	return CHAIN_IDS.every((chain) => (a[chain] ?? 0) === (b[chain] ?? 0));
 }
@@ -64,6 +79,15 @@ export function adjustShares(shares: Partial<Shares>, chain: ChainId, delta: num
 /** Whether disposing with this sell/trade split is legal. */
 export function canDispose(moves: Move[], sell: number, trade: number): boolean {
 	return ofType(moves, "dispose").some((move) => move.sell === sell && move.trade === trade);
+}
+
+/** Presets respect the engine's stock limit; maximum trading keeps every unpaired share. */
+export function disposalPresets(moves: Move[]) {
+	const choices = ofType(moves, "dispose");
+	return {
+		sell: choices.filter((move) => move.trade === 0).sort((a, b) => b.sell - a.sell)[0],
+		trade: choices.filter((move) => move.sell === 0 && move.trade > 0).sort((a, b) => b.trade - a.trade)[0],
+	};
 }
 
 /** Chains that may come next after `prefix` in some legal defunct order. */

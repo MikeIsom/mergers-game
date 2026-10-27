@@ -1,8 +1,23 @@
 import type { Catalog } from "../i18n.ts";
 
 export const ro: Catalog = {
+	"swap.title": "Schimb de acțiuni",
+	"swap.note": "Schimbă 1:1 la prețurile curente înainte de cumpărare. Poți cumpăra în continuare până la 3 acțiuni.",
+	"swap.remaining": "{count} rămase în această tură",
+	"swap.unlimited": "Nelimitat",
+	"swap.give": "Dai (acțiunile tale)",
+	"swap.take": "Primești (stocul băncii)",
+	"swap.count": "Acțiuni",
+	"swap.confirm": "Schimbă acțiuni",
+	"swap.pay": "Plătești {amount}",
+	"swap.receive": "Primești {amount}",
+	"swap.even": "Fără diferență de preț",
+	"swap.unavailable": "Schimb imposibil cu această cantitate, limită, stoc și numerar.",
+	"log.swapped": "{name} schimbă {count} {from} pentru {count} {to} · {cash}",
+
 	loading: "Se încarcă jocul…",
 	"status.place": "{name} trebuie să plaseze o piesă",
+	"status.placeSecond": "{name} trebuie să plaseze a doua piesă",
 	"status.found": "{name} trebuie să numească un lanț nou",
 	"status.survivor": "{name} trebuie să aleagă lanțul care supraviețuiește fuziunii",
 	"status.defunctOrder": "{name} trebuie să aleagă ordinea lanțurilor absorbite",
@@ -15,7 +30,8 @@ export const ro: Catalog = {
 	"status.replayNote": "Vezi o poziție anterioară. Piesele din mână nu sunt afișate.",
 	"panel.label": "Decizia ta",
 	"panel.sending": "Se trimite…",
-	"announce.ask": "Încheiem jocul după această tură? Nu se poate anula.",
+	"turn.undo": "Anulează",
+	"announce.ask": "Încheiem jocul după această tură?",
 	"announce.confirm": "Anunță sfârșitul",
 	"announce.cancel": "Continuă jocul",
 	"announce.open": "Anunță sfârșitul…",
@@ -26,7 +42,7 @@ export const ro: Catalog = {
 	"place.merges": "unește {chains}",
 	"place.button": "Plasează {tile}",
 	"place.another": "Alege alta",
-	"place.choose": "Alege o piesă din mână.",
+	"place.choose": "Alege o căsuță evidențiată sau o plăcuță din mână.",
 	"place.none": "Niciuna dintre piesele tale nu poate fi plasată.",
 	"place.pass": "Continuă fără să plasezi",
 	"found.prompt": "Numește lanțul nou. Primești o acțiune gratuită.",
@@ -43,6 +59,10 @@ export const ro: Catalog = {
 		other: "Deții {count} de acțiuni {chain}.",
 	},
 	"dispose.sell": "Vinde la {price}",
+	"dispose.sellAll": "Vinde tot",
+	"dispose.tradeMaximum": "Schimbă {give} pentru {receive}",
+	"dispose.stockValue": "Valoarea acțiunilor",
+	"dispose.afterMerger": "Prețul acțiunii după această fuziune",
 	"dispose.trade": "Schimbă 2 pe 1",
 	"dispose.keep": "Păstrează",
 	"dispose.receive": "+{count} {chain}",
@@ -72,7 +92,11 @@ export const ro: Catalog = {
 	"hand.of": "Piesele lui {name}",
 	"hand.none": "Nicio piesă",
 	"hand.dead": "moartă: ar uni lanțuri sigure",
+	"hand.deadReplacement": "Înlocuire la sfârșitul turei tale",
 	"hand.eighth": "nu se poate înființa un al 8-lea lanț",
+	"hand.deadNextTurn": "Înlocuire la începutul turei tale următoare",
+	"hand.oneFounding": "nu se poate înființa un al doilea lanț în această tură",
+	"hand.foundOrMerge": "nu se poate înființa un lanț și face o fuziune în aceeași tură",
 	"chains.label": "Lanțuri hoteliere",
 	"chains.title": "Lanțuri",
 	"chains.chain": "Lanț",
@@ -96,6 +120,15 @@ export const ro: Catalog = {
 	"players.title": "Jucători",
 	"players.player": "Jucător",
 	"players.cash": "Bani",
+	"players.netWorth": "Avere",
+	"players.worthBreakdown": "Detaliile averii",
+	"players.bonuses": "Bonusuri",
+	"players.worthNote":
+		"Numerar + valoarea acțiunilor + bonusuri estimate de majoritate/minoritate. Estimarea variază cu deținerile și alegerile la fuziune.",
+	"players.worthBank":
+		"Numerar + valoarea acțiunilor. Fără bonusuri viitoare: deținerea băncii este necunoscută până la plată.",
+	"players.worthTeams": "Scorurile BGS însumează ambii coechipieri.",
+	"players.worthFourHands": "Scorurile BGS folosesc cel mai bogat loc al tău.",
 	"players.stock": "Acțiuni",
 	"players.tiles": "Piese",
 	"players.acting": "acționează acum",
@@ -107,6 +140,7 @@ export const ro: Catalog = {
 	"seat.name": "{name} (locul {seat})",
 	"log.label": "Jurnalul jocului",
 	"log.title": "Jurnal",
+	"log.limited": "Mutările anterioare sunt ascunse până la sfârșitul jocului.",
 	"log.recent": "Arată doar ultimele rânduri",
 	"log.all": {
 		one: "Arată tot jurnalul (încă {count})",
@@ -180,6 +214,83 @@ export const ro: Catalog = {
 	"log.finalSale": "{name} vinde {count} {chain} pentru {amount}",
 	"log.result": "Bani la final: {results}",
 	"chat.label": "Chat",
+	"chat.suggestions": "Sugestii de mențiuni",
+	"chat.game": "Joc",
+	"chat.unread": "Necitite: {count}",
+	"chat.signIn": "Autentifică-te pentru a discuta",
+	"chat.confirmAccount": "Confirmă contul pentru a discuta",
+	"chat.playersOnly": "Doar jucătorii pot trimite mesaje",
+	"chat.disabled": "Chat dezactivat",
+	"chat.waiting": "Chatul va fi disponibil la începutul jocului",
+	"chat.connecting": "Se conectează chatul…",
+	"chat.readOnly": "Chatul este doar pentru citire",
+	"tutorial.mechanics.tiles":
+		"Plăcuțele se conectează pe laturi, niciodată diagonal. Lângă plăcuțe libere, plăcuța ta fondează un lanț; lângă un lanț, îl extinde; între lanțuri, declanșează o fuziune.\n\nO tură normală: plasezi, rezolvi fuziunile, cumperi cel mult 3 acțiuni în total și completezi mâna. Lecțiile folosesc mâini pregătite mai mici.",
+	"tutorial.mechanics.tiers":
+		"Lanțurile nu au puteri speciale. La aceeași mărime, Tower și Luxor sunt cele mai ieftine; Worldwide, American și Festival costă cu $100 mai mult pe acțiune; Imperial și Continental, cu $200 mai mult. Și bonusurile acționarilor cresc odată cu aceste prețuri.\n\nFiecare lanț are 25 de acțiuni. Fondatorul primește una gratuită, dacă există; nu se scade din cele 3 achiziții permise.",
+	"tutorial.mechanics.prices":
+		"Prețul depinde de numărul de plăcuțe și categoria lanțului, nu de câte acțiuni cumpără jucătorii. Tower costă $200 la 2 plăcuțe, $300 la 3, $400 la 4 și $500 la 5. Apoi se folosesc intervale: 6–10 plăcuțe costă $600, 11–20 costă $700 etc. Deschide tabelul de mai jos pentru toate intervalele și categoriile.\n\nAici, 2 acțiuni Tower costă $400. Poți cumpăra cel mult 3 acțiuni în total din lanțuri active, dacă ai bani și banca are stoc. În turele obișnuite nu poți vinde.",
+	"tutorial.mechanics.merger":
+		"Compară mărimile înainte de plăcuța de legătură: Tower are 3 plăcuțe și Luxor 2, deci Tower supraviețuiește. Dacă cele mai mari lanțuri sunt egale, alege jucătorul care plasează.\n\nLa 11 plăcuțe, un lanț devine sigur și nu poate fi absorbit. O plăcuță care ar uni două lanțuri sigure nu poate fi jucată.",
+	"tutorial.mechanics.bonuses":
+		"Într-o fuziune, doar acționarii lanțurilor absorbite primesc bonusuri; acțiunile lanțului supraviețuitor nu aduc bonusuri de fuziune. Bonusurile se plătesc înainte de vânzare sau schimb, la prețul acțiunii lanțului absorbit înainte de fuziune: 10 × pentru cel mai mare acționar (majoritate), 5 × pentru al doilea (minoritate). Ajunge să ai cele mai multe acțiuni, nu peste jumătate.\n\nLuxor are 2 plăcuțe: $200 pe acțiune. Alex cu 3 acțiuni primește $2.000, Bo cu 2 primește $1.000, Cy cu 1 nu primește bonus. Acțiunile nu se consumă pentru bonus. Apoi poți combina vânzarea la $200, schimbul a 2 pentru 1 Tower în limita stocului și păstrarea pentru un viitor Luxor.",
+	"tutorial.mechanics.ties":
+		"La egalitate pe primul loc, liderii împart ambele bonusuri; ceilalți nu primesc nimic. Cu un singur lider, cei de pe locul doi împart doar bonusul minoritar. Un acționar unic primește ambele. Fiecare parte se rotunjește în sus la următorul multiplu de $100.\n\nDoi lideri egali la Luxor cu prețul $200 primesc fiecare ($2.000 + $1.000) ÷ 2 = $1.500. Acțiunile Luxor păstrate nu valorează nimic până la refondare.",
+	"tutorial.mechanics.safe":
+		"Sigur înseamnă cel puțin 11 plăcuțe: lanțul poate crește și absorbi lanțuri mai mici, dar nu poate fi absorbit.\n\nPoți anunța finalul când toate lanțurile de pe tablă sunt sigure sau unul ajunge la 41 de plăcuțe. Nu trebuie să fie prezente toate șapte. Regulile standard fac încheierea opțională: termini tura, apoi se calculează scorul.",
+	"tutorial.mechanics.growth":
+		"Creșterea nu mărește mereu prețul. Tower la 11 și la 12 plăcuțe rămâne în intervalul 11–20: $700 pe acțiune. Următoarea creștere este la 21 ($800).\n\nDupă plasare poți cumpăra în continuare cel mult 3 acțiuni. Achizițiile pot schimba beneficiarii bonusurilor finale.",
+	"tutorial.mechanics.settlement":
+		"La sfârșitul jocului, fiecare lanț activ plătește bonusurile majoritar și minoritar, inclusiv lanțurile sigure care nu pot fi absorbite. De aceea tabelul indică bonusuri pentru 41 sau mai multe plăcuțe. Apoi toate acțiunile lanțurilor active sunt vândute la prețurile curente; acțiunile lanțurilor inactive nu valorează nimic.\n\nLa Tower cu prețul $700, Alex conduce cu 4 acțiuni: $7.000 bonus + $2.800 acțiuni + $6.000 numerar = $15.800. Bo cu 2 acțiuni primește bonusul minoritar de $3.500; Cy cu 1 nu primește bonus. Câștigă cel cu cei mai mulți bani finali, nu cu cele mai multe acțiuni.",
+	"tutorial.founding.3": "Bo și Cy și-au jucat turele. Plasează 3A pentru a mări Tower de la 2 la 3 plăcuțe.",
+	"tutorial.founding.4": "Cumpără încă 1 acțiune Tower pentru 300 $ și confirmă.",
+	"tutorial.mechanics.firstGrowth":
+		"Extinderea unui lanț existent nu oferă o acțiune gratuită. La 3 plăcuțe, prețul Tower crește de la 200 $ la 300 $.\n\nȘi acțiunile tale anterioare folosesc noul preț, dar creșterea nu plătește bani imediat.",
+	"tutorial.mechanics.buyGrowth":
+		"Ai deja 3 acțiuni Tower. Încă una te aduce la 4, cu 700 $ cheltuiți în total.\n\nFiecare tură permite până la 3 achiziții noi. Poți și să nu cumperi nimic, păstrând banii.",
+	"tutorial.mergers.3": "Plasează 8F între Worldwide și Festival. Ambele au 2 plăcuțe.",
+	"tutorial.mergers.4": "Alege Worldwide ca lanț supraviețuitor.",
+	"tutorial.mergers.5":
+		"Ai primit ambele bonusuri Festival. Păstrează acțiunea Festival: lasă vânzarea și schimbul la 0, apoi confirmă.",
+	"tutorial.mergers.6": "Alege „Nu cumpăra și încheie tura” pentru a termina a doua fuziune.",
+	"tutorial.mechanics.equalMerger":
+		"Când cele mai mari lanțuri au aceeași mărime, jucătorul care plasează plăcuța de legătură alege supraviețuitorul. Numărul de acțiuni nu departajează.\n\nAici ambele au 2 plăcuțe. Deții singura acțiune Festival aflată în afara băncii.",
+	"tutorial.mechanics.survivorChoice":
+		"Alegând Worldwide, Festival este absorbit. Festival este în categoria medie de preț: la 2 plăcuțe, o acțiune valorează 300 $.\n\nCa unic acționar, vei primi ambele bonusuri: 3.000 $ + 1.500 $ = 4.500 $. Worldwide nu plătește bonus de fuziune.",
+	"tutorial.mechanics.keepShares":
+		"Păstrarea acțiunilor nu costă nimic. Festival dispare de pe tablă, dar păstrezi acțiunea și bonusul de 4.500 $.\n\nAcțiunea poate fi utilă dacă Festival este fondat din nou. Dacă rămâne inactiv la final, nu valorează nimic; nu o poți vinde în ture obișnuite.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide are acum 5 plăcuțe, inclusiv cea de legătură, deci acțiunile costă 600 $.\n\nBonusurile și vânzările au folosit vechiul preț Festival; noile cumpărări folosesc noul preț Worldwide. După fuziune poți cumpăra până la 3 acțiuni din lanțuri active.",
+	"tutorial.label": "Tutorial",
+	"tutorial.complete": "Capitol încheiat",
+	"tutorial.previous": "Pasul anterior",
+	"tutorial.retry": "Repetă pasul",
+	"tutorial.restart": "Reia capitolul",
+	"tutorial.next": "Capitolul următor",
+	"tutorial.founding.title": "Înființează un lanț",
+	"tutorial.founding.0":
+		"Joci ca Alex. Alege 2A din mână și așaz-o lângă 1A. Două plăcuțe libere alăturate înființează un lanț hotelier.",
+	"tutorial.founding.1": "Alege Tower. Fondatorul primește o acțiune gratuită, dacă banca mai are una.",
+	"tutorial.founding.2":
+		"Cumpără 2 acțiuni Tower cu butonul + și confirmă. Poți cumpăra până la 3 acțiuni pe tură; aici fiecare costă $200.",
+	"tutorial.founding.done":
+		"Ai 4 acțiuni Tower și ai cheltuit 700 $: una gratuită ca fondator, două la 200 $ și una la 300 $. Creșterea mărește prețul la pragurile din tabel.",
+	"tutorial.mergers.title": "Rezolvă o fuziune",
+	"tutorial.mergers.0":
+		"Așază 4A între Tower (3 plăcuțe) și Luxor (2). Lanțul mai mare supraviețuiește; numărul de acțiuni nu decide câștigătorul.",
+	"tutorial.mergers.1":
+		"Cele 3 acțiuni Luxor ți-au adus bonusul majoritar de $2.000. Vinde 1 acțiune și schimbă 2 pe 1 acțiune Tower, apoi confirmă.",
+	"tutorial.mergers.2": "Ceilalți acționari și-au păstrat acțiunile Luxor. Alege să nu cumperi nimic și încheie tura.",
+	"tutorial.mergers.done":
+		"Ai primit $200 din vânzare și 1 acțiune Tower din schimb. Acțiunile Luxor păstrate contează dacă lanțul reapare. La egalitate pentru majoritate se împart ambele bonusuri. Lanțurile sigure (11+ plăcuțe) nu pot fi preluate.",
+	"tutorial.scoring.title": "Încheiere și punctaj",
+	"tutorial.scoring.0":
+		"Tower are 11 plăcuțe și este sigur. Toate lanțurile active sunt sigure: anunță sfârșitul și confirmă. Poți anunța și când un lanț ajunge la 41 de plăcuțe.",
+	"tutorial.scoring.1": "Anunțul îți permite să termini tura. Așază 12A pentru a extinde Tower.",
+	"tutorial.scoring.2":
+		"Nu cumpăra nimic și încheie tura. Jocul plătește bonusurile și vinde acțiunile tuturor lanțurilor active.",
+	"tutorial.scoring.done":
+		"Alex câștigă cu $15.800: $6.000 numerar + $7.000 bonus majoritar + 4 acțiuni la $700. Acțiunile lanțurilor inactive nu valorează nimic. Câștigă cei mai mulți bani; la egalitate victoria se împarte.",
 	"chat.title": "Chat",
 	"chat.message": "Mesaj",
 	"chat.placeholder": "Mesaj…",

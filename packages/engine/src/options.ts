@@ -1,4 +1,4 @@
-import { END_SIZE } from "./config.js";
+import { END_SIZE, HAND_SIZE, TWO_TILE_HAND_SIZE } from "./config.js";
 
 /** rules.md §15, after normalisation against the player count. */
 export interface GameOptions {
@@ -7,6 +7,12 @@ export interface GameOptions {
 	twoPlayerMode: "bank" | "fourHands";
 	autoEnd: boolean;
 	endSize: number;
+	/** Omitted when off, preserving the init log of games created before this variant. */
+	stockSwap?: 3 | 5 | 7 | "unlimited";
+	/** Omitted when off, like stockSwap. */
+	twoTiles?: true;
+	/** Omitted when off, like stockSwap. */
+	limitedLog?: true;
 }
 
 export interface IgnoredOption {
@@ -68,7 +74,29 @@ export function normalizeOptions(
 		}
 	}
 
+	if (raw.stockSwap === "unlimited") {
+		options.stockSwap = "unlimited";
+	} else if (raw.stockSwap !== undefined && raw.stockSwap !== "off") {
+		if ([3, 5, 7, "3", "5", "7"].includes(raw.stockSwap as number | string)) {
+			options.stockSwap = Number(raw.stockSwap) as 3 | 5 | 7;
+		} else {
+			ignored.push({ option: "stockSwap", value: raw.stockSwap, reason: "unknown value" });
+		}
+	}
+
+	if (raw.twoTiles === true) {
+		options.twoTiles = true;
+	}
+	if (raw.limitedLog === true) {
+		options.limitedLog = true;
+	}
+
 	return { options, ignored };
+}
+
+/** rules.md §15 twoTiles: hands hold 8 tiles instead of 6. */
+export function handSize(options: GameOptions): number {
+	return options.twoTiles ? TWO_TILE_HAND_SIZE : HAND_SIZE;
 }
 
 /** Internal seats per real player: fourHands gives each of the 2 players two seats. */

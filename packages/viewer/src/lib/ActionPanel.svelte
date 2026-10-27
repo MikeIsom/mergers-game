@@ -11,7 +11,17 @@
 		type Shares,
 	} from "acquire-engine";
 	import ChainMark from "./ChainMark.svelte";
-	import { adjustShares, canBuy, canDispose, describePlacement, nextDefunctChoices, ofType } from "./decisions";
+	import StockSwap from "./StockSwap.svelte";
+	import { mergerPreview } from "./mergerPreview";
+	import {
+		adjustShares,
+		canBuy,
+		canDispose,
+		describePlacement,
+		disposalPresets,
+		nextDefunctChoices,
+		ofType,
+	} from "./decisions";
 	import { chainName } from "./format";
 	import type { ViewerStore } from "./store.svelte";
 
@@ -27,6 +37,7 @@
 
 	// Choices being built up before they are sent; reset whenever a new state arrives.
 	let confirmAnnounce = $state(false);
+	let swapOpen = $state(false);
 	let order = $state<ChainId[]>([]);
 	let sell = $state(0);
 	let trade = $state(0);
@@ -48,7 +59,12 @@
 	const m = $derived(game.merger);
 	const disposing = $derived(game.phase === "dispose" && m ? m.current! : undefined);
 	const held = $derived(disposing && seat !== undefined ? game.seats[seat]!.shares[disposing] : 0);
+	const afterMerger = $derived(mergerPreview(game));
 	const sellPrice = $derived(disposing ? sharePrice(disposing, m!.sizes[disposing]!) : 0);
+	const presets = $derived(disposalPresets(moves));
+	const maxTrade = $derived(presets.trade?.trade ?? 0);
+	const tradeValue = $derived((maxTrade / 2) * (afterMerger?.price ?? 0) - maxTrade * sellPrice);
+	const valueChange = $derived(`${tradeValue < 0 ? "−" : "+"}${money(Math.abs(tradeValue))}`);
 
 	const buyable = $derived(activeChains(game.board));
 	const price = (chain: ChainId) => sharePrice(chain, chainSize(game.board, chain));
@@ -63,7 +79,21 @@
 </script>
 
 {#if moves.length > 0 && !store.sending}
-	<section class="panel" aria-label={t("panel.label")}>
+	<section class="panel" class:disposal={game.phase === "dispose"} aria-label={t("panel.label")}>
+		{#if store.canUndo}
+			<button type="button" class="actionable undo" onclick={() => store.undo()}>
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					aria-hidden="true"><path d="M9 4 3 10l6 6M3 10h11a7 7 0 0 1 0 14" transform="translate(0 -2)" /></svg
+				>
+				{t("turn.undo")}
+			</button>
+		{/if}
 		{#if legal("announce")}
 			<div class="announce">
 				{#if confirmAnnounce}
@@ -161,60 +191,111 @@
 				onclick={() => (order = [])}>{t("order.reset")}</button
 			>
 		{:else if game.phase === "dispose" && disposing && m}
-			<p class="takeover">
-				<ChainMark chain={disposing} /><span class="arrow" aria-hidden="true">→</span><ChainMark chain={m.survivor!} />
-			</p>
 			<p>
 				{t("dispose.takenOver", { defunct: chainName(disposing), survivor: chainName(m.survivor!) })}
 				{t("dispose.holding", { count: held, chain: chainName(disposing) })}
 			</p>
+			{#if afterMerger}
+				<p class="merger-price">
+					<span class="price-label">{t("dispose.afterMerger")}</span>
+					<ChainMark chain={afterMerger.chain} withName />
+					<strong
+						><bdi dir="ltr"
+							>{#if afterMerger.price !== afterMerger.beforePrice}{money(afterMerger.beforePrice)} →
+							{/if}{money(afterMerger.price)}</bdi
+						></strong
+					>
+					<span class="size">· {t("tiles", { count: afterMerger.size })}</span>
+				</p>
+			{/if}
 			<div class="steppers">
-				<span class="label">{t("dispose.sell", { price: money(sellPrice) })}</span>
-				<button
-					type="button"
-					class:actionable={canDispose(moves, sell - 1, trade)}
-					disabled={!canDispose(moves, sell - 1, trade)}
-					onclick={() => sell--}
-					aria-label={t("dispose.sellFewer")}>−</button
-				>
-				<span class="value">{sell}</span>
-				<button
-					type="button"
-					class:actionable={canDispose(moves, sell + 1, trade)}
-					disabled={!canDispose(moves, sell + 1, trade)}
-					onclick={() => sell++}
-					aria-label={t("dispose.sellMore")}>+</button
-				>
-				<span class="effect">+{money(sell * sellPrice)}</span>
+				<div class="disposal-row">
+					<div class="label">
+						<button
+							type="button"
+							class="preset sell-all"
+							class:actionable={!!presets.sell}
+							disabled={!presets.sell}
+							onclick={() => {
+								sell = presets.sell!.sell;
+								trade = 0;
+							}}
+						>
+							{t("dispose.sellAll")} · <bdi dir="ltr">{money(held * sellPrice)}</bdi>
+						</button>
+						<small>{t("dispose.sell", { price: money(sellPrice) })}</small>
+					</div>
+					<div class="quantity">
+						<button
+							type="button"
+							class:actionable={canDispose(moves, sell - 1, trade)}
+							disabled={!canDispose(moves, sell - 1, trade)}
+							onclick={() => sell--}
+							aria-label={t("dispose.sellFewer")}>−</button
+						>
+						<span class="value">{sell}</span>
+						<button
+							type="button"
+							class:actionable={canDispose(moves, sell + 1, trade)}
+							disabled={!canDispose(moves, sell + 1, trade)}
+							onclick={() => sell++}
+							aria-label={t("dispose.sellMore")}>+</button
+						>
+						<span class="effect">+{money(sell * sellPrice)}</span>
+					</div>
+				</div>
 
-				<span class="label">{t("dispose.trade")}</span>
-				<button
-					type="button"
-					class:actionable={canDispose(moves, sell, trade - 2)}
-					disabled={!canDispose(moves, sell, trade - 2)}
-					onclick={() => (trade -= 2)}
-					aria-label={t("dispose.tradeFewer")}>−</button
-				>
-				<span class="value">{trade}</span>
-				<button
-					type="button"
-					class:actionable={canDispose(moves, sell, trade + 2)}
-					disabled={!canDispose(moves, sell, trade + 2)}
-					onclick={() => (trade += 2)}
-					aria-label={t("dispose.tradeMore")}>+</button
-				>
-				<span class="effect">{t("dispose.receive", { count: trade / 2, chain: chainName(m.survivor!) })}</span>
+				<div class="disposal-row">
+					<div class="label">
+						<button
+							type="button"
+							class="preset trade-max"
+							class:actionable={!!presets.trade}
+							disabled={!presets.trade}
+							onclick={() => {
+								sell = 0;
+								trade = maxTrade;
+							}}
+						>
+							{#if maxTrade > 0}
+								{t("dispose.tradeMaximum", { give: maxTrade, receive: maxTrade / 2 })}
+								<small>{t("dispose.stockValue")} <bdi dir="ltr">{valueChange}</bdi></small>
+							{:else}
+								{t("dispose.trade")}
+							{/if}
+						</button>
+					</div>
+					<div class="quantity">
+						<button
+							type="button"
+							class:actionable={canDispose(moves, sell, trade - 2)}
+							disabled={!canDispose(moves, sell, trade - 2)}
+							onclick={() => (trade -= 2)}
+							aria-label={t("dispose.tradeFewer")}>−</button
+						>
+						<span class="value">{trade}</span>
+						<button
+							type="button"
+							class:actionable={canDispose(moves, sell, trade + 2)}
+							disabled={!canDispose(moves, sell, trade + 2)}
+							onclick={() => (trade += 2)}
+							aria-label={t("dispose.tradeMore")}>+</button
+						>
+						<span class="effect">{t("dispose.receive", { count: trade / 2, chain: chainName(m.survivor!) })}</span>
+					</div>
+				</div>
 
-				<span class="label">{t("dispose.keep")}</span>
-				<span></span>
-				<span class="value">{held - sell - trade}</span>
-				<span></span>
-				<span class="effect">{t("dispose.keepNote", { chain: chainName(disposing) })}</span>
+				<div class="keep-row">
+					<span class="label">{t("dispose.keep")}</span>
+					<span class="value">{held - sell - trade}</span>
+					<span class="effect">{t("dispose.keepNote", { chain: chainName(disposing) })}</span>
+				</div>
 			</div>
 			<button type="button" class="actionable primary" onclick={() => store.send({ type: "dispose", sell, trade })}
 				>{t("dispose.confirm")}</button
 			>
 		{:else if game.phase === "buy"}
+			{#if game.options.stockSwap}<StockSwap {store} bind:open={swapOpen} />{/if}
 			<p>{t("buy.prompt")}</p>
 			{#if buyable.length > 0}
 				<table class="buy">
@@ -268,10 +349,35 @@
 {/if}
 
 <style>
+	.merger-price {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 2px 6px;
+	}
+	.price-label {
+		flex-basis: 100%;
+		color: var(--ink-muted);
+		font-size: 13px;
+	}
+	.merger-price strong {
+		font-variant-numeric: tabular-nums;
+	}
+
+	.panel .undo {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		margin-inline-start: auto;
+	}
 	.panel {
 		background: var(--panel);
 		padding: 10px 12px 12px;
 		margin: 0 0 12px;
+	}
+	.panel.disposal {
+		/* The layout already separates these controls from the hand below. */
+		margin-bottom: 0;
 	}
 	.panel p {
 		margin: 0 0 8px;
@@ -293,15 +399,6 @@
 		background: var(--accent);
 		color: var(--on-accent);
 		font-weight: 600;
-	}
-	.takeover {
-		display: flex;
-		align-items: center;
-		gap: 6px;
-	}
-	/* The arrow runs from the defunct chain to the survivor in either reading direction. */
-	:global([dir="rtl"]) .arrow {
-		transform: scaleX(-1);
 	}
 	.announce {
 		margin: 0 0 10px;
@@ -326,10 +423,54 @@
 	}
 	.steppers {
 		display: grid;
-		grid-template-columns: auto auto 32px auto 1fr;
-		align-items: center;
-		gap: 4px 6px;
+		gap: 6px;
 		margin: 0 0 8px;
+	}
+	.disposal-row {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		align-items: center;
+		gap: 12px;
+	}
+	.quantity {
+		display: grid;
+		grid-template-columns: auto 24px auto;
+		align-items: center;
+		gap: 2px 4px;
+	}
+	.quantity .effect {
+		grid-column: 1 / -1;
+		text-align: end;
+	}
+	.keep-row {
+		display: flex;
+		align-items: baseline;
+		gap: 8px;
+	}
+	.keep-row .value {
+		min-width: 24px;
+	}
+	.keep-row .effect {
+		direction: inherit;
+	}
+	.steppers .preset {
+		width: 100%;
+		padding: 5px 6px;
+		font-size: 13px;
+		text-align: start;
+		overflow-wrap: anywhere;
+	}
+	.label > small,
+	.preset small {
+		display: block;
+		font-size: 12px;
+		color: var(--ink-muted);
+	}
+	.preset bdi {
+		white-space: nowrap;
+	}
+	.label > small {
+		margin-top: 4px;
 	}
 	.steppers button,
 	.stepper button {
@@ -352,6 +493,26 @@
 	}
 	.buy {
 		margin: 0 0 6px;
+		table-layout: fixed;
+	}
+	.buy th,
+	.buy td {
+		padding: 4px 3px;
+		overflow-wrap: anywhere;
+	}
+	.buy th:nth-child(2) {
+		width: 56px;
+	}
+	.buy th:nth-child(3) {
+		width: 44px;
+	}
+	.buy th:last-child {
+		width: 128px;
+	}
+	.buy :global(.mark) {
+		/* Keep both touch targets visible on narrow phones; the chain name can wrap below its mark. */
+		white-space: normal;
+		flex-wrap: wrap;
 	}
 	.stepper {
 		white-space: nowrap;

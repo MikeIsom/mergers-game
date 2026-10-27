@@ -34,11 +34,7 @@
 						<th class="tier" scope="col">
 							<span class="sr-only">{t(TIER_KEYS[tier])}</span>
 							<span class="heads">
-								{#each chainsInTier(tier) as chain (chain)}<ChainMark
-										{chain}
-										small
-										patterned={store.colorBlind}
-									/>{/each}
+								{#each chainsInTier(tier) as chain (chain)}<ChainMark {chain} small />{/each}
 							</span>
 						</th>
 					{/each}
@@ -56,11 +52,7 @@
 								<span class="size">{rangeLabel(row.sizes[tier])}</span>
 								{#if here.length > 0}
 									<span class="heads">
-										{#each here as mark (mark.chain)}<ChainMark
-												chain={mark.chain}
-												small
-												patterned={store.colorBlind}
-											/>{/each}
+										{#each here as mark (mark.chain)}<ChainMark chain={mark.chain} small />{/each}
 									</span>
 								{/if}
 							</td>

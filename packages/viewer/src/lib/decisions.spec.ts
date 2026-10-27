@@ -1,8 +1,27 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { applyMove, currentSeat, initGame, legalMoves, type GameState, type Move } from "acquire-engine";
+import {
+	applyMove,
+	currentSeat,
+	initGame,
+	legalMoves,
+	placementEffect,
+	tileLabel,
+	turnPlacements,
+	type GameState,
+	type Move,
+} from "acquire-engine";
 import { stripSecret } from "acquire-engine/wrapper.js";
-import { adjustShares, canBuy, canDispose, movesFor, nextDefunctChoices } from "./decisions.ts";
+import { preparedPosition } from "../tutorial/lessons.ts";
+import {
+	adjustShares,
+	canBuy,
+	canDispose,
+	disposalPresets,
+	movesFor,
+	nextDefunctChoices,
+	turnLimit,
+} from "./decisions.ts";
 
 function playUntil(state: GameState, done: (state: GameState) => boolean): GameState {
 	for (let step = 0; !done(state); step++) {
@@ -69,4 +88,59 @@ test("disposal and defunct-order choices are looked up in the engine's legal mov
 	assert.deepEqual(nextDefunctChoices(moves, []), ["luxor"]);
 	assert.deepEqual(nextDefunctChoices(moves, ["luxor"]), ["festival", "imperial"]);
 	assert.deepEqual(nextDefunctChoices(moves, ["luxor", "imperial"]), ["festival"]);
+});
+
+test("disposal presets sell all or trade the available pairs without selling leftovers", () => {
+	for (const [stock, trade] of [
+		[25, 6],
+		[1, 2],
+		[0, 0],
+	] as const) {
+		const state = preparedPosition("mergers");
+		state.seats[0]!.shares.luxor = 7;
+		state.bank.luxor = 15;
+		state.seats[1]!.shares.tower = 25 - stock;
+		state.bank.tower = stock;
+		applyMove(state, { type: "place", tile: "4A" }, 0);
+		const moves = legalMoves(state);
+		const before = structuredClone(moves);
+		const presets = disposalPresets(movesFor(stripSecret(state, 0), [0]));
+		assert.deepEqual(presets.sell, { type: "dispose", sell: 7, trade: 0 });
+		assert.deepEqual(presets.trade, trade ? { type: "dispose", sell: 0, trade } : undefined);
+		assert.deepEqual(moves, before);
+		const sold = structuredClone(state);
+		applyMove(sold, presets.sell!, 0);
+		assert.equal(sold.seats[0]!.shares.luxor, 0);
+		assert.equal(sold.seats[0]!.cash - state.seats[0]!.cash, 1400);
+		if (presets.trade) {
+			const cash = state.seats[0]!.cash;
+			applyMove(state, presets.trade, 0);
+			assert.equal(state.seats[0]!.shares.luxor, 7 - trade);
+			assert.equal(state.seats[0]!.shares.tower, trade / 2);
+			assert.equal(state.seats[0]!.cash, cash, "the stock-value change is not cash income");
+		}
+	}
+	assert.deepEqual(disposalPresets([]), { sell: undefined, trade: undefined });
+});
+
+test("two-tile limits explain exactly the tiles the engine blocks this turn", () => {
+	const state = initGame(4, { twoTiles: true }, "limits");
+	const limited = () =>
+		state.phase === "place" &&
+		state.seats[state.activeSeat]!.hand.some((tile) => turnLimit(state, state.activeSeat, tile) !== undefined);
+	playUntil(state, limited);
+	const seat = state.activeSeat;
+	const placeable = legalMoves(state).flatMap((move) => (move.type === "place" ? [move.tile] : []));
+	for (const tile of state.seats[seat]!.hand) {
+		const limit = turnLimit(state, seat, tile);
+		if (limit === undefined) {
+			continue;
+		}
+		assert.ok(!placeable.includes(tileLabel(tile)));
+		const founding = placementEffect(state.board, tile).kind === "found";
+		assert.equal(limit, founding && turnPlacements(state).founded ? "oneFounding" : "foundOrMerge");
+		assert.equal(turnLimit(state, (seat + 1) % 4, tile), undefined, "limits apply only to the active seat");
+	}
+	const view = stripSecret(state, seat);
+	assert.deepEqual(movesFor(view, [seat]), legalMoves(state));
 });

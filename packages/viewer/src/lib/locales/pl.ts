@@ -1,8 +1,23 @@
 import type { Catalog } from "../i18n.ts";
 
 export const pl: Catalog = {
+	"swap.title": "Wymiana akcji",
+	"swap.note": "Przed zakupem wymieniaj 1:1 po bieżących cenach. Nadal możesz kupić do 3 akcji.",
+	"swap.remaining": "Pozostało w turze: {count}",
+	"swap.unlimited": "Bez limitu",
+	"swap.give": "Oddaj (twoje akcje)",
+	"swap.take": "Otrzymaj (akcje banku)",
+	"swap.count": "Akcje",
+	"swap.confirm": "Wymień akcje",
+	"swap.pay": "Zapłać {amount}",
+	"swap.receive": "Otrzymaj {amount}",
+	"swap.even": "Bez dopłaty",
+	"swap.unavailable": "Wymiana niemożliwa przy tej liczbie, limicie, akcjach i gotówce.",
+	"log.swapped": "{name} wymienia {count} {from} na {count} {to} · {cash}",
+
 	loading: "Wczytywanie gry…",
 	"status.place": "{name} kładzie płytkę",
+	"status.placeSecond": "{name} kładzie drugą płytkę",
 	"status.found": "{name} nazywa nową sieć",
 	"status.survivor": "{name} wybiera sieć, która przetrwa fuzję",
 	"status.defunctOrder": "{name} wybiera kolejność przejmowanych sieci",
@@ -15,7 +30,8 @@ export const pl: Catalog = {
 	"status.replayNote": "Oglądasz wcześniejszą pozycję. Płytki na ręce nie są pokazywane.",
 	"panel.label": "Twoja decyzja",
 	"panel.sending": "Wysyłanie…",
-	"announce.ask": "Zakończyć grę po tej turze? Tego nie można cofnąć.",
+	"turn.undo": "Cofnij",
+	"announce.ask": "Zakończyć grę po tej turze?",
 	"announce.confirm": "Ogłoś koniec gry",
 	"announce.cancel": "Graj dalej",
 	"announce.open": "Ogłoś koniec gry…",
@@ -26,7 +42,7 @@ export const pl: Catalog = {
 	"place.merges": "łączy {chains}",
 	"place.button": "Połóż {tile}",
 	"place.another": "Wybierz inną",
-	"place.choose": "Wybierz płytkę z ręki.",
+	"place.choose": "Wybierz wyróżnione pole lub kafelek z ręki.",
 	"place.none": "Żadnej z twoich płytek nie można położyć.",
 	"place.pass": "Kontynuuj bez kładzenia",
 	"found.prompt": "Nazwij nową sieć. Otrzymujesz jedną darmową akcję.",
@@ -44,6 +60,10 @@ export const pl: Catalog = {
 		other: "Masz {count} akcji {chain}.",
 	},
 	"dispose.sell": "Sprzedaj po {price}",
+	"dispose.sellAll": "Sprzedaj wszystkie",
+	"dispose.tradeMaximum": "Wymień {give} na {receive}",
+	"dispose.stockValue": "Wartość akcji",
+	"dispose.afterMerger": "Cena akcji po tej fuzji",
 	"dispose.trade": "Wymień 2 za 1",
 	"dispose.keep": "Zatrzymaj",
 	"dispose.receive": "+{count} {chain}",
@@ -73,7 +93,11 @@ export const pl: Catalog = {
 	"hand.of": "Płytki gracza {name}",
 	"hand.none": "Brak płytek",
 	"hand.dead": "martwa: połączyłaby bezpieczne sieci",
+	"hand.deadReplacement": "Wymiana na koniec twojej tury",
 	"hand.eighth": "nie można założyć 8. sieci",
+	"hand.deadNextTurn": "Wymiana na początku twojej następnej tury",
+	"hand.oneFounding": "nie można założyć drugiej sieci w tej turze",
+	"hand.foundOrMerge": "nie można w jednej turze założyć sieci i połączyć sieci",
 	"chains.label": "Sieci hoteli",
 	"chains.title": "Sieci",
 	"chains.chain": "Sieć",
@@ -97,6 +121,14 @@ export const pl: Catalog = {
 	"players.title": "Gracze",
 	"players.player": "Gracz",
 	"players.cash": "Gotówka",
+	"players.netWorth": "Majątek",
+	"players.worthBreakdown": "Składniki majątku",
+	"players.bonuses": "Premie",
+	"players.worthNote":
+		"Gotówka + wartość akcji + przewidywane premie większościowe i mniejszościowe. Szacunek zmienia się wraz z akcjami i decyzjami podczas fuzji.",
+	"players.worthBank": "Gotówka + wartość akcji. Bez przyszłych premii: udziały banku są nieznane do wypłaty.",
+	"players.worthTeams": "Wyniki BGS sumują majątek obu członków drużyny.",
+	"players.worthFourHands": "Wyniki BGS uwzględniają twój najbogatszy fotel.",
 	"players.stock": "Akcje",
 	"players.tiles": "Płytki",
 	"players.acting": "teraz działa",
@@ -108,6 +140,7 @@ export const pl: Catalog = {
 	"seat.name": "{name} (miejsce {seat})",
 	"log.label": "Dziennik gry",
 	"log.title": "Dziennik",
+	"log.limited": "Wcześniejsze ruchy są ukryte do końca gry.",
 	"log.recent": "Pokaż tylko ostatnie wpisy",
 	"log.all": {
 		one: "Pokaż cały dziennik (jeszcze {count})",
@@ -187,6 +220,82 @@ export const pl: Catalog = {
 	"log.finalSale": "{name} sprzedaje {count} {chain} za {amount}",
 	"log.result": "Gotówka na koniec: {results}",
 	"chat.label": "Czat",
+	"chat.suggestions": "Propozycje wzmianek",
+	"chat.game": "Gra",
+	"chat.unread": "Nieprzeczytane: {count}",
+	"chat.signIn": "Zaloguj się, aby rozmawiać",
+	"chat.confirmAccount": "Potwierdź konto, aby rozmawiać",
+	"chat.playersOnly": "Tylko gracze mogą wysyłać wiadomości",
+	"chat.disabled": "Czat wyłączony",
+	"chat.waiting": "Czat będzie dostępny po rozpoczęciu gry",
+	"chat.connecting": "Łączenie z czatem…",
+	"chat.readOnly": "Czat tylko do odczytu",
+	"tutorial.mechanics.tiles":
+		"Płytki łączą się bokami, nigdy po przekątnej. Obok luźnych płytek zakładasz sieć; obok jednej sieci powiększasz ją; między sieciami wywołujesz fuzję.\n\nZwykła tura: połóż płytkę, rozstrzygnij fuzje, kup łącznie do 3 akcji i uzupełnij rękę. Te lekcje używają mniejszych, przygotowanych rąk.",
+	"tutorial.mechanics.tiers":
+		"Sieci nie mają specjalnych zdolności. Przy tym samym rozmiarze Tower i Luxor są najtańsze; Worldwide, American i Festival kosztują o $100 więcej za akcję, Imperial i Continental o $200 więcej. Wraz z ceną rosną też premie akcjonariuszy.\n\nKażda sieć ma 25 akcji. Założyciel otrzymuje jedną za darmo, jeśli jest dostępna; nie wlicza się ona do limitu 3 zakupów.",
+	"tutorial.mechanics.prices":
+		"Cena zależy od liczby płytek i kategorii sieci, nie od liczby kupowanych akcji. Tower kosztuje $200 przy 2 płytkach, $300 przy 3, $400 przy 4 i $500 przy 5. Dalej obowiązują przedziały: 6–10 płytek to $600, 11–20 to $700 itd. Otwórz tabelę poniżej, aby zobaczyć wszystkie przedziały i kategorie.\n\nTutaj 2 akcje Tower kosztują $400. Możesz kupić łącznie do 3 akcji aktywnych sieci, jeśli masz gotówkę, a bank ma akcje. W zwykłych turach nie można sprzedawać.",
+	"tutorial.mechanics.merger":
+		"Porównaj rozmiary przed dodaniem płytki łączącej: Tower ma 3 płytki, Luxor 2, więc Tower przetrwa. Przy remisie największych sieci wybiera gracz kładący płytkę.\n\nOd 11 płytek sieć jest bezpieczna i nie można jej przejąć. Płytki, która połączyłaby dwie bezpieczne sieci, nie można zagrać.",
+	"tutorial.mechanics.bonuses":
+		"Podczas fuzji premie otrzymują tylko akcjonariusze przejmowanych sieci; akcje sieci, która przetrwa, nie dają premii za tę fuzję. Premie wypłaca się przed sprzedażą lub wymianą, według ceny akcji przejmowanej sieci sprzed fuzji: 10 × dla największego akcjonariusza (większość), 5 × dla drugiego (mniejszość). Wystarczy mieć najwięcej akcji, nie ponad połowę.\n\nLuxor ma 2 płytki: $200 za akcję. Alex z 3 akcjami dostaje $2000, Bo z 2 dostaje $1000, Cy z 1 nie dostaje premii. Akcji nie oddaje się za premię. Potem można łączyć sprzedaż po $200, wymianę 2 za 1 Tower do wyczerpania zapasu i zachowanie na przyszły Luxor.",
+	"tutorial.mechanics.ties":
+		"Przy remisie na pierwszym miejscu liderzy dzielą obie premie, a inni nic nie dostają. Przy jednym liderze remisujący drudzy dzielą tylko premię mniejszościową. Jedyny akcjonariusz dostaje obie. Każdą część zaokrągla się w górę do pełnych $100.\n\nDwaj równi liderzy Luxor po $200 dostają po ($2000 + $1000) ÷ 2 = $1500. Zachowane akcje Luxor nie mają wartości, dopóki sieć nie powstanie ponownie.",
+	"tutorial.mechanics.safe":
+		"Bezpieczna oznacza co najmniej 11 płytek: sieć może rosnąć i przejmować mniejsze, ale sama nie zostanie przejęta.\n\nMożesz ogłosić koniec, gdy wszystkie sieci na planszy są bezpieczne lub jedna osiągnie 41 płytek. Nie muszą istnieć wszystkie siedem. W zasadach standardowych zakończenie jest dobrowolne: dokończ turę, potem następuje rozliczenie.",
+	"tutorial.mechanics.growth":
+		"Rozrost nie zawsze podnosi cenę. Tower z 11 i 12 płytkami mieści się w tym samym przedziale 11–20: $700 za akcję. Kolejny wzrost następuje przy 21 płytkach ($800).\n\nPo położeniu płytki nadal możesz kupić do 3 akcji. Zakupy mogą zmienić odbiorców końcowych premii.",
+	"tutorial.mechanics.settlement":
+		"Na koniec gry każda aktywna sieć wypłaca premie większościowe i mniejszościowe, także sieci bezpieczne, których nie można przejąć. Dlatego tabela podaje premie dla 41 i więcej płytek. Następnie wszystkie akcje aktywnych sieci sprzedaje się po bieżących cenach; akcje nieaktywnych sieci są bezwartościowe.\n\nPrzy cenie Tower $700 prowadzi Alex z 4 akcjami: $7000 premii + $2800 akcji + $6000 gotówki = $15 800. Bo z 2 akcjami otrzymuje premię mniejszościową $3500, Cy z 1 żadnej. Wygrywa największa końcowa gotówka, nie liczba akcji.",
+	"tutorial.founding.3": "Bo i Cy rozegrali swoje tury. Połóż 3A, aby powiększyć Tower z 2 do 3 płytek.",
+	"tutorial.founding.4": "Kup jeszcze 1 akcję Tower za 300 $ i potwierdź.",
+	"tutorial.mechanics.firstGrowth":
+		"Rozbudowa istniejącej sieci nie daje darmowej akcji. Przy 3 płytkach cena Tower rośnie z 200 $ do 300 $.\n\nTwoje wcześniejsze akcje też mają nową wartość, ale sam rozwój nie wypłaca od razu gotówki.",
+	"tutorial.mechanics.buyGrowth":
+		"Masz już 3 akcje Tower. Kupno kolejnej daje 4 akcje i łączny wydatek 700 $.\n\nW każdej turze możesz kupić do 3 nowych akcji. Możesz też nic nie kupować i oszczędzać.",
+	"tutorial.mergers.3": "Połóż 8F między Worldwide a Festival. Obie sieci mają 2 płytki.",
+	"tutorial.mergers.4": "Wybierz Worldwide jako sieć przejmującą.",
+	"tutorial.mergers.5":
+		"Otrzymujesz obie premie Festival. Zachowaj akcję Festival: zostaw sprzedaż i wymianę na 0, a następnie potwierdź.",
+	"tutorial.mergers.6": "Wybierz „Nic nie kupuj i zakończ turę”, aby zakończyć drugą fuzję.",
+	"tutorial.mechanics.equalMerger":
+		"Gdy największe sieci mają ten sam rozmiar, gracz kładący łączącą płytkę wybiera sieć przejmującą. Liczba akcji nie rozstrzyga remisu.\n\nTutaj obie mają 2 płytki. Posiadasz jedyną akcję Festival poza bankiem.",
+	"tutorial.mechanics.survivorChoice":
+		"Wybór Worldwide oznacza przejęcie Festival. Festival ma średni poziom cenowy: przy 2 płytkach akcja jest warta 300 $.\n\nJako jedyny akcjonariusz otrzymasz obie premie: 3000 $ + 1500 $ = 4500 $. Worldwide nie wypłaca premii za fuzję.",
+	"tutorial.mechanics.keepShares":
+		"Zachowanie akcji nic nie kosztuje. Festival znika z planszy, ale zachowujesz akcję i premię 4500 $.\n\nAkcja może się przydać, jeśli Festival powstanie ponownie. Jeśli na koniec sieć jest nieaktywna, akcja jest bezwartościowa; nie można jej sprzedać podczas zwykłej tury.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide ma teraz 5 płytek, wliczając łączącą, więc akcje kosztują 600 $.\n\nPremie i sprzedaż korzystały ze starej ceny Festival; nowe zakupy korzystają z nowej ceny Worldwide. Po fuzji możesz kupić do 3 akcji aktywnych sieci.",
+	"tutorial.label": "Samouczek",
+	"tutorial.complete": "Rozdział ukończony",
+	"tutorial.previous": "Poprzedni krok",
+	"tutorial.retry": "Powtórz krok",
+	"tutorial.restart": "Zacznij od nowa",
+	"tutorial.next": "Następny rozdział",
+	"tutorial.founding.title": "Załóż sieć",
+	"tutorial.founding.0":
+		"Grasz jako Alex. Wybierz 2A z ręki i połóż obok 1A. Dwa sąsiednie niezależne kafelki tworzą sieć hoteli.",
+	"tutorial.founding.1": "Wybierz Tower. Założyciel otrzymuje darmową akcję, jeśli bank ma jeszcze taką akcję.",
+	"tutorial.founding.2":
+		"Kup 2 akcje Tower przyciskiem + i potwierdź. W turze można kupić do 3 akcji; tutaj każda kosztuje $200.",
+	"tutorial.founding.done":
+		"Masz 4 akcje Tower i wydano 700 $: jedna bezpłatna akcja założyciela, dwie po 200 $ i jedna za 300 $. Rozwój podnosi ceny na progach z tabeli.",
+	"tutorial.mergers.title": "Rozpatrz fuzję",
+	"tutorial.mergers.0":
+		"Połóż 4A między Tower (3 kafelki) a Luxor (2). Większa sieć przetrwa; liczba akcji o tym nie decyduje.",
+	"tutorial.mergers.1":
+		"Twoje 3 akcje Luxor przyniosły premię większościową $2 000. Sprzedaj 1 akcję i wymień 2 na 1 akcję Tower, potem potwierdź.",
+	"tutorial.mergers.2": "Pozostali akcjonariusze zachowali akcje Luxor. Nie kupuj nic i zakończ turę.",
+	"tutorial.mergers.done":
+		"Sprzedaż dała $200, a wymiana 1 akcję Tower. Zachowane akcje Luxor przydadzą się, jeśli sieć powstanie ponownie. Remis większości oznacza podział obu premii. Bezpiecznej sieci (11+ kafelków) nie można przejąć.",
+	"tutorial.scoring.title": "Koniec i punktacja",
+	"tutorial.scoring.0":
+		"Tower ma 11 kafelków i jest bezpieczna. Wszystkie aktywne sieci są bezpieczne: ogłoś koniec i potwierdź. Można też ogłosić koniec, gdy dowolna sieć osiągnie 41 kafelków.",
+	"tutorial.scoring.1": "Po ogłoszeniu końca nadal kończysz swoją turę. Połóż 12A, aby powiększyć Tower.",
+	"tutorial.scoring.2": "Nie kupuj nic i zakończ turę. Gra wypłaci premie i sprzeda akcje wszystkich aktywnych sieci.",
+	"tutorial.scoring.done":
+		"Alex wygrywa z $15 800: $6 000 gotówki + $7 000 premii większościowej + 4 akcje po $700. Akcje nieaktywnych sieci są bezwartościowe. Wygrywa najbogatszy; remis daje wspólne zwycięstwo.",
 	"chat.title": "Czat",
 	"chat.message": "Wiadomość",
 	"chat.placeholder": "Wiadomość…",

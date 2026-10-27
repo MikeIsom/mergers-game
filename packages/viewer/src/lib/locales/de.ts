@@ -1,8 +1,23 @@
 import type { Catalog } from "../i18n.ts";
 
 export const de: Catalog = {
+	"swap.title": "Aktientausch",
+	"swap.note": "Vor dem Kauf 1:1 zu aktuellen Kursen tauschen. Du darfst weiterhin bis zu 3 Aktien kaufen.",
+	"swap.remaining": "{count} in diesem Zug übrig",
+	"swap.unlimited": "Unbegrenzt",
+	"swap.give": "Abgeben (dein Bestand)",
+	"swap.take": "Erhalten (Bankbestand)",
+	"swap.count": "Aktien",
+	"swap.confirm": "Aktien tauschen",
+	"swap.pay": "{amount} zahlen",
+	"swap.receive": "{amount} erhalten",
+	"swap.even": "Keine Preisdifferenz",
+	"swap.unavailable": "Mit dieser Menge, dem Limit, Aktienbestand und Bargeld ist kein Tausch möglich.",
+	"log.swapped": "{name} tauscht {count} {from} gegen {count} {to} · {cash}",
+
 	loading: "Spiel wird geladen…",
 	"status.place": "{name} legt ein Plättchen",
+	"status.placeSecond": "{name} legt ein zweites Plättchen",
 	"status.found": "{name} benennt eine neue Kette",
 	"status.survivor": "{name} wählt, welche Kette die Fusion übersteht",
 	"status.defunctOrder": "{name} wählt die Reihenfolge der übernommenen Ketten",
@@ -15,7 +30,8 @@ export const de: Catalog = {
 	"status.replayNote": "Du siehst eine frühere Stellung. Plättchen auf der Hand werden nicht gezeigt.",
 	"panel.label": "Deine Entscheidung",
 	"panel.sending": "Wird gesendet…",
-	"announce.ask": "Das Spiel nach diesem Zug beenden? Das kann nicht rückgängig gemacht werden.",
+	"turn.undo": "Rückgängig",
+	"announce.ask": "Das Spiel nach diesem Zug beenden?",
 	"announce.confirm": "Spielende ankündigen",
 	"announce.cancel": "Weiterspielen",
 	"announce.open": "Spielende ankündigen…",
@@ -26,7 +42,7 @@ export const de: Catalog = {
 	"place.merges": "fusioniert {chains}",
 	"place.button": "{tile} legen",
 	"place.another": "Anderes wählen",
-	"place.choose": "Wähle ein Plättchen von deiner Hand.",
+	"place.choose": "Wähle ein hervorgehobenes Feld oder ein Plättchen aus deiner Hand.",
 	"place.none": "Keines deiner Plättchen kann gelegt werden.",
 	"place.pass": "Ohne Legen weiter",
 	"found.prompt": "Benenne die neue Kette. Du erhältst eine Gratisaktie.",
@@ -39,6 +55,10 @@ export const de: Catalog = {
 	"dispose.takenOver": "{defunct} wird von {survivor} übernommen.",
 	"dispose.holding": { one: "Du besitzt {count} {chain}-Aktie.", other: "Du besitzt {count} {chain}-Aktien." },
 	"dispose.sell": "Verkaufen zu {price}",
+	"dispose.sellAll": "Alle verkaufen",
+	"dispose.tradeMaximum": "{give} gegen {receive} tauschen",
+	"dispose.stockValue": "Aktienwert",
+	"dispose.afterMerger": "Aktienkurs nach dieser Fusion",
 	"dispose.trade": "2 gegen 1 tauschen",
 	"dispose.keep": "Behalten",
 	"dispose.receive": "+{count} {chain}",
@@ -68,7 +88,11 @@ export const de: Catalog = {
 	"hand.of": "Plättchen von {name}",
 	"hand.none": "Keine Plättchen",
 	"hand.dead": "tot: würde sichere Ketten fusionieren",
+	"hand.deadReplacement": "Werden am Ende deines Zuges ersetzt",
 	"hand.eighth": "keine 8. Kette möglich",
+	"hand.deadNextTurn": "Werden zu Beginn deines nächsten Zuges ersetzt",
+	"hand.oneFounding": "keine zweite Kettengründung in diesem Zug",
+	"hand.foundOrMerge": "nicht Gründung und Fusion im selben Zug",
 	"chains.label": "Hotelketten",
 	"chains.title": "Ketten",
 	"chains.chain": "Kette",
@@ -92,6 +116,15 @@ export const de: Catalog = {
 	"players.title": "Spieler",
 	"players.player": "Spieler",
 	"players.cash": "Geld",
+	"players.netWorth": "Vermögen",
+	"players.worthBreakdown": "Vermögensübersicht",
+	"players.bonuses": "Boni",
+	"players.worthNote":
+		"Bargeld + Aktienwert + voraussichtliche Mehrheits-/Minderheitsboni. Die Schätzung ändert sich mit Aktienbesitz und Fusionsentscheidungen.",
+	"players.worthBank":
+		"Bargeld + Aktienwert. Künftige Boni sind ausgeschlossen: Der Aktienbesitz der Bank ist erst bei der Auszahlung bekannt.",
+	"players.worthTeams": "BGS-Punkte addieren beide Teammitglieder.",
+	"players.worthFourHands": "BGS-Punkte richten sich nach deinem reichsten Sitz.",
 	"players.stock": "Aktien",
 	"players.tiles": "Plättchen",
 	"players.acting": "ist am Zug",
@@ -103,6 +136,7 @@ export const de: Catalog = {
 	"seat.name": "{name} (Platz {seat})",
 	"log.label": "Spielprotokoll",
 	"log.title": "Protokoll",
+	"log.limited": "Frühere Züge bleiben bis zum Spielende verborgen.",
 	"log.recent": "Nur die letzten Zeilen zeigen",
 	"log.all": { one: "Ganzes Protokoll zeigen ({count} weitere)", other: "Ganzes Protokoll zeigen ({count} weitere)" },
 	"log.init": { one: "Neues Spiel für {count} Spieler", other: "Neues Spiel für {count} Spieler" },
@@ -158,6 +192,83 @@ export const de: Catalog = {
 	"log.finalSale": "{name} verkauft {count} {chain} für {amount}",
 	"log.result": "Endstand: {results}",
 	"chat.label": "Chat",
+	"chat.suggestions": "Erwähnungsvorschläge",
+	"chat.game": "Spiel",
+	"chat.unread": "Ungelesen: {count}",
+	"chat.signIn": "Zum Chatten anmelden",
+	"chat.confirmAccount": "Bestätige dein Konto, um zu chatten",
+	"chat.playersOnly": "Nur Spieler können Nachrichten senden",
+	"chat.disabled": "Chat deaktiviert",
+	"chat.waiting": "Der Chat ist verfügbar, sobald das Spiel beginnt",
+	"chat.connecting": "Chat wird verbunden…",
+	"chat.readOnly": "Chat ist schreibgeschützt",
+	"tutorial.mechanics.tiles":
+		"Plättchen verbinden sich über Kanten, nie diagonal. Neben freien Plättchen gründet dein Plättchen eine Kette; neben einer Kette erweitert es sie; zwischen Ketten löst es eine Fusion aus.\n\nEin normaler Zug: legen, Fusionen abwickeln, insgesamt bis zu 3 Aktien kaufen und die Hand auffüllen. Diese Lektionen verwenden kleinere vorbereitete Hände.",
+	"tutorial.mechanics.tiers":
+		"Ketten haben keine Sonderfähigkeiten. Bei gleicher Größe sind Tower und Luxor am günstigsten; Worldwide, American und Festival kosten $100 mehr je Aktie, Imperial und Continental $200 mehr. Auch die Aktionärsboni steigen mit diesen Preisen.\n\nJede Kette hat 25 Aktien. Der Gründer erhält eine Gratisaktie, sofern vorhanden; sie zählt nicht zu den 3 erlaubten Käufen.",
+	"tutorial.mechanics.prices":
+		"Der Aktienpreis hängt von Größe und Preisklasse der Kette ab, nicht von der Zahl gekaufter Aktien. Tower kostet bei 2 Plättchen $200, bei 3 $300, bei 4 $400 und bei 5 $500. Danach gelten Bereiche: 6–10 Plättchen kosten $600, 11–20 kosten $700 usw. Die Preistabelle unten zeigt alle Bereiche und Klassen.\n\nHier kosten 2 Tower-Aktien $400. Du darfst insgesamt bis zu 3 Aktien aktiver Ketten kaufen, sofern Bargeld und Bankbestand reichen. In normalen Zügen kannst du nicht verkaufen.",
+	"tutorial.mechanics.merger":
+		"Vergleiche die Größen vor dem verbindenden Plättchen: Tower hat 3, Luxor 2, also bleibt Tower bestehen. Bei Gleichstand der größten Ketten entscheidet der legende Spieler.\n\nAb 11 Plättchen ist eine Kette sicher und kann nicht übernommen werden. Ein Plättchen, das zwei sichere Ketten verbinden würde, ist unspielbar.",
+	"tutorial.mechanics.bonuses":
+		"Bei einer Fusion erhalten nur Aktionäre übernommener Ketten Prämien; Aktien der überlebenden Kette bringen keine Fusionsprämie. Die Auszahlung erfolgt vor Verkauf oder Tausch zum Aktienkurs der übernommenen Kette vor der Fusion: 10 × für den größten Aktionär (Mehrheit), 5 × für den zweitgrößten (Minderheit). Die meisten Aktien genügen, es müssen nicht mehr als die Hälfte sein.\n\nLuxor hat 2 Plättchen: $200 je Aktie. Alex erhält mit 3 Aktien $2.000, Bo mit 2 Aktien $1.000, Cy mit 1 Aktie keinen Bonus. Dafür werden keine Aktien abgegeben. Danach kannst du für $200 verkaufen, je 2 gegen 1 Tower-Aktie aus dem Bankbestand tauschen oder für eine spätere Luxor-Gründung behalten.",
+	"tutorial.mechanics.ties":
+		"Bei Gleichstand auf Platz eins werden beide Boni unter den Führenden geteilt; sonst erhält niemand einen Bonus. Bei einem alleinigen Ersten teilen sich gleiche Zweite nur den Minderheitsbonus. Ein einziger Aktionär erhält beide. Jeder Teilbetrag wird auf volle $100 aufgerundet.\n\nZwei gemeinsame Spitzenaktionäre bei Luxor zu $200 erhalten beispielsweise je ($2.000 + $1.000) ÷ 2 = $1.500. Behaltene Luxor-Aktien sind wertlos, bis Luxor neu gegründet wird.",
+	"tutorial.mechanics.safe":
+		"Sicher bedeutet mindestens 11 Plättchen: Die Kette kann weiter wachsen und kleinere übernehmen, aber selbst nicht übernommen werden.\n\nDu darfst das Ende ansagen, wenn alle vorhandenen Ketten sicher sind oder eine 41 Plättchen erreicht. Es müssen nicht alle sieben auf dem Brett sein. Nach Standardregeln ist die Ansage freiwillig; beende deinen Zug, dann wird abgerechnet.",
+	"tutorial.mechanics.growth":
+		"Wachstum erhöht nicht immer den Preis. Tower liegt mit 11 wie mit 12 Plättchen im Bereich 11–20: $700 je Aktie. Erst bei 21 steigt der Preis auf $800.\n\nNach dem Legen darfst du wie üblich bis zu 3 Aktien kaufen. Das kann die Empfänger der Schlussboni ändern.",
+	"tutorial.mechanics.settlement":
+		"Am Spielende zahlt jede aktive Kette Mehrheits- und Minderheitsprämien, auch sichere Ketten, die nicht übernommen werden können. Deshalb enthält die Tabelle Prämien für 41 oder mehr Plättchen. Danach werden alle Aktien aktiver Ketten zum aktuellen Kurs verkauft; Aktien inaktiver Ketten sind wertlos.\n\nBei $700 für Tower führt Alex mit 4 Aktien: $7.000 Bonus + $2.800 Aktien + $6.000 Bargeld = $15.800. Bo erhält mit 2 Aktien den Minderheitsbonus von $3.500, Cy mit 1 keinen Bonus. Entscheidend ist das Endvermögen, nicht die Aktienzahl.",
+	"tutorial.founding.3": "Bo und Cy haben gespielt. Lege 3A, um Tower von 2 auf 3 Plättchen zu vergrößern.",
+	"tutorial.founding.4": "Kaufe 1 weitere Tower-Aktie für 300 $ und bestätige.",
+	"tutorial.mechanics.firstGrowth":
+		"Beim Vergrößern einer bestehenden Kette gibt es keine kostenlose Aktie. Mit 3 Plättchen steigt Towers Preis von 200 $ auf 300 $.\n\nAuch deine bisherigen Aktien haben den neuen Wert, aber Wachstum zahlt nicht sofort Geld aus.",
+	"tutorial.mechanics.buyGrowth":
+		"Du besitzt bereits 3 Tower-Aktien. Mit einer weiteren hast du 4 und insgesamt 700 $ ausgegeben.\n\nPro Zug darfst du bis zu 3 neue Aktien kaufen. Du kannst auch nichts kaufen und Geld sparen.",
+	"tutorial.mergers.3": "Lege 8F zwischen Worldwide und Festival. Beide haben 2 Plättchen.",
+	"tutorial.mergers.4": "Wähle Worldwide als überlebende Kette.",
+	"tutorial.mergers.5":
+		"Du hast beide Festival-Boni erhalten. Behalte deine Festival-Aktie: Lass Verkauf und Tausch auf 0 und bestätige.",
+	"tutorial.mergers.6": "Wähle „Nichts kaufen und Zug beenden“, um die zweite Fusion abzuschließen.",
+	"tutorial.mechanics.equalMerger":
+		"Sind die größten Ketten gleich groß, wählt die Person, die das verbindende Plättchen legt, die überlebende Kette. Aktienzahlen entscheiden nicht.\n\nHier haben beide Ketten 2 Plättchen. Du besitzt die einzige Festival-Aktie außerhalb der Bank.",
+	"tutorial.mechanics.survivorChoice":
+		"Mit Worldwide als Überlebender wird Festival übernommen. Festival gehört zur mittleren Preisstufe: Bei 2 Plättchen ist eine Aktie 300 $ wert.\n\nAls einziger Aktionär erhältst du beide Boni: 3.000 $ + 1.500 $ = 4.500 $. Worldwide zahlt keinen Fusionsbonus.",
+	"tutorial.mechanics.keepShares":
+		"Aktien zu behalten kostet nichts. Festival verschwindet vom Brett, aber du behältst die Aktie und den Bonus von 4.500 $.\n\nDie Aktie wird wieder nützlich, wenn Festival neu gegründet wird. Bleibt die Kette am Ende inaktiv, ist sie wertlos; in gewöhnlichen Zügen darfst du sie nicht verkaufen.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide hat nun einschließlich des verbindenden Plättchens 5 Plättchen. Seine Aktien kosten 600 $.\n\nBoni und Verkäufe nutzten Festivals alten Preis; neue Käufe nutzen Worldwides neuen Preis. Nach einer Fusion darfst du bis zu 3 Aktien aktiver Ketten kaufen.",
+	"tutorial.label": "Tutorial",
+	"tutorial.complete": "Kapitel abgeschlossen",
+	"tutorial.previous": "Vorheriger Schritt",
+	"tutorial.retry": "Schritt wiederholen",
+	"tutorial.restart": "Neu beginnen",
+	"tutorial.next": "Nächstes Kapitel",
+	"tutorial.founding.title": "Eine Kette gründen",
+	"tutorial.founding.0":
+		"Du spielst Alex. Wähle 2A auf deiner Hand und lege es neben 1A. Zwei benachbarte freie Plättchen gründen eine Hotelkette.",
+	"tutorial.founding.1": "Wähle Tower. Der Gründer erhält eine kostenlose Aktie, sofern die Bank noch eine hat.",
+	"tutorial.founding.2":
+		"Kaufe mit + 2 Tower-Aktien und bestätige. Pro Zug darfst du bis zu 3 Aktien kaufen; hier kostet jede $200.",
+	"tutorial.founding.done":
+		"Du besitzt 4 Tower-Aktien und hast 700 $ ausgegeben: eine kostenlose Gründeraktie, zwei für je 200 $ und eine für 300 $. Wachstum erhöht die Aktienpreise an den Schwellen der Preistabelle.",
+	"tutorial.mergers.title": "Eine Fusion abwickeln",
+	"tutorial.mergers.0":
+		"Lege 4A zwischen Tower (3 Plättchen) und Luxor (2). Die größere Kette bleibt bestehen; die Aktienzahl entscheidet das nicht.",
+	"tutorial.mergers.1":
+		"Deine 3 Luxor-Aktien bringen dir den Mehrheitsbonus von $2.000. Verkaufe 1 Aktie und tausche 2 gegen 1 Tower-Aktie, dann bestätige.",
+	"tutorial.mergers.2": "Die anderen Aktionäre behalten ihre Luxor-Aktien. Kaufe nichts und beende den Zug.",
+	"tutorial.mergers.done":
+		"Du erhältst $200 durch den Verkauf und 1 Tower-Aktie durch den Tausch. Behaltene Luxor-Aktien zählen wieder, wenn Luxor neu gegründet wird. Bei gleicher Mehrheit werden beide Boni geteilt. Sichere Ketten (ab 11 Plättchen) können nicht übernommen werden.",
+	"tutorial.scoring.title": "Spielende und Wertung",
+	"tutorial.scoring.0":
+		"Tower hat 11 Plättchen und ist sicher. Alle aktiven Ketten sind sicher: Kündige das Spielende an und bestätige. Das geht auch, sobald eine Kette 41 Plättchen erreicht.",
+	"tutorial.scoring.1": "Du darfst deinen Zug noch beenden. Lege 12A, um Tower zu vergrößern.",
+	"tutorial.scoring.2":
+		"Kaufe nichts und beende den Zug. Für jede aktive Kette werden Boni ausgezahlt und Aktien verkauft.",
+	"tutorial.scoring.done":
+		"Alex gewinnt mit $15.800: $6.000 Bargeld + $7.000 Mehrheitsbonus + 4 Aktien zu $700. Aktien inaktiver Ketten sind wertlos. Das meiste Geld gewinnt; Gleichstände teilen den Sieg.",
 	"chat.title": "Chat",
 	"chat.message": "Nachricht",
 	"chat.placeholder": "Nachricht…",

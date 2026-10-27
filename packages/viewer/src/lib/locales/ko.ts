@@ -1,8 +1,23 @@
 import type { Catalog } from "../i18n.ts";
 
 export const ko: Catalog = {
+	"swap.title": "주식 교환",
+	"swap.note": "구매 전에 현재 가격으로 1:1 교환합니다. 이후에도 주식을 최대 3주 구매할 수 있습니다.",
+	"swap.remaining": "이번 차례에 {count}주 남음",
+	"swap.unlimited": "무제한",
+	"swap.give": "제공 (보유 주식)",
+	"swap.take": "수령 (은행 주식)",
+	"swap.count": "주식 수",
+	"swap.confirm": "주식 교환",
+	"swap.pay": "{amount} 지불",
+	"swap.receive": "{amount} 수령",
+	"swap.even": "차액 없음",
+	"swap.unavailable": "이 수량, 교환 한도, 주식 및 현금으로는 교환할 수 없습니다.",
+	"log.swapped": "{name}: {from} {count}주를 {to} {count}주로 교환 · {cash}",
+
 	loading: "게임을 불러오는 중…",
 	"status.place": "{name}: 타일을 놓을 차례",
+	"status.placeSecond": "{name}: 두 번째 타일을 놓을 차례",
 	"status.found": "{name}: 새 체인의 이름을 정할 차례",
 	"status.survivor": "{name}: 합병에서 살아남을 체인을 고를 차례",
 	"status.defunctOrder": "{name}: 흡수되는 체인의 순서를 정할 차례",
@@ -15,7 +30,8 @@ export const ko: Catalog = {
 	"status.replayNote": "이전 상황을 보고 있습니다. 손에 든 타일은 표시되지 않습니다.",
 	"panel.label": "내 결정",
 	"panel.sending": "보내는 중…",
-	"announce.ask": "이번 턴이 끝나면 게임을 끝낼까요? 되돌릴 수 없습니다.",
+	"turn.undo": "되돌리기",
+	"announce.ask": "이번 턴이 끝나면 게임을 끝낼까요?",
 	"announce.confirm": "종료 선언",
 	"announce.cancel": "계속 플레이",
 	"announce.open": "종료 선언…",
@@ -26,7 +42,7 @@ export const ko: Catalog = {
 	"place.merges": "{chains}을(를) 합병합니다",
 	"place.button": "{tile} 놓기",
 	"place.another": "다른 타일 고르기",
-	"place.choose": "손에서 타일 하나를 고르세요.",
+	"place.choose": "강조된 칸이나 손에 있는 타일을 선택하세요.",
 	"place.none": "놓을 수 있는 타일이 없습니다.",
 	"place.pass": "놓지 않고 계속하기",
 	"found.prompt": "새 체인의 이름을 고르세요. 무료 주식 1주를 받습니다.",
@@ -39,6 +55,10 @@ export const ko: Catalog = {
 	"dispose.takenOver": "{survivor}이(가) {defunct}을(를) 흡수합니다.",
 	"dispose.holding": { other: "{chain} 주식을 {count}주 가지고 있습니다." },
 	"dispose.sell": "{price}에 팔기",
+	"dispose.sellAll": "모두 매도",
+	"dispose.tradeMaximum": "{give}주를 {receive}주로 교환",
+	"dispose.stockValue": "주식 가치",
+	"dispose.afterMerger": "이번 합병 후 주가",
 	"dispose.trade": "2주를 1주로 교환",
 	"dispose.keep": "보유",
 	"dispose.receive": "+{count} {chain}",
@@ -68,7 +88,11 @@ export const ko: Catalog = {
 	"hand.of": "{name}의 타일",
 	"hand.none": "타일 없음",
 	"hand.dead": "죽은 타일: 안전한 체인끼리 합병하게 됨",
+	"hand.deadReplacement": "내 차례가 끝나면 교체됩니다",
 	"hand.eighth": "8번째 체인은 세울 수 없음",
+	"hand.deadNextTurn": "다음 차례가 시작될 때 교체됩니다",
+	"hand.oneFounding": "이번 차례에 두 번째 체인은 세울 수 없음",
+	"hand.foundOrMerge": "한 차례에 체인 설립과 합병을 모두 할 수 없음",
 	"chains.label": "호텔 체인",
 	"chains.title": "체인",
 	"chains.chain": "체인",
@@ -92,6 +116,14 @@ export const ko: Catalog = {
 	"players.title": "플레이어",
 	"players.player": "플레이어",
 	"players.cash": "현금",
+	"players.netWorth": "순자산",
+	"players.worthBreakdown": "순자산 내역",
+	"players.bonuses": "보너스",
+	"players.worthNote":
+		"현금 + 주식 가치 + 예상 대주주/소주주 보너스입니다. 보유 주식과 합병 선택에 따라 추정치가 달라집니다.",
+	"players.worthBank": "현금 + 주식 가치입니다. 은행의 보유량은 지급 시에만 알 수 있으므로 향후 보너스는 제외합니다.",
+	"players.worthTeams": "BGS 점수는 두 팀원의 자산을 합산합니다.",
+	"players.worthFourHands": "BGS 점수는 내 좌석 중 가장 부유한 좌석을 기준으로 합니다.",
 	"players.stock": "주식",
 	"players.tiles": "타일",
 	"players.acting": "결정 중",
@@ -103,6 +135,7 @@ export const ko: Catalog = {
 	"seat.name": "{name} ({seat}번 자리)",
 	"log.label": "게임 기록",
 	"log.title": "기록",
+	"log.limited": "이전 수는 게임이 끝날 때까지 숨겨집니다.",
 	"log.recent": "최근 줄만 보기",
 	"log.all": { other: "전체 기록 보기 ({count}줄 더)" },
 	"log.init": { other: "{count}인 새 게임" },
@@ -152,6 +185,82 @@ export const ko: Catalog = {
 	"log.finalSale": "{name}: {chain} {count}주를 {amount}에 팖",
 	"log.result": "최종 현금: {results}",
 	"chat.label": "채팅",
+	"chat.suggestions": "멘션 추천",
+	"chat.game": "게임",
+	"chat.unread": "읽지 않음: {count}",
+	"chat.signIn": "채팅하려면 로그인하세요",
+	"chat.confirmAccount": "채팅하려면 계정을 인증하세요",
+	"chat.playersOnly": "플레이어만 메시지를 보낼 수 있습니다",
+	"chat.disabled": "채팅이 비활성화되었습니다",
+	"chat.waiting": "게임이 시작되면 채팅을 사용할 수 있습니다",
+	"chat.connecting": "채팅 연결 중…",
+	"chat.readOnly": "채팅은 읽기 전용입니다",
+	"tutorial.mechanics.tiles":
+		"타일은 변으로만 연결되며 대각선은 연결되지 않습니다. 독립 타일 옆에 놓으면 체인을 설립하고, 한 체인 옆이면 확장하며, 여러 체인 사이면 합병합니다.\n\n일반적인 차례는 타일 놓기, 합병 처리, 주식 총 3주까지 구매, 손패 보충 순서입니다. 이 강좌는 미리 준비한 작은 손패를 사용합니다.",
+	"tutorial.mechanics.tiers":
+		"체인에는 특수 능력이 없습니다. 크기가 같을 때 Tower와 Luxor가 가장 저렴하고, Worldwide·American·Festival은 주당 $100, Imperial·Continental은 $200 더 비쌉니다. 주주 보너스도 이 가격에 비례합니다.\n\n체인마다 주식은 25주입니다. 설립자는 은행에 남아 있으면 1주를 무료로 받으며, 이는 구매 한도 3주에 포함되지 않습니다.",
+	"tutorial.mechanics.prices":
+		"주가는 체인의 타일 수와 가격 등급으로 정해지며, 플레이어가 구매한 주식 수와 무관합니다. Tower는 타일 2개일 때 $200, 3개 $300, 4개 $400, 5개 $500입니다. 이후에는 구간을 사용합니다. 6–10개는 $600, 11–20개는 $700 등입니다. 아래 가격표에서 모든 구간과 등급을 확인하세요.\n\n여기서 Tower 2주는 $400입니다. 현금과 은행 재고가 충분하면 활성 체인 주식을 합계 3주까지 살 수 있습니다. 일반 차례에는 팔 수 없습니다.",
+	"tutorial.mechanics.merger":
+		"연결 타일을 더하기 전 크기를 비교합니다. Tower는 3개, Luxor는 2개이므로 Tower가 살아남습니다. 가장 큰 체인이 동률이면 타일을 놓은 사람이 선택합니다.\n\n타일 11개부터 체인은 안전해져 흡수될 수 없습니다. 안전한 두 체인을 연결하는 타일은 놓을 수 없습니다.",
+	"tutorial.mechanics.bonuses":
+		"합병 보너스는 흡수되는 체인의 주주에게만 지급됩니다. 살아남는 체인의 주식에는 합병 보너스가 없습니다. 매도나 교환 전에 흡수되는 체인의 합병 전 주가를 기준으로 지급합니다. 최대 주주는 주가의 10배(다수), 두 번째 주주는 5배(소수)를 받습니다. 과반수가 아니라 가장 많은 주식을 보유하면 됩니다.\n\nLuxor는 타일 2개로 주당 $200입니다. 3주인 Alex는 $2,000, 2주인 Bo는 $1,000, 1주인 Cy는 보너스가 없습니다. 보너스를 받아도 주식은 소모되지 않습니다. 이후 $200에 판매, 재고가 있는 Tower 1주와 2주 교환, 미래 Luxor를 위한 보유를 조합할 수 있습니다.",
+	"tutorial.mechanics.ties":
+		"공동 1위는 두 보너스를 합쳐 나누며, 나머지는 받지 못합니다. 단독 1위가 있으면 공동 2위는 소수 보너스만 나눕니다. 주주가 한 명뿐이면 둘 다 받습니다. 각 몫은 $100 단위로 올림합니다.\n\n주가 $200인 Luxor의 공동 1위 두 명은 각각 ($2,000 + $1,000) ÷ 2 = $1,500을 받습니다. 보유한 Luxor 주식은 체인이 다시 설립되기 전에는 가치가 없습니다.",
+	"tutorial.mechanics.safe":
+		"안전한 체인은 타일 11개 이상입니다. 계속 성장하고 작은 체인을 흡수할 수 있지만, 자신은 흡수되지 않습니다.\n\n보드의 모든 체인이 안전하거나 한 체인이 41개에 도달하면 종료를 선언할 수 있습니다. 일곱 체인이 모두 있을 필요는 없습니다. 기본 규칙에서는 선택 사항이며, 현재 차례를 마친 뒤 정산합니다.",
+	"tutorial.mechanics.growth":
+		"성장해도 주가가 항상 오르지는 않습니다. Tower의 타일이 11개든 12개든 11–20 구간이므로 주당 $700입니다. 다음 상승은 21개일 때 $800입니다.\n\n타일을 놓은 뒤에도 평소처럼 3주까지 구매할 수 있습니다. 이 구매가 최종 보너스 수령자를 바꿀 수 있습니다.",
+	"tutorial.mechanics.settlement":
+		"게임 종료 시 모든 활성 체인이 다수·소수 보너스를 지급합니다. 흡수될 수 없는 안전한 체인도 마찬가지입니다. 그래서 가격표에 타일 41개 이상인 체인의 보너스도 나옵니다. 그다음 활성 체인의 모든 주식을 현재 가격에 팝니다. 비활성 체인의 주식은 가치가 없습니다.\n\nTower 주가가 $700일 때 4주인 Alex가 1위입니다. 보너스 $7,000 + 주식 $2,800 + 현금 $6,000 = $15,800입니다. 2주인 Bo는 소수 보너스 $3,500을 받고, 1주인 Cy는 받지 못합니다. 승리는 주식 수가 아닌 최종 현금으로 정합니다.",
+	"tutorial.founding.3": "Bo와 Cy가 차례를 마쳤습니다. 3A를 놓아 Tower를 2칸에서 3칸으로 늘리세요.",
+	"tutorial.founding.4": "Tower 주식 1주를 $300에 더 사고 확인하세요.",
+	"tutorial.mechanics.firstGrowth":
+		"기존 체인을 확장해도 무료 주식을 받지 않습니다. 3칸이 되면 Tower 주가가 $200에서 $300으로 오릅니다.\n\n이미 가진 주식에도 새 가격이 적용되지만, 성장 자체로 즉시 현금을 받지는 않습니다.",
+	"tutorial.mechanics.buyGrowth":
+		"이미 Tower 주식 3주가 있습니다. 1주를 더 사면 4주가 되고 총 지출은 $700입니다.\n\n매 차례마다 새로 최대 3주를 살 수 있습니다. 아무것도 사지 않고 현금을 아껴도 됩니다.",
+	"tutorial.mergers.3": "Worldwide와 Festival 사이에 8F를 놓으세요. 둘 다 2칸입니다.",
+	"tutorial.mergers.4": "존속할 체인으로 Worldwide를 선택하세요.",
+	"tutorial.mergers.5":
+		"Festival의 두 보너스를 모두 받았습니다. Festival 주식을 보유하세요. 판매와 교환을 0으로 두고 확인하세요.",
+	"tutorial.mergers.6": "“구매 없이 차례 종료”를 선택해 두 번째 합병을 마치세요.",
+	"tutorial.mechanics.equalMerger":
+		"가장 큰 체인들의 크기가 같으면 연결 타일을 놓은 플레이어가 존속할 체인을 고릅니다. 주식 수로 동률을 가리지 않습니다.\n\n여기서는 두 체인 모두 2칸입니다. 은행 밖의 유일한 Festival 주식을 당신이 갖고 있습니다.",
+	"tutorial.mechanics.survivorChoice":
+		"Worldwide를 고르면 Festival이 흡수됩니다. Festival은 중간 가격 등급이므로 2칸일 때 주당 $300입니다.\n\n유일한 주주이므로 두 보너스를 모두 받습니다. $3,000 + $1,500 = $4,500입니다. Worldwide는 합병 보너스를 지급하지 않습니다.",
+	"tutorial.mechanics.keepShares":
+		"주식을 보유하는 데 비용은 들지 않습니다. Festival은 보드에서 사라지지만 주식과 $4,500 보너스는 남습니다.\n\nFestival이 다시 창립되면 주식이 유용해질 수 있습니다. 게임 종료 시에도 비활성 상태라면 가치가 없으며, 일반 차례에는 팔 수 없습니다.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide는 연결 타일을 포함해 이제 5칸이며 주가는 $600입니다.\n\n보너스와 판매에는 Festival의 이전 주가를 썼고, 새 구매에는 Worldwide의 새 주가를 씁니다. 합병 후에도 활성 체인의 주식을 합쳐 최대 3주까지 살 수 있습니다.",
+	"tutorial.label": "튜토리얼",
+	"tutorial.complete": "챕터 완료",
+	"tutorial.previous": "이전 단계",
+	"tutorial.retry": "단계 다시 하기",
+	"tutorial.restart": "챕터 다시 시작",
+	"tutorial.next": "다음 챕터",
+	"tutorial.founding.title": "체인 설립하기",
+	"tutorial.founding.0":
+		"Alex로 플레이합니다. 손에서 2A를 선택해 1A 옆에 놓으세요. 인접한 독립 타일 두 개가 호텔 체인을 만듭니다.",
+	"tutorial.founding.1": "Tower를 선택하세요. 은행에 주식이 남아 있으면 설립자는 주식 한 주를 무료로 받습니다.",
+	"tutorial.founding.2":
+		"+ 버튼으로 Tower 주식 2주를 사고 확인하세요. 한 턴에 최대 3주를 살 수 있으며, 여기서는 한 주에 $200입니다.",
+	"tutorial.founding.done":
+		"Tower 주식 4주를 보유하며 총 $700을 썼습니다. 창립 보상 1주는 무료이고, 2주는 각각 $200, 1주는 $300이었습니다. 체인이 커지면 가격표의 구간에 따라 주가가 오릅니다.",
+	"tutorial.mergers.title": "합병 처리하기",
+	"tutorial.mergers.0":
+		"Tower(타일 3개)와 Luxor(2개) 사이에 4A를 놓으세요. 더 큰 체인이 살아남습니다. 주식 수로 결정하지 않습니다.",
+	"tutorial.mergers.1":
+		"Luxor 주식 3주로 최대 주주 보너스 $2,000를 받았습니다. 1주를 팔고 2주를 Tower 1주로 교환한 다음 확인하세요.",
+	"tutorial.mergers.2": "다른 주주들은 Luxor 주식을 보유했습니다. 아무것도 사지 않고 턴을 마치세요.",
+	"tutorial.mergers.done":
+		"판매로 $200, 교환으로 Tower 1주를 받았습니다. 보유한 Luxor 주식은 체인이 다시 설립되면 유용합니다. 최대 주주가 동률이면 두 보너스를 합쳐 나눕니다. 안전한 체인(타일 11개 이상)은 인수할 수 없습니다.",
+	"tutorial.scoring.title": "게임 종료와 점수",
+	"tutorial.scoring.0":
+		"Tower는 타일 11개로 안전합니다. 모든 활성 체인이 안전하므로 종료를 선언하고 확인하세요. 어떤 체인이든 타일 41개에 도달해도 선언할 수 있습니다.",
+	"tutorial.scoring.1": "선언 후에도 자신의 턴을 마칩니다. 12A를 놓아 Tower를 확장하세요.",
+	"tutorial.scoring.2": "아무것도 사지 않고 턴을 마치세요. 모든 활성 체인의 보너스를 지급하고 주식을 매각합니다.",
+	"tutorial.scoring.done":
+		"Alex가 $15,800로 승리합니다: 현금 $6,000 + 최대 주주 보너스 $7,000 + 주당 $700인 주식 4주. 비활성 체인의 주식은 가치가 없습니다. 돈이 가장 많으면 승리하며, 동률은 공동 승리입니다.",
 	"chat.title": "채팅",
 	"chat.message": "메시지",
 	"chat.placeholder": "메시지…",

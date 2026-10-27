@@ -1,4 +1,5 @@
 import type { ChainId } from "acquire-engine";
+import { contrastRatio, hexToRgb } from "./color.ts";
 
 export interface Theme {
 	page: string;
@@ -99,9 +100,9 @@ export function themeCss(): string {
 	const light = `${vars(THEMES.light)} color-scheme: light;`;
 	const dark = `${vars(THEMES.dark)} color-scheme: dark;`;
 	return [
-		`.acquire, .acquire[data-theme="light"] { ${light} }`,
-		`.acquire[data-theme="dark"] { ${dark} }`,
-		`@media (prefers-color-scheme: dark) { .acquire:not([data-theme]) { ${dark} } }`,
+		`.acquire, html:has(.acquire) { ${light} }`,
+		`.acquire[data-theme="dark"], html:has(.acquire[data-theme="dark"]) { ${dark} }`,
+		`@media (prefers-color-scheme: dark) { .acquire:not([data-theme]), html:has(.acquire:not([data-theme])) { ${dark} } }`,
 	].join(" ");
 }
 
@@ -122,51 +123,18 @@ export interface ChainStyle {
 	text: string;
 	/** Shown on every chain tile and marker, so colour is never the only signal. */
 	letter: string;
-	/** Colour-blind mode: a pattern structurally different from every other chain's. */
-	pattern: Pattern;
-	/** The pattern's ink: the label colour blended into the fill, softened to just over 3:1. */
-	patternInk: string;
-}
-
-export type Pattern = "stripes" | "bars" | "diagonalUp" | "diagonalDown" | "dots" | "checker" | "crosshatch";
-
-/**
- * CSS background for a chain pattern. Sizes are percentages of the tile, so the same pattern
- * reads the same on a 26px phone square and a 44px desktop square.
- */
-export function patternCss(pattern: Pattern | "grid", ink: string): string {
-	const lines = (angle: number, width = 9) =>
-		`repeating-linear-gradient(${angle}deg, ${ink} 0 ${width}%, transparent ${width}% 25%)`;
-	switch (pattern) {
-		case "stripes":
-			return lines(0);
-		case "bars":
-			return lines(90);
-		case "diagonalUp":
-			return lines(45);
-		case "diagonalDown":
-			return lines(135);
-		case "dots":
-			return `radial-gradient(circle, ${ink} 0 30%, transparent 33%) 0 0 / 25% 25%`;
-		case "checker":
-			return `conic-gradient(${ink} 0 25%, transparent 0 50%, ${ink} 0 75%, transparent 0) 0 0 / 50% 50%`;
-		case "crosshatch":
-			return `${lines(45, 6)}, ${lines(135, 6)}`;
-		case "grid":
-			return `${lines(0, 7)}, ${lines(90, 7)}`;
-	}
 }
 
 // Okabe-Ito without its black and yellow (they clash with the board), nudged and with a violet
 // added so every pair stays apart under each colour-vision deficiency. See palette.spec.ts.
 export const CHAIN_STYLES: Record<ChainId, ChainStyle> = {
-	tower: { fill: "#b44906", text: "#ffffff", letter: "T", pattern: "stripes", patternInk: "#e6c1aa" },
-	luxor: { fill: "#d08200", text: "#000000", letter: "L", pattern: "bars", patternInk: "#603c00" },
-	worldwide: { fill: "#a16494", text: "#000000", letter: "W", pattern: "diagonalUp", patternInk: "#3a2435" },
-	american: { fill: "#5285e0", text: "#000000", letter: "A", pattern: "diagonalDown", patternInk: "#22385e" },
-	festival: { fill: "#0b7d59", text: "#ffffff", letter: "F", pattern: "dots", patternInk: "#b1d5ca" },
-	imperial: { fill: "#7a2ac4", text: "#ffffff", letter: "I", pattern: "checker", patternInk: "#c4a1e5" },
-	continental: { fill: "#21c5e2", text: "#000000", letter: "C", pattern: "crosshatch", patternInk: "#116473" },
+	tower: { fill: "#b44906", text: "#ffffff", letter: "T" },
+	luxor: { fill: "#d08200", text: "#000000", letter: "L" },
+	worldwide: { fill: "#a16494", text: "#000000", letter: "W" },
+	american: { fill: "#5285e0", text: "#000000", letter: "A" },
+	festival: { fill: "#0b7d59", text: "#ffffff", letter: "F" },
+	imperial: { fill: "#7a2ac4", text: "#ffffff", letter: "I" },
+	continental: { fill: "#21c5e2", text: "#000000", letter: "C" },
 };
 
 /** The Okabe-Ito colour each chain colour started from (the violet is new). */
@@ -178,3 +146,24 @@ export const OKABE_ITO_ORIGIN: Partial<Record<ChainId, string>> = {
 	festival: "#009e73",
 	continental: "#56b4e9",
 };
+
+/** Keep colored text readable across every surface in the current theme. */
+export function themeInk(color: string, mode: "light" | "dark"): string {
+	const theme = THEMES[mode];
+	const rgb = hexToRgb(color);
+	const ink = hexToRgb(theme.ink);
+	for (let step = 0; step <= 20; step++) {
+		const mix = step / 20;
+		const candidate = `#${rgb
+			.map((value, i) =>
+				Math.round((value * (1 - mix) + ink[i]! * mix) * 255)
+					.toString(16)
+					.padStart(2, "0")
+			)
+			.join("")}`;
+		if ([theme.page, theme.panel, theme.panelAlt].every((background) => contrastRatio(candidate, background) >= 4.5)) {
+			return candidate;
+		}
+	}
+	return theme.ink;
+}

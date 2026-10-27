@@ -1,5 +1,6 @@
 import { connectedLoose, placementEffect } from "./board.js";
-import { CHAIN_IDS, HAND_SIZE, SHARES_PER_CHAIN, STARTING_CASH, type ChainId } from "./config.js";
+import { CHAIN_IDS, SHARES_PER_CHAIN, STARTING_CASH, type ChainId } from "./config.js";
+import { handSize } from "./options.js";
 import { parseTile, type Tile } from "./tiles.js";
 import type { Cell, GameState, Shares } from "./types.js";
 
@@ -24,6 +25,7 @@ export function positionAt(state: GameState, to: number): PublicPosition {
 	const bank = sharesOf(SHARES_PER_CHAIN);
 	let seats: PublicPosition["seats"] = [];
 	let lastTile: Tile | undefined;
+	let hand = 0;
 	let merger: { tile: Tile; chains: ChainId[]; survivor?: ChainId } | undefined;
 
 	const place = (tile: Tile) => {
@@ -41,6 +43,7 @@ export function positionAt(state: GameState, to: number): PublicPosition {
 		switch (entry.type) {
 			case "init":
 				seats = Array.from({ length: entry.seats }, () => ({ cash: STARTING_CASH, shares: sharesOf(0), tiles: 0 }));
+				hand = handSize(entry.options);
 				break;
 			case "turnOrder":
 				for (const tile of entry.tiles) {
@@ -48,7 +51,7 @@ export function positionAt(state: GameState, to: number): PublicPosition {
 				}
 				// rules.md §3.4: every seat then draws a full hand, which is not logged as a draw.
 				for (const seat of seats) {
-					seat.tiles = HAND_SIZE;
+					seat.tiles = hand;
 				}
 				break;
 			case "move":
@@ -107,6 +110,15 @@ export function positionAt(state: GameState, to: number): PublicPosition {
 				bank[entry.chain] += entry.sold + entry.traded;
 				seat.shares[merger!.survivor!] += entry.traded / 2;
 				bank[merger!.survivor!] -= entry.traded / 2;
+				break;
+			}
+			case "swapped": {
+				const seat = seats[entry.seat]!;
+				seat.cash -= entry.cost;
+				seat.shares[entry.from] -= entry.count;
+				bank[entry.from] += entry.count;
+				seat.shares[entry.to] += entry.count;
+				bank[entry.to] -= entry.count;
 				break;
 			}
 			case "bought": {

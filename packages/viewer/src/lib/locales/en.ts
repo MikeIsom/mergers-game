@@ -2,10 +2,25 @@
 // system and by i18n.spec.ts). {name} placeholders must be kept; plural messages give one form
 // per CLDR plural category of the language. Chain names are never translated.
 export const en = {
+	"swap.title": "Stock swap",
+	"swap.note": "Swap 1:1 at current prices before buying. You may still buy up to 3 shares.",
+	"swap.remaining": "{count} left this turn",
+	"swap.unlimited": "Unlimited",
+	"swap.give": "Give (your stock)",
+	"swap.take": "Receive (bank stock)",
+	"swap.count": "Shares",
+	"swap.confirm": "Swap shares",
+	"swap.pay": "Pay {amount}",
+	"swap.receive": "Receive {amount}",
+	"swap.even": "No cash difference",
+	"swap.unavailable": "No swap available with this quantity, allowance, stock and cash.",
+	"log.swapped": "{name} swapped {count} {from} for {count} {to} · {cash}",
+
 	loading: "Loading game…",
 
 	// Status bar
 	"status.place": "{name} to place a tile",
+	"status.placeSecond": "{name} to place a second tile",
 	"status.found": "{name} to name a new chain",
 	"status.survivor": "{name} to choose which chain survives the merger",
 	"status.defunctOrder": "{name} to choose the order of the defunct chains",
@@ -20,7 +35,8 @@ export const en = {
 	// Decision panel
 	"panel.label": "Your decision",
 	"panel.sending": "Sending…",
-	"announce.ask": "End the game after this turn? This cannot be undone.",
+	"turn.undo": "Undo",
+	"announce.ask": "End the game after this turn?",
 	"announce.confirm": "Announce the end",
 	"announce.cancel": "Keep playing",
 	"announce.open": "Announce the end…",
@@ -31,7 +47,7 @@ export const en = {
 	"place.merges": "merges {chains}",
 	"place.button": "Place {tile}",
 	"place.another": "Choose another",
-	"place.choose": "Choose a tile from your hand.",
+	"place.choose": "Choose a highlighted square or a tile from your hand.",
 	"place.none": "None of your tiles can be placed.",
 	"place.pass": "Continue without placing",
 	"found.prompt": "Name the new chain. You receive one free share.",
@@ -44,6 +60,10 @@ export const en = {
 	"dispose.takenOver": "{defunct} is taken over by {survivor}.",
 	"dispose.holding": { one: "You hold {count} {chain} share.", other: "You hold {count} {chain} shares." },
 	"dispose.sell": "Sell at {price}",
+	"dispose.sellAll": "Sell all",
+	"dispose.tradeMaximum": "Trade {give} for {receive}",
+	"dispose.stockValue": "Stock value",
+	"dispose.afterMerger": "Share price after this merger",
 	"dispose.trade": "Trade 2 for 1",
 	"dispose.keep": "Keep",
 	"dispose.receive": "+{count} {chain}",
@@ -75,7 +95,11 @@ export const en = {
 	"hand.of": "Tiles of {name}",
 	"hand.none": "No tiles",
 	"hand.dead": "dead: would merge safe chains",
+	"hand.deadReplacement": "Replaced at the end of your turn",
 	"hand.eighth": "can't found an 8th chain",
+	"hand.deadNextTurn": "Replaced at the start of your next turn",
+	"hand.oneFounding": "can't found a second chain this turn",
+	"hand.foundOrMerge": "can't both found a chain and merge in one turn",
 
 	// Chain and price tables
 	"chains.label": "Hotel chains",
@@ -103,6 +127,14 @@ export const en = {
 	"players.title": "Players",
 	"players.player": "Player",
 	"players.cash": "Cash",
+	"players.netWorth": "Net worth",
+	"players.worthBreakdown": "Net worth breakdown",
+	"players.bonuses": "Bonuses",
+	"players.worthNote":
+		"Cash + share value + projected majority/minority bonuses. This estimate changes with holdings and merger choices.",
+	"players.worthBank": "Cash + share value. Future bonuses excluded: the bank’s holding is unknown until payout.",
+	"players.worthTeams": "BGS scores combine both teammates.",
+	"players.worthFourHands": "BGS scores use your richest seat.",
 	"players.stock": "Stock",
 	"players.tiles": "Tiles",
 	"players.acting": "acting now",
@@ -116,6 +148,7 @@ export const en = {
 	// Log
 	"log.label": "Game log",
 	"log.title": "Log",
+	"log.limited": "Earlier moves are hidden until the game ends.",
 	"log.recent": "Show recent lines only",
 	"log.all": { one: "Show the whole log ({count} more)", other: "Show the whole log ({count} more)" },
 	"log.init": { one: "New game for {count} player", other: "New game for {count} players" },
@@ -173,6 +206,83 @@ export const en = {
 
 	// Chat panel (the shared BGS panel's own labels)
 	"chat.label": "Chat",
+	"chat.suggestions": "Mention suggestions",
+	"chat.game": "Game",
+	"chat.unread": "Unread: {count}",
+	"chat.signIn": "Sign in to chat",
+	"chat.confirmAccount": "Confirm your account to chat",
+	"chat.playersOnly": "Only players can send messages",
+	"chat.disabled": "Chat disabled",
+	"chat.waiting": "Chat will be available when the game starts",
+	"chat.connecting": "Chat is connecting…",
+	"chat.readOnly": "Chat is read-only",
+	"tutorial.mechanics.tiles":
+		"Tiles connect along edges, never diagonally. Next to loose tiles, your tile founds a chain; next to one chain, it grows that chain; between chains, it causes a merger.\n\nA normal turn is: place, resolve any merger, buy up to 3 shares in total, then refill your hand. These lessons use small prepared hands.",
+	"tutorial.mechanics.tiers":
+		"Chains have no special powers. At the same size, Tower and Luxor are cheapest; Worldwide, American and Festival cost $100 more per share; Imperial and Continental cost $200 more. Their shareholder bonuses rise with those prices too.\n\nEach chain has 25 shares. Founding gives you one free share if available; it does not use your allowance of 3 purchases.",
+	"tutorial.mechanics.prices":
+		"Share price depends on the chain’s tile count and price tier, not on how many shares players buy. Tower costs $200 at 2 tiles, $300 at 3, $400 at 4 and $500 at 5. Larger chains use bands: 6–10 tiles cost $600, 11–20 cost $700, and so on. Open the price table below for every band and tier.\n\nHere, 2 Tower shares cost $400. You may buy up to 3 shares total across active chains, if you have enough cash and the bank has stock. Ordinary turns do not let you sell.",
+	"tutorial.mechanics.merger":
+		"Compare chain sizes before the connecting tile is added: Tower has 3 tiles and Luxor 2, so Tower survives. If largest chains tie, the player placing the tile chooses.\n\nA chain becomes safe at 11 tiles and can never be taken over. A tile that would join two safe chains cannot be played.",
+	"tutorial.mechanics.bonuses":
+		"During a merger, only shareholders of absorbed chains get bonuses; shares in the surviving chain earn none. Bonuses are paid before selling or trading, at the absorbed chain’s pre-merger price: 10 × for the largest holder (majority) and 5 × for the second largest (minority). You need the most shares, not more than half.\n\nLuxor has 2 tiles, so a share is $200. Alex’s 3 shares earn $2,000; Bo’s 2 earn $1,000; Cy’s 1 earns no bonus. Shares are not spent to collect bonuses. Then you may mix selling at $200, trading 2 for 1 Tower share while stock lasts, and keeping shares for a future Luxor.",
+	"tutorial.mechanics.ties":
+		"Bonus ties: tied largest holders split both bonuses; nobody else receives one. With a sole largest holder, tied runners-up split only the minority bonus. A lone shareholder receives both. Round each split payout up to the next $100.\n\nFor example, two players tied for most Luxor shares at $200 each receive ($2,000 + $1,000) ÷ 2 = $1,500. Kept Luxor shares have no value unless Luxor is founded again.",
+	"tutorial.mechanics.safe":
+		"Safe means 11 or more tiles: the chain can still grow and absorb smaller chains, but cannot be absorbed.\n\nYou may announce the end if every chain currently on the board is safe, or one reaches 41 tiles. All seven chains need not be present. Ending is optional under the standard rules; finish your current turn, then score.",
+	"tutorial.mechanics.growth":
+		"Growing does not always raise the price. Tower at 11 and 12 tiles is in the same 11–20 band: $700 per share. Its next rise is at 21 tiles ($800).\n\nAfter placing, you still have the usual chance to buy up to 3 shares. Those purchases can change who receives the final bonuses.",
+	"tutorial.mechanics.settlement":
+		"At the end of the game, every active chain pays majority and minority bonuses, including safe chains that cannot be absorbed. This is why the table lists bonuses for 41+ tiles. Then sell all shares in active chains at their current prices; inactive shares are worth nothing.\n\nAt Tower’s $700 price, Alex’s 4 shares lead: $7,000 bonus + $2,800 stock + $6,000 cash = $15,800. Bo’s 2 shares earn the $3,500 minority bonus; Cy’s 1 earns no bonus. Winning depends on final cash, not the number of shares.",
+	"tutorial.founding.3": "Bo and Cy have taken their turns. Place 3A to grow Tower from 2 to 3 tiles.",
+	"tutorial.founding.4": "Buy 1 more Tower share for $300, then confirm.",
+	"tutorial.mechanics.firstGrowth":
+		"Growing an existing chain gives no free share. At 3 tiles, Tower’s price rises from $200 to $300.\n\nYour earlier shares use the new price too, but growth does not pay cash immediately.",
+	"tutorial.mechanics.buyGrowth":
+		"You already own 3 Tower shares. Buying one more brings you to 4, for $700 spent in total.\n\nEach turn allows up to 3 new purchases. You may also buy nothing and save your cash.",
+	"tutorial.mergers.3": "Place 8F between Worldwide and Festival. Both have 2 tiles.",
+	"tutorial.mergers.4": "Choose Worldwide as the surviving chain.",
+	"tutorial.mergers.5":
+		"You received both Festival bonuses. Keep your Festival share: leave sell and trade at 0, then confirm.",
+	"tutorial.mergers.6": "Choose “Buy nothing and end turn” to finish the second merger.",
+	"tutorial.mechanics.equalMerger":
+		"When the largest chains tie in size, the player placing the connecting tile chooses the survivor. Share counts do not break the tie.\n\nHere both chains have 2 tiles. You own Festival’s only share.",
+	"tutorial.mechanics.survivorChoice":
+		"Choosing Worldwide absorbs Festival. At 2 tiles, Festival’s middle price tier makes each share worth $300.\n\nAs its sole shareholder, you will receive both bonuses: $3,000 + $1,500 = $4,500. Worldwide pays no merger bonus.",
+	"tutorial.mechanics.keepShares":
+		"Keeping shares costs nothing. Festival leaves the board, but you keep its share and the $4,500 bonus.\n\nThe share matters if Festival is founded again. If still inactive at the end, it is worthless; ordinary turns do not allow selling it.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide now has 5 tiles, including the connecting tile, so its shares cost $600.\n\nBonuses and sales used Festival’s old price; new purchases use Worldwide’s new price. After a merger, you may buy up to 3 shares across active chains.",
+	"tutorial.label": "Tutorial",
+	"tutorial.complete": "Chapter complete",
+	"tutorial.previous": "Previous step",
+	"tutorial.retry": "Retry step",
+	"tutorial.restart": "Restart chapter",
+	"tutorial.next": "Next chapter",
+	"tutorial.founding.title": "Found a chain",
+	"tutorial.founding.0":
+		"You play Alex. Select 2A in your hand, then place it beside 1A. Two adjacent loose tiles found a hotel chain.",
+	"tutorial.founding.1": "Choose Tower. Its founder receives one free share, if the bank has one.",
+	"tutorial.founding.2":
+		"Buy 2 Tower shares with the + button, then confirm. You can buy up to 3 shares per turn; here each costs $200.",
+	"tutorial.founding.done":
+		"You own 4 Tower shares and spent $700: one free founder’s share, two at $200, and one at $300. Growing a chain raises share prices at the thresholds in the price table.",
+	"tutorial.mergers.title": "Resolve a merger",
+	"tutorial.mergers.0":
+		"Place 4A between Tower (3 tiles) and Luxor (2). The larger chain survives; its share count does not decide the winner.",
+	"tutorial.mergers.1":
+		"Your 3 Luxor shares earned the $2,000 majority bonus. Sell 1 share and trade 2 for 1 Tower share, then confirm.",
+	"tutorial.mergers.2": "The other shareholders kept their Luxor shares. Choose “Buy nothing and end turn” to finish.",
+	"tutorial.mergers.done":
+		"You received $200 from selling and 1 Tower share from trading. Kept Luxor shares matter if Luxor is founded again. Tied majorities split both bonuses; safe chains (11+ tiles) cannot be taken over.",
+	"tutorial.scoring.title": "End and score",
+	"tutorial.scoring.0":
+		"Tower has 11 tiles and is safe. All active chains are safe, so choose “Announce the end…” and confirm. You may also announce when any chain reaches 41 tiles.",
+	"tutorial.scoring.1": "Announcing still lets you finish your turn. Place 12A to grow Tower.",
+	"tutorial.scoring.2":
+		"Choose “Buy nothing and end turn”. The game will pay bonuses and sell shares in every active chain.",
+	"tutorial.scoring.done":
+		"Alex wins with $15,800: $6,000 cash + $7,000 majority bonus + 4 shares at $700. Shares in inactive chains are worthless. The most money wins; ties share the win.",
 	"chat.title": "Chat",
 	"chat.message": "Message",
 	"chat.placeholder": "Message…",

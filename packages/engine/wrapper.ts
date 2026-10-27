@@ -1,8 +1,10 @@
+import { applyTurnRequest, earnedTimeIncrements, isTurnRequest } from "./src/turn-draft.js";
+import { visibleLog } from "./src/limited-log.js";
 import { applyMove, currentSeat, dropPlayerSeats } from "./src/moves.js";
 import { replayGame } from "./src/replay.js";
 import { playerRankings, playerScores } from "./src/scoring.js";
 import { initGame } from "./src/setup.js";
-import { simpleLineAt } from "./src/simple.js";
+import { simpleLine, simpleLineAt } from "./src/simple.js";
 import type { GameState, LogEntry } from "./src/types.js";
 import { seatsOf, viewFor } from "./src/view.js";
 
@@ -23,6 +25,10 @@ export function init(
 }
 
 export function move(data: GameState, mv: unknown, player: number): GameState {
+	if (isTurnRequest(mv)) {
+		return applyTurnRequest(data, mv, player);
+	}
+	// Bare moves retain the existing protocol for older viewers and analyses.
 	const seat = currentSeat(data);
 	if (seat === undefined || data.seatOwner[seat] !== player) {
 		throw new Error("It is not your turn");
@@ -53,7 +59,7 @@ export function currentPlayer(data: GameState): number | undefined {
 }
 
 export function stripSecret(data: GameState, player?: number): GameState {
-	return viewFor(data, player);
+	return { ...viewFor(data, player), supportsTurnDrafts: true };
 }
 
 export function logLength(data: GameState): number {
@@ -66,13 +72,27 @@ export interface LogSliceOptions {
 	end?: number;
 }
 
-// Both endpoints are inclusive. The log is public (rules.md §13), so every viewer gets the same
-// slice. Each entry gets a `simple` line for BGS's last-move display.
-export function logSlice(data: GameState, options?: LogSliceOptions): { log: (LogEntry & { simple: string })[] } {
+// Both endpoints are inclusive. The log is public (rules.md §13) except with limitedLog, where
+// entries before the player's window are placeholders. Each entry gets a `simple` line for
+// BGS's last-move display.
+export function logSlice(
+	data: GameState,
+	options?: LogSliceOptions
+): {
+	log: (LogEntry & { simple: string })[];
+	preview?: GameState;
+} {
 	const start = Math.max(0, options?.start ?? 0);
 	const end = options?.end ?? data.log.length - 1;
+	const log = visibleLog(data, options?.player);
 	return {
-		log: data.log.slice(start, end + 1).map((entry, i) => ({ ...entry, simple: simpleLineAt(data, start + i) })),
+		log: log.slice(start, end + 1).map((entry, i) => ({
+			...entry,
+			simple: entry.type === "hidden" ? simpleLine(data, entry) : simpleLineAt(data, start + i),
+		})),
+		...(data.tentative && data.tentative.player === options?.player
+			? { preview: stripSecret(data, options.player) }
+			: {}),
 	};
 }
 
@@ -91,3 +111,10 @@ export function round(data: GameState): number {
 export function replay(data: GameState, options?: { to?: number }): GameState {
 	return replayGame(data, options?.to);
 }
+
+/** Private previews do not save history, send notifications or award clock increments. */
+export function toSave(data: GameState): GameState | undefined {
+	return data.tentative ? undefined : data;
+}
+
+export const timeIncrements = earnedTimeIncrements;

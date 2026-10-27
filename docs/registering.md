@@ -1,154 +1,278 @@
-# Registering Acquire on boardgamers.space
+# Publishing Acquire on boardgamers.space
 
-How to publish the engine and viewer to BGS, following the BGS guide
-(<https://docs.boardgamers.space/guide/adding-a-game.md>). You need BGS admin access, or an
-admin token with the `gameinfo` grant for the command-line route.
+Acquire is already registered as game **`acquire`**, BGS version **`1`**, and is **public**
+(verified 27 October 2026). Routine updates must preserve that visibility and the existing
+configuration. Start with [AGENTS.md](../AGENTS.md) for repository checks and compatibility
+requirements, and [admin/release-check.md](admin/release-check.md) for the latest release record.
 
-Save the game private first (`public: false`) and play-test it there.
+The bootstrap file [admin/gameinfo.json](admin/gameinfo.json) intentionally has
+`public: false` and blank artifact URLs. Use it as a source for individual declarations or
+initial registration only; never upload it wholesale over the live game.
 
-## 1. Build the two artifacts
+## 1. Prepare the release
 
-Each GitHub Release has both attached. To build them yourself:
+Use Node 24 and pnpm 11. Bump the version in the engine and/or viewer `package.json` for the
+artifacts being changed. Keep the BGS version integer at **1** for compatible updates to
+ongoing games. Changing it is a migration affecting which games use the new code.
+
+From this repository's root:
 
 ```bash
-pnpm install
 pnpm check
-cd packages/engine && pnpm pack
+# Also required for UI/interaction changes; includes a fresh production build.
+pnpm test:browser
 ```
 
-| Artifact | File(s)                                                                                                    | BGS field                                                                             |
-| -------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| Engine   | `packages/engine/acquire-engine-<version>.tgz` (contains `dist/` and `package.json` only)                  | `engine.package` (set by the upload), `engine.entryPoint: "dist/wrapper.js"`          |
-| Viewer   | `packages/viewer/dist/acquire-viewer.iife.js`, `acquire-viewer.css`, optional `acquire-viewer.iife.js.map` | `viewer.url`, `viewer.dependencies.stylesheets`, `viewer.topLevelVariable: "acquire"` |
+Inspect the relevant screenshots in `release/qa/`. Finish browser checks before packing
+or rebuilding again; a rebuild during a browser run can cause Vite to reload its modules.
+Documentation-only changes require formatting and link/command checks, not artifact publishing.
 
-`pnpm check` rebuilds `packages/viewer/dist` from scratch, so upload that folder straight
-after it. The engine's only runtime dependency is `seedrandom`, which BGS installs.
+Commit and push the intended changes. A Git push or GitHub Release alone does not update BGS.
+Create a fresh ignored record directory for this deployment:
 
-## 2. Register the game (admin panel)
+```bash
+export ACQUIRE_RELEASE_DIR="$(pwd)/release/publish/$(date +%Y%m%d-%H%M%S)-$(git rev-parse --short HEAD)"
+export BGS_TOKEN_FILE="$HOME/.bgs"
+mkdir -p "$ACQUIRE_RELEASE_DIR"
+```
 
-In Boardgames, choose + New game and fill in:
+`BGS_TOKEN_FILE` must contain an **admin token issued by BGS**, with access to manage Acquire.
+Publishing authenticates to the BGS admin API using `Authorization: Bearer <token>`. It is a local secret:
+never print it, add it to Git, or include it in release records. On another machine, set the
+path to its authorized token file. Preserve a snapshot of the live metadata before changes.
 
-- **Game id:** `acquire`; **version:** `1`.
-- **Label:** `Acquire`.
-- **Players:** `[2, 3, 4, 5, 6]`. Player counts are not a game option.
-- **Options:** paste the declarations below.
-- **Preferences:** the shared colour-blind setting:
-  `[{ "name": "colorBlind", "label": "Color-blind mode", "type": "checkbox", "default": false }]`.
-- **Settings:** none.
-- **Public:** off.
+| Artifact | Source                                                                 | Destination                                        |
+| -------- | ---------------------------------------------------------------------- | -------------------------------------------------- |
+| Engine   | `packages/engine/` → `acquire-engine-<package-version>.tgz`            | `engine.package`; entry point `dist/wrapper.js`    |
+| Viewer   | `packages/viewer/dist/acquire-viewer.iife.js` and `acquire-viewer.css` | `viewer.url` and `viewer.dependencies.stylesheets` |
+| Rules    | `docs/admin/rules.md`                                                  | CMS page `acquire:rules`, language `en`            |
 
-Save.
+The engine package contains compiled `dist/`, package metadata and license. BGS installs its
+runtime dependency `seedrandom`. The viewer bundles its dependencies; its dev harness does
+not ship. Keep source maps out of the upload unless deliberately requested.
 
-### Game options
+## 2. Upload the engine, if changed
 
-These match rules.md §15 and the engine's option reader. Unticked checkboxes are not sent,
-and selects are always sent as strings; the engine handles both, never rejects an option, and
-logs any option that does not apply to the player count.
+Publish the engine before its matching viewer. After the checks have finished:
+
+```bash
+pnpm --filter acquire-engine pack --pack-destination "$ACQUIRE_RELEASE_DIR"
+```
+
+The raw tarball goes to
+`POST https://admin.boardgamers.space/api/admin/gameinfo/acquire/1/engine`, with bearer
+authentication and `Content-Type: application/octet-stream`. BGS reads the name and version
+from the archive and updates `engine.package`. It preserves the entry point.
+
+This example reads the version from the package, saves before/after metadata, uploads, and
+compares the hosted archive with the local file. It performs a live deployment when run:
+
+```bash
+node --input-type=module <<'JS'
+import assert from 'node:assert/strict';
+import { readFile, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { createHash } from 'node:crypto';
+
+const dir = process.env.ACQUIRE_RELEASE_DIR;
+const token = (await readFile(process.env.BGS_TOKEN_FILE, 'utf8')).trim();
+const base = 'https://admin.boardgamers.space/api/admin/gameinfo/acquire/1';
+const pkg = JSON.parse(await readFile('packages/engine/package.json', 'utf8'));
+const bytes = await readFile(join(dir, `${pkg.name}-${pkg.version}.tgz`));
+async function api(path = '', body) {
+  const response = await fetch(base + path, {
+    method: body ? 'POST' : 'GET',
+    headers: { Authorization: `Bearer ${token}`, ...(body ? { 'Content-Type': 'application/octet-stream' } : {}) },
+    body, signal: AbortSignal.timeout(60000),
+  });
+  assert(response.ok, `BGS returned HTTP ${response.status}`);
+  return response.json();
+}
+const before = await api();
+await writeFile(join(dir, 'engine-before.json'), JSON.stringify(before, null, 2));
+assert.equal(before.engine.entryPoint, 'dist/wrapper.js');
+assert.notEqual(before.engine.package.version, pkg.version, 'Bump the engine package version first');
+const after = await api('/engine', bytes);
+await writeFile(join(dir, 'engine-after.json'), JSON.stringify(after, null, 2));
+assert.equal(after.engine.package.name, pkg.name);
+assert.equal(after.engine.package.version, pkg.version);
+assert.equal(after.engine.entryPoint, before.engine.entryPoint);
+assert.equal(after.public, before.public);
+const hosted = await fetch(after.engine.package.url, { signal: AbortSignal.timeout(60000) });
+assert(hosted.ok, `Hosted archive returned HTTP ${hosted.status}`);
+const sha = (value) => createHash('sha256').update(value).digest('hex');
+assert.equal(sha(Buffer.from(await hosted.arrayBuffer())), sha(bytes));
+console.log(`Uploaded and verified ${pkg.name}@${pkg.version}`);
+JS
+```
+
+The game server checks for new engines about once a minute, installs and validates them,
+then activates them. The previous engine remains active if installation fails. Uploaded
+metadata and matching hosted bytes confirm publication, **not** successful server activation;
+verify activation through server status or live behavior when accessible. In particular,
+coordinate new setup options with availability of the engine that understands them.
+
+## 3. Upload and activate the viewer, if changed
+
+Use the platform repository's publisher. On the usual workstation it is in
+`~/code/boardgamers-mono`; adjust the path for another checkout. Run this from the Acquire root:
+
+```bash
+node ../boardgamers-mono/scripts/publish-viewer.mjs \
+  --game acquire --version 1 \
+  --dir "$(pwd)/packages/viewer/dist" \
+  --entry acquire-viewer.iife.js --style acquire-viewer.css \
+  --token "$BGS_TOKEN_FILE" \
+  --record "$ACQUIRE_RELEASE_DIR/viewer-release.json" \
+  --apply --activate
+```
+
+Omit `--apply --activate` for a dry run. The publisher uploads to a content-addressed bundle,
+verifies public JS/CSS bytes, records the previous viewer, detects concurrent viewer changes,
+and activates the new URLs while preserving the other viewer settings. Use a new record file
+for every deployment. This tool lives in the platform repository, not the Acquire repository.
+
+If that checkout is unavailable, use the BGS admin version form's **Upload bundle…** action
+with the JS and CSS together. Preserve the existing top-level variable `acquire`, chat,
+integrated controls, replay, tutorials and other settings. Uploading files without saving or
+activating their URLs is not a viewer release.
+
+## 4. Update declarations or CMS text only when needed
+
+Fetch `GET /api/admin/gameinfo/acquire/1` immediately before changing settings and save a
+snapshot. PUT a minimal body to that same route, containing only the changed field. For
+array fields such as `options`, merge the intended entry into the freshly fetched array;
+do not replace other declarations from an old local snapshot.
+
+Current declaration sources are in [admin/gameinfo.json](admin/gameinfo.json):
+
+- Six options: public holdings, team play, two-player mode, automatic ending, end size,
+  and **Stock swap: Off / 3 / 5 / 7 / Unlimited**, default Off.
+- The **sound** preference, default on, also honoring BGS's global sound setting.
+- Three interactive tutorial chapters: founding, mergers and scoring.
+
+### Adding a setup option
+
+A setup option needs both a BGS declaration and an engine implementation. Adding the
+declaration alone renders a control without implementing the rule.
+
+1. Add or update one entry in `options` in [admin/gameinfo.json](admin/gameinfo.json).
+   Choose a stable `name` matching the engine key. For `checkbox`, use a boolean `default`;
+   for `select`, use string item names and a `default` matching one of them.
+2. Update `GameOptions` and `normalizeOptions` in
+   [options.ts](../packages/engine/src/options.ts), then implement the rule in the engine.
+   BGS passes the creator's choices as the third argument to `wrapper.init`, which forwards
+   them to `initGame`. Unticked checkboxes can be absent; selects arrive as strings. Handle
+   missing, invalid and inapplicable values using the existing normalization conventions.
+   Validate restrictions in the engine even when metadata hides an inapplicable control.
+3. Preserve old defaults, saved states and init-log shape. New optional fields may need to
+   remain absent when disabled: `stockSwap` deliberately does this so old games replay
+   identically. Do not rename or repurpose an existing option/item key or rewrite ongoing
+   games. Player-count restrictions belong in normalization; metadata also supports
+   `requiredPlayers`, `requiredExpansion` and `requiredOption` for conditional setup controls.
+4. Update the affected viewer controls and add the key to the explicit query-parameter
+   lists in [dev.ts](../packages/viewer/src/dev.ts). Local `?stockSwap=3` works because that
+   parser forwards it; arbitrary new query parameters are not forwarded automatically.
+   Update `rules.md`, the CMS rules, and applicable tutorial explanations. Translate new
+   viewer/log text in all catalogs; translate BGS field and item labels separately.
+5. Add engine coverage for the missing/default value, every supported value, invalid input,
+   relevant player counts, rule effects and replay. See
+   [options.spec.ts](../packages/engine/src/options.spec.ts) and
+   [stock-swap.spec.ts](../packages/engine/src/stock-swap.spec.ts). Run the release checks and
+   exercise any affected UI with the option enabled and disabled.
+6. Publish and verify the supporting engine/viewer first. With the BGS admin token, fetch
+   fresh metadata, merge only this declaration by `name` into its `options` array, and PUT
+   `{ "options": [...] }` to `/api/admin/gameinfo/acquire/1`. Preserve the array's other entries,
+   order and fields. Re-fetch to verify, then inspect the BGS creation form and selected
+   values in a test game. Setup choices apply to newly created games.
+
+For reference, this is the existing stock-swap declaration:
 
 ```json
-[
-	{
-		"name": "publicHoldings",
-		"label": "Public holdings (everyone sees all stock and cash)",
-		"type": "checkbox",
-		"default": false
-	},
-	{ "name": "teamPlay", "label": "Team play (4 players: seats 1+3 against 2+4)", "type": "checkbox", "default": false },
-	{
-		"name": "twoPlayerMode",
-		"label": "Two-player mode",
-		"type": "select",
-		"default": "bank",
-		"items": [
-			{ "name": "bank", "label": "Bank as third shareholder" },
-			{ "name": "fourHands", "label": "Four hands (each player controls two seats)" }
-		]
-	},
-	{
-		"name": "autoEnd",
-		"label": "End automatically when an end condition is met",
-		"type": "checkbox",
-		"default": false
-	},
-	{
-		"name": "endSize",
-		"label": "Chain size that ends the game",
-		"type": "select",
-		"default": "41",
-		"items": [
-			{ "name": "41", "label": "41 tiles (standard)" },
-			{ "name": "31", "label": "31 tiles (shorter game)" }
-		]
-	}
-]
+{
+	"name": "stockSwap",
+	"label": "Stock swap (shares per turn, optional variant)",
+	"type": "select",
+	"default": "off",
+	"items": [
+		{ "name": "off", "label": "Off" },
+		{ "name": "3", "label": "3" },
+		{ "name": "5", "label": "5" },
+		{ "name": "7", "label": "7" },
+		{ "name": "unlimited", "label": "Unlimited" }
+	]
+}
 ```
 
-## 3. Upload the engine
+### Preferences, settings and other declarations
 
-In the version form, choose Upload .tgz… and pick `acquire-engine-<version>.tgz`. BGS reads the
-package name and version from the tarball and sets `engine.package` itself. Then set
-**entry point** to `dist/wrapper.js` and save.
+Choose the declaration according to who consumes the value:
 
-BGS installs the engine within about a minute. `meta.replay` is set because the engine
-exports `replay`; `meta.bots` stays off, as there is no bot.
+| Field         | Purpose                                   | Implementation                                            |
+| ------------- | ----------------------------------------- | --------------------------------------------------------- |
+| `options`     | Rules chosen by the creator at setup      | Engine `init` and option normalization                    |
+| `preferences` | Each user's presentation preferences      | Viewer `onPreferences` in `packages/viewer/src/viewer.ts` |
+| `settings`    | A player's in-game automation or behavior | Engine `setPlayerSettings` and `playerSettings`           |
 
-## 4. Upload the viewer
+These fields share the checkbox/select declaration shape. Preferences must not change game
+rules. `sound` is a shared BGS preference; keep honoring the global value. Acquire currently
+has no in-game `settings` declarations or engine handlers: implement both before adding one.
+Settings updates can contain the full validated settings object; do not assume only one key
+arrives. Test changes against private turn drafts, saved state, and player ownership.
 
-Choose Upload bundle… and select `acquire-viewer.iife.js`, `acquire-viewer.css` and, if you want
-source maps in devtools, `acquire-viewer.iife.js.map`, together. Then set:
+Allowed player counts use the top-level `players` array, not an option. Expansions have their
+own `expansions` declarations and are passed separately to engine `init`; Acquire currently
+has none. Tutorial chapters require both `tutorial.chapters` metadata and matching content
+in `packages/viewer/src/tutorial/lessons.ts`. Preserve stable chapter IDs and follow existing
+chapter-version handling when revising lessons.
 
-- Top-level variable: `acquire` (the global `registerViewer` creates).
-- Chat: on, with in-game controls always accessible (`integratedControls: ["chat"]`). The
-  chat panel sits beside the log and is hidden in analysis mode.
-- Replayable: on.
-- Full screen on mobile: off. The layout is width-based and works at content height.
+The platform's detailed field schema and event contracts are in its
+`apps/docs/docs/guide/game-options.md`, `engine-api.md` and `viewer-api.md` (normally under
+`../boardgamers-mono/`). Merge updates to `preferences`, `settings`, `expansions` and
+`tutorial` into fresh live metadata just as for options; never upload the bootstrap file.
 
-Save, open the game page, create a private game, and play.
+### CMS text
 
-## Command-line alternative
+English rules are read and updated at
+`https://admin.boardgamers.space/api/admin/page/acquire:rules/en` using GET and PUT.
+Compare the current content with the saved baseline, then PUT `{ "content": "..." }` only.
+Preserve title, visibility and other page fields. See [admin/README.md](admin/README.md) for
+credits, descriptions and gallery assets. CMS translations and setup labels are separate from
+the 17 viewer catalogs; do not use automated translation APIs as part of routine publishing.
 
-The same steps against the admin API, with a token from a platform admin (never commit it):
+## 5. Verify and record the result
 
-```bash
-AUTH="Authorization: Bearer $BGS_ADMIN_TOKEN"
-BASE=https://admin.boardgamers.space/api/admin/gameinfo/acquire
+- Fetch the final metadata: check engine name/version/entry point, viewer URLs, intended
+  declaration changes, and preservation of visibility, tutorials, preferences and other fields.
+- Confirm hosted JS/CSS/tarball bytes match the built files. The viewer publisher and engine
+  example above do these comparisons. Verify the rules page separately if it changed.
+- Inspect the relevant UI in a refreshed browser and exercise behavior locally or in an
+  appropriate test game. Do not make test moves in someone else's ongoing game.
+- Record the source commit, package versions, validation and any remaining limitations in
+  [admin/release-check.md](admin/release-check.md). Keep deployment snapshots outside Git.
+- To recover from a bad upload, use the recorded previous artifact references and update only
+  the affected fields after checking the current metadata. Check saved-state compatibility
+  before reverting an engine; newer moves may require the newer engine.
 
-# Engine: the raw npm-pack tarball; this sets engine.package on version 1.
-curl -X POST "$BASE/1/engine" -H "$AUTH" -H "Content-Type: application/octet-stream" \
-	--data-binary @packages/engine/acquire-engine-0.0.1.tgz
+## Compatibility notes
 
-# Viewer files: one POST each with a shared bundle id; each returns the hosted URL.
-BUNDLE=acquire-$(git rev-parse --short HEAD)
-JS_URL=$(curl -X POST "$BASE/1/viewer/file?filename=acquire-viewer.iife.js&bundle=$BUNDLE" -H "$AUTH" \
-	-H "Content-Type: application/octet-stream" --data-binary @packages/viewer/dist/acquire-viewer.iife.js | jq -r .url)
-CSS_URL=$(curl -X POST "$BASE/1/viewer/file?filename=acquire-viewer.css&bundle=$BUNDLE" -H "$AUTH" \
-	-H "Content-Type: application/octet-stream" --data-binary @packages/viewer/dist/acquire-viewer.css | jq -r .url)
+Live moves support private turn drafts (`type: "turn"`, `from: <saved log length>`,
+`moves: [...]`). The engine validates the entire sequence against the saved state.
+Reversible choices return `toSave: undefined`; the acting player receives a stripped
+`preview` in the log response. Undo drops cached actions/views, not published log entries.
+A draft commits when a decision passes to another player, information is revealed, tiles
+are drawn or the game ends. Refreshing discards unfinished choices. `timeIncrements` counts
+completed turns and other players' merger disposal decisions, never individual revisions.
+Atomic moves remain supported for older viewers, tutorials and analysis.
 
-# Save the URLs, entry point and global name into the version doc.
-curl "$BASE/1" -H "$AUTH" |
-	jq --arg js "$JS_URL" --arg css "$CSS_URL" \
-		'.viewer.url = $js | .viewer.dependencies.stylesheets = [$css] | .viewer.topLevelVariable = "acquire" | .engine.entryPoint = "dist/wrapper.js"' |
-	curl -X PUT "$BASE/1" -H "$AUTH" -H "Content-Type: application/json" --data-binary @-
-```
+Finished-game analysis uses BGS's default adapters at move boundaries. Ongoing analysis
+remains disabled until hidden-information scenarios are implemented. See the release record
+for outstanding analysis, translation and playtesting work; public availability does not
+mean those gaps are resolved.
 
-## Updating later
+## Initial registration only
 
-Bump `packages/engine/package.json`'s version and upload the new tarball to the **same**
-version integer: ongoing games pick up the new engine within about a minute. A new version
-integer only affects new games. Upload the engine and viewer together whenever the move or
-state format changes, since they are coupled.
-
-## Before making a version public
-
-BGS's release checklist, and where this repo stands:
-
-- Protocol: core, chat, replay, preferences and avatar handlers are implemented.
-- Replays and analysis: the engine exports `replay`, and the viewer's replay controls rebuild
-  each position from the public log. Analysis of ongoing games stays off.
-- Mobile: phone portrait and landscape, tablet and desktop, both themes, 44px touch targets.
-- History: no tentative or revisable moves.
-- Colour-blind mode: declare the `colorBlind` preference (step 2).
-- Languages: the viewer is translated into all 17 BGS locales. The game list's last-move text
-  comes from the English `simple` line that `logSlice` adds to each log entry.
-- Admin panel content (rules page, pictogram, credits, description, links, screenshots) is in
-  `docs/admin/`; its README says where each file goes.
+If setting up a separate new registration, begin private, use the individual fields from
+[admin/gameinfo.json](admin/gameinfo.json), and upload its own artifacts. The live Acquire
+registration described above already exists and is public; do not recreate or privatize it
+as part of an ordinary update.

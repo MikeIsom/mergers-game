@@ -1,8 +1,23 @@
 import type { Catalog } from "../i18n.ts";
 
 export const da: Catalog = {
+	"swap.title": "Aktiebytte",
+	"swap.note": "Byt 1:1 til aktuelle priser før køb. Du kan stadig købe op til 3 aktier.",
+	"swap.remaining": "{count} tilbage denne tur",
+	"swap.unlimited": "Ubegrænset",
+	"swap.give": "Afgiv (dine aktier)",
+	"swap.take": "Modtag (bankens aktier)",
+	"swap.count": "Aktier",
+	"swap.confirm": "Byt aktier",
+	"swap.pay": "Betal {amount}",
+	"swap.receive": "Modtag {amount}",
+	"swap.even": "Ingen prisforskel",
+	"swap.unavailable": "Intet bytte muligt med dette antal, grænsen, aktierne og kontanterne.",
+	"log.swapped": "{name} bytter {count} {from} for {count} {to} · {cash}",
+
 	loading: "Indlæser spillet…",
 	"status.place": "{name} skal lægge en brik",
+	"status.placeSecond": "{name} skal lægge en brik mere",
 	"status.found": "{name} skal navngive en ny kæde",
 	"status.survivor": "{name} skal vælge, hvilken kæde der overlever fusionen",
 	"status.defunctOrder": "{name} skal vælge rækkefølgen af de opslugte kæder",
@@ -15,7 +30,8 @@ export const da: Catalog = {
 	"status.replayNote": "Du ser en tidligere stilling. Brikker på hånden vises ikke.",
 	"panel.label": "Din beslutning",
 	"panel.sending": "Sender…",
-	"announce.ask": "Afslut spillet efter denne tur? Det kan ikke fortrydes.",
+	"turn.undo": "Fortryd",
+	"announce.ask": "Afslut spillet efter denne tur?",
 	"announce.confirm": "Meld afslutning",
 	"announce.cancel": "Spil videre",
 	"announce.open": "Meld afslutning…",
@@ -26,7 +42,7 @@ export const da: Catalog = {
 	"place.merges": "fusionerer {chains}",
 	"place.button": "Læg {tile}",
 	"place.another": "Vælg en anden",
-	"place.choose": "Vælg en brik fra din hånd.",
+	"place.choose": "Vælg et fremhævet felt eller en brik fra din hånd.",
 	"place.none": "Ingen af dine brikker kan lægges.",
 	"place.pass": "Fortsæt uden at lægge",
 	"found.prompt": "Navngiv den nye kæde. Du får én gratis aktie.",
@@ -39,6 +55,10 @@ export const da: Catalog = {
 	"dispose.takenOver": "{defunct} bliver opslugt af {survivor}.",
 	"dispose.holding": { one: "Du har {count} {chain}-aktie.", other: "Du har {count} {chain}-aktier." },
 	"dispose.sell": "Sælg til {price}",
+	"dispose.sellAll": "Sælg alle",
+	"dispose.tradeMaximum": "Byt {give} til {receive}",
+	"dispose.stockValue": "Aktieværdi",
+	"dispose.afterMerger": "Aktiekurs efter denne fusion",
 	"dispose.trade": "Byt 2 for 1",
 	"dispose.keep": "Behold",
 	"dispose.receive": "+{count} {chain}",
@@ -68,7 +88,11 @@ export const da: Catalog = {
 	"hand.of": "{name}s brikker",
 	"hand.none": "Ingen brikker",
 	"hand.dead": "død: ville fusionere sikre kæder",
+	"hand.deadReplacement": "Udskiftes ved slutningen af din tur",
 	"hand.eighth": "kan ikke grundlægge en 8. kæde",
+	"hand.deadNextTurn": "Udskiftes ved starten af din næste tur",
+	"hand.oneFounding": "kan ikke grundlægge en kæde mere i denne tur",
+	"hand.foundOrMerge": "kan ikke både grundlægge en kæde og fusionere i samme tur",
 	"chains.label": "Hotelkæder",
 	"chains.title": "Kæder",
 	"chains.chain": "Kæde",
@@ -92,6 +116,15 @@ export const da: Catalog = {
 	"players.title": "Spillere",
 	"players.player": "Spiller",
 	"players.cash": "Penge",
+	"players.netWorth": "Formue",
+	"players.worthBreakdown": "Formueoversigt",
+	"players.bonuses": "Bonusser",
+	"players.worthNote":
+		"Kontanter + aktieværdi + forventede majoritets-/minoritetsbonusser. Skønnet ændrer sig med aktiebeholdninger og fusionsvalg.",
+	"players.worthBank":
+		"Kontanter + aktieværdi. Fremtidige bonusser er udeladt: bankens beholdning kendes først ved udbetaling.",
+	"players.worthTeams": "BGS-point lægger begge holdkammerater sammen.",
+	"players.worthFourHands": "BGS-point bruger din rigeste plads.",
 	"players.stock": "Aktier",
 	"players.tiles": "Brikker",
 	"players.acting": "handler nu",
@@ -103,6 +136,7 @@ export const da: Catalog = {
 	"seat.name": "{name} (plads {seat})",
 	"log.label": "Spillets log",
 	"log.title": "Log",
+	"log.limited": "Tidligere træk er skjult, indtil spillet slutter.",
 	"log.recent": "Vis kun de seneste linjer",
 	"log.all": { one: "Vis hele loggen ({count} mere)", other: "Vis hele loggen ({count} mere)" },
 	"log.init": { one: "Nyt spil for {count} spiller", other: "Nyt spil for {count} spillere" },
@@ -158,6 +192,83 @@ export const da: Catalog = {
 	"log.finalSale": "{name} sælger {count} {chain} for {amount}",
 	"log.result": "Penge til slut: {results}",
 	"chat.label": "Chat",
+	"chat.suggestions": "Forslag til omtaler",
+	"chat.game": "Spil",
+	"chat.unread": "Ulæste: {count}",
+	"chat.signIn": "Log ind for at chatte",
+	"chat.confirmAccount": "Bekræft din konto for at chatte",
+	"chat.playersOnly": "Kun spillere kan sende beskeder",
+	"chat.disabled": "Chat deaktiveret",
+	"chat.waiting": "Chatten bliver tilgængelig, når spillet starter",
+	"chat.connecting": "Forbinder til chatten…",
+	"chat.readOnly": "Chatten er skrivebeskyttet",
+	"tutorial.mechanics.tiles":
+		"Brikker forbindes langs kanter, aldrig diagonalt. Ved løse brikker grundlægger din brik en kæde; ved én kæde udvider den kæden; mellem kæder udløser den en fusion.\n\nEn normal tur: læg en brik, afvikl fusioner, køb højst 3 aktier i alt, og fyld hånden op. Lektionerne bruger mindre, forberedte hænder.",
+	"tutorial.mechanics.tiers":
+		"Kæder har ingen særlige evner. Ved samme størrelse er Tower og Luxor billigst; Worldwide, American og Festival koster $100 mere pr. aktie; Imperial og Continental $200 mere. Aktionærbonusserne stiger også med priserne.\n\nHver kæde har 25 aktier. Grundlæggeren får én gratis, hvis der er en tilbage; den tæller ikke med blandt de 3 tilladte køb.",
+	"tutorial.mechanics.prices":
+		"Aktieprisen afhænger af kædens brikantal og prisklasse, ikke af hvor mange aktier der købes. Tower koster $200 ved 2 brikker, $300 ved 3, $400 ved 4 og $500 ved 5. Derefter bruges intervaller: 6–10 brikker koster $600, 11–20 koster $700 osv. Åbn pristabellen nedenfor for alle intervaller og klasser.\n\nHer koster 2 Tower-aktier $400. Du kan købe højst 3 aktier i alt i aktive kæder, hvis pengene og bankens beholdning rækker. Almindelige ture giver ikke mulighed for salg.",
+	"tutorial.mechanics.merger":
+		"Sammenlign størrelserne før forbindelsesbrikken: Tower har 3 brikker og Luxor 2, så Tower overlever. Hvis de største kæder er lige store, vælger spilleren, der lægger brikken.\n\nVed 11 brikker bliver en kæde sikker og kan ikke overtages. En brik, der ville forbinde to sikre kæder, kan ikke spilles.",
+	"tutorial.mechanics.bonuses":
+		"Ved en fusion får kun aktionærerne i de overtagne kæder bonus; aktier i den overlevende kæde giver ingen fusionsbonus. Bonus udbetales før salg og bytte til den overtagne kædes aktiekurs før fusionen: 10 × til den største aktionær (majoritet), 5 × til den næststørste (minoritet). Flest aktier er nok; over halvdelen kræves ikke.\n\nLuxor har 2 brikker: $200 pr. aktie. Alex får $2.000 med 3 aktier, Bo $1.000 med 2, Cy ingen bonus med 1. Aktier bruges ikke op ved bonusudbetaling. Derefter kan du kombinere salg til $200, bytte af 2 til 1 Tower fra banken og at beholde aktier til en senere Luxor.",
+	"tutorial.mechanics.ties":
+		"Delte førstepladser deler begge bonusser; ingen andre får noget. Med én førsteplads deler lige andenpladser kun minoritetsbonussen. En eneste aktionær får begge. Hver andel rundes op til nærmeste $100.\n\nTo lige største Luxor-aktionærer ved $200 får hver ($2.000 + $1.000) ÷ 2 = $1.500. Beholdte Luxor-aktier er værdiløse, indtil Luxor grundlægges igen.",
+	"tutorial.mechanics.safe":
+		"Sikker betyder mindst 11 brikker: kæden kan vokse og overtage mindre kæder, men ikke selv overtages.\n\nDu må annoncere slutningen, når alle kæder på brættet er sikre, eller én når 41 brikker. Alle syv behøver ikke være til stede. Efter standardreglerne er det frivilligt; afslut din tur, og gør derefter regnskabet op.",
+	"tutorial.mechanics.growth":
+		"Vækst hæver ikke altid prisen. Tower med 11 og 12 brikker ligger i samme interval 11–20: $700 pr. aktie. Næste stigning er ved 21 brikker ($800).\n\nEfter placeringen må du stadig købe op til 3 aktier. Det kan ændre, hvem der får slutbonusserne.",
+	"tutorial.mechanics.settlement":
+		"Ved spillets slutning betaler hver aktiv kæde majoritets- og minoritetsbonus, også sikre kæder, der ikke kan overtages. Derfor viser tabellen bonusser for 41 eller flere brikker. Derefter sælges alle aktier i aktive kæder til de aktuelle kurser; aktier i inaktive kæder er værdiløse.\n\nVed Towers pris på $700 fører Alex med 4 aktier: $7.000 bonus + $2.800 aktier + $6.000 kontant = $15.800. Bo får minoritetsbonussen på $3.500 med 2 aktier; Cy får ingen med 1. Slutbeløbet afgør vinderen, ikke antallet af aktier.",
+	"tutorial.founding.3": "Bo og Cy har haft deres ture. Læg 3A for at udvide Tower fra 2 til 3 brikker.",
+	"tutorial.founding.4": "Køb 1 Tower-aktie mere for $300, og bekræft.",
+	"tutorial.mechanics.firstGrowth":
+		"Udvidelse af en eksisterende kæde giver ingen gratis aktie. Ved 3 brikker stiger Towers pris fra $200 til $300.\n\nDine tidligere aktier får også den nye værdi, men vækst giver ikke straks kontanter.",
+	"tutorial.mechanics.buyGrowth":
+		"Du ejer allerede 3 Tower-aktier. Én mere giver dig 4 for i alt $700 brugt.\n\nHver tur må du købe op til 3 nye aktier. Du kan også købe ingenting og spare pengene.",
+	"tutorial.mergers.3": "Læg 8F mellem Worldwide og Festival. Begge har 2 brikker.",
+	"tutorial.mergers.4": "Vælg Worldwide som den overlevende kæde.",
+	"tutorial.mergers.5":
+		"Du fik begge Festival-bonusser. Behold din Festival-aktie: Lad salg og bytte stå på 0, og bekræft.",
+	"tutorial.mergers.6": "Vælg “Køb intet og afslut turen” for at afslutte den anden fusion.",
+	"tutorial.mechanics.equalMerger":
+		"Når de største kæder er lige store, vælger spilleren, der lægger den forbindende brik, den overlevende kæde. Antallet af aktier afgør ikke ligheden.\n\nHer har begge kæder 2 brikker. Du ejer den eneste Festival-aktie uden for banken.",
+	"tutorial.mechanics.survivorChoice":
+		"Vælger du Worldwide, bliver Festival overtaget. Festivals mellemste prisniveau giver en aktiepris på $300 ved 2 brikker.\n\nSom eneste aktionær får du begge bonusser: $3.000 + $1.500 = $4.500. Worldwide udbetaler ingen fusionsbonus.",
+	"tutorial.mechanics.keepShares":
+		"Det koster intet at beholde aktier. Festival forlader brættet, men du beholder aktien og bonussen på $4.500.\n\nAktien kan bruges, hvis Festival grundlægges igen. Er kæden stadig inaktiv til sidst, er den værdiløs; du kan ikke sælge den på en almindelig tur.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide har nu 5 brikker inklusive den forbindende brik, så aktierne koster $600.\n\nBonusser og salg brugte Festivals gamle pris; nye køb bruger Worldwides nye pris. Efter en fusion må du købe op til 3 aktier i aktive kæder.",
+	"tutorial.label": "Introduktion",
+	"tutorial.complete": "Kapitel gennemført",
+	"tutorial.previous": "Forrige trin",
+	"tutorial.retry": "Gentag trin",
+	"tutorial.restart": "Start forfra",
+	"tutorial.next": "Næste kapitel",
+	"tutorial.founding.title": "Grundlæg en kæde",
+	"tutorial.founding.0":
+		"Du spiller Alex. Vælg 2A fra hånden, og læg den ved siden af 1A. To tilstødende løse brikker grundlægger en hotelkæde.",
+	"tutorial.founding.1": "Vælg Tower. Grundlæggeren får en gratis aktie, hvis banken har en.",
+	"tutorial.founding.2":
+		"Køb 2 Tower-aktier med +, og bekræft. Du må købe op til 3 aktier pr. tur; her koster hver $200.",
+	"tutorial.founding.done":
+		"Du ejer 4 Tower-aktier og har brugt $700: én gratis stifteraktie, to til $200 og én til $300. Vækst hæver aktieprisen ved grænserne i pristabellen.",
+	"tutorial.mergers.title": "Afvikl en fusion",
+	"tutorial.mergers.0":
+		"Læg 4A mellem Tower (3 brikker) og Luxor (2). Den største kæde overlever; antallet af aktier afgør det ikke.",
+	"tutorial.mergers.1":
+		"Dine 3 Luxor-aktier gav majoritetsbonussen på $2.000. Sælg 1 aktie, og byt 2 til 1 Tower-aktie. Bekræft derefter.",
+	"tutorial.mergers.2": "De andre aktionærer beholdt deres Luxor-aktier. Køb ingenting, og afslut turen.",
+	"tutorial.mergers.done":
+		"Du fik $200 fra salget og 1 Tower-aktie fra byttet. Beholdte Luxor-aktier tæller igen, hvis kæden genopstår. Ved delt flertal deles begge bonusser. Sikre kæder (11+ brikker) kan ikke overtages.",
+	"tutorial.scoring.title": "Afslut og opgør",
+	"tutorial.scoring.0":
+		"Tower har 11 brikker og er sikker. Alle aktive kæder er sikre: annoncer afslutningen, og bekræft. Det kan også gøres, når en kæde når 41 brikker.",
+	"tutorial.scoring.1": "Du må stadig afslutte din tur. Læg 12A for at udvide Tower.",
+	"tutorial.scoring.2":
+		"Køb ingenting, og afslut turen. Spillet udbetaler bonusser og sælger aktier i alle aktive kæder.",
+	"tutorial.scoring.done":
+		"Alex vinder med $15.800: $6.000 kontant + $7.000 majoritetsbonus + 4 aktier til $700. Aktier i inaktive kæder er værdiløse. Flest penge vinder; ved lighed deles sejren.",
 	"chat.title": "Chat",
 	"chat.message": "Besked",
 	"chat.placeholder": "Besked…",

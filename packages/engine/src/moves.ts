@@ -11,10 +11,12 @@ import {
 	startMerger,
 	survivorCandidates,
 } from "./merger.js";
+import { maxStockSwap, swapStock } from "./stock-swap.js";
 import { sharePrice } from "./prices.js";
 import { canAnnounce, endGame } from "./scoring.js";
 import { parseTile, tileLabel, type Tile } from "./tiles.js";
-import { endTurn, enterBuyPhase } from "./turn.js";
+import { afterPlacement, endTurn, enterBuyPhase } from "./turn.js";
+import { blockedThisTurn } from "./two-tiles.js";
 import type { GameState, Move, Shares } from "./types.js";
 
 export function currentSeat(state: GameState): number | undefined {
@@ -44,7 +46,8 @@ export function sanitizeMove(state: GameState, raw: unknown, seat: number): Move
 		throw new Error("A move must be an object");
 	}
 	if (raw.type === "announce") {
-		// rules.md §4/§11.1: before placing or during the buy step, checked at this moment.
+		// rules.md §4/§11.1: before placing (with twoTiles, also before the second tile) or
+		// during the buy step, checked at this moment.
 		if (state.phase !== "place" && state.phase !== "buy") {
 			throw new Error("The end can only be announced before placing a tile or while buying");
 		}
@@ -60,6 +63,15 @@ export function sanitizeMove(state: GameState, raw: unknown, seat: number): Move
 		}
 		return { type: "pass" };
 	}
+	if (raw.type === "swap") {
+		if (!isChainId(raw.from) || !isChainId(raw.to) || !Number.isInteger(raw.count) || (raw.count as number) < 1) {
+			throw new Error("Choose two different active chains and a positive whole number of shares");
+		}
+		if ((raw.count as number) > maxStockSwap(state, raw.from, raw.to)) {
+			throw new Error("That stock swap exceeds the allowance, your holdings, available bank stock or cash");
+		}
+		return { type: "swap", from: raw.from, to: raw.to, count: raw.count as number };
+	}
 	if (raw.type !== state.phase) {
 		throw new Error(`Expected a "${state.phase}" move`);
 	}
@@ -74,6 +86,9 @@ export function sanitizeMove(state: GameState, raw: unknown, seat: number): Move
 			}
 			if (tileLegality(state.board, tile) !== "playable") {
 				throw new Error(`Tile ${tileLabel(tile)} cannot be played now`);
+			}
+			if (blockedThisTurn(state, tile)) {
+				throw new Error("A turn cannot found two chains, or both found a chain and cause a merger");
 			}
 			return { type: "place", tile: tileLabel(tile) };
 		}
@@ -241,7 +256,7 @@ function perform(state: GameState, move: Move, seat: number, auto: boolean): voi
 			break;
 		case "found":
 			foundChain(state, move.chain);
-			enterBuyPhase(state);
+			afterPlacement(state);
 			break;
 		case "survivor":
 			setSurvivor(state, move.chain);
@@ -251,6 +266,9 @@ function perform(state: GameState, move: Move, seat: number, auto: boolean): voi
 			break;
 		case "dispose":
 			dispose(state, seat, move.sell, move.trade);
+			break;
+		case "swap":
+			swapStock(state, move.from, move.to, move.count);
 			break;
 		case "buy":
 			buyShares(state, move.shares);
@@ -284,7 +302,7 @@ function placeTile(state: GameState, tile: Tile): void {
 		}
 		foundChain(state, available[0]!);
 	}
-	enterBuyPhase(state);
+	afterPlacement(state);
 }
 
 /** rules.md §6. */

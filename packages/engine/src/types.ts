@@ -25,7 +25,15 @@ export type Move =
 	| { type: "survivor"; chain: ChainId }
 	| { type: "defunctOrder"; chains: ChainId[] }
 	| { type: "dispose"; sell: number; trade: number }
+	| { type: "swap"; from: ChainId; to: ChainId; count: number }
 	| { type: "buy"; shares: Partial<Shares> };
+
+/** The complete private move sequence since the last saved position. */
+export interface TurnRequest {
+	type: "turn";
+	from: number;
+	moves: Move[];
+}
 
 export interface MergerState {
 	/** The merging tile; it sits on the board as a loose tile until the board update (§7.3). */
@@ -63,15 +71,22 @@ export type LogEntry =
 	| { type: "bankTile"; tile: Tile; result: "loose" | "joined" | "merger" | "removed" }
 	| { type: "disposed"; seat: number; chain: ChainId; sold: number; traded: number; held: number; proceeds: number }
 	| { type: "merged"; survivor: ChainId; size: number }
+	| { type: "swapped"; seat: number; from: ChainId; to: ChainId; count: number; cost: number }
 	| { type: "bought"; seat: number; shares: Partial<Shares>; cost: number }
 	| { type: "discarded"; seat: number; tiles: Tile[] }
 	| { type: "drew"; seat: number; count: number }
 	| { type: "announced"; seat: number }
 	| { type: "gameEnd"; reason: "announced" | "condition" | "stall" | "dropped" }
 	| { type: "finalSale"; seat: number; chain: ChainId; shares: number; proceeds: number }
-	| { type: "result"; cash: number[]; ranks: number[] };
+	| { type: "result"; cash: number[]; ranks: number[] }
+	/** Only in a player's view: an entry from before the limitedLog window (rules.md §13). */
+	| { type: "hidden" };
 
 export interface GameState {
+	/** Transient response only; toSave never persists this private draft. */
+	tentative?: { player: number; from: number };
+	/** Viewer capability flag, added only by the BGS wrapper. */
+	supportsTurnDrafts?: true;
 	seed: string;
 	rngCounter: number;
 	options: GameOptions;

@@ -148,18 +148,8 @@ test("dark theme: the rack is the lightest grey that keeps the accent at 3:1, ma
 	);
 });
 
-for (const [themeName] of themes) {
-	// Patterns are non-text marks (3:1); letters sit on solid patches, so the 4.5:1 check holds.
-	test(`${themeName} theme: each chain pattern has at least 3:1 contrast against its chain colour`, () => {
-		for (const [chain, style] of chains) {
-			const ratio = contrastRatio(style.patternInk, style.fill);
-			assert.ok(ratio >= 3, `${chain} pattern: ${ratio.toFixed(2)}:1`);
-		}
-	});
-}
-
-test("colour-blind mode gives every chain a different pattern", () => {
-	assert.equal(new Set(chains.map(([, style]) => style.pattern)).size, chains.length);
+test("chain letters identify every chain without relying on colour", () => {
+	assert.equal(new Set(chains.map(([, style]) => style.letter)).size, chains.length);
 });
 
 test("the palette stays close to its Okabe-Ito origins", () => {

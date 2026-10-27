@@ -1,8 +1,23 @@
 import type { Catalog } from "../i18n.ts";
 
 export const vi: Catalog = {
+	"swap.title": "Đổi cổ phiếu",
+	"swap.note": "Đổi 1:1 theo giá hiện tại trước khi mua. Bạn vẫn được mua tối đa 3 cổ phiếu.",
+	"swap.remaining": "Còn {count} trong lượt này",
+	"swap.unlimited": "Không giới hạn",
+	"swap.give": "Đưa (cổ phiếu của bạn)",
+	"swap.take": "Nhận (cổ phiếu ngân hàng)",
+	"swap.count": "Số cổ phiếu",
+	"swap.confirm": "Đổi cổ phiếu",
+	"swap.pay": "Trả {amount}",
+	"swap.receive": "Nhận {amount}",
+	"swap.even": "Không chênh lệch tiền",
+	"swap.unavailable": "Không thể đổi với số lượng, hạn mức, cổ phiếu và tiền mặt này.",
+	"log.swapped": "{name} đổi {count} {from} lấy {count} {to} · {cash}",
+
 	loading: "Đang tải ván chơi…",
 	"status.place": "{name} cần đặt một ô",
+	"status.placeSecond": "{name} cần đặt ô thứ hai",
 	"status.found": "{name} cần đặt tên cho chuỗi mới",
 	"status.survivor": "{name} cần chọn chuỗi tồn tại sau sáp nhập",
 	"status.defunctOrder": "{name} cần chọn thứ tự các chuỗi bị thâu tóm",
@@ -15,7 +30,8 @@ export const vi: Catalog = {
 	"status.replayNote": "Bạn đang xem một thế cờ trước đó. Các ô trên tay không được hiển thị.",
 	"panel.label": "Quyết định của bạn",
 	"panel.sending": "Đang gửi…",
-	"announce.ask": "Kết thúc ván chơi sau lượt này? Không thể hoàn tác.",
+	"turn.undo": "Hoàn tác",
+	"announce.ask": "Kết thúc ván chơi sau lượt này?",
 	"announce.confirm": "Tuyên bố kết thúc",
 	"announce.cancel": "Tiếp tục chơi",
 	"announce.open": "Tuyên bố kết thúc…",
@@ -26,7 +42,7 @@ export const vi: Catalog = {
 	"place.merges": "sáp nhập {chains}",
 	"place.button": "Đặt {tile}",
 	"place.another": "Chọn ô khác",
-	"place.choose": "Chọn một ô trên tay.",
+	"place.choose": "Chọn một ô được đánh dấu hoặc một ô trên tay bạn.",
 	"place.none": "Không ô nào của bạn đặt được.",
 	"place.pass": "Tiếp tục mà không đặt",
 	"found.prompt": "Đặt tên cho chuỗi mới. Bạn nhận một cổ phiếu miễn phí.",
@@ -39,6 +55,10 @@ export const vi: Catalog = {
 	"dispose.takenOver": "{defunct} bị {survivor} thâu tóm.",
 	"dispose.holding": { other: "Bạn có {count} cổ phiếu {chain}." },
 	"dispose.sell": "Bán giá {price}",
+	"dispose.sellAll": "Bán tất cả",
+	"dispose.tradeMaximum": "Đổi {give} lấy {receive}",
+	"dispose.stockValue": "Giá trị cổ phiếu",
+	"dispose.afterMerger": "Giá cổ phiếu sau lần sáp nhập này",
 	"dispose.trade": "Đổi 2 lấy 1",
 	"dispose.keep": "Giữ",
 	"dispose.receive": "+{count} {chain}",
@@ -68,7 +88,11 @@ export const vi: Catalog = {
 	"hand.of": "Ô của {name}",
 	"hand.none": "Không có ô",
 	"hand.dead": "ô chết: sẽ sáp nhập các chuỗi an toàn",
+	"hand.deadReplacement": "Được thay khi kết thúc lượt của bạn",
 	"hand.eighth": "không thể lập chuỗi thứ 8",
+	"hand.deadNextTurn": "Được thay khi bắt đầu lượt sau của bạn",
+	"hand.oneFounding": "không thể lập chuỗi thứ hai trong lượt này",
+	"hand.foundOrMerge": "không thể vừa lập chuỗi vừa sáp nhập trong cùng một lượt",
 	"chains.label": "Chuỗi khách sạn",
 	"chains.title": "Chuỗi",
 	"chains.chain": "Chuỗi",
@@ -92,6 +116,15 @@ export const vi: Catalog = {
 	"players.title": "Người chơi",
 	"players.player": "Người chơi",
 	"players.cash": "Tiền",
+	"players.netWorth": "Tổng tài sản",
+	"players.worthBreakdown": "Chi tiết tài sản",
+	"players.bonuses": "Tiền thưởng",
+	"players.worthNote":
+		"Tiền mặt + giá trị cổ phiếu + thưởng đa số/thiểu số dự kiến. Ước tính thay đổi theo lượng cổ phiếu và lựa chọn khi sáp nhập.",
+	"players.worthBank":
+		"Tiền mặt + giá trị cổ phiếu. Không tính thưởng tương lai: số cổ phiếu của ngân hàng chưa được biết cho đến khi trả thưởng.",
+	"players.worthTeams": "Điểm BGS cộng tài sản của cả hai đồng đội.",
+	"players.worthFourHands": "Điểm BGS lấy ghế giàu nhất của bạn.",
 	"players.stock": "Cổ phiếu",
 	"players.tiles": "Ô",
 	"players.acting": "đang quyết định",
@@ -103,6 +136,7 @@ export const vi: Catalog = {
 	"seat.name": "{name} (ghế {seat})",
 	"log.label": "Nhật ký ván chơi",
 	"log.title": "Nhật ký",
+	"log.limited": "Các nước đi trước bị ẩn cho đến khi ván chơi kết thúc.",
 	"log.recent": "Chỉ hiện các dòng gần đây",
 	"log.all": { other: "Hiện toàn bộ nhật ký (thêm {count})" },
 	"log.init": { other: "Ván mới cho {count} người chơi" },
@@ -152,6 +186,83 @@ export const vi: Catalog = {
 	"log.finalSale": "{name} bán {count} {chain} được {amount}",
 	"log.result": "Tiền cuối cùng: {results}",
 	"chat.label": "Trò chuyện",
+	"chat.suggestions": "Gợi ý nhắc tên",
+	"chat.game": "Trò chơi",
+	"chat.unread": "Chưa đọc: {count}",
+	"chat.signIn": "Đăng nhập để trò chuyện",
+	"chat.confirmAccount": "Xác nhận tài khoản để trò chuyện",
+	"chat.playersOnly": "Chỉ người chơi mới có thể gửi tin nhắn",
+	"chat.disabled": "Trò chuyện đã bị tắt",
+	"chat.waiting": "Trò chuyện sẽ khả dụng khi trò chơi bắt đầu",
+	"chat.connecting": "Đang kết nối trò chuyện…",
+	"chat.readOnly": "Trò chuyện chỉ cho phép đọc",
+	"tutorial.mechanics.tiles":
+		"Các ô nối nhau qua cạnh, không qua đường chéo. Cạnh các ô rời thì lập chuỗi; cạnh một chuỗi thì mở rộng nó; giữa các chuỗi thì gây sáp nhập.\n\nMột lượt thường: đặt ô, xử lý sáp nhập, mua tổng cộng tối đa 3 cổ phiếu rồi bổ sung bài trên tay. Các bài học dùng tay bài nhỏ được chuẩn bị sẵn.",
+	"tutorial.mechanics.tiers":
+		"Các chuỗi không có năng lực đặc biệt. Cùng kích thước, Tower và Luxor rẻ nhất; Worldwide, American và Festival đắt hơn $100 mỗi cổ phiếu; Imperial và Continental đắt hơn $200. Tiền thưởng cổ đông cũng tăng theo giá.\n\nMỗi chuỗi có 25 cổ phiếu. Người lập chuỗi được 1 cổ phiếu miễn phí nếu còn; nó không tính vào giới hạn mua 3 cổ phiếu.",
+	"tutorial.mechanics.prices":
+		"Giá phụ thuộc vào số ô và hạng giá của chuỗi, không phải số cổ phiếu đã mua. Tower có giá $200 ở 2 ô, $300 ở 3, $400 ở 4 và $500 ở 5. Sau đó tính theo khoảng: 6–10 ô giá $600, 11–20 giá $700, v.v. Mở bảng dưới đây để xem mọi khoảng và hạng giá.\n\nỞ đây, 2 cổ phiếu Tower tốn $400. Bạn có thể mua tổng cộng tối đa 3 cổ phiếu của các chuỗi đang hoạt động nếu đủ tiền và ngân hàng còn hàng. Lượt thường không cho phép bán.",
+	"tutorial.mechanics.merger":
+		"So kích thước trước khi thêm ô nối: Tower có 3 ô, Luxor có 2 nên Tower tồn tại. Nếu các chuỗi lớn nhất bằng nhau, người đặt ô chọn chuỗi tồn tại.\n\nTừ 11 ô, chuỗi trở nên an toàn và không thể bị thâu tóm. Không được đặt ô nối hai chuỗi an toàn.",
+	"tutorial.mechanics.bonuses":
+		"Khi sáp nhập, chỉ cổ đông của các chuỗi bị thâu tóm nhận thưởng; cổ phiếu của chuỗi tồn tại không được thưởng sáp nhập. Thưởng được trả trước khi bán hoặc đổi, theo giá cổ phiếu trước sáp nhập của chuỗi bị thâu tóm: 10 × cho cổ đông lớn nhất (đa số), 5 × cho người đứng thứ hai (thiểu số). Chỉ cần có nhiều cổ phiếu nhất, không cần quá một nửa.\n\nLuxor có 2 ô: $200 mỗi cổ phiếu. Alex có 3 nhận $2.000, Bo có 2 nhận $1.000, Cy có 1 không có thưởng. Nhận thưởng không mất cổ phiếu. Sau đó có thể kết hợp bán giá $200, đổi 2 lấy 1 Tower khi còn hàng, và giữ để chờ Luxor được lập lại.",
+	"tutorial.mechanics.ties":
+		"Đồng hạng nhất chia cả hai khoản thưởng, những người khác không nhận. Nếu có một người đứng nhất, các người đồng hạng hai chỉ chia thưởng thiểu số. Cổ đông duy nhất nhận cả hai. Mỗi phần được làm tròn lên bội số $100.\n\nHai người đồng hạng nhất Luxor giá $200 mỗi người nhận ($2.000 + $1.000) ÷ 2 = $1.500. Cổ phiếu Luxor giữ lại không có giá trị cho đến khi chuỗi được lập lại.",
+	"tutorial.mechanics.safe":
+		"An toàn nghĩa là ít nhất 11 ô: chuỗi vẫn có thể lớn lên và thâu tóm chuỗi nhỏ hơn nhưng không bị thâu tóm.\n\nCó thể tuyên bố kết thúc khi mọi chuỗi trên bàn đều an toàn hoặc một chuỗi đạt 41 ô. Không cần đủ cả bảy chuỗi. Theo luật chuẩn, kết thúc là tùy chọn: hoàn thành lượt hiện tại rồi tính điểm.",
+	"tutorial.mechanics.growth":
+		"Lớn lên không phải lúc nào cũng tăng giá. Tower ở 11 và 12 ô đều trong khoảng 11–20: $700 mỗi cổ phiếu. Lần tăng tiếp theo là ở 21 ô ($800).\n\nSau khi đặt, bạn vẫn được mua tối đa 3 cổ phiếu như thường lệ. Việc mua có thể thay đổi người nhận thưởng cuối game.",
+	"tutorial.mechanics.settlement":
+		"Cuối game, mọi chuỗi đang hoạt động đều trả thưởng đa số và thiểu số, kể cả chuỗi an toàn không thể bị thâu tóm. Vì vậy bảng giá có thưởng cho chuỗi từ 41 ô trở lên. Sau đó mọi cổ phiếu của chuỗi đang hoạt động được bán theo giá hiện tại; cổ phiếu của chuỗi không hoạt động không có giá trị.\n\nVới Tower giá $700, Alex dẫn đầu với 4 cổ phiếu: $7.000 thưởng + $2.800 cổ phiếu + $6.000 tiền mặt = $15.800. Bo có 2 nhận thưởng thiểu số $3.500; Cy có 1 không có thưởng. Người thắng có nhiều tiền cuối game nhất, không phải nhiều cổ phiếu nhất.",
+	"tutorial.founding.3": "Bo và Cy đã chơi lượt của họ. Đặt 3A để Tower tăng từ 2 lên 3 ô.",
+	"tutorial.founding.4": "Mua thêm 1 cổ phiếu Tower với giá $300 rồi xác nhận.",
+	"tutorial.mechanics.firstGrowth":
+		"Mở rộng chuỗi hiện có không cho cổ phiếu miễn phí. Khi đạt 3 ô, giá Tower tăng từ $200 lên $300.\n\nCổ phiếu bạn đã có cũng theo giá mới, nhưng việc mở rộng không trả tiền mặt ngay.",
+	"tutorial.mechanics.buyGrowth":
+		"Bạn đã có 3 cổ phiếu Tower. Mua thêm một sẽ thành 4, với tổng chi phí $700.\n\nMỗi lượt được mua tối đa 3 cổ phiếu mới. Bạn cũng có thể không mua gì để giữ tiền.",
+	"tutorial.mergers.3": "Đặt 8F giữa Worldwide và Festival. Cả hai đều có 2 ô.",
+	"tutorial.mergers.4": "Chọn Worldwide làm chuỗi tồn tại.",
+	"tutorial.mergers.5":
+		"Bạn đã nhận cả hai khoản thưởng Festival. Giữ cổ phiếu Festival: để bán và đổi ở 0 rồi xác nhận.",
+	"tutorial.mergers.6": "Chọn “Không mua và kết thúc lượt” để hoàn tất vụ sáp nhập thứ hai.",
+	"tutorial.mechanics.equalMerger":
+		"Khi các chuỗi lớn nhất bằng nhau, người đặt ô nối chọn chuỗi tồn tại. Số cổ phiếu không quyết định kết quả hòa.\n\nỞ đây, mỗi chuỗi có 2 ô. Bạn giữ cổ phiếu Festival duy nhất ngoài ngân hàng.",
+	"tutorial.mechanics.survivorChoice":
+		"Chọn Worldwide sẽ khiến Festival bị thâu tóm. Festival thuộc nhóm giá trung bình: ở 2 ô, mỗi cổ phiếu trị giá $300.\n\nLà cổ đông duy nhất, bạn nhận cả hai khoản thưởng: $3.000 + $1.500 = $4.500. Worldwide không trả thưởng sáp nhập.",
+	"tutorial.mechanics.keepShares":
+		"Giữ cổ phiếu không tốn phí. Festival rời bàn, nhưng bạn vẫn giữ cổ phiếu và khoản thưởng $4.500.\n\nCổ phiếu có thể hữu ích nếu Festival được thành lập lại. Nếu vẫn không hoạt động khi kết thúc, nó vô giá trị; lượt thường không cho phép bán nó.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide nay có 5 ô, tính cả ô nối, nên cổ phiếu có giá $600.\n\nTiền thưởng và bán cổ phiếu dùng giá cũ của Festival; giao dịch mua mới dùng giá mới của Worldwide. Sau sáp nhập, bạn được mua tối đa 3 cổ phiếu thuộc các chuỗi đang hoạt động.",
+	"tutorial.label": "Hướng dẫn",
+	"tutorial.complete": "Hoàn thành chương",
+	"tutorial.previous": "Bước trước",
+	"tutorial.retry": "Làm lại bước",
+	"tutorial.restart": "Bắt đầu lại",
+	"tutorial.next": "Chương tiếp theo",
+	"tutorial.founding.title": "Thành lập chuỗi",
+	"tutorial.founding.0":
+		"Bạn chơi vai Alex. Chọn 2A trên tay rồi đặt cạnh 1A. Hai ô độc lập kề nhau tạo thành một chuỗi khách sạn.",
+	"tutorial.founding.1": "Chọn Tower. Người sáng lập nhận một cổ phiếu miễn phí nếu ngân hàng còn cổ phiếu.",
+	"tutorial.founding.2":
+		"Dùng nút + để mua 2 cổ phiếu Tower rồi xác nhận. Mỗi lượt được mua tối đa 3 cổ phiếu; ở đây mỗi cổ phiếu giá $200.",
+	"tutorial.founding.done":
+		"Bạn có 4 cổ phiếu Tower và đã chi $700: một cổ phiếu sáng lập miễn phí, hai cổ phiếu giá $200 và một giá $300. Chuỗi phát triển sẽ tăng giá cổ phiếu tại các ngưỡng trong bảng giá.",
+	"tutorial.mergers.title": "Xử lý sáp nhập",
+	"tutorial.mergers.0":
+		"Đặt 4A giữa Tower (3 ô) và Luxor (2 ô). Chuỗi lớn hơn tồn tại; số cổ phiếu không quyết định điều này.",
+	"tutorial.mergers.1":
+		"3 cổ phiếu Luxor mang lại thưởng cổ đông lớn nhất $2.000. Bán 1 cổ phiếu, đổi 2 lấy 1 cổ phiếu Tower rồi xác nhận.",
+	"tutorial.mergers.2": "Các cổ đông khác giữ cổ phiếu Luxor. Không mua gì và kết thúc lượt.",
+	"tutorial.mergers.done":
+		"Bạn nhận $200 từ bán và 1 cổ phiếu Tower từ đổi. Cổ phiếu Luxor giữ lại có ích nếu chuỗi được lập lại. Đồng hạng lớn nhất chia cả hai khoản thưởng. Chuỗi an toàn (11 ô trở lên) không thể bị thâu tóm.",
+	"tutorial.scoring.title": "Kết thúc và tính điểm",
+	"tutorial.scoring.0":
+		"Tower có 11 ô và an toàn. Mọi chuỗi đang hoạt động đều an toàn: tuyên bố kết thúc rồi xác nhận. Cũng có thể tuyên bố khi một chuỗi đạt 41 ô.",
+	"tutorial.scoring.1": "Bạn vẫn được hoàn tất lượt sau khi tuyên bố. Đặt 12A để mở rộng Tower.",
+	"tutorial.scoring.2":
+		"Không mua gì và kết thúc lượt. Trò chơi trả thưởng và bán cổ phiếu của mọi chuỗi đang hoạt động.",
+	"tutorial.scoring.done":
+		"Alex thắng với $15.800: $6.000 tiền mặt + $7.000 thưởng cổ đông lớn nhất + 4 cổ phiếu giá $700. Cổ phiếu chuỗi không hoạt động không có giá trị. Nhiều tiền nhất thắng; bằng nhau cùng thắng.",
 	"chat.title": "Trò chuyện",
 	"chat.message": "Tin nhắn",
 	"chat.placeholder": "Tin nhắn…",

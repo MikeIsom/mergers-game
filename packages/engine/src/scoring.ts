@@ -1,5 +1,6 @@
 import { activeChains, chainSize, endConditionHolds } from "./board.js";
 import { payBonuses } from "./merger.js";
+import { projectedNetWorth } from "./net-worth.js";
 import { sharePrice } from "./prices.js";
 import type { GameState } from "./types.js";
 
@@ -46,9 +47,12 @@ export function endGame(state: GameState, reason: EndReason): void {
  * What each real player is ranked by: their cash; with teamPlay at the end, their team's
  * combined cash (seats 1+3 and 2+4); in fourHands, the single richest seat they control.
  */
-function playerValues(state: GameState): number[] {
-	const cash = state.seats.map((seat) => seat.cash);
-	if (state.options.teamPlay && state.ended) {
+function playerValues(
+	state: GameState,
+	cash = state.seats.map((seat) => seat.cash),
+	combineTeams = state.ended
+): number[] {
+	if (state.options.teamPlay && combineTeams) {
 		return cash.map((_, seat) => cash[seat % 2]! + cash[(seat % 2) + 2]!);
 	}
 	return Array.from({ length: state.players }, (_, player) =>
@@ -81,6 +85,16 @@ export function playerRankings(state: GameState): number[] {
 export function playerScores(state: GameState): number[] {
 	if (!state.ended && !state.options.publicHoldings) {
 		return Array.from({ length: state.players }, () => 0);
+	}
+	if (!state.ended) {
+		const worth = projectedNetWorth(state);
+		return worth
+			? playerValues(
+					state,
+					worth.map((seat) => seat.total),
+					true
+				)
+			: Array(state.players).fill(0);
 	}
 	return playerValues(state);
 }

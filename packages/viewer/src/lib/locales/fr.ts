@@ -1,8 +1,23 @@
 import type { Catalog } from "../i18n.ts";
 
 export const fr: Catalog = {
+	"swap.title": "Échange d’actions",
+	"swap.note": "Échangez à 1 contre 1 au prix actuel avant d’acheter. Vous pouvez toujours acheter jusqu’à 3 actions.",
+	"swap.remaining": "{count} restantes ce tour",
+	"swap.unlimited": "Illimité",
+	"swap.give": "Donner (vos actions)",
+	"swap.take": "Recevoir (banque)",
+	"swap.count": "Actions",
+	"swap.confirm": "Échanger",
+	"swap.pay": "Payer {amount}",
+	"swap.receive": "Recevoir {amount}",
+	"swap.even": "Sans différence de prix",
+	"swap.unavailable": "Échange impossible avec cette quantité, la limite, les actions et les fonds disponibles.",
+	"log.swapped": "{name} échange {count} {from} contre {count} {to} · {cash}",
+
 	loading: "Chargement de la partie…",
 	"status.place": "{name} doit poser une tuile",
+	"status.placeSecond": "{name} doit poser une deuxième tuile",
 	"status.found": "{name} doit nommer une nouvelle chaîne",
 	"status.survivor": "{name} doit choisir la chaîne qui survit à la fusion",
 	"status.defunctOrder": "{name} doit choisir l’ordre des chaînes absorbées",
@@ -15,7 +30,8 @@ export const fr: Catalog = {
 	"status.replayNote": "Vous regardez une position antérieure. Les tuiles en main ne sont pas affichées.",
 	"panel.label": "Votre décision",
 	"panel.sending": "Envoi…",
-	"announce.ask": "Terminer la partie après ce tour ? Ce choix est définitif.",
+	"turn.undo": "Annuler",
+	"announce.ask": "Terminer la partie après ce tour ?",
 	"announce.confirm": "Annoncer la fin",
 	"announce.cancel": "Continuer à jouer",
 	"announce.open": "Annoncer la fin…",
@@ -26,7 +42,7 @@ export const fr: Catalog = {
 	"place.merges": "fusionne {chains}",
 	"place.button": "Poser {tile}",
 	"place.another": "Choisir une autre",
-	"place.choose": "Choisissez une tuile de votre main.",
+	"place.choose": "Choisissez une case en surbrillance ou une tuile de votre main.",
 	"place.none": "Aucune de vos tuiles ne peut être posée.",
 	"place.pass": "Continuer sans poser",
 	"found.prompt": "Nommez la nouvelle chaîne. Vous recevez une action gratuite.",
@@ -43,6 +59,10 @@ export const fr: Catalog = {
 		other: "Vous détenez {count} actions {chain}.",
 	},
 	"dispose.sell": "Vendre à {price}",
+	"dispose.sellAll": "Tout vendre",
+	"dispose.tradeMaximum": "Échanger {give} contre {receive}",
+	"dispose.stockValue": "Valeur des actions",
+	"dispose.afterMerger": "Prix de l’action après cette fusion",
 	"dispose.trade": "Échanger 2 contre 1",
 	"dispose.keep": "Garder",
 	"dispose.receive": "+{count} {chain}",
@@ -72,7 +92,11 @@ export const fr: Catalog = {
 	"hand.of": "Tuiles de {name}",
 	"hand.none": "Aucune tuile",
 	"hand.dead": "morte : fusionnerait des chaînes sûres",
+	"hand.deadReplacement": "Remplacement à la fin de votre tour",
 	"hand.eighth": "impossible de fonder une 8e chaîne",
+	"hand.deadNextTurn": "Remplacement au début de votre prochain tour",
+	"hand.oneFounding": "impossible de fonder une deuxième chaîne ce tour-ci",
+	"hand.foundOrMerge": "impossible de fonder une chaîne et de fusionner dans le même tour",
 	"chains.label": "Chaînes d’hôtels",
 	"chains.title": "Chaînes",
 	"chains.chain": "Chaîne",
@@ -96,6 +120,15 @@ export const fr: Catalog = {
 	"players.title": "Joueurs",
 	"players.player": "Joueur",
 	"players.cash": "Argent",
+	"players.netWorth": "Patrimoine",
+	"players.worthBreakdown": "Détail du patrimoine",
+	"players.bonuses": "Primes",
+	"players.worthNote":
+		"Argent + valeur des actions + primes de majorité/minorité estimées. Cette estimation varie selon les participations et les choix de fusion.",
+	"players.worthBank":
+		"Argent + valeur des actions. Primes futures exclues : la participation de la banque est inconnue avant le versement.",
+	"players.worthTeams": "Les scores BGS cumulent les deux coéquipiers.",
+	"players.worthFourHands": "Les scores BGS retiennent votre siège le plus riche.",
 	"players.stock": "Actions",
 	"players.tiles": "Tuiles",
 	"players.acting": "doit jouer",
@@ -107,6 +140,7 @@ export const fr: Catalog = {
 	"seat.name": "{name} (place {seat})",
 	"log.label": "Journal de la partie",
 	"log.title": "Journal",
+	"log.limited": "Les coups précédents sont masqués jusqu'à la fin de la partie.",
 	"log.recent": "Afficher seulement les dernières lignes",
 	"log.all": {
 		one: "Afficher tout le journal ({count} de plus)",
@@ -176,6 +210,84 @@ export const fr: Catalog = {
 	"log.finalSale": "{name} vend {count} {chain} pour {amount}",
 	"log.result": "Argent final : {results}",
 	"chat.label": "Discussion",
+	"chat.suggestions": "Suggestions de mentions",
+	"chat.game": "Partie",
+	"chat.unread": "Non lus : {count}",
+	"chat.signIn": "Connectez-vous pour discuter",
+	"chat.confirmAccount": "Confirmez votre compte pour discuter",
+	"chat.playersOnly": "Seuls les joueurs peuvent envoyer des messages",
+	"chat.disabled": "Discussion désactivée",
+	"chat.waiting": "La discussion sera disponible au début de la partie",
+	"chat.connecting": "Connexion à la discussion…",
+	"chat.readOnly": "Discussion en lecture seule",
+	"tutorial.mechanics.tiles":
+		"Les tuiles se connectent par les côtés, jamais en diagonale. À côté de tuiles libres, votre tuile fonde une chaîne ; à côté d’une chaîne, elle l’agrandit ; entre plusieurs chaînes, elle provoque une fusion.\n\nUn tour normal : poser, résoudre les fusions, acheter jusqu’à 3 actions au total, puis compléter sa main. Ces leçons utilisent des mains préparées plus petites.",
+	"tutorial.mechanics.tiers":
+		"Les chaînes n’ont pas de pouvoirs spéciaux. À taille égale, Tower et Luxor sont les moins chères ; Worldwide, American et Festival coûtent 100 $ de plus par action ; Imperial et Continental, 200 $ de plus. Leurs primes d’actionnaires augmentent aussi avec ces prix.\n\nChaque chaîne a 25 actions. La fondation offre une action gratuite s’il en reste ; elle ne compte pas parmi vos 3 achats autorisés.",
+	"tutorial.mechanics.prices":
+		"Le prix dépend du nombre de tuiles de la chaîne et de sa catégorie, pas du nombre d’actions achetées. Tower vaut 200 $ à 2 tuiles, 300 $ à 3, 400 $ à 4 et 500 $ à 5. Ensuite, le prix suit des paliers : 6–10 tuiles = 600 $, 11–20 = 700 $, etc. Ouvrez le tableau ci-dessous pour voir tous les paliers et catégories.\n\nIci, 2 actions Tower coûtent 400 $. Vous pouvez acheter jusqu’à 3 actions au total dans les chaînes actives, selon vos liquidités et le stock de la banque. Un tour ordinaire ne permet pas de vendre.",
+	"tutorial.mechanics.merger":
+		"Comparez les tailles avant l’ajout de la tuile de liaison : Tower a 3 tuiles et Luxor 2, donc Tower survit. En cas d’égalité entre les plus grandes, le joueur qui pose choisit.\n\nÀ partir de 11 tuiles, une chaîne est sûre et ne peut plus être absorbée. Une tuile reliant deux chaînes sûres est injouable.",
+	"tutorial.mechanics.bonuses":
+		"Lors d’une fusion, seuls les actionnaires des chaînes absorbées touchent des primes ; les actions de la chaîne survivante n’en rapportent aucune. Les primes sont versées avant les ventes et échanges, au prix de la chaîne absorbée avant la fusion : 10 × pour le premier actionnaire (majorité), 5 × pour le deuxième (minorité). Il suffit d’avoir le plus d’actions, pas plus de la moitié.\n\nLuxor a 2 tuiles : l’action vaut 200 $. Les 3 actions d’Alex rapportent 2 000 $, les 2 de Bo 1 000 $, celle de Cy aucune prime. Les actions ne sont pas dépensées pour toucher les primes. Ensuite, vous pouvez combiner vente à 200 $, échange de 2 contre 1 Tower selon le stock, et conservation pour une future Luxor.",
+	"tutorial.mechanics.ties":
+		"Égalités : les premiers ex æquo se partagent les deux primes ; personne d’autre n’en reçoit. Avec un seul premier, les deuxièmes ex æquo se partagent uniquement la prime minoritaire. Un actionnaire unique touche les deux. Chaque part est arrondie aux 100 $ supérieurs.\n\nExemple : deux premiers ex æquo pour Luxor à 200 $ touchent chacun (2 000 $ + 1 000 $) ÷ 2 = 1 500 $. Les actions Luxor conservées ne valent rien tant que la chaîne n’est pas refondée.",
+	"tutorial.mechanics.safe":
+		"Sûre signifie au moins 11 tuiles : la chaîne peut encore grandir et absorber de plus petites chaînes, mais ne peut pas être absorbée.\n\nVous pouvez annoncer la fin si toutes les chaînes présentes sont sûres, ou si l’une atteint 41 tuiles. Les sept chaînes n’ont pas besoin d’être présentes. Avec les règles standard, terminer est facultatif : finissez votre tour, puis comptez les points.",
+	"tutorial.mechanics.growth":
+		"Grandir ne fait pas toujours monter le prix. À 11 comme à 12 tuiles, Tower reste dans le palier 11–20 : 700 $ par action. Le prochain palier est à 21 tuiles (800 $).\n\nAprès la pose, vous pouvez encore acheter jusqu’à 3 actions. Ces achats peuvent modifier l’attribution des primes finales.",
+	"tutorial.mechanics.settlement":
+		"À la fin de la partie, chaque chaîne active verse les primes majoritaire et minoritaire, même les chaînes sûres qui ne peuvent pas être absorbées. Voilà pourquoi le tableau indique des primes pour 41 tuiles et plus. Toutes les actions des chaînes actives sont ensuite vendues à leur prix actuel ; celles des chaînes inactives ne valent rien.\n\nÀ 700 $ l’action Tower, Alex est premier avec 4 actions : 7 000 $ de prime + 2 800 $ d’actions + 6 000 $ en espèces = 15 800 $. Bo reçoit la prime minoritaire de 3 500 $ avec 2 actions ; Cy n’a aucune prime avec 1. C’est l’argent final qui détermine la victoire, pas le nombre d’actions.",
+	"tutorial.founding.3": "Bo et Cy ont joué. Posez 3A pour faire passer Tower de 2 à 3 tuiles.",
+	"tutorial.founding.4": "Achetez 1 action Tower supplémentaire pour 300 $, puis confirmez.",
+	"tutorial.mechanics.firstGrowth":
+		"Agrandir une chaîne existante ne donne pas d’action gratuite. À 3 tuiles, le prix de Tower passe de 200 $ à 300 $.\n\nVos anciennes actions valent aussi ce nouveau prix, mais la croissance ne rapporte pas d’argent immédiatement.",
+	"tutorial.mechanics.buyGrowth":
+		"Vous avez déjà 3 actions Tower. En acheter une de plus vous en donne 4, pour 700 $ dépensés au total.\n\nChaque tour autorise jusqu’à 3 nouveaux achats. Vous pouvez aussi ne rien acheter et économiser.",
+	"tutorial.mergers.3": "Posez 8F entre Worldwide et Festival. Les deux ont 2 tuiles.",
+	"tutorial.mergers.4": "Choisissez Worldwide comme chaîne survivante.",
+	"tutorial.mergers.5":
+		"Vous avez reçu les deux primes Festival. Gardez votre action : laissez vente et échange à 0, puis confirmez.",
+	"tutorial.mergers.6": "Choisissez « Ne rien acheter et terminer » pour conclure la deuxième fusion.",
+	"tutorial.mechanics.equalMerger":
+		"Quand les plus grandes chaînes ont la même taille, le joueur qui pose la tuile de liaison choisit la survivante. Le nombre d’actions ne départage pas l’égalité.\n\nIci, chaque chaîne a 2 tuiles. Vous possédez la seule action Festival en circulation.",
+	"tutorial.mechanics.survivorChoice":
+		"Choisir Worldwide entraîne l’absorption de Festival. À 2 tuiles, son niveau de prix intermédiaire donne une valeur de 300 $ à chaque action.\n\nComme unique actionnaire, vous recevrez les deux primes : 3 000 $ + 1 500 $ = 4 500 $. Worldwide ne verse aucune prime de fusion.",
+	"tutorial.mechanics.keepShares":
+		"Garder des actions ne coûte rien. Festival quitte le plateau, mais vous gardez son action et la prime de 4 500 $.\n\nL’action peut servir si Festival est refondée. Si la chaîne reste inactive à la fin, elle ne vaut rien ; un tour ordinaire ne permet pas de la vendre.",
+	"tutorial.mechanics.afterTie":
+		"Worldwide a maintenant 5 tuiles, dont la tuile de liaison : ses actions coûtent 600 $.\n\nPrimes et ventes utilisaient l’ancien prix de Festival ; les nouveaux achats utilisent le nouveau prix de Worldwide. Après une fusion, vous pouvez acheter jusqu’à 3 actions de chaînes actives.",
+	"tutorial.label": "Tutoriel",
+	"tutorial.complete": "Chapitre terminé",
+	"tutorial.previous": "Étape précédente",
+	"tutorial.retry": "Rejouer l’étape",
+	"tutorial.restart": "Recommencer",
+	"tutorial.next": "Chapitre suivant",
+	"tutorial.founding.title": "Fonder une chaîne",
+	"tutorial.founding.0":
+		"Vous jouez Alex. Sélectionnez 2A dans votre main, puis placez-la à côté de 1A. Deux tuiles libres adjacentes fondent une chaîne hôtelière.",
+	"tutorial.founding.1": "Choisissez Tower. Le fondateur reçoit une action gratuite, s’il en reste à la banque.",
+	"tutorial.founding.2":
+		"Achetez 2 actions Tower avec le bouton +, puis confirmez. Vous pouvez acheter jusqu’à 3 actions par tour ; ici, chacune coûte 200 $.",
+	"tutorial.founding.done":
+		"Vous avez 4 actions Tower et avez dépensé 700 $ : une action de fondateur gratuite, deux à 200 $ et une à 300 $. La croissance augmente le prix des actions aux seuils du tableau.",
+	"tutorial.mergers.title": "Résoudre une fusion",
+	"tutorial.mergers.0":
+		"Placez 4A entre Tower (3 tuiles) et Luxor (2). La plus grande chaîne survit ; le nombre d’actions ne détermine pas le vainqueur.",
+	"tutorial.mergers.1":
+		"Vos 3 actions Luxor ont rapporté la prime majoritaire de 2 000 $. Vendez 1 action et échangez-en 2 contre 1 action Tower, puis confirmez.",
+	"tutorial.mergers.2":
+		"Les autres actionnaires ont conservé leurs actions Luxor. Choisissez de ne rien acheter et de terminer le tour.",
+	"tutorial.mergers.done":
+		"La vente vous a rapporté 200 $ et l’échange 1 action Tower. Les actions Luxor conservées serviront si Luxor est refondée. En cas d’égalité majoritaire, les deux primes sont partagées ; les chaînes sûres (11 tuiles ou plus) ne peuvent pas être absorbées.",
+	"tutorial.scoring.title": "Terminer et compter",
+	"tutorial.scoring.0":
+		"Tower a 11 tuiles et est sûre. Toutes les chaînes actives sont sûres : annoncez la fin, puis confirmez. Vous pouvez aussi l’annoncer dès qu’une chaîne atteint 41 tuiles.",
+	"tutorial.scoring.1": "L’annonce vous laisse terminer votre tour. Placez 12A pour agrandir Tower.",
+	"tutorial.scoring.2":
+		"Choisissez de ne rien acheter et de terminer le tour. Les primes sont versées et les actions des chaînes actives sont vendues.",
+	"tutorial.scoring.done":
+		"Alex gagne avec 15 800 $ : 6 000 $ en espèces + 7 000 $ de prime majoritaire + 4 actions à 700 $. Les actions des chaînes inactives ne valent rien. Le plus riche gagne ; les ex æquo partagent la victoire.",
 	"chat.title": "Discussion",
 	"chat.message": "Message",
 	"chat.placeholder": "Message…",
