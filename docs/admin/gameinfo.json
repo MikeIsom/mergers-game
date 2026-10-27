@@ -121,6 +121,12 @@
 					"label": "Unlimited"
 				}
 			]
+		},
+		{
+			"name": "twoTiles",
+			"label": "Two tiles per turn (hands of 8, optional variant)",
+			"type": "checkbox",
+			"default": false
 		}
 	],
 	"settings": [],

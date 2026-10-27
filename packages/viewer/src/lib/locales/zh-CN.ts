@@ -17,6 +17,7 @@ export const zhCN: Catalog = {
 
 	loading: "正在加载游戏…",
 	"status.place": "{name}：放置一块板块",
+	"status.placeSecond": "{name}：放置第二块板块",
 	"status.found": "{name}：为新连锁命名",
 	"status.survivor": "{name}：选择合并后存续的连锁",
 	"status.defunctOrder": "{name}：选择被吞并连锁的顺序",
@@ -88,6 +89,9 @@ export const zhCN: Catalog = {
 	"hand.dead": "死板块：会合并安全连锁",
 	"hand.deadReplacement": "在你的回合结束时更换",
 	"hand.eighth": "无法创立第 8 个连锁",
+	"hand.deadNextTurn": "在你下一回合开始时更换",
+	"hand.oneFounding": "本回合不能再创立第二个连锁",
+	"hand.foundOrMerge": "同一回合内不能既创立连锁又进行合并",
 	"chains.label": "酒店连锁",
 	"chains.title": "连锁",
 	"chains.chain": "连锁",

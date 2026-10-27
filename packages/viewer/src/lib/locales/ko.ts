@@ -17,6 +17,7 @@ export const ko: Catalog = {
 
 	loading: "게임을 불러오는 중…",
 	"status.place": "{name}: 타일을 놓을 차례",
+	"status.placeSecond": "{name}: 두 번째 타일을 놓을 차례",
 	"status.found": "{name}: 새 체인의 이름을 정할 차례",
 	"status.survivor": "{name}: 합병에서 살아남을 체인을 고를 차례",
 	"status.defunctOrder": "{name}: 흡수되는 체인의 순서를 정할 차례",
@@ -89,6 +90,9 @@ export const ko: Catalog = {
 	"hand.dead": "죽은 타일: 안전한 체인끼리 합병하게 됨",
 	"hand.deadReplacement": "내 차례가 끝나면 교체됩니다",
 	"hand.eighth": "8번째 체인은 세울 수 없음",
+	"hand.deadNextTurn": "다음 차례가 시작될 때 교체됩니다",
+	"hand.oneFounding": "이번 차례에 두 번째 체인은 세울 수 없음",
+	"hand.foundOrMerge": "한 차례에 체인 설립과 합병을 모두 할 수 없음",
 	"chains.label": "호텔 체인",
 	"chains.title": "체인",
 	"chains.chain": "체인",

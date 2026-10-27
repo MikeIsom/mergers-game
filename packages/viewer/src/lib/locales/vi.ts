@@ -17,6 +17,7 @@ export const vi: Catalog = {
 
 	loading: "Đang tải ván chơi…",
 	"status.place": "{name} cần đặt một ô",
+	"status.placeSecond": "{name} cần đặt ô thứ hai",
 	"status.found": "{name} cần đặt tên cho chuỗi mới",
 	"status.survivor": "{name} cần chọn chuỗi tồn tại sau sáp nhập",
 	"status.defunctOrder": "{name} cần chọn thứ tự các chuỗi bị thâu tóm",
@@ -89,6 +90,9 @@ export const vi: Catalog = {
 	"hand.dead": "ô chết: sẽ sáp nhập các chuỗi an toàn",
 	"hand.deadReplacement": "Được thay khi kết thúc lượt của bạn",
 	"hand.eighth": "không thể lập chuỗi thứ 8",
+	"hand.deadNextTurn": "Được thay khi bắt đầu lượt sau của bạn",
+	"hand.oneFounding": "không thể lập chuỗi thứ hai trong lượt này",
+	"hand.foundOrMerge": "không thể vừa lập chuỗi vừa sáp nhập trong cùng một lượt",
 	"chains.label": "Chuỗi khách sạn",
 	"chains.title": "Chuỗi",
 	"chains.chain": "Chuỗi",

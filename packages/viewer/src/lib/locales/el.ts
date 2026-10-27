@@ -17,6 +17,7 @@ export const el: Catalog = {
 
 	loading: "Φόρτωση παιχνιδιού…",
 	"status.place": "{name}: τοποθέτηση πλακιδίου",
+	"status.placeSecond": "{name}: τοποθέτηση δεύτερου πλακιδίου",
 	"status.found": "{name}: ονομασία νέας αλυσίδας",
 	"status.survivor": "{name}: επιλογή αλυσίδας που επιβιώνει από τη συγχώνευση",
 	"status.defunctOrder": "{name}: επιλογή σειράς των αλυσίδων που απορροφώνται",
@@ -89,6 +90,9 @@ export const el: Catalog = {
 	"hand.dead": "νεκρό: θα συγχώνευε ασφαλείς αλυσίδες",
 	"hand.deadReplacement": "Αντικατάσταση στο τέλος του γύρου σου",
 	"hand.eighth": "δεν ιδρύεται 8η αλυσίδα",
+	"hand.deadNextTurn": "Αντικατάσταση στην αρχή του επόμενου γύρου σου",
+	"hand.oneFounding": "δεν ιδρύεται δεύτερη αλυσίδα σε αυτόν τον γύρο",
+	"hand.foundOrMerge": "όχι ίδρυση αλυσίδας και συγχώνευση στον ίδιο γύρο",
 	"chains.label": "Αλυσίδες ξενοδοχείων",
 	"chains.title": "Αλυσίδες",
 	"chains.chain": "Αλυσίδα",

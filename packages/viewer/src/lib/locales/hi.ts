@@ -17,6 +17,7 @@ export const hi: Catalog = {
 
 	loading: "खेल लोड हो रहा है…",
 	"status.place": "{name} को एक टाइल रखनी है",
+	"status.placeSecond": "{name} को दूसरी टाइल रखनी है",
 	"status.found": "{name} को नई श्रृंखला का नाम चुनना है",
 	"status.survivor": "{name} को चुनना है कि विलय में कौन सी श्रृंखला बचेगी",
 	"status.defunctOrder": "{name} को विलय होने वाली श्रृंखलाओं का क्रम चुनना है",
@@ -88,6 +89,9 @@ export const hi: Catalog = {
 	"hand.dead": "बेकार: सुरक्षित श्रृंखलाओं का विलय कर देगी",
 	"hand.deadReplacement": "आपकी बारी के अंत में बदल दी जाएँगी",
 	"hand.eighth": "8वीं श्रृंखला स्थापित नहीं हो सकती",
+	"hand.deadNextTurn": "आपकी अगली बारी की शुरुआत में बदल दी जाएँगी",
+	"hand.oneFounding": "इस बारी में दूसरी श्रृंखला स्थापित नहीं हो सकती",
+	"hand.foundOrMerge": "एक ही बारी में श्रृंखला स्थापित करना और विलय दोनों नहीं हो सकते",
 	"chains.label": "होटल श्रृंखलाएँ",
 	"chains.title": "श्रृंखलाएँ",
 	"chains.chain": "श्रृंखला",

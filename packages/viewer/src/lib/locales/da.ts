@@ -17,6 +17,7 @@ export const da: Catalog = {
 
 	loading: "Indlæser spillet…",
 	"status.place": "{name} skal lægge en brik",
+	"status.placeSecond": "{name} skal lægge en brik mere",
 	"status.found": "{name} skal navngive en ny kæde",
 	"status.survivor": "{name} skal vælge, hvilken kæde der overlever fusionen",
 	"status.defunctOrder": "{name} skal vælge rækkefølgen af de opslugte kæder",
@@ -89,6 +90,9 @@ export const da: Catalog = {
 	"hand.dead": "død: ville fusionere sikre kæder",
 	"hand.deadReplacement": "Udskiftes ved slutningen af din tur",
 	"hand.eighth": "kan ikke grundlægge en 8. kæde",
+	"hand.deadNextTurn": "Udskiftes ved starten af din næste tur",
+	"hand.oneFounding": "kan ikke grundlægge en kæde mere i denne tur",
+	"hand.foundOrMerge": "kan ikke både grundlægge en kæde og fusionere i samme tur",
 	"chains.label": "Hotelkæder",
 	"chains.title": "Kæder",
 	"chains.chain": "Kæde",

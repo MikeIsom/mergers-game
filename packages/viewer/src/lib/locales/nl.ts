@@ -17,6 +17,7 @@ export const nl: Catalog = {
 
 	loading: "Spel laden…",
 	"status.place": "{name} moet een tegel leggen",
+	"status.placeSecond": "{name} moet een tweede tegel leggen",
 	"status.found": "{name} moet een nieuwe keten een naam geven",
 	"status.survivor": "{name} moet kiezen welke keten de fusie overleeft",
 	"status.defunctOrder": "{name} moet de volgorde van de overgenomen ketens kiezen",
@@ -89,6 +90,9 @@ export const nl: Catalog = {
 	"hand.dead": "dood: zou veilige ketens fuseren",
 	"hand.deadReplacement": "Worden aan het einde van je beurt vervangen",
 	"hand.eighth": "kan geen 8e keten stichten",
+	"hand.deadNextTurn": "Worden aan het begin van je volgende beurt vervangen",
+	"hand.oneFounding": "kan deze beurt geen tweede keten stichten",
+	"hand.foundOrMerge": "kan niet in één beurt een keten stichten én fuseren",
 	"chains.label": "Hotelketens",
 	"chains.title": "Ketens",
 	"chains.chain": "Keten",
