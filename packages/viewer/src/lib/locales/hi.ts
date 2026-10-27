@@ -133,6 +133,7 @@ export const hi: Catalog = {
 	"seat.name": "{name} (सीट {seat})",
 	"log.label": "खेल का लॉग",
 	"log.title": "लॉग",
+	"log.limited": "पिछली चालें खेल समाप्त होने तक छिपी रहती हैं।",
 	"log.recent": "केवल हाल की पंक्तियाँ दिखाएँ",
 	"log.all": { one: "पूरा लॉग दिखाएँ ({count} और)", other: "पूरा लॉग दिखाएँ ({count} और)" },
 	"log.init": { one: "{count} खिलाड़ी के लिए नया खेल", other: "{count} खिलाड़ियों के लिए नया खेल" },

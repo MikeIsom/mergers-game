@@ -135,6 +135,7 @@ export const ko: Catalog = {
 	"seat.name": "{name} ({seat}번 자리)",
 	"log.label": "게임 기록",
 	"log.title": "기록",
+	"log.limited": "이전 수는 게임이 끝날 때까지 숨겨집니다.",
 	"log.recent": "최근 줄만 보기",
 	"log.all": { other: "전체 기록 보기 ({count}줄 더)" },
 	"log.init": { other: "{count}인 새 게임" },

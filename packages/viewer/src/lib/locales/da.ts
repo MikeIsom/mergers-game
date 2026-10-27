@@ -136,6 +136,7 @@ export const da: Catalog = {
 	"seat.name": "{name} (plads {seat})",
 	"log.label": "Spillets log",
 	"log.title": "Log",
+	"log.limited": "Tidligere træk er skjult, indtil spillet slutter.",
 	"log.recent": "Vis kun de seneste linjer",
 	"log.all": { one: "Vis hele loggen ({count} mere)", other: "Vis hele loggen ({count} mere)" },
 	"log.init": { one: "Nyt spil for {count} spiller", other: "Nyt spil for {count} spillere" },

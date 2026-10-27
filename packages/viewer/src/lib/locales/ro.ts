@@ -140,6 +140,7 @@ export const ro: Catalog = {
 	"seat.name": "{name} (locul {seat})",
 	"log.label": "Jurnalul jocului",
 	"log.title": "Jurnal",
+	"log.limited": "Mutările anterioare sunt ascunse până la sfârșitul jocului.",
 	"log.recent": "Arată doar ultimele rânduri",
 	"log.all": {
 		one: "Arată tot jurnalul (încă {count})",

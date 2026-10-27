@@ -135,6 +135,7 @@ export const fa: Catalog = {
 	"seat.name": "{name} (جایگاه {seat})",
 	"log.label": "گزارش بازی",
 	"log.title": "گزارش",
+	"log.limited": "حرکت‌های قبلی تا پایان بازی پنهان هستند.",
 	"log.recent": "فقط خط‌های اخیر",
 	"log.all": { one: "نمایش کل گزارش ({count} خط دیگر)", other: "نمایش کل گزارش ({count} خط دیگر)" },
 	"log.init": { one: "بازی جدید برای {count} بازیکن", other: "بازی جدید برای {count} بازیکن" },

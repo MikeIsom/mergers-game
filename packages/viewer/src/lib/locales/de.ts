@@ -136,6 +136,7 @@ export const de: Catalog = {
 	"seat.name": "{name} (Platz {seat})",
 	"log.label": "Spielprotokoll",
 	"log.title": "Protokoll",
+	"log.limited": "Frühere Züge bleiben bis zum Spielende verborgen.",
 	"log.recent": "Nur die letzten Zeilen zeigen",
 	"log.all": { one: "Ganzes Protokoll zeigen ({count} weitere)", other: "Ganzes Protokoll zeigen ({count} weitere)" },
 	"log.init": { one: "Neues Spiel für {count} Spieler", other: "Neues Spiel für {count} Spieler" },

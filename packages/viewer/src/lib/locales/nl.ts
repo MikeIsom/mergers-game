@@ -136,6 +136,7 @@ export const nl: Catalog = {
 	"seat.name": "{name} (plaats {seat})",
 	"log.label": "Spelverslag",
 	"log.title": "Verslag",
+	"log.limited": "Eerdere zetten blijven verborgen tot het einde van het spel.",
 	"log.recent": "Alleen recente regels tonen",
 	"log.all": { one: "Hele verslag tonen (nog {count})", other: "Hele verslag tonen (nog {count})" },
 	"log.init": { one: "Nieuw spel voor {count} speler", other: "Nieuw spel voor {count} spelers" },

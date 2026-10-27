@@ -136,6 +136,7 @@ export const vi: Catalog = {
 	"seat.name": "{name} (ghế {seat})",
 	"log.label": "Nhật ký ván chơi",
 	"log.title": "Nhật ký",
+	"log.limited": "Các nước đi trước bị ẩn cho đến khi ván chơi kết thúc.",
 	"log.recent": "Chỉ hiện các dòng gần đây",
 	"log.all": { other: "Hiện toàn bộ nhật ký (thêm {count})" },
 	"log.init": { other: "Ván mới cho {count} người chơi" },

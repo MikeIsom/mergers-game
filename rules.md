@@ -331,10 +331,16 @@ Each viewer must only receive information their player is entitled to.
 - **[DECISION] Game option `publicHoldings` (default: `false`):** When off, each player's
   current share holdings and cash are visible only to that player. When on, they are
   public.
-- **[DECISION] The game log is always public.** It records every action: tile
-  placements, stock purchases, bonuses paid, and each player's disposal choices. Only
-  the *current* holdings and cash are hidden, even though they can be reconstructed
-  from the log.
+- **[DECISION] The game log is public** unless `limitedLog` is on (below). It records
+  every action: tile placements, stock purchases, bonuses paid, and each player's disposal
+  choices. Only the *current* holdings and cash are hidden, even though they can be
+  reconstructed from the log.
+- **Game option `limitedLog` (default: `false`):** each player sees only the log from the
+  start of their own last turn before the current one, so the current turn, including a
+  merger in progress, is always shown. Spectators see as much as the active player.
+  Setup entries (options, turn order) stay visible. Earlier entries are replaced by
+  placeholders, keeping the log's length. The whole log is revealed when the game ends,
+  and replay is only available after that.
 - **[DECISION] Scores during play:** When `publicHoldings` is off, every player's score
   is 0 until the game ends. When it is on, the score is projected net worth: cash,
   current share sale values and majority/minority bonuses at current holdings (including
@@ -376,6 +382,7 @@ switches on one engine, not as separate code paths. Defaults reproduce the stand
 | `autoEnd` | true / false | false | When true, the game ends automatically at the end of the turn in which an end condition (§11.1) first holds, instead of waiting for an announcement. |
 | `stockSwap` | `off` / 3 / 5 / 7 / `unlimited` | `off` | Optional 1:1 exchanges with the bank before buying, paying or receiving the price difference. See §9.1. |
 | `twoTiles` | true / false | false | Hands of 8 tiles and two placements per turn (house rule). See §4.1. |
+| `limitedLog` | true / false | false | The log shows only what happened since your last turn until the game ends (house rule). See §13. |
 | `endSize` | 41 / 31 | 41 | The chain size that triggers the end condition in §11.1. Setting 31 gives a shorter game (house rule). Does not change the safe size (11) or the price table. |
 
 **[DECISION]** Invalid combinations are never rejected. An option that does not apply to

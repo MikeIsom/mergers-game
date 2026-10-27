@@ -210,6 +210,8 @@ export function describeEntry(
 			});
 		case "result":
 			return t("log.result", { results: list(entry.cash.map((cash, s) => `${seat(s)} ${money(cash)}`)) });
+		case "hidden":
+			return undefined;
 	}
 }
 

@@ -133,6 +133,7 @@ export const zhTW: Catalog = {
 	"seat.name": "{name}（座位 {seat}）",
 	"log.label": "遊戲紀錄",
 	"log.title": "紀錄",
+	"log.limited": "更早的行動在遊戲結束前隱藏。",
 	"log.recent": "只顯示最近幾行",
 	"log.all": { other: "顯示全部紀錄（還有 {count} 行）" },
 	"log.init": { other: "{count} 人新遊戲" },

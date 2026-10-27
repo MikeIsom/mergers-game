@@ -140,6 +140,7 @@ export const pl: Catalog = {
 	"seat.name": "{name} (miejsce {seat})",
 	"log.label": "Dziennik gry",
 	"log.title": "Dziennik",
+	"log.limited": "Wcześniejsze ruchy są ukryte do końca gry.",
 	"log.recent": "Pokaż tylko ostatnie wpisy",
 	"log.all": {
 		one: "Pokaż cały dziennik (jeszcze {count})",

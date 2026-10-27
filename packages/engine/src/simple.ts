@@ -202,6 +202,8 @@ export function simpleLine(state: GameState, entry: LogEntry): string {
 			return `${seat(entry.seat)} sold ${entry.shares} ${chainName(entry.chain)} for ${money(entry.proceeds)}`;
 		case "result":
 			return `Final cash: ${list(entry.cash.map((cash, s) => `${seat(s)} ${money(cash)}`))}`;
+		case "hidden":
+			return "An earlier move (hidden until the game ends)";
 	}
 	return "";
 }

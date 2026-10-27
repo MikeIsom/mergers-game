@@ -11,6 +11,8 @@ export interface GameOptions {
 	stockSwap?: 3 | 5 | 7 | "unlimited";
 	/** Omitted when off, like stockSwap. */
 	twoTiles?: true;
+	/** Omitted when off, like stockSwap. */
+	limitedLog?: true;
 }
 
 export interface IgnoredOption {
@@ -84,6 +86,9 @@ export function normalizeOptions(
 
 	if (raw.twoTiles === true) {
 		options.twoTiles = true;
+	}
+	if (raw.limitedLog === true) {
+		options.limitedLog = true;
 	}
 
 	return { options, ignored };

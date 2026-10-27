@@ -148,6 +148,7 @@ export const en = {
 	// Log
 	"log.label": "Game log",
 	"log.title": "Log",
+	"log.limited": "Earlier moves are hidden until the game ends.",
 	"log.recent": "Show recent lines only",
 	"log.all": { one: "Show the whole log ({count} more)", other: "Show the whole log ({count} more)" },
 	"log.init": { one: "New game for {count} player", other: "New game for {count} players" },

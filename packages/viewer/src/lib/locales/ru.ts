@@ -140,6 +140,7 @@ export const ru: Catalog = {
 	"seat.name": "{name} (место {seat})",
 	"log.label": "Журнал игры",
 	"log.title": "Журнал",
+	"log.limited": "Предыдущие ходы скрыты до конца игры.",
 	"log.recent": "Показать только последние строки",
 	"log.all": {
 		one: "Показать весь журнал (ещё {count})",

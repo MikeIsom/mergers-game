@@ -127,6 +127,12 @@
 			"label": "Two tiles per turn (hands of 8, optional variant)",
 			"type": "checkbox",
 			"default": false
+		},
+		{
+			"name": "limitedLog",
+			"label": "Limited game log (only since your last turn until the game ends)",
+			"type": "checkbox",
+			"default": false
 		}
 	],
 	"settings": [],

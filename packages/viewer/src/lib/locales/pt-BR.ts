@@ -140,6 +140,7 @@ export const ptBR: Catalog = {
 	"seat.name": "{name} (lugar {seat})",
 	"log.label": "Registro do jogo",
 	"log.title": "Registro",
+	"log.limited": "As jogadas anteriores ficam ocultas até o fim da partida.",
 	"log.recent": "Mostrar só as linhas recentes",
 	"log.all": {
 		one: "Mostrar o registro inteiro (mais {count})",

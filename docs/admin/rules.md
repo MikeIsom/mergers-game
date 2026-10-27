@@ -126,10 +126,17 @@ With two players, the bank also acts as a shareholder whenever bonuses are paid.
 
 ## What you can see
 
-Your tiles are private. Unless the game was created with **public holdings**, each player's cash and shares are private too; the game log is always public, so a careful player can work them out.
+Your tiles are private. Unless the game was created with **public holdings**, each player's cash and shares are private too; the game log is public (unless the game uses a limited game log, below), so a careful player can work them out.
+
+### Limited game log
+
+Much of Acquire is remembering who bought what. If the game uses **Limited game log**, the log only shows what has happened since your last turn. During a merger, the log still shows everything about that merger, even if it started before your last turn. The full log opens up once the game ends.
+
+Because replaying the game would show the full history, replay is only available after the game ends when this setting is on.
 
 ## Game options
 
+- **Limited game log:** the log shows only what happened since your last turn, until the game ends (see above).
 - **Two tiles per turn:** hands of 8 tiles and two tiles placed every turn (see above).
 - **Stock swap:** optional 1:1 exchanges with the bank before buying; Off / 3 / 5 / 7 / Unlimited shares per turn (see above).
 - **Public holdings:** everyone's cash and shares are visible.

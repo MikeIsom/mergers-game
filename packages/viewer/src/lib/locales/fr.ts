@@ -140,6 +140,7 @@ export const fr: Catalog = {
 	"seat.name": "{name} (place {seat})",
 	"log.label": "Journal de la partie",
 	"log.title": "Journal",
+	"log.limited": "Les coups précédents sont masqués jusqu'à la fin de la partie.",
 	"log.recent": "Afficher seulement les dernières lignes",
 	"log.all": {
 		one: "Afficher tout le journal ({count} de plus)",

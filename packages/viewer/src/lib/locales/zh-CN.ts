@@ -133,6 +133,7 @@ export const zhCN: Catalog = {
 	"seat.name": "{name}（座位 {seat}）",
 	"log.label": "游戏记录",
 	"log.title": "记录",
+	"log.limited": "更早的行动在游戏结束前隐藏。",
 	"log.recent": "只显示最近几行",
 	"log.all": { other: "显示全部记录（还有 {count} 行）" },
 	"log.init": { other: "{count} 人新游戏" },

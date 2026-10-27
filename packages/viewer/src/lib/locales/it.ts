@@ -141,6 +141,7 @@ export const it: Catalog = {
 	"seat.name": "{name} (posto {seat})",
 	"log.label": "Registro della partita",
 	"log.title": "Registro",
+	"log.limited": "Le mosse precedenti restano nascoste fino alla fine della partita.",
 	"log.recent": "Mostra solo le righe recenti",
 	"log.all": {
 		one: "Mostra tutto il registro (altre {count})",
