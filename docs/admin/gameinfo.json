@@ -124,7 +124,7 @@
 		},
 		{
 			"name": "twoTiles",
-			"label": "Two tiles per turn (hands of 8, optional variant)",
+			"label": "Two tiles per turn (hands of 8)",
 			"type": "checkbox",
 			"default": false
 		},
