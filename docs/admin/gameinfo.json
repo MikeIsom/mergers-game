@@ -130,7 +130,7 @@
 		},
 		{
 			"name": "limitedLog",
-			"label": "Limited game log (only since your last turn until the game ends)",
+			"label": "Limited game log (only last round)",
 			"type": "checkbox",
 			"default": false
 		}
