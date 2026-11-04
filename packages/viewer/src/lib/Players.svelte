@@ -30,7 +30,8 @@
 			<tbody>
 				{#each state.seats as seat, index (index)}
 					{@const held = CHAIN_IDS.filter((chain) => seat.shares[chain] !== 0)}
-					{@const hidden = seat.cash === HIDDEN}
+					{@const cashHidden = seat.cash === HIDDEN}
+					{@const sharesHidden = CHAIN_IDS.some((chain) => seat.shares[chain] === HIDDEN)}
 					<tr class:you={seats.includes(index)}>
 						<td>
 							{#if index === acting}<span class="turn" aria-label={t("players.acting")}>▶</span>{/if}
@@ -47,10 +48,14 @@
 								><small>{store.lang.money(seat.cash)}</small></td
 							>
 						{:else}
-							<td class="num" class:hidden-value={hidden}>{store.lang.money(seat.cash)}</td>
+							<td class="num" class:hidden-value={cashHidden}>{store.lang.money(seat.cash)}</td>
 						{/if}
 						<td>
-							{#if hidden}
+							{#if sharesHidden && seat.shareCount !== undefined}
+								<span class="share-count" title={t("players.shareCountHint")}
+									>{t("players.shareCount", { count: seat.shareCount })}</span
+								>
+							{:else if sharesHidden}
 								<span class="hidden-value">{t("hidden")}</span>
 							{:else if held.length === 0}
 								<span class="none">{t("players.none")}</span>
@@ -148,5 +153,8 @@
 	}
 	.none {
 		color: var(--ink-muted);
+	}
+	.share-count {
+		font-variant-numeric: tabular-nums;
 	}
 </style>

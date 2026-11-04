@@ -134,7 +134,13 @@ With two players, the bank also acts as a shareholder whenever bonuses are paid.
 
 ## What you can see
 
-Your tiles are private. Unless the game was created with **public holdings**, each player's cash and shares are private too; the game log is public (unless the game uses a limited game log, below), so a careful player can work them out.
+Your tiles are private. By default, each player's cash and shares are private too; the game log is public (unless the game uses a limited game log, below), so a careful player can work them out. The game's creator can make more visible:
+
+- **Cash only:** everyone's exact cash is shown.
+- **Cash and total share count:** everyone's exact cash and how many shares they hold in total are shown, but not which chains they are in.
+- **Everything (public holdings):** everyone's cash and shares are shown, along with an estimated net worth.
+
+Everything is shown once the game ends.
 
 ### Limited game log
 
@@ -148,7 +154,7 @@ Because replaying the game would show the full history, replay is only available
 - **Two tiles per turn:** hands of 8 tiles and two tiles placed every turn (see above).
 - **Shares per turn:** buy up to 3 (standard), 4 or 5 shares in total per turn, independently of stock swaps.
 - **Stock swap:** optional 1:1 exchanges with the bank before buying; Off / 3 / 5 / 7 / Unlimited shares per turn (see above).
-- **Public holdings:** everyone's cash and shares are visible.
+- **What players see of each other's cash and stock:** private (standard), cash only, cash and total share count, or everything (see above).
 - **Team play** (4 players only): seats 1 and 3 play against seats 2 and 4; each team's money is added together at the end.
 - **Two-player mode:** *Bank as third shareholder* (above) or *Four hands*, where each player controls two seats in a normal four-seat game and the player with the single richest seat wins.
 - **End automatically when an end condition is met:** the game ends at the end of that turn, with no announcement.

@@ -132,6 +132,10 @@ export const de: Catalog = {
 	"players.turn": "am Zug",
 	"players.left": "ausgeschieden",
 	"players.none": "keine",
+	"players.shareCount": { one: "{count} Aktie", other: "{count} Aktien" },
+	"players.shareCountHint": "Summe über alle Ketten; der Besitz je Kette ist verdeckt",
+	"log.optionIgnored.publicHoldings":
+		"Option {option} wurde ignoriert: publicHoldings zeigt bereits den gesamten Besitz",
 	hidden: "verdeckt",
 	"seat.name": "{name} (Platz {seat})",
 	"log.label": "Spielprotokoll",

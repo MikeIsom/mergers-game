@@ -45,3 +45,22 @@ test("wrapper: setPlayerMetaData stores the player name", () => {
 	const state = wrapper.setPlayerMetaData(wrapper.init(2, [], {}, "seed"), 1, { name: "Ada" });
 	assert.equal(state.seats[1]?.name, "Ada");
 });
+
+test("wrapper: BGS setup values for holdingsVisibility reach stripSecret, and scores stay private", () => {
+	for (const [raw, cash, shareCount] of [
+		[{ holdingsVisibility: "private" }, -1, undefined],
+		[{ holdingsVisibility: "cash" }, 6000, undefined],
+		[{ holdingsVisibility: "cashAndShareCount" }, 6000, 0],
+	] as const) {
+		const state = wrapper.init(3, [], raw, "seed");
+		const opponent = wrapper.stripSecret(state, 0).seats[1]!;
+		assert.equal(opponent.cash, cash, JSON.stringify(raw));
+		assert.equal(opponent.shareCount, shareCount);
+		assert.deepEqual(wrapper.scores(state), [0, 0, 0]);
+	}
+	for (const raw of [{ publicHoldings: true }, { holdingsVisibility: "public" }]) {
+		const state = wrapper.init(3, [], raw, "seed");
+		assert.deepEqual(wrapper.stripSecret(state, 0).seats[1]!.shares, state.seats[1]!.shares);
+		assert.deepEqual(wrapper.scores(state), [6000, 6000, 6000]);
+	}
+});

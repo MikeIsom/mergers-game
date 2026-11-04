@@ -35,7 +35,7 @@ as each player sees it. With hot seat on, it switches to whoever must act, so on
 play every seat. The toolbar plays random moves, jumps to the next merger, and switches
 player, theme and language.
 
-URL parameters: `players=2..6`, `seed=...`, `publicHoldings=1`, `teamPlay=1`, `autoEnd=1`,
+URL parameters: `players=2..6`, `seed=...`, `holdingsVisibility=cash` (or `cashAndShareCount`, `public`; legacy `publicHoldings=1`), `teamPlay=1`, `autoEnd=1`,
 `endSize=31`, `twoPlayerMode=fourHands`, `stockSwap=3` (or `5`, `7`, `unlimited`), `twoTiles=1`, `limitedLog=1`, `theme=light|dark`, `locale=de`, `moves=50` (random
 moves on load), `merger=1` (continue to the next merger).
 

@@ -131,6 +131,10 @@ export const fa: Catalog = {
 	"players.turn": "نوبت",
 	"players.left": "رفته",
 	"players.none": "هیچ",
+	"players.shareCount": { one: "{count} سهم", other: "{count} سهم" },
+	"players.shareCountHint": "مجموع در همه‌ی زنجیره‌ها؛ سهام هر زنجیره پنهان است",
+	"log.optionIgnored.publicHoldings":
+		"گزینه‌ی {option} نادیده گرفته شد: publicHoldings از قبل همه‌ی دارایی‌ها را نشان می‌دهد",
 	hidden: "پنهان",
 	"seat.name": "{name} (جایگاه {seat})",
 	"log.label": "گزارش بازی",

@@ -220,10 +220,11 @@ can be renamed later without touching game logic.
 5. Players can never sell stock except during merger disposal (§7.2) and final scoring
    (§11.2). There is no trading between players.
 6. **[DECISION]** The buy step is skipped automatically only for public reasons: no chain
-   is on the board, or the bank has no shares left in any active chain. When
-   `publicHoldings` is off (§13), it is never skipped because the player cannot afford a
-   share, since that would reveal their cash; they get the step and may buy nothing. When
-   `publicHoldings` is on, it is also skipped when the player cannot afford any share.
+   is on the board, or the bank has no shares left in any active chain. While cash is
+   private (`holdingsVisibility` `private`, §13), it is never skipped because the player
+   cannot afford a share, since that would reveal their cash; they get the step and may buy
+   nothing. When cash is public (every other level), it is also skipped when the player
+   cannot afford any share.
 
 ### 9.1 Optional stock swaps (house rule)
 
@@ -331,9 +332,22 @@ Each viewer must only receive information their player is entitled to.
 - **Always private:** each player's hand of tiles, and the order of the draw pool.
 - **Always public:** the board, chain names and sizes, current prices, and the number of
   shares left in the bank for each chain.
-- **[DECISION] Game option `publicHoldings` (default: `false`):** When off, each player's
-  current share holdings and cash are visible only to that player. When on, they are
-  public.
+- **[DECISION] Game option `holdingsVisibility` (default: `private`):** what everyone sees
+  of other players' current cash and share holdings during play.
+  - `private`: nothing; each player's cash and holdings are visible only to that player.
+  - `cash`: every player's exact cash is public; holdings stay private.
+  - `cashAndShareCount`: exact cash and each player's total number of shares across all
+    chains (including kept shares of chains not on the board) are public; how many shares
+    of each chain stays private.
+  - `public`: cash and every holding are public.
+
+  The legacy checkbox `publicHoldings: true` means `public` and wins over the select; an
+  intermediate level it overrides is logged as ignored. Normalized options keep
+  `publicHoldings` (true only at `public`) and store `holdingsVisibility` only for `cash`
+  and `cashAndShareCount`, so games created before this option keep identical init logs.
+  Projected net worth and scores need per-chain holdings, so they are shown only at
+  `public` (below). Summary lines say how many shares a player kept in a merger only at
+  `public`. The log is the same at every level.
 - **[DECISION] The game log is public** unless `limitedLog` is on (below). It records
   every action: tile placements, stock purchases, bonuses paid, and each player's disposal
   choices. Only the *current* holdings and cash are hidden, even though they can be
@@ -344,8 +358,9 @@ Each viewer must only receive information their player is entitled to.
   Setup entries (options, turn order) stay visible. Earlier entries are replaced by
   placeholders, keeping the log's length. The whole log is revealed when the game ends,
   and replay is only available after that.
-- **[DECISION] Scores during play:** When `publicHoldings` is off, every player's score
-  is 0 until the game ends. When it is on, the score is projected net worth: cash,
+- **[DECISION] Scores during play:** Unless holdings are `public`, every player's score
+  is 0 until the game ends, including at the `cash` and `cashAndShareCount` levels. At
+  `public`, the score is projected net worth: cash,
   current share sale values and majority/minority bonuses at current holdings (including
   ties and rounding). Future bonuses are excluded in two-player bank mode because the
   bank's holding is drawn only at payout. In-progress mergers never count paid bonuses
@@ -379,8 +394,9 @@ switches on one engine, not as separate code paths. Defaults reproduce the stand
 
 | Option | Values | Default | Effect |
 |---|---|---|---|
-| `publicHoldings` | true / false | false | See §13. When false, share holdings and cash are private. |
-| `teamPlay` | true / false | false | Only applies with exactly 4 players. Seats 1 and 3 form one team, seats 2 and 4 the other. All rules are unchanged; at final scoring each team's cash is added together and the team with more wins. **[DECISION]** With `publicHoldings` off, teammates still cannot see each other's holdings. |
+| `holdingsVisibility` | `private` / `cash` / `cashAndShareCount` / `public` | `private` | See §13. What everyone sees of other players' cash and holdings during play. |
+| `publicHoldings` | true / false | false | Legacy checkbox, kept for existing games: true means `holdingsVisibility: public`. See §13. |
+| `teamPlay` | true / false | false | Only applies with exactly 4 players. Seats 1 and 3 form one team, seats 2 and 4 the other. All rules are unchanged; at final scoring each team's cash is added together and the team with more wins. **[DECISION]** Below `public` holdings, teammates see each other's cash and holdings only as far as everyone does. |
 | `twoPlayerMode` | `bank` / `fourHands` | `bank` | Only has an effect with exactly 2 players. `bank` uses §12. `fourHands` runs a normal 4-seat game where each player controls two seats (player A has seats 1 and 3, player B has seats 2 and 4), with no bank shareholder. **[DECISION]** The player who controls the single richest seat wins; seats are not combined. |
 | `autoEnd` | true / false | false | When true, the game ends automatically at the end of the turn in which an end condition (§11.1) first holds, instead of waiting for an announcement. |
 | `sharesPerTurn` | 3 / 4 / 5 | 3 | Maximum shares purchased per turn in total across all active chains (house rule). Independent of stock swaps; see §9. |

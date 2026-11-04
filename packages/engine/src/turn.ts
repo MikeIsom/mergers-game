@@ -1,6 +1,6 @@
 import { activeChains, chainSize, playableTiles, tileLegality } from "./board.js";
 import { AUTO_TURN_LIMIT } from "./config.js";
-import { handSize } from "./options.js";
+import { cashIsPublic, handSize } from "./options.js";
 import { sharePrice } from "./prices.js";
 import { canAnnounce, endConditionMet, endGame } from "./scoring.js";
 import type { Tile } from "./tiles.js";
@@ -13,7 +13,7 @@ export function drawTile(state: GameState): Tile | undefined {
 
 /**
  * rules.md §9.6: whether the buy step has anything to offer. Only public facts count unless
- * holdings are public, so skipping the step never reveals a player's cash.
+ * cash is public (holdings level cash or above), so skipping the step never reveals it.
  */
 export function buyStepAvailable(state: GameState): boolean {
 	const seat = state.seats[state.activeSeat]!;
@@ -23,9 +23,9 @@ export function buyStepAvailable(state: GameState): boolean {
 	if (state.options.stockSwap && active.length > 1 && active.some((chain) => state.bank[chain] > 0)) {
 		return true;
 	}
-	const cashIsPublic = state.options.publicHoldings;
+	const cashKnown = cashIsPublic(state.options);
 	return activeChains(state.board).some(
-		(chain) => state.bank[chain] > 0 && (!cashIsPublic || sharePrice(chain, chainSize(state.board, chain)) <= seat.cash)
+		(chain) => state.bank[chain] > 0 && (!cashKnown || sharePrice(chain, chainSize(state.board, chain)) <= seat.cash)
 	);
 }
 

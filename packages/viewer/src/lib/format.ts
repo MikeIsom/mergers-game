@@ -1,6 +1,7 @@
 import {
 	CHAINS,
 	HIDDEN,
+	PUBLIC_HOLDINGS_OVERRIDE,
 	currentSeat,
 	merger,
 	secondPlacementDue,
@@ -98,6 +99,9 @@ export function describeEntry(
 		case "init":
 			return t("log.init", { count: entry.players });
 		case "optionIgnored": {
+			if (entry.reason === PUBLIC_HOLDINGS_OVERRIDE) {
+				return t("log.optionIgnored.publicHoldings", { option: entry.option });
+			}
 			const count = entry.option === "teamPlay" ? 4 : entry.option === "twoPlayerMode" ? 2 : undefined;
 			return count !== undefined && entry.reason.startsWith("only applies")
 				? t("log.optionIgnored.players", { option: entry.option, count })

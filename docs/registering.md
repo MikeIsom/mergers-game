@@ -146,7 +146,7 @@ do not replace other declarations from an old local snapshot.
 
 Current declaration sources are in [admin/gameinfo.json](admin/gameinfo.json):
 
-- Setup options include public holdings, team play, two-player mode, automatic ending, end size,
+- Setup options include holdings visibility (private / cash / cash and share count / public), team play, two-player mode, automatic ending, end size,
   **Shares per turn: 3 (standard) / 4 / 5**, **Stock swap: Off / 3 / 5 / 7 / Unlimited**,
   two tiles per turn and limited game log.
   Stock swaps, two tiles per turn and limited logs default Off.

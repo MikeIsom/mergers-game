@@ -1,7 +1,7 @@
 // Local dev harness (not part of the BGS bundle): runs the real engine in the page, plays
 // random moves on request, and lets you view the game as any player or as a spectator.
 // URL parameters: players=2..6, seed=..., view=N, hotseat=0, theme=light|dark, locale=de, and any game option, e.g. publicHoldings=1,
-// twoPlayerMode=fourHands, teamPlay=1, autoEnd=1, endSize=31. For reproducible screenshots: moves=N plays N random moves,
+// holdingsVisibility=cash|cashAndShareCount|public, twoPlayerMode=fourHands, teamPlay=1, autoEnd=1, endSize=31. For reproducible screenshots: moves=N plays N random moves,
 // merger=1 then plays on to the next merger decision, bar=0 hides this toolbar.
 import * as rules from "acquire-engine";
 import { currentSeat, legalMoves, type GameState } from "acquire-engine";
@@ -34,7 +34,7 @@ for (const key of ["publicHoldings", "teamPlay", "autoEnd", "twoTiles", "limited
 		options[key] = true;
 	}
 }
-for (const key of ["twoPlayerMode", "endSize", "stockSwap", "sharesPerTurn"]) {
+for (const key of ["holdingsVisibility", "twoPlayerMode", "endSize", "stockSwap", "sharesPerTurn"]) {
 	const value = params.get(key);
 	if (value) {
 		options[key] = value;
