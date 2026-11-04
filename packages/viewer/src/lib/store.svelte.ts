@@ -6,7 +6,7 @@ import { movesFor } from "./decisions";
 import { langFor } from "./format";
 import { isRightToLeft, type Locale } from "./i18n";
 import { replayStart, replayView } from "./replay";
-import { TurnDraft } from "./turn-draft";
+import { moveOutcome, TurnDraft, type MoveOutcome } from "./turn-draft";
 
 /** Context key: the store is given to every component at mount, for viewer-wide settings. */
 export const STORE = Symbol("viewer-store");
@@ -117,6 +117,16 @@ export class ViewerStore {
 	replayRange(): { start: number; end: number } {
 		const end = this.state!.log.length;
 		return { start: this.replayable ? replayStart(this.state!) : end, end };
+	}
+
+	/** Moves are private drafts that can be undone until a commit boundary. */
+	get drafting(): boolean {
+		return !!(this.options.turnDrafts && this.state?.supportsTurnDrafts && !this.analysis);
+	}
+
+	/** What sending `move` now would do to the private turn draft. */
+	outcome(move: Move): MoveOutcome | undefined {
+		return this.state ? moveOutcome($state.snapshot(this.state), move, this.player) : undefined;
 	}
 
 	send(move: Move): void {

@@ -477,6 +477,9 @@ try {
 			beforePreset,
 			"presets wait for Confirm"
 		);
+		assert.equal(await page.locator(".panel button.primary").innerText(), "Trade 6 for 3 Imperial and keep 1 Festival");
+		await page.locator(".keep-all").click();
+		assert.equal(await page.locator(".panel button.primary").innerText(), "Keep all 7 Festival");
 		for (const locale of locales) {
 			await preferences({ locale });
 			assert.ok(
@@ -1132,11 +1135,15 @@ try {
 					await page.getByRole("button", { name: "Buy one more Tower", exact: true }).click();
 				} else {
 					await page.locator(".choices button").filter({ hasText: "Festival" }).click();
+					await page.locator("main .panel button.primary").click();
 					await page.getByRole("alert").waitFor();
 					await page.locator(".choices button").filter({ hasText: "Worldwide" }).click();
+					await page.locator("main .panel button.primary").click();
 					await page.waitForSelector('.acquire-tutorial[data-step="5"]');
 					assert.match(await page.locator(".guide").innerText(), /\$4,500/);
-					// Default 0/0 keeps the Festival share after both bonuses are paid.
+					// Keeping the Festival share is an explicit choice; Confirm waits for it.
+					assert.equal(await page.locator("main .panel button.primary").isDisabled(), true);
+					await page.locator(".keep-all").click();
 					await page.locator("main .panel button.primary").click();
 					await page.waitForSelector('.acquire-tutorial[data-step="6"]');
 				}
@@ -1248,6 +1255,7 @@ try {
 				);
 				if (chapter === "mergers") {
 					await page.locator(".choices button").filter({ hasText: "Worldwide" }).click();
+					await page.locator("main .panel .primary").click();
 					await page.waitForSelector('.acquire-tutorial[data-step="5"]');
 				}
 				assert.ok(

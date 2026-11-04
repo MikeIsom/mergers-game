@@ -9,9 +9,11 @@
 		sharePurchaseLimit,
 		tileLabel,
 		type ChainId,
+		type Move,
 		type Shares,
 	} from "acquire-engine";
 	import ChainMark from "./ChainMark.svelte";
+	import HoldingChange from "./HoldingChange.svelte";
 	import StockSwap from "./StockSwap.svelte";
 	import { mergerPreview } from "./mergerPreview";
 	import {
@@ -25,6 +27,7 @@
 	} from "./decisions";
 	import { chainName } from "./format";
 	import type { ViewerStore } from "./store.svelte";
+	import { holdingsAfter, moveEffect } from "./turn-summary";
 
 	let { store }: { store: ViewerStore } = $props();
 
@@ -40,15 +43,20 @@
 	let confirmAnnounce = $state(false);
 	let swapOpen = $state(false);
 	let order = $state<ChainId[]>([]);
+	let survivor = $state<ChainId | undefined>();
 	let sell = $state(0);
 	let trade = $state(0);
+	// Keeping every share must be chosen as deliberately as selling or trading.
+	let chosen = $state(false);
 	let shares = $state<Partial<Shares>>({});
 	$effect(() => {
 		void store.state;
 		confirmAnnounce = false;
 		order = [];
+		survivor = undefined;
 		sell = 0;
 		trade = 0;
+		chosen = false;
 		shares = {};
 	});
 
@@ -66,6 +74,47 @@
 	const maxTrade = $derived(presets.trade?.trade ?? 0);
 	const tradeValue = $derived((maxTrade / 2) * (afterMerger?.price ?? 0) - maxTrade * sellPrice);
 	const valueChange = $derived(`${tradeValue < 0 ? "−" : "+"}${money(Math.abs(tradeValue))}`);
+	const keep = $derived(held - sell - trade);
+	const disposal = $derived<Move>({ type: "dispose", sell, trade });
+	const disposalLegal = $derived(canDispose(moves, sell, trade));
+	const disposalAfter = $derived.by(() => {
+		const effect = disposing && disposalLegal ? moveEffect(game, disposal) : undefined;
+		if (!effect) {
+			return undefined;
+		}
+		const after = holdingsAfter(game, effect);
+		return { ...after, shares: after.shares.filter(({ chain }) => chain === disposing || chain === m!.survivor) };
+	});
+	/** "Sell 3 for $1,200, trade 4 for 2 American and keep 1 Luxor" */
+	const disposalLabel = $derived.by(() => {
+		if (!disposing || !m) {
+			return "";
+		}
+		const actions = [
+			sell > 0 ? t("dispose.doSell", { count: sell, amount: money(sell * sellPrice) }) : "",
+			trade > 0 ? t("dispose.doTrade", { give: trade, receive: trade / 2, chain: chainName(m.survivor!) }) : "",
+			keep > 0 && keep === held ? t("dispose.doKeepAll", { count: keep, chain: chainName(disposing) }) : "",
+			keep > 0 && keep < held ? t("dispose.doKeep", { count: keep, chain: chainName(disposing) }) : "",
+		].filter(Boolean);
+		const text = lang.list(actions);
+		return text.charAt(0).toLocaleUpperCase(lang.locale) + text.slice(1);
+	});
+
+	const mergingChains = $derived(m ? CHAIN_IDS.filter((chain) => m.sizes[chain] !== undefined) : []);
+	// The decision this phase would send, to tell the player when Undo stops at it.
+	const decision = $derived.by((): Move | undefined => {
+		if (game.phase === "survivor") {
+			return ofType(moves, "survivor").find((move) => move.chain === survivor) ?? ofType(moves, "survivor")[0];
+		}
+		if (game.phase === "defunctOrder") {
+			return ofType(moves, "defunctOrder")[0];
+		}
+		if (game.phase === "dispose") {
+			return disposalLegal ? disposal : ofType(moves, "dispose")[0];
+		}
+		return undefined;
+	});
+	const lastUndo = $derived(!!decision && store.drafting && !!store.outcome(decision)?.commits);
 
 	const buyable = $derived(activeChains(game.board));
 	const buyLimit = $derived(sharePurchaseLimit(game.options));
@@ -150,17 +199,33 @@
 		{:else if game.phase === "survivor" && m}
 			<p>{t("survivor.prompt")}</p>
 			<div class="choices">
-				{#each CHAIN_IDS.filter((chain) => m.sizes[chain] !== undefined) as chain (chain)}
+				{#each mergingChains as chain (chain)}
 					<button
 						type="button"
 						class="choice"
 						class:actionable={survivors.has(chain)}
+						class:chosen={survivor === chain}
+						aria-pressed={survivors.has(chain) ? survivor === chain : undefined}
 						disabled={!survivors.has(chain)}
-						onclick={() => store.send({ type: "survivor", chain })}
+						onclick={() => (survivor = chain)}
 						><ChainMark {chain} withName /> <span class="size">{t("tiles", { count: m.sizes[chain]! })}</span></button
 					>
 				{/each}
 			</div>
+			<button
+				type="button"
+				class="primary"
+				class:actionable={survivor !== undefined}
+				disabled={survivor === undefined}
+				onclick={() => survivor && store.send({ type: "survivor", chain: survivor })}
+				>{survivor
+					? t("survivor.confirm", {
+							survivor: chainName(survivor),
+							defunct: lang.list(mergingChains.filter((chain) => chain !== survivor).map(chainName)),
+						})
+					: t("survivor.choose")}</button
+			>
+			{#if lastUndo}<p class="final-note">{t("turn.finalStep")}</p>{/if}
 		{:else if game.phase === "defunctOrder" && m}
 			<p>{t("order.prompt", { survivor: chainName(m.survivor!) })}</p>
 			<div class="choices">
@@ -184,7 +249,10 @@
 				class:actionable={orderComplete}
 				disabled={!orderComplete}
 				class="primary"
-				onclick={() => store.send({ type: "defunctOrder", chains: order })}>{t("order.confirm")}</button
+				onclick={() => store.send({ type: "defunctOrder", chains: order })}
+				>{orderComplete
+					? t("order.confirmChains", { chains: lang.list(order.map(chainName)) })
+					: t("order.confirm")}</button
 			>
 			<button
 				type="button"
@@ -192,6 +260,7 @@
 				disabled={order.length === 0}
 				onclick={() => (order = [])}>{t("order.reset")}</button
 			>
+			{#if lastUndo}<p class="final-note">{t("turn.finalStep")}</p>{/if}
 		{:else if game.phase === "dispose" && disposing && m}
 			<p>
 				{t("dispose.takenOver", { defunct: chainName(disposing), survivor: chainName(m.survivor!) })}
@@ -217,10 +286,12 @@
 							type="button"
 							class="preset sell-all"
 							class:actionable={!!presets.sell}
+							aria-pressed={presets.sell ? chosen && sell === held : undefined}
 							disabled={!presets.sell}
 							onclick={() => {
 								sell = presets.sell!.sell;
 								trade = 0;
+								chosen = true;
 							}}
 						>
 							{t("dispose.sellAll")} · <bdi dir="ltr">{money(held * sellPrice)}</bdi>
@@ -232,7 +303,10 @@
 							type="button"
 							class:actionable={canDispose(moves, sell - 1, trade)}
 							disabled={!canDispose(moves, sell - 1, trade)}
-							onclick={() => sell--}
+							onclick={() => {
+								sell--;
+								chosen = true;
+							}}
 							aria-label={t("dispose.sellFewer")}>−</button
 						>
 						<span class="value">{sell}</span>
@@ -240,7 +314,10 @@
 							type="button"
 							class:actionable={canDispose(moves, sell + 1, trade)}
 							disabled={!canDispose(moves, sell + 1, trade)}
-							onclick={() => sell++}
+							onclick={() => {
+								sell++;
+								chosen = true;
+							}}
 							aria-label={t("dispose.sellMore")}>+</button
 						>
 						<span class="effect">+{money(sell * sellPrice)}</span>
@@ -253,10 +330,12 @@
 							type="button"
 							class="preset trade-max"
 							class:actionable={!!presets.trade}
+							aria-pressed={presets.trade ? chosen && sell === 0 && trade === maxTrade : undefined}
 							disabled={!presets.trade}
 							onclick={() => {
 								sell = 0;
 								trade = maxTrade;
+								chosen = true;
 							}}
 						>
 							{#if maxTrade > 0}
@@ -266,13 +345,23 @@
 								{t("dispose.trade")}
 							{/if}
 						</button>
+						<small
+							>{maxTrade > 0
+								? t("dispose.tradeRate", { defunct: chainName(disposing), survivor: chainName(m.survivor!) })
+								: held < 2
+									? t("dispose.tradeFew")
+									: t("dispose.tradeNone", { chain: chainName(m.survivor!) })}</small
+						>
 					</div>
 					<div class="quantity">
 						<button
 							type="button"
 							class:actionable={canDispose(moves, sell, trade - 2)}
 							disabled={!canDispose(moves, sell, trade - 2)}
-							onclick={() => (trade -= 2)}
+							onclick={() => {
+								trade -= 2;
+								chosen = true;
+							}}
 							aria-label={t("dispose.tradeFewer")}>−</button
 						>
 						<span class="value">{trade}</span>
@@ -280,22 +369,53 @@
 							type="button"
 							class:actionable={canDispose(moves, sell, trade + 2)}
 							disabled={!canDispose(moves, sell, trade + 2)}
-							onclick={() => (trade += 2)}
+							onclick={() => {
+								trade += 2;
+								chosen = true;
+							}}
 							aria-label={t("dispose.tradeMore")}>+</button
 						>
 						<span class="effect">{t("dispose.receive", { count: trade / 2, chain: chainName(m.survivor!) })}</span>
 					</div>
 				</div>
 
-				<div class="keep-row">
-					<span class="label">{t("dispose.keep")}</span>
-					<span class="value">{held - sell - trade}</span>
-					<span class="effect">{t("dispose.keepNote", { chain: chainName(disposing) })}</span>
+				<div class="disposal-row">
+					<div class="label">
+						<button
+							type="button"
+							class="preset keep-all actionable"
+							aria-pressed={chosen && keep === held}
+							onclick={() => {
+								sell = 0;
+								trade = 0;
+								chosen = true;
+							}}
+							>{t("dispose.keepAll")}
+							<small>{t("dispose.keepNote", { chain: chainName(disposing) })}</small></button
+						>
+					</div>
+					<div class="quantity keep">
+						<span class="value">{keep}</span>
+						<span class="spacer"></span>
+					</div>
 				</div>
 			</div>
-			<button type="button" class="actionable primary" onclick={() => store.send({ type: "dispose", sell, trade })}
-				>{t("dispose.confirm")}</button
-			>
+			{#if chosen && disposalAfter}
+				<HoldingChange label={t("dispose.after")} cash={disposalAfter.cash} shares={disposalAfter.shares} />
+			{/if}
+			<div class="confirm-row">
+				<button
+					type="button"
+					class="primary"
+					class:actionable={chosen && disposalLegal}
+					disabled={!chosen || !disposalLegal}
+					onclick={() => store.send(disposal)}>{chosen ? disposalLabel : t("dispose.confirm")}</button
+				>
+				<p class="final-note">
+					{#if !chosen}<span>{t("dispose.choose")}</span>{/if}
+					{#if lastUndo}<span>{t("turn.finalStep")}</span>{/if}
+				</p>
+			</div>
 		{:else if game.phase === "buy"}
 			{#if game.options.stockSwap}<StockSwap {store} bind:open={swapOpen} />{/if}
 			<p>{t("buy.prompt", { limit: buyLimit })}</p>
@@ -430,8 +550,8 @@
 	}
 	.steppers {
 		display: grid;
-		gap: 6px;
-		margin: 0 0 8px;
+		gap: 4px;
+		margin: 0 0 4px;
 	}
 	.disposal-row {
 		display: grid;
@@ -449,16 +569,35 @@
 		grid-column: 1 / -1;
 		text-align: end;
 	}
-	.keep-row {
+	.quantity .spacer {
+		width: 36px;
+	}
+	/* Keep has no stepper: its count lines up with the other counts and its note gets the room. */
+	.quantity.keep {
+		grid-template-columns: 24px auto;
+	}
+	.panel .final-note {
+		margin: 4px 0 0;
+		font-size: 13px;
+		color: var(--ink-muted);
+	}
+	/* The disposal confirmation and its notes share a row where there is room. */
+	.confirm-row {
 		display: flex;
-		align-items: baseline;
-		gap: 8px;
+		flex-wrap: wrap;
+		align-items: center;
+		column-gap: 4px;
 	}
-	.keep-row .value {
-		min-width: 24px;
+	.confirm-row .final-note {
+		flex: 1 1 180px;
+		display: grid;
+		margin: 0;
 	}
-	.keep-row .effect {
-		direction: inherit;
+	.panel .choice.chosen,
+	.panel .preset[aria-pressed="true"] {
+		box-shadow: inset 0 0 0 2.5px var(--accent);
+		background: var(--panel-alt);
+		font-weight: 600;
 	}
 	.steppers .preset {
 		width: 100%;
@@ -477,7 +616,7 @@
 		white-space: nowrap;
 	}
 	.label > small {
-		margin-top: 4px;
+		margin-top: 2px;
 	}
 	.steppers button,
 	.stepper button {
@@ -537,7 +676,8 @@
 			min-height: 44px;
 		}
 		.steppers button,
-		.stepper button {
+		.stepper button,
+		.quantity .spacer {
 			width: 44px;
 		}
 	}
