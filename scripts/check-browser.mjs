@@ -149,6 +149,10 @@ try {
 				.screenshot({ path: fileURLToPath(new URL(`purchase-limit-${limit}-${theme}.png`, output)) });
 		}
 		await page.locator(".panel .primary").click();
+		// The final step waits for the turn summary.
+		assert.match(await page.locator(".turn-summary").innerText(), /bought/);
+		assert.equal(await page.evaluate(() => window.acquireDev.state.turn), 1);
+		await page.locator(".turn-summary").getByRole("button", { name: "End turn", exact: true }).click();
 		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
 		assert.deepEqual(
 			await page.evaluate(() => ({
@@ -208,6 +212,8 @@ try {
 		await page.locator(".board").getByRole("button", { name: "Place 3A", exact: true }).click();
 		await page.waitForSelector("table.buy");
 		await page.locator(".panel .primary").click();
+		assert.match(await page.locator(".turn-summary").innerText(), /placed 2A[\s\S]*placed 3A/);
+		await page.locator(".turn-summary").getByRole("button", { name: "End turn", exact: true }).click();
 		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
 		assert.deepEqual(
 			await page.evaluate(() => ({
@@ -360,6 +366,11 @@ try {
 			await page.getByRole("button", { name: "Buy one more Tower", exact: true }).click();
 		}
 		await page.getByRole("button", { name: "Buy for $900 and end turn", exact: true }).click();
+		assert.match(
+			await page.locator(".turn-summary").innerText(),
+			/swapped[\s\S]*swapped[\s\S]*bought 3 Tower for \$900/
+		);
+		await page.locator(".turn-summary").getByRole("button", { name: "End turn", exact: true }).click();
 		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
 		assert.deepEqual(
 			await page.evaluate(() => ({
@@ -564,6 +575,7 @@ try {
 		await page.waitForSelector("table.buy");
 		// Disposal remains an undoable private draft until this player finishes buying.
 		await page.getByRole("button", { name: "Buy nothing and end turn", exact: true }).click();
+		await page.locator(".turn-summary").getByRole("button", { name: "End turn", exact: true }).click();
 		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
 		const result = await page.evaluate(() => window.acquireDev.state.seats[0]);
 		assert.equal(result.shares.tower, expectedTrade / 2);
@@ -1012,6 +1024,16 @@ try {
 		await page.waitForSelector("table.buy");
 		await page.screenshot({ path: fileURLToPath(new URL(`undo-${width}.png`, output)), fullPage: true });
 		await page.locator(".panel .primary").click();
+		await page.locator(".turn-summary").getByRole("button", { name: "Back", exact: true }).click();
+		await page.waitForSelector("table.buy");
+		await page.locator(".panel .primary").click();
+		await page.screenshot({ path: fileURLToPath(new URL(`turn-summary-${width}.png`, output)), fullPage: true });
+		await page.locator(".turn-summary").getByRole("button", { name: "Undo", exact: true }).click();
+		await page.waitForSelector(".choices");
+		await page.locator(".choices button").filter({ hasText: "Luxor" }).click();
+		await page.waitForSelector("table.buy");
+		await page.locator(".panel .primary").click();
+		await page.locator(".turn-summary").getByRole("button", { name: "End turn", exact: true }).click();
 		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
 		await settle();
 		assert.equal(await undo.count(), 0, "no undo after drawing and handing over");

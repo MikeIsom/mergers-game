@@ -16,7 +16,11 @@ export const viewer = registerViewer<GameState, Move | TurnRequest>(
 		style.textContent = themeCss();
 		document.head.append(style);
 		const sounds = createActionSounds(target);
-		const store = new ViewerStore(move, { turnDrafts: true, onState: (state) => sounds.onState(state) });
+		const store = new ViewerStore(move, {
+			turnDrafts: true,
+			reviewTurns: true,
+			onState: (state) => sounds.onState(state),
+		});
 		store.theme = initialTheme();
 		const app = mount(App, { target, props: { store }, context: new Map([[STORE, store]]) });
 		return {
