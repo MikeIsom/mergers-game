@@ -17,6 +17,11 @@
 		store.state?.phase === "place" && store.moves.length > 0 && !store.sending ? store.selected : undefined
 	);
 
+	// Placing can cross a commit boundary mid-turn (e.g. paying merger bonuses), ending undo.
+	const final = $derived(
+		tile !== undefined && store.drafting && !!store.outcome({ type: "place", tile: tileLabel(tile) })?.commits
+	);
+
 	let row = $state<HTMLElement>();
 	// Bring the confirmation into view when it opens below a rack at the bottom of the screen.
 	$effect(() => {
@@ -37,6 +42,7 @@
 			>{t("place.button", { tile: tileLabel(tile) })}</button
 		>
 		<button type="button" class="actionable" onclick={() => (store.selected = undefined)}>{t("place.another")}</button>
+		{#if final}<p class="final-note">{t("turn.finalStep")}</p>{/if}
 	</div>
 {/if}
 
@@ -48,6 +54,11 @@
 	}
 	p {
 		margin: 0 0 8px;
+	}
+	.final-note {
+		margin: 4px 0 0;
+		font-size: 13px;
+		color: var(--ink-muted);
 	}
 	button {
 		margin-block: 4px;
