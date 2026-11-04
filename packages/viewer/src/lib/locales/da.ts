@@ -133,6 +133,10 @@ export const da: Catalog = {
 	"players.turn": "tur",
 	"players.left": "forladt",
 	"players.none": "ingen",
+	"players.shareCount": { one: "{count} aktie", other: "{count} aktier" },
+	"players.shareCountHint": "I alt på tværs af alle kæder; beholdningen pr. kæde er skjult",
+	"log.optionIgnored.publicHoldings":
+		"Indstillingen {option} blev ignoreret: publicHoldings viser allerede alle beholdninger",
 	hidden: "skjult",
 	"seat.name": "{name} (plads {seat})",
 	"log.label": "Spillets log",

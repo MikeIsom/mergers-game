@@ -2,7 +2,14 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { endConditionHolds } from "./board.js";
 import { applyMove } from "./moves.js";
-import { DEFAULT_OPTIONS, handSize, normalizeOptions } from "./options.js";
+import { legalMoves } from "./legal.js";
+import {
+	DEFAULT_OPTIONS,
+	PUBLIC_HOLDINGS_OVERRIDE,
+	handSize,
+	holdingsVisibility,
+	normalizeOptions,
+} from "./options.js";
 import { sharePrice } from "./prices.js";
 import { initGame } from "./setup.js";
 import { chainAt, checkInvariants, row, scenario } from "./test/helpers.js";
@@ -244,4 +251,123 @@ test("§15 publicHoldings: everyone's cash and stock are visible, hands are not"
 	assert.equal(view.seats[1]!.cash, 6000);
 	assert.equal(view.seats[1]!.shares.tower, 2);
 	assert.deepEqual(view.seats[1]!.hand, [-1]);
+});
+
+test("§15 holdingsVisibility: missing and private keep the historical options, intermediate levels are stored", () => {
+	const normalized = (raw: Record<string, unknown>) => normalizeOptions(3, raw);
+	for (const raw of [{}, { holdingsVisibility: "private" }]) {
+		assert.deepEqual(normalized(raw), { options: DEFAULT_OPTIONS, ignored: [] });
+	}
+	for (const level of ["cash", "cashAndShareCount"] as const) {
+		const { options, ignored } = normalized({ holdingsVisibility: level });
+		assert.deepEqual(options, { ...DEFAULT_OPTIONS, holdingsVisibility: level });
+		assert.deepEqual(ignored, []);
+		assert.equal(holdingsVisibility(options), level);
+	}
+	// Full public is stored exactly as the legacy checkbox stores it.
+	const legacy = normalized({ publicHoldings: true });
+	assert.deepEqual(legacy, { options: { ...DEFAULT_OPTIONS, publicHoldings: true }, ignored: [] });
+	assert.deepEqual(normalized({ holdingsVisibility: "public" }), legacy);
+	assert.equal(holdingsVisibility(legacy.options), "public");
+	assert.equal(holdingsVisibility(DEFAULT_OPTIONS), "private");
+	assert.equal("holdingsVisibility" in initGame(3, { publicHoldings: true }, "legacy").options, false);
+});
+
+test("§15 holdingsVisibility: invalid values are ignored and logged, falling back to the checkbox", () => {
+	for (const value of ["everything", "Cash", true, 2, null]) {
+		const { options, ignored } = normalizeOptions(3, { holdingsVisibility: value });
+		assert.deepEqual(options, DEFAULT_OPTIONS);
+		assert.deepEqual(ignored, [{ option: "holdingsVisibility", value, reason: "unknown value" }]);
+		assert.equal(normalizeOptions(3, { holdingsVisibility: value, publicHoldings: true }).options.publicHoldings, true);
+	}
+	assert.equal(normalizeOptions(3, { publicHoldings: "true" }).options.publicHoldings, false);
+});
+
+test("§15 holdingsVisibility: the legacy publicHoldings checkbox wins, and only a real conflict is logged", () => {
+	for (const level of ["private", "public"]) {
+		assert.deepEqual(normalizeOptions(3, { publicHoldings: true, holdingsVisibility: level }), {
+			options: { ...DEFAULT_OPTIONS, publicHoldings: true },
+			ignored: [],
+		});
+	}
+	for (const level of ["cash", "cashAndShareCount"]) {
+		const state = initGame(3, { publicHoldings: true, holdingsVisibility: level }, "conflict");
+		assert.deepEqual(state.options, { ...DEFAULT_OPTIONS, publicHoldings: true });
+		assert.deepEqual(ignoredLog(state), [
+			{ type: "optionIgnored", option: "holdingsVisibility", value: level, reason: PUBLIC_HOLDINGS_OVERRIDE },
+		]);
+	}
+});
+
+test("§13 holdingsVisibility cash: opponents' exact cash is visible, their stock is not", () => {
+	const state = scenario({
+		board: chainAt("tower", ["1A", "2A"]),
+		hands: [["9G"], ["9I"], ["11I"]],
+		shares: [{ tower: 1 }, { tower: 2, luxor: 3 }],
+		cash: [6000, 4300, 5100],
+		options: { holdingsVisibility: "cash" },
+	});
+	for (const player of [0, undefined]) {
+		const view = wrapper.stripSecret(state, player);
+		assert.equal(view.seats[1]!.cash, 4300);
+		assert.equal(view.seats[2]!.cash, 5100);
+		assert.equal(view.seats[1]!.shares.tower, -1);
+		assert.equal(view.seats[1]!.shares.luxor, -1);
+		assert.equal("shareCount" in view.seats[1]!, false);
+		assert.deepEqual(view.seats[1]!.hand, [-1]);
+	}
+	assert.deepEqual(wrapper.stripSecret(state, 0).seats[0], state.seats[0], "your own seat is complete");
+});
+
+test("§13 holdingsVisibility cashAndShareCount: exact cash and total shares, never the chains", () => {
+	const state = scenario({
+		board: chainAt("tower", ["1A", "2A"]),
+		hands: [["9G"], ["9I"], ["11I"]],
+		// Kept shares of a chain not on the board still count.
+		shares: [{ tower: 1 }, { tower: 2, luxor: 3 }],
+		cash: [6000, 4300, 5100],
+		options: { holdingsVisibility: "cashAndShareCount" },
+	});
+	for (const player of [0, undefined]) {
+		const view = wrapper.stripSecret(state, player);
+		assert.equal(view.seats[1]!.cash, 4300);
+		assert.equal(view.seats[1]!.shareCount, 5);
+		assert.equal(view.seats[2]!.shareCount, 0);
+		assert.ok(Object.values(view.seats[1]!.shares).every((count) => count === -1));
+		assert.deepEqual(view.seats[1]!.hand, [-1]);
+	}
+	const own = wrapper.stripSecret(state, 0).seats[0]!;
+	assert.deepEqual(own, state.seats[0], "your own seat is complete, without a share count");
+	assert.deepEqual(legalMoves(wrapper.stripSecret(state, 0)), legalMoves(state));
+});
+
+test("§13 holdingsVisibility: every level reveals everything once the game ends", () => {
+	for (const holdingsVisibility of ["cash", "cashAndShareCount"]) {
+		const state = scenario({
+			board: chainAt("tower", ["1A", "2A", "3A", "4A", "5A", "6A", "7A", "8A", "9A", "10A", "11A"]),
+			hands: [["9G"], ["9I", "12A"], ["11G"]],
+			shares: [{}, { luxor: 3 }],
+			cash: [6000, 4100, 6000],
+			options: { holdingsVisibility },
+		});
+		applyMove(state, { type: "announce" }, 0);
+		applyMove(state, { type: "place", tile: "9G" }, 0);
+		applyMove(state, { type: "buy", shares: {} }, 0);
+		assert.equal(state.ended, true);
+		const seat = wrapper.stripSecret(state, 0).seats[1]!;
+		assert.equal(seat.cash, 4100);
+		assert.equal(seat.shares.luxor, 3);
+		assert.equal("shareCount" in seat, false);
+	}
+});
+
+test("§15 holdingsVisibility games replay identically", () => {
+	for (const holdingsVisibility of ["cash", "cashAndShareCount", "public"]) {
+		const state = initGame(4, { holdingsVisibility }, `replay-${holdingsVisibility}`);
+		for (let step = 1; !state.ended && step < 200; step++) {
+			const moves = legalMoves(state).filter((move) => move.type !== "announce");
+			wrapper.move(state, moves[(step * 7919) % moves.length]!, wrapper.currentPlayer(state)!);
+		}
+		assert.deepEqual(wrapper.replay(structuredClone(state)), state);
+	}
 });

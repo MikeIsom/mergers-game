@@ -143,6 +143,9 @@ export const en = {
 	"players.turn": "turn",
 	"players.left": "left",
 	"players.none": "none",
+	"players.shareCount": { one: "{count} share", other: "{count} shares" },
+	"players.shareCountHint": "Total across all chains; holdings per chain are hidden",
+	"log.optionIgnored.publicHoldings": "Option {option} was ignored: publicHoldings already shows all holdings",
 	hidden: "hidden",
 	"seat.name": "{name} (seat {seat})",
 

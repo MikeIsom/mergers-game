@@ -44,10 +44,28 @@
 	],
 	"options": [
 		{
-			"name": "publicHoldings",
-			"label": "Public holdings (everyone sees all stock and cash)",
-			"type": "checkbox",
-			"default": false
+			"name": "holdingsVisibility",
+			"label": "What players see of each other's cash and stock",
+			"type": "select",
+			"default": "private",
+			"items": [
+				{
+					"name": "private",
+					"label": "Private (standard)"
+				},
+				{
+					"name": "cash",
+					"label": "Cash only"
+				},
+				{
+					"name": "cashAndShareCount",
+					"label": "Cash and total share count"
+				},
+				{
+					"name": "public",
+					"label": "Everything (public holdings)"
+				}
+			]
 		},
 		{
 			"name": "teamPlay",

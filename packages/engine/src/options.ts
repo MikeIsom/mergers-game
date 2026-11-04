@@ -2,7 +2,13 @@ import { END_SIZE, HAND_SIZE, MAX_BUY, TWO_TILE_HAND_SIZE } from "./config.js";
 
 /** rules.md §15, after normalisation against the player count. */
 export interface GameOptions {
+	/** Full public holdings (rules.md §13), also the highest holdingsVisibility level. */
 	publicHoldings: boolean;
+	/**
+	 * Only the intermediate levels are stored: private and public remain publicHoldings
+	 * false/true, preserving the init log of games created before this option.
+	 */
+	holdingsVisibility?: "cash" | "cashAndShareCount";
 	teamPlay: boolean;
 	twoPlayerMode: "bank" | "fourHands";
 	autoEnd: boolean;
@@ -41,6 +47,23 @@ export const DEFAULT_OPTIONS: GameOptions = {
 const END_SIZES = [41, 31];
 const HAND_SIZES = [6, 8, 10, 12, "6", "8", "10", "12"];
 
+/** The optionIgnored reason when the legacy checkbox already makes holdings public. */
+export const PUBLIC_HOLDINGS_OVERRIDE = "publicHoldings makes all holdings public";
+
+/** rules.md §13: how much of other players' holdings everyone sees, from least to most. */
+export const HOLDINGS_VISIBILITY = ["private", "cash", "cashAndShareCount", "public"] as const;
+export type HoldingsVisibility = (typeof HOLDINGS_VISIBILITY)[number];
+
+/** The holdings level during play; everything becomes public when the game ends. */
+export function holdingsVisibility(options: GameOptions): HoldingsVisibility {
+	return options.publicHoldings ? "public" : (options.holdingsVisibility ?? "private");
+}
+
+/** Whether exact cash is public, so decisions that depend only on cash may reveal it. */
+export function cashIsPublic(options: GameOptions): boolean {
+	return holdingsVisibility(options) !== "private";
+}
+
 /**
  * Reads the creator's options defensively. BGS omits unticked checkboxes and always sends
  * selects (as strings), so a missing checkbox means false. Options are never rejected
@@ -56,7 +79,25 @@ export function normalizeOptions(
 	const options: GameOptions = { ...DEFAULT_OPTIONS };
 	const ignored: IgnoredOption[] = [];
 
-	options.publicHoldings = raw.publicHoldings === true;
+	// The legacy publicHoldings checkbox always means full public holdings and wins over the
+	// holdingsVisibility select. Only an intermediate level it overrides is reported: the
+	// select's default "private" is always sent.
+	let visibility: HoldingsVisibility = "private";
+	if (HOLDINGS_VISIBILITY.includes(raw.holdingsVisibility as HoldingsVisibility)) {
+		visibility = raw.holdingsVisibility as HoldingsVisibility;
+	} else if (raw.holdingsVisibility !== undefined) {
+		ignored.push({ option: "holdingsVisibility", value: raw.holdingsVisibility, reason: "unknown value" });
+	}
+	if (raw.publicHoldings === true) {
+		if (visibility === "cash" || visibility === "cashAndShareCount") {
+			ignored.push({ option: "holdingsVisibility", value: visibility, reason: PUBLIC_HOLDINGS_OVERRIDE });
+		}
+		visibility = "public";
+	}
+	options.publicHoldings = visibility === "public";
+	if (visibility === "cash" || visibility === "cashAndShareCount") {
+		options.holdingsVisibility = visibility;
+	}
 	options.autoEnd = raw.autoEnd === true;
 
 	if (raw.teamPlay === true) {

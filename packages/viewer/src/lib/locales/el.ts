@@ -133,6 +133,10 @@ export const el: Catalog = {
 	"players.turn": "σειρά",
 	"players.left": "αποχώρησε",
 	"players.none": "καμία",
+	"players.shareCount": { one: "{count} μετοχή", other: "{count} μετοχές" },
+	"players.shareCountHint": "Σύνολο σε όλες τις αλυσίδες· οι μετοχές ανά αλυσίδα είναι κρυφές",
+	"log.optionIgnored.publicHoldings":
+		"Η επιλογή {option} αγνοήθηκε: το publicHoldings δείχνει ήδη όλες τις μετοχές και τα μετρητά",
 	hidden: "κρυφό",
 	"seat.name": "{name} (θέση {seat})",
 	"log.label": "Ημερολόγιο παιχνιδιού",
