@@ -139,6 +139,9 @@
 			flex-direction: column;
 			gap: 12px;
 		}
+		.turn-column {
+			gap: 8px;
+		}
 		.market {
 			gap: 8px;
 		}

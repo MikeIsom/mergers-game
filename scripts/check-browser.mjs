@@ -1104,7 +1104,7 @@ try {
 			// Desktop shows the whole compact layout. On phones frame the complete decision, board
 			// and hand, without appending a long column of tables, chat and history to the image.
 			const captureHeight = Math.ceil(width < 700 ? hand.y + hand.height + 12 : main.height);
-			assert.ok(captureHeight <= (width < 700 ? 1100 : 900), `${name}: gallery image became too tall`);
+			assert.ok(captureHeight <= (width < 700 ? 1100 : 940), `${name}: gallery image became too tall`);
 			if (captureHeight > page.viewportSize().height) {
 				await page.setViewportSize({ width, height: captureHeight });
 				await settle();

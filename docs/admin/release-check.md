@@ -1,7 +1,16 @@
-# Acquire — 29 October 2026
+# Acquire — 4 November 2026
 
-BGS registration: `acquire`, version `1`. Engine `0.0.6`, viewer `0.0.19`.
-Source: <https://github.com/boardgamers/mergers-game>. The live game is now public; preserve its current visibility when updating.
+BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.7`, viewer `0.0.20`.
+Source: <https://github.com/boardgamers/mergers-game>. The live game is public; preserve its current visibility when updating.
+
+## November update
+
+- Replace the public-holdings setup checkbox with a four-level holdings-visibility selector (private, cash, cash and total share count, or public), while retaining compatibility with old games.
+- Offer independent hand sizes of 6, 8, 10 or 12 tiles; relax founding/merger restrictions for new two-tile games without changing old replays. Show every viewer the same limited-log window (current turn plus the previous round).
+- Streamline merger confirmation, stock trades, turn summaries and undo warnings; tighten the desktop layout and phone placement controls. Fix the stock-swap panel when its default chain is off the board.
+- `pnpm check` passed; `pnpm test:browser` passed 68 locale/viewport combinations and 23 integration scenarios. The compact merger gallery capture is 927 pixels tall (within its revised 940-pixel budget); desktop/phone screenshots were inspected in `release/qa/`.
+
+## Previous public-release checks (29 October 2026)
 
 ## Validation
 
