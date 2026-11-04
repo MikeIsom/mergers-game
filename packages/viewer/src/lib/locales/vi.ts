@@ -92,6 +92,7 @@ export const vi: Catalog = {
 	"hand.eighth": "không thể lập chuỗi thứ 8",
 	"hand.deadNextTurn": "Được thay khi bắt đầu lượt sau của bạn",
 	"hand.oneFounding": "không thể lập chuỗi thứ hai trong lượt này",
+	"hand.mergeFounded": "không thể sáp nhập chuỗi vừa lập trong lượt này",
 	"hand.foundOrMerge": "không thể vừa lập chuỗi vừa sáp nhập trong cùng một lượt",
 	"chains.label": "Chuỗi khách sạn",
 	"chains.title": "Chuỗi",

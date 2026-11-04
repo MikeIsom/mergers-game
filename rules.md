@@ -41,7 +41,8 @@ original 1976 rules were silent or ambiguous, the choice made here is marked
 3. The player who placed the **lowest** tile goes first. Compare by number first, then
    letter: `2B` beats `2E` and `3A`. Play then proceeds clockwise (in seat order) from
    that player. **[DECISION]** "Clockwise" means ascending seat order, wrapping around.
-4. Each player then draws **6** tiles into their private hand.
+4. Each player then draws **6** tiles into their private hand (the `handSize` option, §15,
+   may set 8, 10 or 12).
 5. **[DECISION]** Options are never rejected at setup. An option that does not apply to
    the player count (see §15) is ignored, and the game log records that it was ignored.
 
@@ -57,7 +58,8 @@ player.
 3. **End-of-game announcement** (§11). Optional. **[DECISION]** Allowed at exactly two
    points: before placing a tile, and during the buy step (§11.1).
 4. **Replace dead tiles** (§5.3).
-5. **Draw** one tile to bring the hand back to 6, if the pool is not empty.
+5. **Draw** one tile to bring the hand back to 6 (or the `handSize`, §15), if the pool is
+   not empty.
 
 If the game was announced as over during this turn, run final scoring (§11.2) after
 the turn completes instead of passing to the next player.
@@ -70,8 +72,7 @@ they cannot buy anything.
 
 ### 4.1 Two tiles per turn (house rule)
 
-With `twoTiles` enabled (§15), hands hold **8** tiles instead of 6 (at setup and when
-drawing), and each turn places two tiles:
+With `twoTiles` enabled (§15), each turn places two tiles:
 
 1. At the start of the turn, the active seat discards its permanently unplayable tiles
    (§5.2) and draws replacements. They are not replaced at the end of the turn.
@@ -81,13 +82,19 @@ drawing), and each turn places two tiles:
 3. Place the second tile if any tile in hand is playable now; otherwise go straight to
    buying. A tile that became permanently unplayable during this turn cannot be placed and
    is replaced at the start of the seat's next turn.
-4. A turn founds at most one chain, and never both founds a chain and causes a merger, in
-   either order. It may cause two mergers, one per tile. Mergers caused by bank tiles do
-   not count towards these limits.
-5. Buy (§9, including §9.1 swaps) once, after both tiles, then draw back up to 8.
+4. A turn founds at most one chain, and the second tile cannot cause a merger involving the
+   chain the first tile founded (as survivor or defunct). Otherwise each tile follows the
+   usual rules: a merger may be followed by a founding or another merger, and a founding by
+   a merger of other chains. **[DECISION]** Games created before this revision (init
+   options without `twoTilesRelaxed`) keep the earlier limit, also when replayed: a turn
+   never both founds a chain and causes a merger, in either order, and mergers caused by
+   bank tiles do not count towards it.
+5. Buy (§9, including §9.1 swaps) once, after both tiles, then draw back up to the hand size.
 
 The end may also be announced between the two tiles, if an end condition holds at that
-moment. Dropped seats place their first two playable tiles by the §16 default.
+moment. Dropped seats place their first two playable tiles by the §16 default. The hand
+size is the separate `handSize` option (§15); games created before it hold **8** tiles with
+`twoTiles`.
 
 ## 5. Placing a Tile
 
@@ -385,7 +392,8 @@ switches on one engine, not as separate code paths. Defaults reproduce the stand
 | `autoEnd` | true / false | false | When true, the game ends automatically at the end of the turn in which an end condition (§11.1) first holds, instead of waiting for an announcement. |
 | `sharesPerTurn` | 3 / 4 / 5 | 3 | Maximum shares purchased per turn in total across all active chains (house rule). Independent of stock swaps; see §9. |
 | `stockSwap` | `off` / 3 / 5 / 7 / `unlimited` | `off` | Optional 1:1 exchanges with the bank before buying, paying or receiving the price difference. See §9.1. |
-| `twoTiles` | true / false | false | Hands of 8 tiles and two placements per turn (house rule). See §4.1. |
+| `twoTiles` | true / false | false | Two placements per turn (house rule). See §4.1. |
+| `handSize` | 6 / 8 / 10 / 12 | 6 | Tiles each seat draws at setup and refills to (house rule), with or without `twoTiles`. **[DECISION]** Without `handSize` in the init options (games created before it), hands hold 6, or 8 with `twoTiles`; normalized options omit `handSize` at that legacy size so those games replay identically. Twelve tiles for each of 6 players use 78 of the 108 tiles at setup, counting turn-order tiles. |
 | `limitedLog` | true / false | false | The log shows only what happened since your last turn until the game ends (house rule). See §13. |
 | `endSize` | 41 / 31 | 41 | The chain size that triggers the end condition in §11.1. Setting 31 gives a shorter game (house rule). Does not change the safe size (11) or the price table. |
 

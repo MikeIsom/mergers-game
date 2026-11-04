@@ -96,6 +96,7 @@ export const ptBR: Catalog = {
 	"hand.eighth": "não dá para fundar uma 8ª rede",
 	"hand.deadNextTurn": "Substituição no início do seu próximo turno",
 	"hand.oneFounding": "não dá para fundar uma segunda rede neste turno",
+	"hand.mergeFounded": "não dá para fundir a rede fundada neste turno",
 	"hand.foundOrMerge": "não dá para fundar uma rede e fundir no mesmo turno",
 	"chains.label": "Redes de hotéis",
 	"chains.title": "Redes",

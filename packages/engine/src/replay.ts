@@ -15,7 +15,7 @@ export function replayGame(data: GameState, to: number = data.log.length): GameS
 	if (!data.seed || first?.type !== "init") {
 		throw new Error("Replay needs the full game state, including the seed");
 	}
-	const state = initGame(first.players, first.rawOptions, data.seed);
+	const state = initGame(first.players, first.rawOptions, data.seed, first.options);
 	checkLog(state, data, 0);
 	while (state.log.length < to) {
 		const checked = state.log.length;

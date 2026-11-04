@@ -92,6 +92,7 @@ export const da: Catalog = {
 	"hand.eighth": "kan ikke grundlægge en 8. kæde",
 	"hand.deadNextTurn": "Udskiftes ved starten af din næste tur",
 	"hand.oneFounding": "kan ikke grundlægge en kæde mere i denne tur",
+	"hand.mergeFounded": "kan ikke fusionere kæden, du grundlagde i denne tur",
 	"hand.foundOrMerge": "kan ikke både grundlægge en kæde og fusionere i samme tur",
 	"chains.label": "Hotelkæder",
 	"chains.title": "Kæder",

@@ -91,6 +91,7 @@ export const zhCN: Catalog = {
 	"hand.eighth": "无法创立第 8 个连锁",
 	"hand.deadNextTurn": "在你下一回合开始时更换",
 	"hand.oneFounding": "本回合不能再创立第二个连锁",
+	"hand.mergeFounded": "不能合并本回合创立的连锁",
 	"hand.foundOrMerge": "同一回合内不能既创立连锁又进行合并",
 	"chains.label": "酒店连锁",
 	"chains.title": "连锁",

@@ -92,6 +92,7 @@ export const fa: Catalog = {
 	"hand.eighth": "زنجیره‌ی هشتم ممکن نیست",
 	"hand.deadNextTurn": "در آغاز نوبت بعدی شما جایگزین می‌شوند",
 	"hand.oneFounding": "در این نوبت زنجیره‌ی دوم ممکن نیست",
+	"hand.mergeFounded": "ادغام زنجیره‌ای که در این نوبت تأسیس شد ممکن نیست",
 	"hand.foundOrMerge": "تأسیس زنجیره و ادغام در یک نوبت ممکن نیست",
 	"chains.label": "زنجیره‌های هتل",
 	"chains.title": "زنجیره‌ها",

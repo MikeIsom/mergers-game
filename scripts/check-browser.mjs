@@ -170,6 +170,7 @@ try {
 		await page.evaluate((state) => {
 			const { parseTile, allTiles } = window.acquireDev.rules;
 			state.options.twoTiles = true;
+			state.options.twoTilesRelaxed = true;
 			state.options.limitedLog = true;
 			state.board[parseTile("1C")] = "loose";
 			state.seats[0].hand = ["2A", "3A", "2C", "5E", "7E", "9E", "7G", "9G"].map(parseTile);

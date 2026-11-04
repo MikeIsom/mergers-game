@@ -92,6 +92,7 @@ export const ko: Catalog = {
 	"hand.eighth": "8번째 체인은 세울 수 없음",
 	"hand.deadNextTurn": "다음 차례가 시작될 때 교체됩니다",
 	"hand.oneFounding": "이번 차례에 두 번째 체인은 세울 수 없음",
+	"hand.mergeFounded": "이번 차례에 세운 체인은 합병할 수 없음",
 	"hand.foundOrMerge": "한 차례에 체인 설립과 합병을 모두 할 수 없음",
 	"chains.label": "호텔 체인",
 	"chains.title": "체인",

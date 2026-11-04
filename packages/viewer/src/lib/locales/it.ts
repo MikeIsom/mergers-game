@@ -96,6 +96,7 @@ export const it: Catalog = {
 	"hand.eighth": "non si può fondare un'8ª catena",
 	"hand.deadNextTurn": "Sostituite all'inizio del tuo prossimo turno",
 	"hand.oneFounding": "non si può fondare una seconda catena in questo turno",
+	"hand.mergeFounded": "non si può fondere la catena fondata in questo turno",
 	"hand.foundOrMerge": "non si può fondare una catena e fondere nello stesso turno",
 	"chains.label": "Catene alberghiere",
 	"chains.title": "Catene",

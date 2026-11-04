@@ -143,9 +143,33 @@
 		},
 		{
 			"name": "twoTiles",
-			"label": "Two tiles per turn (hands of 8)",
+			"label": "Two tiles per turn",
 			"type": "checkbox",
 			"default": false
+		},
+		{
+			"name": "handSize",
+			"label": "Tiles in hand",
+			"type": "select",
+			"default": "6",
+			"items": [
+				{
+					"name": "6",
+					"label": "6 (standard)"
+				},
+				{
+					"name": "8",
+					"label": "8"
+				},
+				{
+					"name": "10",
+					"label": "10"
+				},
+				{
+					"name": "12",
+					"label": "12"
+				}
+			]
 		},
 		{
 			"name": "limitedLog",

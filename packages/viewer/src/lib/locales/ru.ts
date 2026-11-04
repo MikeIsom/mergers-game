@@ -97,6 +97,7 @@ export const ru: Catalog = {
 	"hand.eighth": "нельзя основать 8-ю сеть",
 	"hand.deadNextTurn": "Заменяются в начале вашего следующего хода",
 	"hand.oneFounding": "нельзя основать вторую сеть за этот ход",
+	"hand.mergeFounded": "нельзя слить сеть, основанную в этот ход",
 	"hand.foundOrMerge": "нельзя за один ход и основать сеть, и провести слияние",
 	"chains.label": "Гостиничные сети",
 	"chains.title": "Сети",

@@ -1,5 +1,5 @@
 import { CHAIN_IDS, MAX_PLAYERS, MIN_PLAYERS, SHARES_PER_CHAIN, STARTING_CASH } from "./config.js";
-import { handSize, normalizeOptions, seatOwners } from "./options.js";
+import { handSize, normalizeOptions, seatOwners, type GameOptions } from "./options.js";
 import { shuffle } from "./prng.js";
 import { allTiles } from "./tiles.js";
 import { drawTile, startTurn } from "./turn.js";
@@ -9,12 +9,20 @@ function sharesOf(count: number): Shares {
 	return Object.fromEntries(CHAIN_IDS.map((chain) => [chain, count])) as Shares;
 }
 
-/** Creates a game for `players` real players; fourHands gives each of them two seats. */
-export function initGame(players: number, rawOptions: Record<string, unknown>, seed: string): GameState {
+/**
+ * Creates a game for `players` real players; fourHands gives each of them two seats. Replay
+ * passes the init log's `recorded` options to keep the rules the game was created with.
+ */
+export function initGame(
+	players: number,
+	rawOptions: Record<string, unknown>,
+	seed: string,
+	recorded?: Partial<GameOptions>
+): GameState {
 	if (!Number.isInteger(players) || players < MIN_PLAYERS || players > MAX_PLAYERS) {
 		throw new Error(`Acquire needs ${MIN_PLAYERS} to ${MAX_PLAYERS} players`);
 	}
-	const { options, ignored } = normalizeOptions(players, rawOptions);
+	const { options, ignored } = normalizeOptions(players, rawOptions, recorded);
 	const seatOwner = seatOwners(players, options);
 	const seats = seatOwner.length;
 	const state: GameState = {
