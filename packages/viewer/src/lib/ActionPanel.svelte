@@ -123,6 +123,14 @@
 	const price = (chain: ChainId) => sharePrice(chain, chainSize(game.board, chain));
 	const cost = $derived(Object.entries(shares).reduce((sum, [chain, n]) => sum + n * price(chain as ChainId), 0));
 	const total = $derived(Object.values(shares).reduce((sum, n) => sum + n, 0));
+	const cash = $derived(seat === undefined ? 0 : game.seats[seat]!.cash);
+	/** Why one more share of `chain` cannot be added, beyond the shared purchase limit. */
+	function buyBlocked(chain: ChainId): string | undefined {
+		if (total >= buyLimit || canBuy(moves, adjustShares(shares, chain, 1))) {
+			return undefined;
+		}
+		return game.bank[chain] - (shares[chain] ?? 0) <= 0 ? t("buy.soldOut") : t("buy.cantAfford");
+	}
 
 	function placeSelected(): void {
 		if (store.selected !== undefined) {
@@ -425,8 +433,23 @@
 						{#each buyable as chain (chain)}
 							{@const fewer = adjustShares(shares, chain, -1)}
 							{@const more = adjustShares(shares, chain, 1)}
+							{@const own = game.seats[seat!]!.shares[chain]}
+							{@const why = buyBlocked(chain)}
 							<tr>
-								<td><ChainMark {chain} withName /></td>
+								<td>
+									<ChainMark {chain} withName />
+									{#if own > 0 || shares[chain]}
+										<small class="own"
+											>{t("buy.owned")}
+											<bdi dir="ltr"
+												>{#if shares[chain]}{own}<span class="arrow">→</span>{/if}<strong
+													>{own + (shares[chain] ?? 0)}</strong
+												></bdi
+											></small
+										>
+									{/if}
+									{#if why}<small class="why">{why}</small>{/if}
+								</td>
 								<td class="num">{money(price(chain))}</td>
 								<td class="num">{game.bank[chain]}</td>
 								<td class="num stepper">
@@ -456,8 +479,9 @@
 					count: total,
 					limit: buyLimit,
 					cost: money(cost),
-					cash: money(game.seats[seat!]!.cash - cost),
+					cash: money(cash - cost),
 				})}
+				{#if total >= buyLimit}<small class="why">{t("buy.limitReached", { limit: buyLimit })}</small>{/if}
 			</p>
 			<button type="button" class="actionable primary" onclick={() => store.send({ type: "buy", shares })}>
 				{total === 0 ? t("buy.nothing") : t("buy.confirm", { cost: money(cost) })}
@@ -585,6 +609,19 @@
 		box-shadow: inset 0 0 0 2.5px var(--accent);
 		background: var(--panel-alt);
 		font-weight: 600;
+	}
+	.own,
+	.why {
+		display: block;
+		font-size: 12px;
+		color: var(--ink-muted);
+		font-variant-numeric: tabular-nums;
+	}
+	.why {
+		font-style: italic;
+	}
+	.own .arrow {
+		margin-inline: 0.25em;
 	}
 	.steppers .preset {
 		width: 100%;
