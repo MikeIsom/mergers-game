@@ -9,6 +9,7 @@ Source: <https://github.com/boardgamers/mergers-game>. The live game is public; 
 - Offer independent hand sizes of 6, 8, 10 or 12 tiles; relax founding/merger restrictions for new two-tile games without changing old replays. Show every viewer the same limited-log window (current turn plus the previous round).
 - Streamline merger confirmation, stock trades, turn summaries and undo warnings; tighten the desktop layout and phone placement controls. Fix the stock-swap panel when its default chain is off the board.
 - `pnpm check` passed; `pnpm test:browser` passed 68 locale/viewport combinations and 23 integration scenarios. The compact merger gallery capture is 927 pixels tall (within its revised 940-pixel budget); desktop/phone screenshots were inspected in `release/qa/`.
+- Published source commit `9e9120c` to `origin/main`; uploaded engine `0.0.7`, activated viewer `0.0.20`, replaced the legacy public-holdings checkbox with the holdings-visibility selector, added hand-size choices, refreshed the two-tile label and updated the English CMS rules. The final metadata remains public with BGS version `1`; hosted engine, JS and CSS bytes match local artifacts. Deployment snapshots are ignored under `release/publish/latest-20261104-180152/`. Engine upload and hosted bytes are verified, but game-server activation cannot be established without server manifest or installation logs.
 
 ## Previous public-release checks (29 October 2026)
 
