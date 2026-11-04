@@ -13,6 +13,8 @@ export interface GameOptions {
 	sharesPerTurn?: 4 | 5;
 	/** Omitted when off, like stockSwap. */
 	twoTiles?: true;
+	/** Omitted at the legacy size (6, or 8 with twoTiles), so games created before it replay. */
+	handSize?: 6 | 8 | 10 | 12;
 	/**
 	 * Set with twoTiles in games created under the relaxed founding/merger limits (rules.md
 	 * §4.1). Two-tile games logged before them lack it and keep the original limits.
@@ -37,6 +39,7 @@ export const DEFAULT_OPTIONS: GameOptions = {
 };
 
 const END_SIZES = [41, 31];
+const HAND_SIZES = [6, 8, 10, 12, "6", "8", "10", "12"];
 
 /**
  * Reads the creator's options defensively. BGS omits unticked checkboxes and always sends
@@ -107,6 +110,16 @@ export function normalizeOptions(
 			options.twoTilesRelaxed = true;
 		}
 	}
+	if (raw.handSize !== undefined) {
+		if (HAND_SIZES.includes(raw.handSize as number | string)) {
+			const size = Number(raw.handSize) as 6 | 8 | 10 | 12;
+			if (size !== legacyHandSize(options)) {
+				options.handSize = size;
+			}
+		} else {
+			ignored.push({ option: "handSize", value: raw.handSize, reason: "unknown value" });
+		}
+	}
 	if (raw.limitedLog === true) {
 		options.limitedLog = true;
 	}
@@ -119,9 +132,14 @@ export function sharePurchaseLimit(options: GameOptions): number {
 	return options.sharesPerTurn ?? MAX_BUY;
 }
 
-/** rules.md §15 twoTiles: hands hold 8 tiles instead of 6. */
-export function handSize(options: GameOptions): number {
+/** Games created before the handSize option hold 6 tiles, or 8 with twoTiles. */
+function legacyHandSize(options: GameOptions): number {
 	return options.twoTiles ? TWO_TILE_HAND_SIZE : HAND_SIZE;
+}
+
+/** rules.md §15 handSize: the number of tiles each seat draws up to. */
+export function handSize(options: GameOptions): number {
+	return options.handSize ?? legacyHandSize(options);
 }
 
 /** Internal seats per real player: fourHands gives each of the 2 players two seats. */

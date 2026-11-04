@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { HIDDEN, parseTile, sortTiles, tileLabel, tileLegality, type Tile } from "acquire-engine";
+	import { handSize, HIDDEN, parseTile, sortTiles, tileLabel, tileLegality, type Tile } from "acquire-engine";
 	import { ofType, turnLimit } from "./decisions";
 	import { seatName } from "./format";
 	import type { ViewerStore } from "./store.svelte";
@@ -40,7 +40,7 @@
 	{@const limited = hand.filter((tile) => turnLimit(state, seat, tile) !== undefined)}
 	<section class="hand" aria-label={t("hand.of", { name: seatName(state, seat, store.lang) })}>
 		<h2>{store.seats.length > 1 ? t("hand.seat", { seat: seat + 1 }) : t("hand.yours")}</h2>
-		<div class="tiles" class:eight={state.options.twoTiles}>
+		<div class="tiles" data-size={handSize(state.options)}>
 			{#each hand as tile, index (index)}
 				{@const permanent = dead.includes(tile)}
 				{@const blocked = permanent || paused.includes(tile) || limited.includes(tile)}
@@ -102,27 +102,52 @@
 <style>
 	.hand {
 		margin: 12px 0 0;
+		container-type: inline-size;
 	}
 	.hand:first-child {
 		margin-top: 0;
 	}
-	/* Six tiles fit on one row; the 12px gaps leave room for outlines drawn outside the tiles. */
+	/* Six tiles fit on one row; the 12px gaps leave room for outlines drawn outside the tiles.
+	   A row of n 52px tiles needs 64n + 4px; 44px tiles need 56n + 4px. */
 	.tiles {
+		--columns: 6;
 		display: grid;
-		grid-template-columns: repeat(6, minmax(0, 52px));
+		grid-template-columns: repeat(var(--columns), minmax(0, 52px));
 		gap: 12px;
 		padding: 8px;
 		background: var(--rack);
 		width: max-content;
 		max-width: 100%;
 	}
-	/* Eight tiles (two tiles per turn) take one row where it fits and two rows of four on phones. */
-	.tiles.eight {
-		grid-template-columns: repeat(8, minmax(0, 52px));
+	/* Larger hands take one row where the rack's column fits it, otherwise two even rows. */
+	.tiles[data-size="8"] {
+		--columns: 4;
 	}
-	@media (max-width: 560px) {
-		.tiles.eight {
-			grid-template-columns: repeat(4, minmax(0, 52px));
+	.tiles[data-size="10"] {
+		--columns: 5;
+	}
+	.tiles[data-size="12"] {
+		--columns: 6;
+	}
+	@container (min-width: 516px) {
+		.tiles[data-size="8"] {
+			--columns: 8;
+		}
+	}
+	@container (min-width: 644px) {
+		.tiles[data-size="10"] {
+			--columns: 10;
+		}
+	}
+	@container (min-width: 772px) {
+		.tiles[data-size="12"] {
+			--columns: 12;
+		}
+	}
+	/* Narrow phones: three rows of four rather than tiles below the 44px touch size. */
+	@container (max-width: 339px) {
+		.tiles[data-size="12"] {
+			--columns: 4;
 		}
 	}
 	.tile {

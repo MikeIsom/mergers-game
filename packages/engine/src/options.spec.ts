@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { endConditionHolds } from "./board.js";
 import { applyMove } from "./moves.js";
-import { DEFAULT_OPTIONS, normalizeOptions } from "./options.js";
+import { DEFAULT_OPTIONS, handSize, normalizeOptions } from "./options.js";
 import { sharePrice } from "./prices.js";
 import { initGame } from "./setup.js";
 import { chainAt, checkInvariants, row, scenario } from "./test/helpers.js";
@@ -91,6 +91,45 @@ test("§3.5 options are never rejected: unknown values are ignored and logged", 
 		]
 	);
 	assert.doesNotThrow(() => wrapper.init(2, [], { teamPlay: true, twoPlayerMode: "fourHands", endSize: 7 }, "x"));
+});
+
+test("§15 handSize: missing keeps the legacy hand of 6, or 8 with twoTiles, and leaves the init log unchanged", () => {
+	assert.equal("handSize" in normalizeOptions(3, {}).options, false);
+	assert.equal(handSize(normalizeOptions(3, {}).options), 6);
+	assert.equal("handSize" in normalizeOptions(3, { twoTiles: true }).options, false);
+	assert.equal(handSize(normalizeOptions(3, { twoTiles: true }).options), 8);
+	const init = initGame(3, {}, "no-hand-size").log[0] as Extract<LogEntry, { type: "init" }>;
+	assert.deepEqual(init.options, DEFAULT_OPTIONS);
+});
+
+test("§15 handSize: every size is read as BGS sends it, alone or with twoTiles; the legacy size is omitted", () => {
+	for (const twoTiles of [false, true]) {
+		const legacy = twoTiles ? 8 : 6;
+		for (const size of [6, 8, 10, 12]) {
+			for (const sent of [String(size), size]) {
+				const { options, ignored } = normalizeOptions(3, { ...(twoTiles && { twoTiles }), handSize: sent });
+				assert.deepEqual(ignored, []);
+				assert.equal(handSize(options), size);
+				assert.equal(options.handSize, size === legacy ? undefined : size);
+				assert.equal("handSize" in options, size !== legacy, `handSize ${sent} with twoTiles ${twoTiles}`);
+			}
+		}
+	}
+	assert.deepEqual(normalizeOptions(3, { handSize: "10" }).options, { ...DEFAULT_OPTIONS, handSize: 10 });
+});
+
+test("§15 handSize: unknown values are ignored and logged, keeping the legacy size", () => {
+	for (const value of ["7", 7, "", "eight", "08", " 8", 6.5, 14, true, null, ["8"]]) {
+		for (const twoTiles of [false, true]) {
+			const state = initGame(3, { ...(twoTiles && { twoTiles }), handSize: value }, "bad-hand-size");
+			assert.equal("handSize" in state.options, false);
+			assert.deepEqual(
+				ignoredLog(state).map((e) => [e.option, e.value, e.reason]),
+				[["handSize", value, "unknown value"]]
+			);
+			assert.ok(state.seats.every((seat) => seat.hand.length === (twoTiles ? 8 : 6)));
+		}
+	}
 });
 
 test("§15 endSize 31: a 31-tile chain meets the end condition; safe size and prices are unchanged", () => {
