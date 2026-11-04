@@ -668,7 +668,7 @@ try {
 		await open(`players=4&moves=95&publicHoldings=1&theme=${theme}`);
 		const geometry = await page.evaluate(() => {
 			const main = document.querySelector("main");
-			const column = document.querySelector(".layout > .board");
+			const column = document.querySelector(".board-column > .board");
 			const frame = column.querySelector(".frame");
 			return {
 				margin: getComputedStyle(document.body).margin,
@@ -1028,17 +1028,28 @@ try {
 		"desktop/phone undo, repeated private revisions, refresh, no undo network calls, one saved turn and one clock increment"
 	);
 
-	// The desktop used to stack every supporting panel in one tall sidebar. Check the rendered
-	// arrangement and height, not only horizontal overflow, before creating gallery images.
+	// The desktop used to stack every supporting panel in one tall sidebar, and later left empty
+	// areas beside the board. Each column now stacks its own panels; check the rendered arrangement.
 	await page.setViewportSize({ width: 1280, height: 900 });
 	await open("players=4&moves=95&publicHoldings=1");
-	const board = await page.locator(".layout > .board").boundingBox();
-	const panels = await Promise.all(
-		[".players", ".history", ".conversation"].map((selector) => page.locator(`.layout > ${selector}`).boundingBox())
-	);
-	for (const panel of panels) {
-		assert.ok(panel.y >= board.y + board.height, "supporting panels sit below the board");
-		assert.ok(Math.abs(panel.y - panels[0].y) < 1, "supporting panels share a desktop row");
+	const box = (selector) => page.locator(`.layout ${selector}`).boundingBox();
+	const columns = [
+		[".board-column > .board", ".board-column > .players"],
+		[".turn-column > .controls", ".turn-column > .hand", ".turn-column > .market"],
+		[".talk-column > .history", ".talk-column > .conversation"],
+	];
+	let previousColumn;
+	for (const column of columns) {
+		const boxes = await Promise.all(column.map(box));
+		for (const [index, panel] of boxes.entries()) {
+			assert.ok(Math.abs(panel.x - boxes[0].x) < 1, `${column[index]} stays in its column`);
+			if (index > 0) {
+				const gap = panel.y - (boxes[index - 1].y + boxes[index - 1].height);
+				assert.ok(gap >= 0 && gap < 40, `${column[index]} follows the panel above it without an empty area`);
+			}
+		}
+		assert.ok(!previousColumn || boxes[0].x > previousColumn.x + previousColumn.width, "desktop columns side by side");
+		previousColumn = boxes[0];
 	}
 	assert.ok((await page.locator("main").boundingBox()).height <= 900, "desktop game fits within 900px");
 	assert.equal(await page.locator(".log li").count(), 8);
@@ -1046,7 +1057,7 @@ try {
 	assert.ok((await page.locator(".log li").count()) > 100, "full history remains available");
 	await page.locator(".history button").click();
 	assert.equal(await page.locator(".log li").count(), 8);
-	report.scenarios.push("balanced desktop panels, compact recent history and expandable full log");
+	report.scenarios.push("independent desktop columns, compact recent history and expandable full log");
 
 	for (const [name, params, width, height] of [
 		["overview", "players=4&moves=95&publicHoldings=1", 1280, 900],
@@ -1057,7 +1068,7 @@ try {
 		for (const theme of ["light", "dark"]) {
 			await open(`${params}&theme=${theme}`);
 			const main = await page.locator("main").boundingBox();
-			const hand = await page.locator(".layout > .hand").boundingBox();
+			const hand = await page.locator(".turn-column > .hand").boundingBox();
 			// Desktop shows the whole compact layout. On phones frame the complete decision, board
 			// and hand, without appending a long column of tables, chat and history to the image.
 			const captureHeight = Math.ceil(width < 700 ? hand.y + hand.height + 12 : main.height);
