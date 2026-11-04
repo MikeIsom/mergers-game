@@ -99,6 +99,7 @@ export const en = {
 	"hand.eighth": "can't found an 8th chain",
 	"hand.deadNextTurn": "Replaced at the start of your next turn",
 	"hand.oneFounding": "can't found a second chain this turn",
+	"hand.mergeFounded": "can't merge the chain you founded this turn",
 	"hand.foundOrMerge": "can't both found a chain and merge in one turn",
 
 	// Chain and price tables

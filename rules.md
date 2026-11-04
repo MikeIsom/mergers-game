@@ -81,9 +81,13 @@ drawing), and each turn places two tiles:
 3. Place the second tile if any tile in hand is playable now; otherwise go straight to
    buying. A tile that became permanently unplayable during this turn cannot be placed and
    is replaced at the start of the seat's next turn.
-4. A turn founds at most one chain, and never both founds a chain and causes a merger, in
-   either order. It may cause two mergers, one per tile. Mergers caused by bank tiles do
-   not count towards these limits.
+4. A turn founds at most one chain, and the second tile cannot cause a merger involving the
+   chain the first tile founded (as survivor or defunct). Otherwise each tile follows the
+   usual rules: a merger may be followed by a founding or another merger, and a founding by
+   a merger of other chains. **[DECISION]** Games created before this revision (init
+   options without `twoTilesRelaxed`) keep the earlier limit, also when replayed: a turn
+   never both founds a chain and causes a merger, in either order, and mergers caused by
+   bank tiles do not count towards it.
 5. Buy (§9, including §9.1 swaps) once, after both tiles, then draw back up to 8.
 
 The end may also be announced between the two tiles, if an end condition holds at that

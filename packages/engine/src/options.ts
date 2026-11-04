@@ -13,6 +13,11 @@ export interface GameOptions {
 	sharesPerTurn?: 4 | 5;
 	/** Omitted when off, like stockSwap. */
 	twoTiles?: true;
+	/**
+	 * Set with twoTiles in games created under the relaxed founding/merger limits (rules.md
+	 * §4.1). Two-tile games logged before them lack it and keep the original limits.
+	 */
+	twoTilesRelaxed?: true;
 	/** Omitted when off, like stockSwap. */
 	limitedLog?: true;
 }
@@ -37,11 +42,13 @@ const END_SIZES = [41, 31];
  * Reads the creator's options defensively. BGS omits unticked checkboxes and always sends
  * selects (as strings), so a missing checkbox means false. Options are never rejected
  * (rules.md §3.5/§15): anything that does not apply, or has an unknown value, is ignored
- * and reported so the log can say so.
+ * and reported so the log can say so. Replay passes the options `recorded` in the game's
+ * init log, so games created under an earlier rule revision rebuild with that revision.
  */
 export function normalizeOptions(
 	players: number,
-	raw: Record<string, unknown>
+	raw: Record<string, unknown>,
+	recorded?: Partial<GameOptions>
 ): { options: GameOptions; ignored: IgnoredOption[] } {
 	const options: GameOptions = { ...DEFAULT_OPTIONS };
 	const ignored: IgnoredOption[] = [];
@@ -96,6 +103,9 @@ export function normalizeOptions(
 
 	if (raw.twoTiles === true) {
 		options.twoTiles = true;
+		if (recorded === undefined || recorded.twoTilesRelaxed === true) {
+			options.twoTilesRelaxed = true;
+		}
 	}
 	if (raw.limitedLog === true) {
 		options.limitedLog = true;

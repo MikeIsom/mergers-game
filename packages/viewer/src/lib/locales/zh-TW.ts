@@ -91,6 +91,7 @@ export const zhTW: Catalog = {
 	"hand.eighth": "無法創立第 8 個連鎖",
 	"hand.deadNextTurn": "在你下一回合開始時更換",
 	"hand.oneFounding": "本回合不能再創立第二個連鎖",
+	"hand.mergeFounded": "不能合併本回合創立的連鎖",
 	"hand.foundOrMerge": "同一回合內不能既創立連鎖又進行合併",
 	"chains.label": "飯店連鎖",
 	"chains.title": "連鎖",

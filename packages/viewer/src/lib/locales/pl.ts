@@ -97,6 +97,7 @@ export const pl: Catalog = {
 	"hand.eighth": "nie można założyć 8. sieci",
 	"hand.deadNextTurn": "Wymiana na początku twojej następnej tury",
 	"hand.oneFounding": "nie można założyć drugiej sieci w tej turze",
+	"hand.mergeFounded": "nie można połączyć sieci założonej w tej turze",
 	"hand.foundOrMerge": "nie można w jednej turze założyć sieci i połączyć sieci",
 	"chains.label": "Sieci hoteli",
 	"chains.title": "Sieci",

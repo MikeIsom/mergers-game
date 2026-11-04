@@ -97,6 +97,7 @@ export const fr: Catalog = {
 	"hand.eighth": "impossible de fonder une 8e chaîne",
 	"hand.deadNextTurn": "Remplacement au début de votre prochain tour",
 	"hand.oneFounding": "impossible de fonder une deuxième chaîne ce tour-ci",
+	"hand.mergeFounded": "impossible de fusionner la chaîne fondée ce tour-ci",
 	"hand.foundOrMerge": "impossible de fonder une chaîne et de fusionner dans le même tour",
 	"chains.label": "Chaînes d’hôtels",
 	"chains.title": "Chaînes",

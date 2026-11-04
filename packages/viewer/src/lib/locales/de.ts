@@ -92,6 +92,7 @@ export const de: Catalog = {
 	"hand.eighth": "keine 8. Kette möglich",
 	"hand.deadNextTurn": "Werden zu Beginn deines nächsten Zuges ersetzt",
 	"hand.oneFounding": "keine zweite Kettengründung in diesem Zug",
+	"hand.mergeFounded": "keine Fusion mit der in diesem Zug gegründeten Kette",
 	"hand.foundOrMerge": "nicht Gründung und Fusion im selben Zug",
 	"chains.label": "Hotelketten",
 	"chains.title": "Ketten",

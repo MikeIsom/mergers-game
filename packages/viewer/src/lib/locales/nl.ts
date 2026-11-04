@@ -92,6 +92,7 @@ export const nl: Catalog = {
 	"hand.eighth": "kan geen 8e keten stichten",
 	"hand.deadNextTurn": "Worden aan het begin van je volgende beurt vervangen",
 	"hand.oneFounding": "kan deze beurt geen tweede keten stichten",
+	"hand.mergeFounded": "kan de keten die je deze beurt stichtte niet laten fuseren",
 	"hand.foundOrMerge": "kan niet in één beurt een keten stichten én fuseren",
 	"chains.label": "Hotelketens",
 	"chains.title": "Ketens",

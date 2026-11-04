@@ -43,13 +43,15 @@ If the game uses **Two tiles per turn**, each player holds 8 tiles instead of 6 
 
 At the start of your turn, swap out any dead tiles. Then place your first tile and settle anything it causes, including a full merger with everyone's sell, trade or keep decisions, before placing your second. After both tiles, buy shares up to the game’s per-turn limit (3 by default) at the prices on the board, then draw back up to 8.
 
-You may found only one chain per turn, and you can't found a chain and cause a merger in the same turn, in either order. You can cause two mergers, one with each tile. Example: your first tile merges Luxor into Tower, so your second tile can merge again or grow a chain, but it can't found a new one.
+You may found only one chain per turn, and your second tile can't cause a merger involving the chain your first tile founded. Otherwise each tile follows the usual rules: you can merge and then found a chain, found a chain and then merge two other chains, or cause two mergers, one with each tile. Example: your first tile founds Worldwide, so your second tile can merge Luxor into Tower or grow Worldwide, but it can't found another chain or cause a merger involving Worldwide.
 
 You must play a second tile if any tile in your hand is legal after the first. If none is, go straight to buying. A tile that becomes dead during your turn, for example because your first tile made a chain safe, can't be your second tile; it's swapped out at the start of your next turn.
 
 You can announce the end of the game before your first tile, between your two tiles, or while buying, as long as an end condition holds at that moment.
 
-In a two-player game, the bank's tiles are placed right after the merger that drew them, so between your two tiles if your first tile caused it. Mergers caused by the bank's tiles don't count toward your two mergers or the founding rule. If a player leaves, the game places their first two legal tiles for them.
+Two-tile games started before this rule was relaxed keep the earlier limit: a turn can't both found a chain and cause a merger, in either order (mergers caused by the bank's tiles don't count).
+
+In a two-player game, the bank's tiles are placed right after the merger that drew them, so between your two tiles if your first tile caused it. If a player leaves, the game places their first two legal tiles for them.
 
 ## Mergers
 

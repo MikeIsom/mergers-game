@@ -85,7 +85,7 @@
 						<span><bdi>{paused.map(tileLabel).join(", ")}</bdi> — {t("hand.eighth")}</span>
 					</li>
 				{/if}
-				{#each ["oneFounding", "foundOrMerge"] as const as limit (limit)}
+				{#each ["oneFounding", "mergeFounded", "foundOrMerge"] as const as limit (limit)}
 					{@const tiles = limited.filter((tile) => turnLimit(state, seat, tile) === limit)}
 					{#if tiles.length}
 						<li class="paused-note">
