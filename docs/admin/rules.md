@@ -144,13 +144,13 @@ Everything is shown once the game ends.
 
 ### Limited game log
 
-Much of Acquire is remembering who bought what. If the game uses **Limited game log**, the log only shows what has happened since your last turn. During a merger, the log still shows everything about that merger, even if it started before your last turn. The full log opens up once the game ends.
+Much of Acquire is remembering who bought what. If the game uses **Limited game log**, the log only shows the current turn and the full round of turns before it: one turn for each seat, so you always see what every other player did since your last turn. Everyone, including spectators, sees the same part of the log. A merger in progress is always shown in full. The full log opens up once the game ends.
 
 Because replaying the game would show the full history, replay is only available after the game ends when this setting is on.
 
 ## Game options
 
-- **Limited game log:** the log shows only what happened since your last turn, until the game ends (see above).
+- **Limited game log:** the log shows only the current turn and the round before it, until the game ends (see above).
 - **Two tiles per turn:** hands of 8 tiles and two tiles placed every turn (see above).
 - **Shares per turn:** buy up to 3 (standard), 4 or 5 shares in total per turn, independently of stock swaps.
 - **Stock swap:** optional 1:1 exchanges with the bank before buying; Off / 3 / 5 / 7 / Unlimited shares per turn (see above).

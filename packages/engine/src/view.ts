@@ -53,7 +53,7 @@ export function viewFor(state: GameState, player: number | undefined): GameState
 		seed: "",
 		rngCounter: 0,
 		pool: state.pool.map(() => HIDDEN),
-		log: visibleLog(state, player),
+		log: visibleLog(state),
 		seats: state.seats.map((seat, index) => {
 			if (own.includes(index)) {
 				return structuredClone(seat);

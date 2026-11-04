@@ -44,28 +44,71 @@ test("§15 limitedLog defaults off: every viewer gets the whole log", () => {
 	}
 });
 
-test("§13 limitedLog: a player sees the log from the start of their last turn, with setup kept", () => {
+/** Index of the `count`-th last turn entry (1 = the current turn). */
+function nthLastTurn(state: GameState, count: number): number {
+	return state.log.flatMap((entry, index) => (entry.type === "turn" ? [index] : [])).at(-count)!;
+}
+
+test("§13 limitedLog: everyone sees the current turn and the full round before it, with setup kept", () => {
 	const state = initGame(4, LIMITED, "window");
 	playUntil(state, lcg(2), (s) => s.turn > 14 && s.phase === "place");
-	const active = state.activeSeat;
-	for (let player = 0; player < 4; player++) {
+	const start = nthLastTurn(state, 5);
+	assert.equal(logWindowStart(state), start);
+	const spectator = wrapper.stripSecret(state, undefined).log;
+	for (const player of [0, 1, 2, 3]) {
 		const view = wrapper.stripSecret(state, player);
 		assert.equal(view.log.length, state.log.length, "the log keeps its length for turn drafts");
-		const turns = turnIndexes(state, player);
-		// While it is your turn, the window starts at your previous one.
-		const start = player === active ? turns.at(-2)! : turns.at(-1)!;
-		assert.equal(logWindowStart(state, player), start);
 		view.log.forEach((entry, index) => {
 			const setup = ["init", "optionIgnored", "turnOrder"].includes(state.log[index]!.type);
 			assert.deepEqual(entry, index >= start || setup ? state.log[index] : { type: "hidden" }, `entry ${index}`);
 		});
+		assert.deepEqual(view.log, spectator, "every seat and spectators see the same window");
 		assert.ok(hiddenCount(view.log) > 0);
+		// The window always reaches back to the start of your own previous turn.
+		assert.ok(start <= turnIndexes(state, player).at(player === state.activeSeat ? -2 : -1)!);
 	}
+});
+
+test("§13 limitedLog: seat 0 sees the full previous round during seat 1's turn (owner's report)", () => {
+	const state = initGame(4, LIMITED, "first-seat");
+	playUntil(state, lcg(7), (s) => s.turn > 8 && s.activeSeat === 1 && s.phase === "place");
+	const start = nthLastTurn(state, 5);
+	const view = wrapper.stripSecret(state, 0).log;
+	assert.deepEqual(view.slice(start), state.log.slice(start));
 	assert.deepEqual(
-		wrapper.stripSecret(state, undefined).log,
-		wrapper.stripSecret(state, active).log,
-		"spectators see what the active player sees"
+		state.log.slice(start).flatMap((entry) => (entry.type === "turn" ? [entry.seat] : [])),
+		[1, 2, 3, 0, 1],
+		"seat 0 sees seats 1, 2 and 3's turns as well as its own"
 	);
+	assert.ok(start < turnIndexes(state, 0).at(-1)!, "the old rule started at seat 0's own turn, hiding the others");
+});
+
+test("§13 limitedLog: four-hands uses all four seats for the round, for players and spectators", () => {
+	const state = initGame(2, { ...LIMITED, twoPlayerMode: "fourHands" }, "four-hands-window");
+	playUntil(state, lcg(2), (s) => s.turn > 14 && s.phase === "place");
+	assert.equal(logWindowStart(state), nthLastTurn(state, 5));
+	assert.deepEqual(wrapper.stripSecret(state).log, wrapper.stripSecret(state, 0).log);
+	assert.deepEqual(wrapper.stripSecret(state, 1).log, wrapper.stripSecret(state, 0).log);
+});
+
+test("§13 limitedLog: the window is never shorter than the old one from your own last turn", () => {
+	for (let players = 2; players <= 6; players++) {
+		for (const options of [LIMITED, { ...LIMITED, twoPlayerMode: "fourHands" }]) {
+			const state = initGame(players, options, `never-less-${players}`);
+			const random = lcg(players * 13);
+			while (!state.ended) {
+				const start = logWindowStart(state);
+				for (let seat = 0; seat < state.seats.length; seat++) {
+					const own = turnIndexes(state, seat).filter((index) => index < nthLastTurn(state, 1));
+					if (own.length > 0) {
+						assert.ok(start <= own.at(-1)!, `${players} players, seat ${seat}`);
+					}
+				}
+				const moves = legalMoves(state).filter((move) => move.type !== "announce");
+				applyMove(state, moves[Math.floor(random() * moves.length)]!, currentSeat(state)!);
+			}
+		}
+	}
 });
 
 test("§13 limitedLog: a merger in progress stays fully visible to every disposer", () => {
@@ -88,21 +131,14 @@ test("§13 limitedLog: a merger in progress stays fully visible to every dispose
 test("§13 limitedLog: visible turn summaries cannot reveal an earlier hidden turn", () => {
 	const state = initGame(4, LIMITED, "summary-window");
 	playUntil(state, lcg(2), (s) => s.turn > 14 && s.phase === "place");
+	const start = logWindowStart(state);
 	for (const player of [0, 1, 2, 3, undefined]) {
-		const start = logWindowStart(state, player);
 		assert.ok(start > 0);
 		const view = wrapper.stripSecret(state, player);
 		assert.equal(view.log[start - 1]!.type, "hidden");
 		const slice = wrapper.logSlice(state, { player, start, end: start }).log;
 		assert.equal(slice[0]!.simple, simpleLine(state, state.log[start]!));
 	}
-});
-
-test("§13 limitedLog: four-hands spectators use both seats of the active player", () => {
-	const state = initGame(2, { ...LIMITED, twoPlayerMode: "fourHands" }, "spectator-window");
-	playUntil(state, lcg(2), (s) => s.turn > 14 && s.phase === "place");
-	const owner = state.seatOwner[state.activeSeat]!;
-	assert.deepEqual(wrapper.stripSecret(state).log, wrapper.stripSecret(state, owner).log);
 });
 
 test("§13 limitedLog: the whole log is revealed once the game ends", () => {

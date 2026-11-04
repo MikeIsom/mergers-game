@@ -56,7 +56,8 @@ Use Node 24 and pnpm 11. Inspect the working tree before editing and preserve un
   after all merger resolution. Keep the default Off.
 - Two tiles per turn and limited game log are optional, default Off. Two-tile turns retain
   private undo and one turn increment. Limited logs must filter both entries and BGS summaries;
-  four-hands spectators use the active player's window. Replay unlocks at game end.
+  every viewer sees the same window (current turn plus the previous round, one turn per seat).
+  Replay unlocks at game end.
 
 ## Setup options and player preferences
 
