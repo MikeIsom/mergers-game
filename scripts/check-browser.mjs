@@ -149,6 +149,10 @@ try {
 				.screenshot({ path: fileURLToPath(new URL(`purchase-limit-${limit}-${theme}.png`, output)) });
 		}
 		await page.locator(".panel .primary").click();
+		// The final step waits for the turn summary.
+		assert.match(await page.locator(".turn-summary").innerText(), /bought/);
+		assert.equal(await page.evaluate(() => window.acquireDev.state.turn), 1);
+		await page.locator(".turn-summary").getByRole("button", { name: "End turn", exact: true }).click();
 		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
 		assert.deepEqual(
 			await page.evaluate(() => ({
@@ -209,6 +213,8 @@ try {
 		await page.locator(".board").getByRole("button", { name: "Place 3A", exact: true }).click();
 		await page.waitForSelector("table.buy");
 		await page.locator(".panel .primary").click();
+		assert.match(await page.locator(".turn-summary").innerText(), /placed 2A[\s\S]*placed 3A/);
+		await page.locator(".turn-summary").getByRole("button", { name: "End turn", exact: true }).click();
 		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
 		assert.deepEqual(
 			await page.evaluate(() => ({
@@ -319,8 +325,9 @@ try {
 			window.acquireDev.load(state);
 		}, preparedPosition("founding"));
 		await page.locator(".stock-swap summary").click();
-		await page.getByRole("spinbutton", { name: "Shares", exact: true }).fill("2");
+		await page.getByRole("button", { name: "Swap one more", exact: true }).click();
 		assert.match(await page.locator(".exchange").innerText(), /Pay \$800/);
+		assert.match(await page.locator(".stock-swap .holding-change").innerText(), /\$6,000\s*→\s*\$5,200/);
 		for (const theme of ["dark", "light"]) {
 			await page.evaluate((theme) => window.acquireDev.emitter.emit("theme", { dark: theme === "dark" }), theme);
 			for (const locale of locales) {
@@ -329,17 +336,18 @@ try {
 					await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1),
 					`stock swap ${locale} ${theme} ${width}px`
 				);
-				assert.equal(await page.locator(".stock-swap button").isEnabled(), true);
+				assert.equal(await page.locator(".stock-swap button.confirm").isEnabled(), true);
 			}
 			await preferences({ locale: "en" });
 			await page
 				.locator(".panel")
 				.screenshot({ path: fileURLToPath(new URL(`stock-swap-${theme}-${width}.png`, output)) });
 		}
+		await page.getByRole("button", { name: "Swap one fewer", exact: true }).click();
 		const original = await page.evaluate(() => JSON.stringify(window.acquireDev.state));
 		for (let revision = 0; revision < 3; revision++) {
-			await page.getByRole("spinbutton", { name: "Shares", exact: true }).fill("2");
-			await page.getByRole("button", { name: "Swap shares", exact: true }).click();
+			await page.getByRole("button", { name: "Swap one more", exact: true }).click();
+			await page.getByRole("button", { name: "Swap 2 Tower for 2 Continental · Pay $800", exact: true }).click();
 			await page.waitForFunction(() => document.querySelector(".stock-swap summary")?.textContent.includes("1 left"));
 			assert.equal(
 				await page.evaluate(() => JSON.stringify(window.acquireDev.state)),
@@ -349,18 +357,23 @@ try {
 			await page.getByRole("button", { name: "Undo", exact: true }).click();
 			await page.waitForFunction(() => document.querySelector(".stock-swap summary")?.textContent.includes("3 left"));
 		}
-		await page.getByRole("spinbutton", { name: "Shares", exact: true }).fill("2");
-		await page.getByRole("button", { name: "Swap shares", exact: true }).click();
+		await page.getByRole("button", { name: "Swap one more", exact: true }).click();
+		await page.locator(".stock-swap button.confirm").click();
 		await page.waitForFunction(() => document.querySelector(".stock-swap summary")?.textContent.includes("1 left"));
 		await page.getByLabel("Give (your stock)", { exact: true }).selectOption("continental");
 		await settle();
 		assert.match(await page.locator(".exchange").innerText(), /Receive \$400/);
-		await page.getByRole("button", { name: "Swap shares", exact: true }).click();
+		await page.locator(".stock-swap button.confirm").click();
 		await page.waitForFunction(() => document.querySelector(".stock-swap summary")?.textContent.includes("0 left"));
 		for (let i = 0; i < 3; i++) {
 			await page.getByRole("button", { name: "Buy one more Tower", exact: true }).click();
 		}
 		await page.getByRole("button", { name: "Buy for $900 and end turn", exact: true }).click();
+		assert.match(
+			await page.locator(".turn-summary").innerText(),
+			/swapped[\s\S]*swapped[\s\S]*bought 3 Tower for \$900/
+		);
+		await page.locator(".turn-summary").getByRole("button", { name: "End turn", exact: true }).click();
 		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
 		assert.deepEqual(
 			await page.evaluate(() => ({
@@ -478,6 +491,9 @@ try {
 			beforePreset,
 			"presets wait for Confirm"
 		);
+		assert.equal(await page.locator(".panel button.primary").innerText(), "Trade 6 for 3 Imperial and keep 1 Festival");
+		await page.locator(".keep-all").click();
+		assert.equal(await page.locator(".panel button.primary").innerText(), "Keep all 7 Festival");
 		for (const locale of locales) {
 			await preferences({ locale });
 			assert.ok(
@@ -562,6 +578,7 @@ try {
 		await page.waitForSelector("table.buy");
 		// Disposal remains an undoable private draft until this player finishes buying.
 		await page.getByRole("button", { name: "Buy nothing and end turn", exact: true }).click();
+		await page.locator(".turn-summary").getByRole("button", { name: "End turn", exact: true }).click();
 		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
 		const result = await page.evaluate(() => window.acquireDev.state.seats[0]);
 		assert.equal(result.shares.tower, expectedTrade / 2);
@@ -1010,6 +1027,16 @@ try {
 		await page.waitForSelector("table.buy");
 		await page.screenshot({ path: fileURLToPath(new URL(`undo-${width}.png`, output)), fullPage: true });
 		await page.locator(".panel .primary").click();
+		await page.locator(".turn-summary").getByRole("button", { name: "Back", exact: true }).click();
+		await page.waitForSelector("table.buy");
+		await page.locator(".panel .primary").click();
+		await page.screenshot({ path: fileURLToPath(new URL(`turn-summary-${width}.png`, output)), fullPage: true });
+		await page.locator(".turn-summary").getByRole("button", { name: "Undo", exact: true }).click();
+		await page.waitForSelector(".choices");
+		await page.locator(".choices button").filter({ hasText: "Luxor" }).click();
+		await page.waitForSelector("table.buy");
+		await page.locator(".panel .primary").click();
+		await page.locator(".turn-summary").getByRole("button", { name: "End turn", exact: true }).click();
 		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
 		await settle();
 		assert.equal(await undo.count(), 0, "no undo after drawing and handing over");
@@ -1144,11 +1171,15 @@ try {
 					await page.getByRole("button", { name: "Buy one more Tower", exact: true }).click();
 				} else {
 					await page.locator(".choices button").filter({ hasText: "Festival" }).click();
+					await page.locator("main .panel button.primary").click();
 					await page.getByRole("alert").waitFor();
 					await page.locator(".choices button").filter({ hasText: "Worldwide" }).click();
+					await page.locator("main .panel button.primary").click();
 					await page.waitForSelector('.acquire-tutorial[data-step="5"]');
 					assert.match(await page.locator(".guide").innerText(), /\$4,500/);
-					// Default 0/0 keeps the Festival share after both bonuses are paid.
+					// Keeping the Festival share is an explicit choice; Confirm waits for it.
+					assert.equal(await page.locator("main .panel button.primary").isDisabled(), true);
+					await page.locator(".keep-all").click();
 					await page.locator("main .panel button.primary").click();
 					await page.waitForSelector('.acquire-tutorial[data-step="6"]');
 				}
@@ -1260,6 +1291,7 @@ try {
 				);
 				if (chapter === "mergers") {
 					await page.locator(".choices button").filter({ hasText: "Worldwide" }).click();
+					await page.locator("main .panel .primary").click();
 					await page.waitForSelector('.acquire-tutorial[data-step="5"]');
 				}
 				assert.ok(

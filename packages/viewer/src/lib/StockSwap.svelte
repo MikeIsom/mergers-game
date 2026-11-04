@@ -9,9 +9,11 @@
 		type ChainId,
 	} from "acquire-engine";
 	import ChainMark from "./ChainMark.svelte";
+	import HoldingChange from "./HoldingChange.svelte";
 	import { ofType } from "./decisions";
 	import { chainName } from "./format";
 	import type { ViewerStore } from "./store.svelte";
+	import { holdingsAfter, moveEffect } from "./turn-summary";
 
 	let { store, open = $bindable(false) }: { store: ViewerStore; open?: boolean } = $props();
 	const game = $derived(store.state!);
@@ -19,11 +21,12 @@
 	const money = $derived(store.lang.money);
 	const choices = $derived(ofType(store.moves, "swap"));
 	const active = $derived(activeChains(game.board));
-	const held = $derived(game.seats[game.activeSeat]!.shares);
+	const seat = $derived(game.seats[game.activeSeat]!);
+	const held = $derived(seat.shares);
 	const remaining = $derived(stockSwapsRemaining(game));
 	let from = $state<ChainId>("tower");
 	let to = $state<ChainId>("continental");
-	let count = $state<number | undefined>(1);
+	let count = $state(1);
 	$effect(() => {
 		void store.state;
 		const first = choices[0];
@@ -40,7 +43,23 @@
 	const cash = $derived(
 		cost === 0 ? t("swap.even") : t(cost > 0 ? "swap.pay" : "swap.receive", { amount: money(Math.abs(cost)) })
 	);
-	const price = (chain: ChainId) => money(sharePrice(chain, chainSize(game.board, chain)));
+	const priceOf = (chain: ChainId) => sharePrice(chain, chainSize(game.board, chain));
+	const after = $derived.by(() => {
+		const effect = selected && moveEffect(game, selected);
+		return effect ? holdingsAfter(game, effect) : undefined;
+	});
+	/** Why this pair cannot be swapped at all, most specific reason first. */
+	const blocked = $derived.by(() => {
+		if (remaining <= 0) {
+			return t("swap.noneLeft");
+		}
+		if (game.bank[to] <= 0) {
+			return t("swap.bankEmpty", { chain: chainName(to) });
+		}
+		return priceOf(to) > priceOf(from) && seat.cash < priceOf(to) - priceOf(from)
+			? t("swap.cash")
+			: t("swap.unavailable");
+	});
 </script>
 
 <details class="stock-swap" bind:open>
@@ -63,7 +82,13 @@
 					}}
 				>
 					{#each active.filter((chain) => held[chain] > 0) as chain (chain)}
-						<option value={chain}>{chainName(chain)} · {held[chain]} · {price(chain)}</option>
+						<option value={chain}
+							>{t("swap.optionGive", {
+								chain: chainName(chain),
+								count: held[chain],
+								price: money(priceOf(chain)),
+							})}</option
+						>
 					{/each}
 				</select>
 			</label>
@@ -71,26 +96,76 @@
 				>{t("swap.take")}
 				<select aria-label={t("swap.take")} bind:value={to} onchange={() => (count = 1)}>
 					{#each active.filter((chain) => chain !== from) as chain (chain)}
-						<option value={chain}>{chainName(chain)} · {game.bank[chain]} · {price(chain)}</option>
+						<option value={chain}
+							>{t("swap.optionTake", {
+								chain: chainName(chain),
+								count: game.bank[chain],
+								price: money(priceOf(chain)),
+							})}</option
+						>
 					{/each}
 				</select>
 			</label>
 		</div>
 		<div class="swap-controls">
-			<label>{t("swap.count")}<input type="number" min="1" {max} step="1" bind:value={count} /></label>
-			<div class="exchange" aria-live="polite">
-				<ChainMark chain={from} /><span aria-hidden="true">→</span><ChainMark chain={to} />
-				<strong>{selected ? cash : t("swap.unavailable")}</strong>
+			<span class="count-label">{t("swap.count")}</span>
+			<div class="stepper">
+				<button
+					type="button"
+					class:actionable={count > 1 && max > 0}
+					disabled={count <= 1 || max === 0}
+					onclick={() => count--}
+					aria-label={t("swap.fewer")}>−</button
+				>
+				<span class="value">{max === 0 ? 0 : count}</span>
+				<button
+					type="button"
+					class:actionable={count < max}
+					disabled={count >= max}
+					onclick={() => count++}
+					aria-label={t("swap.more")}>+</button
+				>
 			</div>
+			{#if max > 0}<small>{t("swap.max", { count: max })}</small>{/if}
 		</div>
+		{#if selected}
+			<p class="exchange" aria-live="polite">
+				<span class="leg"
+					><ChainMark chain={from} small />
+					{t("swap.giveDetail", {
+						count: selected.count,
+						chain: chainName(from),
+						value: money(selected.count * priceOf(from)),
+					})}</span
+				>
+				<span class="leg"
+					><ChainMark chain={to} small />
+					{t("swap.takeDetail", {
+						count: selected.count,
+						chain: chainName(to),
+						value: money(selected.count * priceOf(to)),
+					})}</span
+				>
+				<strong>{cash}</strong>
+			</p>
+			{#if after}
+				<HoldingChange label={t("swap.after")} cash={after.cash} shares={after.shares} onlyChanged />
+			{/if}
+		{:else}
+			<p class="why">{blocked}</p>
+		{/if}
 		<button
 			type="button"
+			class="confirm"
 			class:actionable={!!selected}
 			disabled={!selected}
-			onclick={() => selected && store.send(selected)}>{t("swap.confirm")}</button
+			onclick={() => selected && store.send(selected)}
+			>{selected
+				? t("swap.confirmExact", { count: selected.count, from: chainName(from), to: chainName(to), cash })
+				: t("swap.confirm")}</button
 		>
 	{:else}
-		<p>{t("swap.unavailable")}</p>
+		<p class="why">{remaining <= 0 ? t("swap.noneLeft") : t("swap.unavailable")}</p>
 	{/if}
 </details>
 
@@ -103,12 +178,17 @@
 	summary {
 		cursor: pointer;
 		font-weight: 600;
+		min-height: 32px;
 	}
 	small,
-	.note {
+	.note,
+	.why {
 		color: var(--ink-muted);
 		font-size: 13px;
 		font-weight: 400;
+	}
+	.why {
+		font-style: italic;
 	}
 	p {
 		margin: 8px 0;
@@ -124,8 +204,7 @@
 		font-size: 13px;
 		min-width: 0;
 	}
-	select,
-	input {
+	select {
 		box-sizing: border-box;
 		width: 100%;
 		min-height: 44px;
@@ -137,24 +216,42 @@
 	}
 	.swap-controls {
 		display: flex;
-		align-items: end;
-		gap: 12px;
-		margin: 10px 0;
-	}
-	.swap-controls label {
-		flex: 0 0 72px;
-	}
-	.exchange {
-		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: 6px;
-		min-width: 0;
+		gap: 4px 12px;
+		margin: 10px 0 4px;
 	}
-	.exchange strong {
-		flex-basis: 100%;
+	.count-label {
+		font-size: 13px;
+	}
+	.stepper {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+	}
+	.stepper button {
+		width: 44px;
+		padding: 0;
+		font-size: 18px;
+	}
+	.value {
+		display: inline-block;
+		min-width: 24px;
+		text-align: center;
+		font-weight: 600;
+		font-variant-numeric: tabular-nums;
+	}
+	.exchange {
+		display: grid;
+		gap: 4px;
+		min-width: 0;
 		font-size: 14px;
 		font-variant-numeric: tabular-nums;
+	}
+	.leg {
+		display: flex;
+		align-items: center;
+		gap: 6px;
 	}
 	button {
 		min-height: 44px;
@@ -166,6 +263,10 @@
 	}
 	button:disabled {
 		color: var(--ink-muted);
+		background: transparent;
+	}
+	.confirm {
+		text-align: start;
 	}
 	@media (max-width: 400px) {
 		.chains {

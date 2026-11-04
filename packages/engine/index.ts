@@ -26,3 +26,4 @@ export {
 	twoTileLimit,
 	type TwoTileLimit,
 } from "./src/two-tiles.js";
+export { draftCanContinue } from "./src/turn-draft.js";
