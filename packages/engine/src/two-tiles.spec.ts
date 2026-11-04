@@ -4,6 +4,7 @@ import * as wrapper from "../wrapper.js";
 import { legalMoves } from "./legal.js";
 import { applyMove, currentSeat, dropPlayerSeats } from "./moves.js";
 import { normalizeOptions } from "./options.js";
+import { blockedThisTurn, turnPlacements, twoTileLimit } from "./two-tiles.js";
 import { positionAt } from "./position.js";
 import { initGame } from "./setup.js";
 import { turnSummary } from "./simple.js";
@@ -82,41 +83,61 @@ test("§15 twoTiles: the second tile is skipped when none is playable", () => {
 	assert.deepEqual(placeable(state), []);
 });
 
-test("§15 twoTiles: after founding, a tile that would found or merge is blocked; growing is allowed", () => {
-	const state = scenario({
-		board: { ...chainAt("tower", ["1E", "2E"]), ...chainAt("luxor", ["4E", "5E"]), "8A": "loose", "1A": "loose" },
-		hands: [["9A", "3E", "6E", "2A"], ["12C"], ["12E"]],
-		poolOnly: true,
-		options: TWO_TILES,
-	});
-	assert.deepEqual(placeable(state), ["9A", "3E", "6E", "2A"]);
-	play(state, 0, place("9A"));
-	play(state, 0, { type: "found", chain: "american" });
-	assert.deepEqual(placeable(state), ["6E"]);
-	for (const tile of ["3E", "2A"]) {
-		assert.throws(() => applyMove(state, place(tile), 0), /cannot found two chains/);
-	}
-	play(state, 0, place("6E"));
-	assert.equal(state.phase, "buy");
-});
+// Two pairs of chains to merge, and loose tiles to found a chain next to.
+const LIMITS_BOARD = {
+	...chainAt("tower", ["1A", "2A"]),
+	...chainAt("luxor", ["4A", "5A"]),
+	...chainAt("american", ["1E", "2E"]),
+	...chainAt("festival", ["4E", "5E"]),
+	"8G": "loose",
+	"1I": "loose",
+} as const;
 
-test("§15 twoTiles: a turn may cause two mergers, but not a merger and a founding", () => {
+test("§4.1 twoTiles: a merger with the first tile, then a founding with the second, is allowed", () => {
 	const state = scenario({
-		board: {
-			...chainAt("tower", ["1A", "2A"]),
-			...chainAt("luxor", ["4A", "5A"]),
-			...chainAt("american", ["1E", "2E"]),
-			...chainAt("festival", ["4E", "5E"]),
-			"8G": "loose",
-		},
-		hands: [["3A", "3E", "9G"], ["12C"], ["12E"]],
+		board: LIMITS_BOARD,
+		hands: [["3A", "9G"], ["12C"], ["12E"]],
 		poolOnly: true,
 		options: TWO_TILES,
 	});
 	play(state, 0, place("3A"));
 	play(state, 0, { type: "survivor", chain: "tower" });
 	assert.equal(state.phase, "place");
-	assert.deepEqual(placeable(state), ["3E"], "9G would found a chain after a merger");
+	assert.deepEqual(placeable(state), ["9G"]);
+	play(state, 0, place("9G"));
+	play(state, 0, { type: "found", chain: "worldwide" });
+	assert.equal(state.phase, "buy");
+	play(state, 0, buy);
+	assert.equal(turnSummary(state, state.log.length - 1), "Player 1 merged Luxor into Tower, founded Worldwide");
+});
+
+test("§4.1 twoTiles: a founding with the first tile, then a merger of two other chains, is allowed", () => {
+	const state = scenario({
+		board: LIMITS_BOARD,
+		hands: [["9G", "3A", "3E"], ["12C"], ["12E"]],
+		poolOnly: true,
+		options: TWO_TILES,
+	});
+	play(state, 0, place("9G"));
+	play(state, 0, { type: "found", chain: "worldwide" });
+	assert.deepEqual(placeable(state), ["3A", "3E"]);
+	play(state, 0, place("3E"));
+	play(state, 0, { type: "survivor", chain: "american" });
+	assert.equal(state.phase, "buy");
+	play(state, 0, buy);
+	assert.equal(turnSummary(state, state.log.length - 1), "Player 1 founded Worldwide, merged Festival into American");
+});
+
+test("§4.1 twoTiles: a merger, then another merger, is allowed", () => {
+	const state = scenario({
+		board: LIMITS_BOARD,
+		hands: [["3A", "3E", "9G"], ["12C"], ["12E"]],
+		poolOnly: true,
+		options: TWO_TILES,
+	});
+	play(state, 0, place("3A"));
+	play(state, 0, { type: "survivor", chain: "tower" });
+	assert.deepEqual(placeable(state), ["3E", "9G"]);
 	play(state, 0, place("3E"));
 	play(state, 0, { type: "survivor", chain: "american" });
 	assert.equal(state.phase, "buy");
@@ -127,16 +148,53 @@ test("§15 twoTiles: a turn may cause two mergers, but not a merger and a foundi
 	);
 });
 
-test("§15 twoTiles: a founding first rules out a merger with the second tile", () => {
+test("§4.1 twoTiles: a turn cannot found two chains; growing the new chain is allowed", () => {
 	const state = scenario({
-		board: { ...chainAt("tower", ["1A", "2A"]), ...chainAt("luxor", ["4A", "5A"]), "8G": "loose" },
-		hands: [["9G", "3A"], ["12C"], ["12E"]],
+		board: LIMITS_BOARD,
+		hands: [["9G", "2I", "10G"], ["12C"], ["12E"]],
 		poolOnly: true,
 		options: TWO_TILES,
 	});
 	play(state, 0, place("9G"));
-	play(state, 0, { type: "found", chain: "american" });
-	assert.deepEqual(placeable(state), [], "3A would merge after a founding");
+	play(state, 0, { type: "found", chain: "worldwide" });
+	assert.equal(twoTileLimit(state, t("2I")), "oneFounding");
+	assert.throws(() => applyMove(state, place("2I"), 0), /cannot found two chains/);
+	assert.deepEqual(placeable(state), ["10G"]);
+	play(state, 0, place("10G"));
+	assert.equal(state.phase, "buy");
+});
+
+test("§4.1 twoTiles: the second tile cannot merge the chain founded this turn", () => {
+	// 9G founds a chain with 8G; 7G would then merge it with Imperial.
+	const state = scenario({
+		board: { ...LIMITS_BOARD, ...chainAt("imperial", ["6G", "6H"]) },
+		hands: [["9G", "7G", "3A"], ["12C"], ["12E"]],
+		poolOnly: true,
+		options: TWO_TILES,
+	});
+	assert.equal(twoTileLimit(state, t("7G")), undefined);
+	play(state, 0, place("9G"));
+	play(state, 0, { type: "found", chain: "worldwide" });
+	assert.equal(twoTileLimit(state, t("7G")), "mergeFounded");
+	assert.equal(twoTileLimit(state, t("3A")), undefined);
+	assert.throws(() => applyMove(state, place("7G"), 0), /cannot merge the chain it founded/);
+	assert.deepEqual(placeable(state), ["3A"]);
+	play(state, 0, place("3A"));
+	play(state, 0, { type: "survivor", chain: "luxor" });
+	play(state, 0, buy);
+	assert.equal(twoTileLimit(state, t("7G")), undefined, "the limit ends with the turn");
+});
+
+test("§4.1 twoTiles: the second tile is skipped when only a merger with the new chain remains", () => {
+	const state = scenario({
+		board: { ...LIMITS_BOARD, ...chainAt("imperial", ["6G", "6H"]) },
+		hands: [["9G", "7G"], ["12C"], ["12E"]],
+		poolOnly: true,
+		options: TWO_TILES,
+	});
+	play(state, 0, place("9G"));
+	play(state, 0, { type: "found", chain: "worldwide" });
+	assert.deepEqual(placeable(state), []);
 	assert.equal(state.phase, "buy");
 });
 
@@ -239,6 +297,7 @@ test("§15 twoTiles: both placements can be drafted privately before committing"
 		options: TWO_TILES,
 	});
 	const player = 0;
+	const original = structuredClone(state);
 	const draft = wrapper.move(
 		state,
 		{ type: "turn", from: state.log.length, moves: [place("5E"), place("9I")] },
@@ -247,6 +306,22 @@ test("§15 twoTiles: both placements can be drafted privately before committing"
 	assert.equal(draft.phase, "buy");
 	assert.deepEqual(draft.tentative, { player, from: state.log.length });
 	assert.equal(wrapper.toSave(draft), undefined);
+	assert.deepEqual(wrapper.timeIncrements(draft), [0, 0, 0]);
+	for (let revision = 0; revision < 3; revision++) {
+		const revised = wrapper.move(state, { type: "turn", from: state.log.length, moves: [place("9I")] }, player);
+		assert.equal(revised.phase, "place");
+		assert.equal(wrapper.toSave(revised), undefined);
+		assert.deepEqual(wrapper.timeIncrements(revised), [0, 0, 0]);
+		assert.deepEqual(state, original);
+	}
+	const committed = wrapper.move(
+		state,
+		{ type: "turn", from: state.log.length, moves: [place("5E"), place("9I"), buy] },
+		player
+	);
+	assert.equal(wrapper.toSave(committed), committed);
+	assert.deepEqual(wrapper.timeIncrements(committed), [1, 0, 0]);
+	assert.equal(committed.log.filter((entry) => entry.type === "move").length, 3);
 });
 
 test("§14.7 twoTiles games replay exactly", () => {
@@ -257,4 +332,77 @@ test("§14.7 twoTiles games replay exactly", () => {
 		state = wrapper.move(state, moves[i % moves.length]!, player);
 	}
 	assert.deepEqual(wrapper.replay(state), state);
+});
+
+/** Two-tile games created before the relaxed limits have no `twoTilesRelaxed` option. */
+function legacy(state: GameState): GameState {
+	delete state.options.twoTilesRelaxed;
+	const init = state.log[0];
+	if (init?.type === "init") {
+		delete init.options.twoTilesRelaxed;
+	}
+	return state;
+}
+
+test("§4.1 twoTiles: new games record the relaxed limits; replay keeps a game's own revision", () => {
+	assert.equal(normalizeOptions(3, TWO_TILES).options.twoTilesRelaxed, true);
+	assert.equal("twoTilesRelaxed" in normalizeOptions(3, {}).options, false);
+	assert.equal("twoTilesRelaxed" in normalizeOptions(3, TWO_TILES, { twoTiles: true }).options, false);
+	assert.equal(normalizeOptions(3, TWO_TILES, { twoTiles: true, twoTilesRelaxed: true }).options.twoTilesRelaxed, true);
+	assert.equal("twoTilesRelaxed" in normalizeOptions(3, {}, { twoTilesRelaxed: true }).options, false);
+});
+
+test("§4.1 twoTiles in games created before the relaxed limits: no founding and merger in one turn", () => {
+	const foundThenMerge = legacy(
+		scenario({
+			board: LIMITS_BOARD,
+			hands: [["9G", "3A", "12A"], ["12C"], ["12E"]],
+			poolOnly: true,
+			options: TWO_TILES,
+		})
+	);
+	play(foundThenMerge, 0, place("9G"));
+	play(foundThenMerge, 0, { type: "found", chain: "worldwide" });
+	assert.equal(twoTileLimit(foundThenMerge, t("3A")), "foundOrMerge");
+	assert.throws(() => applyMove(foundThenMerge, place("3A"), 0), /cannot both found a chain and cause a merger/);
+	assert.deepEqual(placeable(foundThenMerge), ["12A"]);
+
+	const mergeThenFound = legacy(
+		scenario({ board: LIMITS_BOARD, hands: [["3A", "9G", "3E"], ["12C"], ["12E"]], poolOnly: true, options: TWO_TILES })
+	);
+	play(mergeThenFound, 0, place("3A"));
+	play(mergeThenFound, 0, { type: "survivor", chain: "tower" });
+	assert.equal(twoTileLimit(mergeThenFound, t("9G")), "foundOrMerge");
+	assert.deepEqual(placeable(mergeThenFound), ["3E"], "two mergers are still allowed");
+});
+
+test("§4.1 twoTiles in games created before the relaxed limits: bank-caused mergers do not count", () => {
+	const state = legacy(
+		scenario({ board: LIMITS_BOARD, hands: [["12A", "9G"], ["12C"], ["12E"]], poolOnly: true, options: TWO_TILES })
+	);
+	play(state, 0, place("12A"));
+	state.log.push({ type: "merger", seat: 0, tile: t("3A"), sizes: { tower: 2, luxor: 2 }, byBank: true });
+	assert.equal(turnPlacements(state).merged, false);
+	assert.equal(twoTileLimit(state, t("9G")), undefined);
+	state.log.push({ type: "merger", seat: 0, tile: t("3E"), sizes: { american: 2, festival: 2 } });
+	assert.equal(turnPlacements(state).merged, true);
+	assert.equal(twoTileLimit(state, t("9G")), "foundOrMerge");
+});
+
+test("§14.7 twoTiles games created before the relaxed limits replay under them", () => {
+	const state = legacy(initGame(3, TWO_TILES, "legacy-two-tiles"));
+	let differs = false;
+	for (let i = 0; i < 400 && !state.ended; i++) {
+		if (state.phase === "place") {
+			const relaxed = { ...state, options: { ...state.options, twoTilesRelaxed: true as const } };
+			differs ||= state.seats[state.activeSeat]!.hand.some(
+				(tile) => blockedThisTurn(state, tile) && !blockedThisTurn(relaxed, tile)
+			);
+		}
+		const moves = legalMoves(state).filter((move) => move.type !== "announce");
+		play(state, currentSeat(state)!, moves[(i * 7919) % moves.length]!);
+	}
+	assert.ok(differs, "the game reaches a turn where the original limits block a tile");
+	assert.equal("twoTilesRelaxed" in state.options, false);
+	assert.deepEqual(wrapper.replay(structuredClone(state)), state);
 });

@@ -77,6 +77,21 @@ test("private or masked holdings cannot reveal net worth through helpers or publ
 	assert.deepEqual(total(state), [6000, 6000, 6000], "inactive shares have no liquidation value");
 });
 
+test("§13 the cash and share-count levels show no net worth or scores during play", () => {
+	for (const holdingsVisibility of ["cash", "cashAndShareCount"]) {
+		const state = scenario({
+			board: chainAt("tower", ["1A", "2A"]),
+			shares: [{ tower: 5 }, { tower: 2 }],
+			hands: [["12I"], ["11I"], ["10I"]],
+			options: { holdingsVisibility },
+		});
+		assert.equal(projectedNetWorth(state), undefined, holdingsVisibility);
+		assert.equal(projectedNetWorth(wrapper.stripSecret(state, 0)), undefined);
+		assert.equal(projectedNetWorth(wrapper.stripSecret(state)), undefined);
+		assert.deepEqual(wrapper.scores(state), [0, 0, 0]);
+	}
+});
+
 test("bank-mode forecasts omit uncertain bonuses and are independent of secret hands and draws", () => {
 	const state = scenario({
 		seats: 2,

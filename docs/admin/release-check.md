@@ -1,13 +1,32 @@
-# Acquire — 26 October 2026
+# Acquire — 29 October 2026
 
-BGS registration: `acquire`, version `1`. Engine `0.0.4`, viewer `0.0.17`.
+BGS registration: `acquire`, version `1`. Engine `0.0.6`, viewer `0.0.19`.
 Source: <https://github.com/boardgamers/mergers-game>. The live game is now public; preserve its current visibility when updating.
 
 ## Validation
 
+- **Shares per turn** offers 3 (standard), 4 or 5 total purchases across all chains.
+  Existing games and tutorial lessons retain 3. The allowance is separate from stock swaps,
+  founding gifts and merger exchanges, and applies once to a two-tile turn or four-hands seat.
+  Checks cover default/invalid setup values, legal moves and direct validation, bank/cash
+  limits, private drafts with one clock increment, and replay in bank/team/four-hands modes.
+  Purchase and swap prompts show the configured limit in all 17 viewer locales; browser
+  checks cover each limit, mixed-chain purchases, disabled excess purchases and phone layouts.
+  The BGS setup declaration uses English source labels; platform label translations are separate.
+
+- [MikeIsom's PR #1](https://github.com/boardgamers/mergers-game/pull/1) adds two optional
+  setup checkboxes, both default Off: two tiles per turn (hands of 8) and limited game log.
+  The shortened labels requested in review are included. Two-tile rules cover founding/merger
+  restrictions, bank tiles, dead-tile replacement, skipped placements, dropped players and replay.
+  Follow-up fixes prevent BGS turn summaries from exposing hidden history, give four-hands
+  spectators the active player's log window, and lock replay throughout limited-log play.
+  Regression tests cover those privacy boundaries plus repeated two-tile revisions without
+  growing saved history or awarding duplicate time. Browser checks exercise both variants,
+  mobile layouts, all 17 locales, light/dark themes and replay after the full log is revealed.
+
 - Optional stock swaps default to Off, with 3/5/7/Unlimited shares per turn shared across exchanges.
   Only active chains may swap 1:1 at current prices after all mergers, respecting bank stock,
-  holdings and cash. Normal three-share purchases remain separate. Engine checks cover allowance
+  holdings and cash. Normal purchases (3 by default, optionally 4 or 5) remain separate. Engine checks cover allowance
   resets, refunds, equal prices, bank/cash limits, malformed moves, merger timing, old replays,
   public replay reconstruction, four hands, private undo and one clock increment per turn.
   The compact pre-buy controls and public swap log are translated into all 17 languages.
@@ -46,8 +65,8 @@ Source: <https://github.com/boardgamers/mergers-game>. The live game is now publ
   requests, hidden-information masking, replay, bank mode, four-hands, teams and dropped players.
   Desktop/phone checks exercise repeated undo, saved-state refreshes, final history and clock totals.
 
-- `pnpm check`: formatting, lint, TypeScript/Svelte checks, 222 engine tests,
-  66 viewer/tutorial tests, and the production build. Two pre-existing lint warnings
+- `pnpm check`: formatting, lint, TypeScript/Svelte checks, 248 engine tests,
+  67 viewer/tutorial tests, and the production build. Two pre-existing lint warnings
   remain (an unused test import and Svelte's `bind:this` assignment).
 - Protocol diagnostics: all eight required engine methods; full core/chat/replay
   viewer coverage, preferences, avatars and theme handlers. Protocol `0.10.0` is the

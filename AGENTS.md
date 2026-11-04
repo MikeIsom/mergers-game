@@ -3,7 +3,7 @@
 ## Repository and live status
 
 - This is **Acquire**, in `boardgamers/mergers-game`; the BGS game id is `acquire`, version **1**.
-- **The BGS game is public**, verified 27 October 2026. Preserve the live visibility and
+- **The BGS game is public**, verified 29 October 2026. Preserve the live visibility and
   unrelated metadata on updates. Fetch fresh metadata before publishing; this file is not a
   substitute for checking the live configuration.
 - `docs/admin/gameinfo.json` is a bootstrap template. Its `public: false` and blank artifact
@@ -43,7 +43,9 @@ Use Node 24 and pnpm 11. Inspect the working tree before editing and preserve un
   `toSave: undefined`; only the acting player receives the stripped preview. Revisions must
   not append saved history or award time. Commit boundaries include another player's
   decision, hidden information being revealed, draws and game end. Keep atomic moves working
-  for older viewers, tutorials and analysis.
+  for older viewers, tutorials and analysis. The viewer predicts each boundary by running the
+  engine's `draftCanContinue` on a throwaway copy of the player's own view (`moveOutcome`), so
+  the turn-ending step shows a turn summary first and merger decisions warn when undo stops.
 - Preserve two-player bank mode, four hands, team play and dropped-player behavior when changing rules.
 - Put new UI/log/tutorial text in all 17 catalogs under `packages/viewer/src/lib/locales/`.
   Keep chain names and tile coordinates unchanged. CMS text and setup labels have separate
@@ -51,8 +53,13 @@ Use Node 24 and pnpm 11. Inspect the working tree before editing and preserve un
 - Honor BGS theme, sound, chat, replay and supporter player colors. Chain letters already
   identify chains independently of color. Ongoing hidden-information analysis is not enabled.
 - Stock swaps are an optional house rule: Off / 3 / 5 / 7 / Unlimited. The per-turn limit is
-  shared across exchanges, separate from the three-share purchase allowance; prices apply
+  shared across exchanges, separate from the purchase allowance (3 by default; `sharesPerTurn`
+  may raise it to 4 or 5); prices apply
   after all merger resolution. Keep the default Off.
+- Two tiles per turn and limited game log are optional, default Off. Two-tile turns retain
+  private undo and one turn increment. Limited logs must filter both entries and BGS summaries;
+  every viewer sees the same window (current turn plus the previous round, one turn per seat).
+  Replay unlocks at game end.
 
 ## Setup options and player preferences
 

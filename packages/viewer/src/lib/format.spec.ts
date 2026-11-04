@@ -64,3 +64,14 @@ test("player names cannot be mistaken for chain names, markup or formatting toke
 		);
 	}
 });
+
+test("a holdings level overridden by the legacy publicHoldings checkbox is explained, not called unknown", () => {
+	const state = initGame(3, { publicHoldings: true, holdingsVisibility: "cash" }, "override");
+	const entry = state.log.find((e) => e.type === "optionIgnored")!;
+	assert.equal(
+		describeEntry(state, entry, langFor("en")),
+		"Option holdingsVisibility was ignored: publicHoldings already shows all holdings"
+	);
+	const unknown = initGame(3, { holdingsVisibility: "some" }, "unknown").log.find((e) => e.type === "optionIgnored")!;
+	assert.equal(describeEntry(state, unknown, langFor("en")), "Option holdingsVisibility was ignored: unknown value");
+});

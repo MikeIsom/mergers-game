@@ -11,7 +11,10 @@ export interface NetWorth {
 	total: number;
 }
 
-/** Public liquidation estimate, without inspecting hands, future draws or random state. */
+/**
+ * Public liquidation estimate, without inspecting hands, future draws or random state. It needs
+ * per-chain holdings, so it exists only with fully public holdings or after the game.
+ */
 export function projectedNetWorth(state: GameState): NetWorth[] | undefined {
 	if (!state.ended && !state.options.publicHoldings) {
 		return undefined;

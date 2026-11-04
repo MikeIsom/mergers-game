@@ -11,6 +11,11 @@ export interface SeatState {
 	name: string;
 	cash: number;
 	shares: Shares;
+	/**
+	 * Only in a viewer's state at the cashAndShareCount holdings level (rules.md §13): another
+	 * seat's total shares across all chains, while `shares` is hidden.
+	 */
+	shareCount?: number;
 	hand: Tile[];
 	dropped: boolean;
 }

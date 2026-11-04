@@ -6,7 +6,14 @@ import { movesFor } from "./decisions";
 import { langFor } from "./format";
 import { isRightToLeft, type Locale } from "./i18n";
 import { replayStart, replayView } from "./replay";
-import { TurnDraft } from "./turn-draft";
+import { moveOutcome, reviewFor, TurnDraft, type MoveOutcome } from "./turn-draft";
+
+/** A move held back for confirmation: the end of the turn, or a step that ends undo. */
+export interface PendingReview {
+	move: Move;
+	kind: "end" | "commit";
+	outcome: MoveOutcome;
+}
 
 /** Context key: the store is given to every component at mount, for viewer-wide settings. */
 export const STORE = Symbol("viewer-store");
@@ -53,20 +60,35 @@ export class ViewerStore {
 
 	private readonly draft = new TurnDraft();
 	undoCount = $state(0);
+	/** The first log entry that Undo can still take back (earlier entries are final). */
+	undoFrom = $state(0);
+	/** The move awaiting confirmation in the turn summary, if any. */
+	review = $state<PendingReview | undefined>();
+	reviewing = $derived(this.review !== undefined && this.moves.length > 0 && !this.sending);
 	canUndo = $derived(
 		this.undoCount > 0 && !this.sending && !this.readOnly && !this.analysis && this.replayAt === undefined
 	);
 
 	constructor(
 		private readonly sendMove: (move: Move | TurnRequest) => boolean,
-		private readonly options: { turnDrafts?: boolean; onState?: (state: GameState) => void } = {}
+		private readonly options: {
+			turnDrafts?: boolean;
+			/** Confirm the end of each turn with a summary (off in tutorials, whose steps name each button). */
+			reviewTurns?: boolean;
+			onState?: (state: GameState) => void;
+		} = {}
 	) {}
 
 	private display(state: GameState): void {
 		this.state = state;
+		if (!this.replayable) {
+			this.replayAt = undefined;
+		}
 		this.selected = undefined;
 		this.sending = false;
+		this.review = undefined;
 		this.undoCount = this.draft.count;
+		this.undoFrom = this.draft.base?.log.length ?? state.log.length;
 		this.options.onState?.(state);
 	}
 
@@ -101,6 +123,7 @@ export class ViewerStore {
 		if (!this.canUndo) {
 			return;
 		}
+		this.review = undefined;
 		const previous = this.draft.undo();
 		if (previous) {
 			this.display(previous);
@@ -108,7 +131,7 @@ export class ViewerStore {
 	}
 
 	/** With a limited log (rules.md §13), replay waits until the game ends and the log is whole. */
-	replayable = $derived(!this.state?.log.some((entry) => entry.type === "hidden"));
+	replayable = $derived(!this.state?.options.limitedLog || this.state.ended);
 
 	/** The replay range BGS shows in its controls: setup done, up to the live position. */
 	replayRange(): { start: number; end: number } {
@@ -116,11 +139,32 @@ export class ViewerStore {
 		return { start: this.replayable ? replayStart(this.state!) : end, end };
 	}
 
-	send(move: Move): void {
+	/** Moves are private drafts that can be undone until a commit boundary. */
+	get drafting(): boolean {
+		return !!(this.options.turnDrafts && this.state?.supportsTurnDrafts && !this.analysis);
+	}
+
+	/** What sending `move` now would do to the private turn draft. */
+	outcome(move: Move): MoveOutcome | undefined {
+		return this.state ? moveOutcome($state.snapshot(this.state), move, this.player) : undefined;
+	}
+
+	/** Sends a move, first holding back the end of the turn for its summary unless `confirmed`. */
+	send(move: Move, confirmed = false): void {
 		if (this.sending || this.readOnly || this.replayAt !== undefined) {
 			return;
 		}
 		const action = $state.snapshot(move);
+		if (!confirmed && this.options.reviewTurns && this.state) {
+			const view = $state.snapshot(this.state);
+			const outcome = moveOutcome(view, action, this.player);
+			const kind = reviewFor(view, action, outcome, this.drafting ? this.undoCount : 0);
+			if (kind) {
+				this.review = { move: action, kind, outcome };
+				return;
+			}
+		}
+		this.review = undefined;
 		const request =
 			this.options.turnDrafts && this.state?.supportsTurnDrafts && !this.analysis ? this.draft.begin(action) : action;
 		this.sending = true;

@@ -24,7 +24,6 @@
 		},
 		"topLevelVariable": "acquire",
 		"chat": true,
-		"integratedControls": ["chat"],
 		"replayable": true,
 		"fullScreenMobile": false
 	},
@@ -45,10 +44,28 @@
 	],
 	"options": [
 		{
-			"name": "publicHoldings",
-			"label": "Public holdings (everyone sees all stock and cash)",
-			"type": "checkbox",
-			"default": false
+			"name": "holdingsVisibility",
+			"label": "What players see of each other's cash and stock",
+			"type": "select",
+			"default": "private",
+			"items": [
+				{
+					"name": "private",
+					"label": "Private (standard)"
+				},
+				{
+					"name": "cash",
+					"label": "Cash only"
+				},
+				{
+					"name": "cashAndShareCount",
+					"label": "Cash and total share count"
+				},
+				{
+					"name": "public",
+					"label": "Everything (public holdings)"
+				}
+			]
 		},
 		{
 			"name": "teamPlay",
@@ -95,6 +112,26 @@
 			]
 		},
 		{
+			"name": "sharesPerTurn",
+			"label": "Shares per turn",
+			"type": "select",
+			"default": "3",
+			"items": [
+				{
+					"name": "3",
+					"label": "3 (standard)"
+				},
+				{
+					"name": "4",
+					"label": "4"
+				},
+				{
+					"name": "5",
+					"label": "5"
+				}
+			]
+		},
+		{
 			"name": "stockSwap",
 			"label": "Stock swap (shares per turn, optional variant)",
 			"type": "select",
@@ -124,13 +161,37 @@
 		},
 		{
 			"name": "twoTiles",
-			"label": "Two tiles per turn (hands of 8, optional variant)",
+			"label": "Two tiles per turn",
 			"type": "checkbox",
 			"default": false
 		},
 		{
+			"name": "handSize",
+			"label": "Tiles in hand",
+			"type": "select",
+			"default": "6",
+			"items": [
+				{
+					"name": "6",
+					"label": "6 (standard)"
+				},
+				{
+					"name": "8",
+					"label": "8"
+				},
+				{
+					"name": "10",
+					"label": "10"
+				},
+				{
+					"name": "12",
+					"label": "12"
+				}
+			]
+		},
+		{
 			"name": "limitedLog",
-			"label": "Limited game log (only since your last turn until the game ends)",
+			"label": "Limited game log (only last round)",
 			"type": "checkbox",
 			"default": false
 		}

@@ -1,6 +1,7 @@
 import { activeChains, chainSize, connectedLoose, placementEffect, playableTiles, tileLegality } from "./board.js";
 import { defaultMove } from "./autoplay.js";
-import { AUTO_MOVE_LIMIT, CHAIN_IDS, MAX_BUY, isChainId, type ChainId } from "./config.js";
+import { AUTO_MOVE_LIMIT, CHAIN_IDS, isChainId, type ChainId } from "./config.js";
+import { sharePurchaseLimit } from "./options.js";
 import {
 	dispose,
 	isValidDefunctOrder,
@@ -16,8 +17,14 @@ import { sharePrice } from "./prices.js";
 import { canAnnounce, endGame } from "./scoring.js";
 import { parseTile, tileLabel, type Tile } from "./tiles.js";
 import { afterPlacement, endTurn, enterBuyPhase } from "./turn.js";
-import { blockedThisTurn } from "./two-tiles.js";
+import { twoTileLimit, type TwoTileLimit } from "./two-tiles.js";
 import type { GameState, Move, Shares } from "./types.js";
+
+const TWO_TILE_LIMIT_ERRORS: Record<TwoTileLimit, string> = {
+	oneFounding: "A turn cannot found two chains",
+	mergeFounded: "A turn cannot merge the chain it founded",
+	foundOrMerge: "A turn cannot both found a chain and cause a merger",
+};
 
 export function currentSeat(state: GameState): number | undefined {
 	if (state.ended) {
@@ -87,8 +94,9 @@ export function sanitizeMove(state: GameState, raw: unknown, seat: number): Move
 			if (tileLegality(state.board, tile) !== "playable") {
 				throw new Error(`Tile ${tileLabel(tile)} cannot be played now`);
 			}
-			if (blockedThisTurn(state, tile)) {
-				throw new Error("A turn cannot found two chains, or both found a chain and cause a merger");
+			const limit = twoTileLimit(state, tile);
+			if (limit !== undefined) {
+				throw new Error(TWO_TILE_LIMIT_ERRORS[limit]);
 			}
 			return { type: "place", tile: tileLabel(tile) };
 		}
@@ -160,8 +168,9 @@ export function sanitizeMove(state: GameState, raw: unknown, seat: number): Move
 				total += n;
 				cost += n * sharePrice(key, chainSize(state.board, key));
 			}
-			if (total > MAX_BUY) {
-				throw new Error(`You can buy at most ${MAX_BUY} shares per turn`);
+			const limit = sharePurchaseLimit(state.options);
+			if (total > limit) {
+				throw new Error(`You can buy at most ${limit} shares per turn`);
 			}
 			if (cost > state.seats[seat]!.cash) {
 				throw new Error("You cannot afford those shares");

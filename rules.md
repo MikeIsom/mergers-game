@@ -41,7 +41,8 @@ original 1976 rules were silent or ambiguous, the choice made here is marked
 3. The player who placed the **lowest** tile goes first. Compare by number first, then
    letter: `2B` beats `2E` and `3A`. Play then proceeds clockwise (in seat order) from
    that player. **[DECISION]** "Clockwise" means ascending seat order, wrapping around.
-4. Each player then draws **6** tiles into their private hand.
+4. Each player then draws **6** tiles into their private hand (the `handSize` option, §15,
+   may set 8, 10 or 12).
 5. **[DECISION]** Options are never rejected at setup. An option that does not apply to
    the player count (see §15) is ignored, and the game log records that it was ignored.
 
@@ -53,11 +54,12 @@ player.
 
 1. **Place tile** (§5). May trigger **Found chain** (§6) or **Merger** (§7), which fully
    resolve before continuing.
-2. **Buy stock** (§9). Optional, up to 3 shares.
+2. **Buy stock** (§9). Optional, up to 3 shares by default (4 or 5 with the setup variant).
 3. **End-of-game announcement** (§11). Optional. **[DECISION]** Allowed at exactly two
    points: before placing a tile, and during the buy step (§11.1).
 4. **Replace dead tiles** (§5.3).
-5. **Draw** one tile to bring the hand back to 6, if the pool is not empty.
+5. **Draw** one tile to bring the hand back to 6 (or the `handSize`, §15), if the pool is
+   not empty.
 
 If the game was announced as over during this turn, run final scoring (§11.2) after
 the turn completes instead of passing to the next player.
@@ -70,8 +72,7 @@ they cannot buy anything.
 
 ### 4.1 Two tiles per turn (house rule)
 
-With `twoTiles` enabled (§15), hands hold **8** tiles instead of 6 (at setup and when
-drawing), and each turn places two tiles:
+With `twoTiles` enabled (§15), each turn places two tiles:
 
 1. At the start of the turn, the active seat discards its permanently unplayable tiles
    (§5.2) and draws replacements. They are not replaced at the end of the turn.
@@ -81,13 +82,19 @@ drawing), and each turn places two tiles:
 3. Place the second tile if any tile in hand is playable now; otherwise go straight to
    buying. A tile that became permanently unplayable during this turn cannot be placed and
    is replaced at the start of the seat's next turn.
-4. A turn founds at most one chain, and never both founds a chain and causes a merger, in
-   either order. It may cause two mergers, one per tile. Mergers caused by bank tiles do
-   not count towards these limits.
-5. Buy (§9, including §9.1 swaps) once, after both tiles, then draw back up to 8.
+4. A turn founds at most one chain, and the second tile cannot cause a merger involving the
+   chain the first tile founded (as survivor or defunct). Otherwise each tile follows the
+   usual rules: a merger may be followed by a founding or another merger, and a founding by
+   a merger of other chains. **[DECISION]** Games created before this revision (init
+   options without `twoTilesRelaxed`) keep the earlier limit, also when replayed: a turn
+   never both founds a chain and causes a merger, in either order, and mergers caused by
+   bank tiles do not count towards it.
+5. Buy (§9, including §9.1 swaps) once, after both tiles, then draw back up to the hand size.
 
 The end may also be announced between the two tiles, if an end condition holds at that
-moment. Dropped seats place their first two playable tiles by the §16 default.
+moment. Dropped seats place their first two playable tiles by the §16 default. The hand
+size is the separate `handSize` option (§15); games created before it hold **8** tiles with
+`twoTiles`.
 
 ## 5. Placing a Tile
 
@@ -208,7 +215,10 @@ can be renamed later without touching game logic.
 ## 9. Buying Stock
 
 1. After placing (or skipping placement), the active player may buy **0 to 3 shares**
-   in total, across one, two, or three active chains.
+   in total across active chains. The optional **Shares per turn** setting (`sharesPerTurn`)
+   raises this total to **4** or **5**. The allowance applies once per turn, including
+   two-tile turns and each seat in four-hands games; founding gifts and merger trades do
+   not use it. Existing games and tutorials keep the standard limit of 3.
 2. Shares can only be bought in chains that are on the board and have shares left in the
    bank.
 3. The price of each share is based on the chain's size **after** this turn's placement
@@ -217,10 +227,11 @@ can be renamed later without touching game logic.
 5. Players can never sell stock except during merger disposal (§7.2) and final scoring
    (§11.2). There is no trading between players.
 6. **[DECISION]** The buy step is skipped automatically only for public reasons: no chain
-   is on the board, or the bank has no shares left in any active chain. When
-   `publicHoldings` is off (§13), it is never skipped because the player cannot afford a
-   share, since that would reveal their cash; they get the step and may buy nothing. When
-   `publicHoldings` is on, it is also skipped when the player cannot afford any share.
+   is on the board, or the bank has no shares left in any active chain. While cash is
+   private (`holdingsVisibility` `private`, §13), it is never skipped because the player
+   cannot afford a share, since that would reveal their cash; they get the step and may buy
+   nothing. When cash is public (every other level), it is also skipped when the player
+   cannot afford any share.
 
 ### 9.1 Optional stock swaps (house rule)
 
@@ -233,7 +244,7 @@ and the seat must afford any payment. No borrowing or direct player trades.
 
 Off is the default. Limits 3, 5 or 7 count shares **given** across all exchanges that turn;
 Unlimited has no share-count cap. Allowances reset for each seat's turn, including four hands.
-Normal purchases of up to 3 shares remain separate and end the turn. An exchange may fund
+Normal purchases use their own `sharesPerTurn` limit (3 by default) and end the turn. An exchange may fund
 those purchases. A swap-enabled buy step is not skipped for lack of cash or secret holdings
 when at least two chains are active and the bank has stock in one. Dropped players skip swaps.
 Swaps and their cash differences are public once committed. Until buying ends the turn,
@@ -328,21 +339,36 @@ Each viewer must only receive information their player is entitled to.
 - **Always private:** each player's hand of tiles, and the order of the draw pool.
 - **Always public:** the board, chain names and sizes, current prices, and the number of
   shares left in the bank for each chain.
-- **[DECISION] Game option `publicHoldings` (default: `false`):** When off, each player's
-  current share holdings and cash are visible only to that player. When on, they are
-  public.
+- **[DECISION] Game option `holdingsVisibility` (default: `private`):** what everyone sees
+  of other players' current cash and share holdings during play.
+  - `private`: nothing; each player's cash and holdings are visible only to that player.
+  - `cash`: every player's exact cash is public; holdings stay private.
+  - `cashAndShareCount`: exact cash and each player's total number of shares across all
+    chains (including kept shares of chains not on the board) are public; how many shares
+    of each chain stays private.
+  - `public`: cash and every holding are public.
+
+  The legacy checkbox `publicHoldings: true` means `public` and wins over the select; an
+  intermediate level it overrides is logged as ignored. Normalized options keep
+  `publicHoldings` (true only at `public`) and store `holdingsVisibility` only for `cash`
+  and `cashAndShareCount`, so games created before this option keep identical init logs.
+  Projected net worth and scores need per-chain holdings, so they are shown only at
+  `public` (below). Summary lines say how many shares a player kept in a merger only at
+  `public`. The log is the same at every level.
 - **[DECISION] The game log is public** unless `limitedLog` is on (below). It records
   every action: tile placements, stock purchases, bonuses paid, and each player's disposal
   choices. Only the *current* holdings and cash are hidden, even though they can be
   reconstructed from the log.
-- **Game option `limitedLog` (default: `false`):** each player sees only the log from the
-  start of their own last turn before the current one, so the current turn, including a
-  merger in progress, is always shown. Spectators see as much as the active player.
-  Setup entries (options, turn order) stay visible. Earlier entries are replaced by
-  placeholders, keeping the log's length. The whole log is revealed when the game ends,
-  and replay is only available after that.
-- **[DECISION] Scores during play:** When `publicHoldings` is off, every player's score
-  is 0 until the game ends. When it is on, the score is projected net worth: cash,
+- **Game option `limitedLog` (default: `false`):** everyone sees the same part of the log:
+  the current turn, including a merger in progress, and the full round of turns before it
+  (one turn per seat, so four turns in four-hands games). **[DECISION]** Every player and
+  spectator gets this same window, wherever they sit, and it always reaches back at least to
+  the start of their own previous turn. Setup entries (options, turn order) stay visible.
+  Earlier entries are replaced by placeholders, keeping the log's length. The whole log is
+  revealed when the game ends, and replay is only available after that.
+- **[DECISION] Scores during play:** Unless holdings are `public`, every player's score
+  is 0 until the game ends, including at the `cash` and `cashAndShareCount` levels. At
+  `public`, the score is projected net worth: cash,
   current share sale values and majority/minority bonuses at current holdings (including
   ties and rounding). Future bonuses are excluded in two-player bank mode because the
   bank's holding is drawn only at payout. In-progress mergers never count paid bonuses
@@ -376,13 +402,16 @@ switches on one engine, not as separate code paths. Defaults reproduce the stand
 
 | Option | Values | Default | Effect |
 |---|---|---|---|
-| `publicHoldings` | true / false | false | See §13. When false, share holdings and cash are private. |
-| `teamPlay` | true / false | false | Only applies with exactly 4 players. Seats 1 and 3 form one team, seats 2 and 4 the other. All rules are unchanged; at final scoring each team's cash is added together and the team with more wins. **[DECISION]** With `publicHoldings` off, teammates still cannot see each other's holdings. |
+| `holdingsVisibility` | `private` / `cash` / `cashAndShareCount` / `public` | `private` | See §13. What everyone sees of other players' cash and holdings during play. |
+| `publicHoldings` | true / false | false | Legacy checkbox, kept for existing games: true means `holdingsVisibility: public`. See §13. |
+| `teamPlay` | true / false | false | Only applies with exactly 4 players. Seats 1 and 3 form one team, seats 2 and 4 the other. All rules are unchanged; at final scoring each team's cash is added together and the team with more wins. **[DECISION]** Below `public` holdings, teammates see each other's cash and holdings only as far as everyone does. |
 | `twoPlayerMode` | `bank` / `fourHands` | `bank` | Only has an effect with exactly 2 players. `bank` uses §12. `fourHands` runs a normal 4-seat game where each player controls two seats (player A has seats 1 and 3, player B has seats 2 and 4), with no bank shareholder. **[DECISION]** The player who controls the single richest seat wins; seats are not combined. |
 | `autoEnd` | true / false | false | When true, the game ends automatically at the end of the turn in which an end condition (§11.1) first holds, instead of waiting for an announcement. |
+| `sharesPerTurn` | 3 / 4 / 5 | 3 | Maximum shares purchased per turn in total across all active chains (house rule). Independent of stock swaps; see §9. |
 | `stockSwap` | `off` / 3 / 5 / 7 / `unlimited` | `off` | Optional 1:1 exchanges with the bank before buying, paying or receiving the price difference. See §9.1. |
-| `twoTiles` | true / false | false | Hands of 8 tiles and two placements per turn (house rule). See §4.1. |
-| `limitedLog` | true / false | false | The log shows only what happened since your last turn until the game ends (house rule). See §13. |
+| `twoTiles` | true / false | false | Two placements per turn (house rule). See §4.1. |
+| `handSize` | 6 / 8 / 10 / 12 | 6 | Tiles each seat draws at setup and refills to (house rule), with or without `twoTiles`. **[DECISION]** Without `handSize` in the init options (games created before it), hands hold 6, or 8 with `twoTiles`; normalized options omit `handSize` at that legacy size so those games replay identically. Twelve tiles for each of 6 players use 78 of the 108 tiles at setup, counting turn-order tiles. |
+| `limitedLog` | true / false | false | The log shows only the current turn and the round before it until the game ends (house rule). See §13. |
 | `endSize` | 41 / 31 | 41 | The chain size that triggers the end condition in §11.1. Setting 31 gives a shorter game (house rule). Does not change the safe size (11) or the price table. |
 
 **[DECISION]** Invalid combinations are never rejected. An option that does not apply to

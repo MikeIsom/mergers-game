@@ -81,7 +81,10 @@ export function playerRankings(state: GameState): number[] {
 	return players.map((player) => (hasDropped(state, player) ? lastStayed + 1 : ranks[player]!));
 }
 
-/** rules.md §13: scores stay 0 during play while holdings are private. */
+/**
+ * rules.md §13: scores stay 0 during play unless holdings are fully public. Net worth needs
+ * per-chain holdings, so the cash and share-count levels keep 0 too.
+ */
 export function playerScores(state: GameState): number[] {
 	if (!state.ended && !state.options.publicHoldings) {
 		return Array.from({ length: state.players }, () => 0);
