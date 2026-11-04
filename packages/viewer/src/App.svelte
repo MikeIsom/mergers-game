@@ -137,7 +137,10 @@
 		.column {
 			display: flex;
 			flex-direction: column;
-			gap: 16px;
+			gap: 12px;
+		}
+		.market {
+			gap: 8px;
 		}
 		.talk-column {
 			grid-area: talk;

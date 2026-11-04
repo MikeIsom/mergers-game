@@ -492,6 +492,10 @@
 		/* The layout already separates these controls from the hand below. */
 		margin-bottom: 0;
 	}
+	/* Keep a merger decision within one desktop screen, even with touch-sized buttons. */
+	.panel.disposal > p {
+		margin-bottom: 4px;
+	}
 	.panel p {
 		margin: 0 0 8px;
 	}
