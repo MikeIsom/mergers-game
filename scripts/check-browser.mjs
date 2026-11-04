@@ -149,6 +149,10 @@ try {
 				.screenshot({ path: fileURLToPath(new URL(`purchase-limit-${limit}-${theme}.png`, output)) });
 		}
 		await page.locator(".panel .primary").click();
+		// The final step waits for the turn summary.
+		assert.match(await page.locator(".turn-summary").innerText(), /bought/);
+		assert.equal(await page.evaluate(() => window.acquireDev.state.turn), 1);
+		await page.locator(".turn-summary").getByRole("button", { name: "End turn", exact: true }).click();
 		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
 		assert.deepEqual(
 			await page.evaluate(() => ({
@@ -170,6 +174,7 @@ try {
 		await page.evaluate((state) => {
 			const { parseTile, allTiles } = window.acquireDev.rules;
 			state.options.twoTiles = true;
+			state.options.twoTilesRelaxed = true;
 			state.options.limitedLog = true;
 			state.board[parseTile("1C")] = "loose";
 			state.seats[0].hand = ["2A", "3A", "2C", "5E", "7E", "9E", "7G", "9G"].map(parseTile);
@@ -208,6 +213,8 @@ try {
 		await page.locator(".board").getByRole("button", { name: "Place 3A", exact: true }).click();
 		await page.waitForSelector("table.buy");
 		await page.locator(".panel .primary").click();
+		assert.match(await page.locator(".turn-summary").innerText(), /placed 2A[\s\S]*placed 3A/);
+		await page.locator(".turn-summary").getByRole("button", { name: "End turn", exact: true }).click();
 		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
 		assert.deepEqual(
 			await page.evaluate(() => ({
@@ -318,8 +325,9 @@ try {
 			window.acquireDev.load(state);
 		}, preparedPosition("founding"));
 		await page.locator(".stock-swap summary").click();
-		await page.getByRole("spinbutton", { name: "Shares", exact: true }).fill("2");
+		await page.getByRole("button", { name: "Swap one more", exact: true }).click();
 		assert.match(await page.locator(".exchange").innerText(), /Pay \$800/);
+		assert.match(await page.locator(".stock-swap .holding-change").innerText(), /\$6,000\s*→\s*\$5,200/);
 		for (const theme of ["dark", "light"]) {
 			await page.evaluate((theme) => window.acquireDev.emitter.emit("theme", { dark: theme === "dark" }), theme);
 			for (const locale of locales) {
@@ -328,17 +336,18 @@ try {
 					await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1),
 					`stock swap ${locale} ${theme} ${width}px`
 				);
-				assert.equal(await page.locator(".stock-swap button").isEnabled(), true);
+				assert.equal(await page.locator(".stock-swap button.confirm").isEnabled(), true);
 			}
 			await preferences({ locale: "en" });
 			await page
 				.locator(".panel")
 				.screenshot({ path: fileURLToPath(new URL(`stock-swap-${theme}-${width}.png`, output)) });
 		}
+		await page.getByRole("button", { name: "Swap one fewer", exact: true }).click();
 		const original = await page.evaluate(() => JSON.stringify(window.acquireDev.state));
 		for (let revision = 0; revision < 3; revision++) {
-			await page.getByRole("spinbutton", { name: "Shares", exact: true }).fill("2");
-			await page.getByRole("button", { name: "Swap shares", exact: true }).click();
+			await page.getByRole("button", { name: "Swap one more", exact: true }).click();
+			await page.getByRole("button", { name: "Swap 2 Tower for 2 Continental · Pay $800", exact: true }).click();
 			await page.waitForFunction(() => document.querySelector(".stock-swap summary")?.textContent.includes("1 left"));
 			assert.equal(
 				await page.evaluate(() => JSON.stringify(window.acquireDev.state)),
@@ -348,18 +357,23 @@ try {
 			await page.getByRole("button", { name: "Undo", exact: true }).click();
 			await page.waitForFunction(() => document.querySelector(".stock-swap summary")?.textContent.includes("3 left"));
 		}
-		await page.getByRole("spinbutton", { name: "Shares", exact: true }).fill("2");
-		await page.getByRole("button", { name: "Swap shares", exact: true }).click();
+		await page.getByRole("button", { name: "Swap one more", exact: true }).click();
+		await page.locator(".stock-swap button.confirm").click();
 		await page.waitForFunction(() => document.querySelector(".stock-swap summary")?.textContent.includes("1 left"));
 		await page.getByLabel("Give (your stock)", { exact: true }).selectOption("continental");
 		await settle();
 		assert.match(await page.locator(".exchange").innerText(), /Receive \$400/);
-		await page.getByRole("button", { name: "Swap shares", exact: true }).click();
+		await page.locator(".stock-swap button.confirm").click();
 		await page.waitForFunction(() => document.querySelector(".stock-swap summary")?.textContent.includes("0 left"));
 		for (let i = 0; i < 3; i++) {
 			await page.getByRole("button", { name: "Buy one more Tower", exact: true }).click();
 		}
 		await page.getByRole("button", { name: "Buy for $900 and end turn", exact: true }).click();
+		assert.match(
+			await page.locator(".turn-summary").innerText(),
+			/swapped[\s\S]*swapped[\s\S]*bought 3 Tower for \$900/
+		);
+		await page.locator(".turn-summary").getByRole("button", { name: "End turn", exact: true }).click();
 		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
 		assert.deepEqual(
 			await page.evaluate(() => ({
@@ -376,6 +390,10 @@ try {
 		window.acquireDev.load(state);
 	}, preparedPosition("scoring"));
 	assert.equal(await page.locator(".stock-swap").count(), 0, "off never adds UI to existing games");
+	// A random buy step where the panel's default chains (Tower, Continental) are not both on the
+	// board: the swap panel must not price a chain off the board.
+	await open("players=4&moves=16&stockSwap=3");
+	assert.equal(await page.locator(".stock-swap").count(), 1, "swaps render when a default chain is off the board");
 	report.scenarios.push(
 		"stock swaps in 17 languages and both themes at 1280/390/320px, pay/receive previews, shared allowance, undo without saved history and a separate three-share purchase"
 	);
@@ -477,6 +495,9 @@ try {
 			beforePreset,
 			"presets wait for Confirm"
 		);
+		assert.equal(await page.locator(".panel button.primary").innerText(), "Trade 6 for 3 Imperial and keep 1 Festival");
+		await page.locator(".keep-all").click();
+		assert.equal(await page.locator(".panel button.primary").innerText(), "Keep all 7 Festival");
 		for (const locale of locales) {
 			await preferences({ locale });
 			assert.ok(
@@ -561,6 +582,7 @@ try {
 		await page.waitForSelector("table.buy");
 		// Disposal remains an undoable private draft until this player finishes buying.
 		await page.getByRole("button", { name: "Buy nothing and end turn", exact: true }).click();
+		await page.locator(".turn-summary").getByRole("button", { name: "End turn", exact: true }).click();
 		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
 		const result = await page.evaluate(() => window.acquireDev.state.seats[0]);
 		assert.equal(result.shares.tower, expectedTrade / 2);
@@ -668,7 +690,7 @@ try {
 		await open(`players=4&moves=95&publicHoldings=1&theme=${theme}`);
 		const geometry = await page.evaluate(() => {
 			const main = document.querySelector("main");
-			const column = document.querySelector(".layout > .board");
+			const column = document.querySelector(".board-column > .board");
 			const frame = column.querySelector(".frame");
 			return {
 				margin: getComputedStyle(document.body).margin,
@@ -1009,6 +1031,16 @@ try {
 		await page.waitForSelector("table.buy");
 		await page.screenshot({ path: fileURLToPath(new URL(`undo-${width}.png`, output)), fullPage: true });
 		await page.locator(".panel .primary").click();
+		await page.locator(".turn-summary").getByRole("button", { name: "Back", exact: true }).click();
+		await page.waitForSelector("table.buy");
+		await page.locator(".panel .primary").click();
+		await page.screenshot({ path: fileURLToPath(new URL(`turn-summary-${width}.png`, output)), fullPage: true });
+		await page.locator(".turn-summary").getByRole("button", { name: "Undo", exact: true }).click();
+		await page.waitForSelector(".choices");
+		await page.locator(".choices button").filter({ hasText: "Luxor" }).click();
+		await page.waitForSelector("table.buy");
+		await page.locator(".panel .primary").click();
+		await page.locator(".turn-summary").getByRole("button", { name: "End turn", exact: true }).click();
 		await page.waitForFunction(() => window.acquireDev.state.turn === 2);
 		await settle();
 		assert.equal(await undo.count(), 0, "no undo after drawing and handing over");
@@ -1028,17 +1060,28 @@ try {
 		"desktop/phone undo, repeated private revisions, refresh, no undo network calls, one saved turn and one clock increment"
 	);
 
-	// The desktop used to stack every supporting panel in one tall sidebar. Check the rendered
-	// arrangement and height, not only horizontal overflow, before creating gallery images.
+	// The desktop used to stack every supporting panel in one tall sidebar, and later left empty
+	// areas beside the board. Each column now stacks its own panels; check the rendered arrangement.
 	await page.setViewportSize({ width: 1280, height: 900 });
 	await open("players=4&moves=95&publicHoldings=1");
-	const board = await page.locator(".layout > .board").boundingBox();
-	const panels = await Promise.all(
-		[".players", ".history", ".conversation"].map((selector) => page.locator(`.layout > ${selector}`).boundingBox())
-	);
-	for (const panel of panels) {
-		assert.ok(panel.y >= board.y + board.height, "supporting panels sit below the board");
-		assert.ok(Math.abs(panel.y - panels[0].y) < 1, "supporting panels share a desktop row");
+	const box = (selector) => page.locator(`.layout ${selector}`).boundingBox();
+	const columns = [
+		[".board-column > .board", ".board-column > .players"],
+		[".turn-column > .controls", ".turn-column > .hand", ".turn-column > .market"],
+		[".talk-column > .history", ".talk-column > .conversation"],
+	];
+	let previousColumn;
+	for (const column of columns) {
+		const boxes = await Promise.all(column.map(box));
+		for (const [index, panel] of boxes.entries()) {
+			assert.ok(Math.abs(panel.x - boxes[0].x) < 1, `${column[index]} stays in its column`);
+			if (index > 0) {
+				const gap = panel.y - (boxes[index - 1].y + boxes[index - 1].height);
+				assert.ok(gap >= 0 && gap < 40, `${column[index]} follows the panel above it without an empty area`);
+			}
+		}
+		assert.ok(!previousColumn || boxes[0].x > previousColumn.x + previousColumn.width, "desktop columns side by side");
+		previousColumn = boxes[0];
 	}
 	assert.ok((await page.locator("main").boundingBox()).height <= 900, "desktop game fits within 900px");
 	assert.equal(await page.locator(".log li").count(), 8);
@@ -1046,7 +1089,7 @@ try {
 	assert.ok((await page.locator(".log li").count()) > 100, "full history remains available");
 	await page.locator(".history button").click();
 	assert.equal(await page.locator(".log li").count(), 8);
-	report.scenarios.push("balanced desktop panels, compact recent history and expandable full log");
+	report.scenarios.push("independent desktop columns, compact recent history and expandable full log");
 
 	for (const [name, params, width, height] of [
 		["overview", "players=4&moves=95&publicHoldings=1", 1280, 900],
@@ -1057,7 +1100,7 @@ try {
 		for (const theme of ["light", "dark"]) {
 			await open(`${params}&theme=${theme}`);
 			const main = await page.locator("main").boundingBox();
-			const hand = await page.locator(".layout > .hand").boundingBox();
+			const hand = await page.locator(".turn-column > .hand").boundingBox();
 			// Desktop shows the whole compact layout. On phones frame the complete decision, board
 			// and hand, without appending a long column of tables, chat and history to the image.
 			const captureHeight = Math.ceil(width < 700 ? hand.y + hand.height + 12 : main.height);
@@ -1132,11 +1175,15 @@ try {
 					await page.getByRole("button", { name: "Buy one more Tower", exact: true }).click();
 				} else {
 					await page.locator(".choices button").filter({ hasText: "Festival" }).click();
+					await page.locator("main .panel button.primary").click();
 					await page.getByRole("alert").waitFor();
 					await page.locator(".choices button").filter({ hasText: "Worldwide" }).click();
+					await page.locator("main .panel button.primary").click();
 					await page.waitForSelector('.acquire-tutorial[data-step="5"]');
 					assert.match(await page.locator(".guide").innerText(), /\$4,500/);
-					// Default 0/0 keeps the Festival share after both bonuses are paid.
+					// Keeping the Festival share is an explicit choice; Confirm waits for it.
+					assert.equal(await page.locator("main .panel button.primary").isDisabled(), true);
+					await page.locator(".keep-all").click();
 					await page.locator("main .panel button.primary").click();
 					await page.waitForSelector('.acquire-tutorial[data-step="6"]');
 				}
@@ -1248,6 +1295,7 @@ try {
 				);
 				if (chapter === "mergers") {
 					await page.locator(".choices button").filter({ hasText: "Worldwide" }).click();
+					await page.locator("main .panel .primary").click();
 					await page.waitForSelector('.acquire-tutorial[data-step="5"]');
 				}
 				assert.ok(

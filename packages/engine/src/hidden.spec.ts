@@ -8,7 +8,7 @@ import { parseTile } from "./tiles.js";
 import { chainAt, scenario } from "./test/helpers.js";
 import type { GameState, LogEntry } from "./types.js";
 import { simpleLine } from "./simple.js";
-import { HIDDEN, seatsOf } from "./view.js";
+import { HIDDEN, seatsOf, visibilityNow } from "./view.js";
 import * as wrapper from "../wrapper.js";
 
 const OPTION_SETS: Record<string, unknown>[] = [
@@ -17,7 +17,13 @@ const OPTION_SETS: Record<string, unknown>[] = [
 	{ teamPlay: true },
 	{ twoPlayerMode: "fourHands" },
 	{ twoPlayerMode: "fourHands", publicHoldings: true },
+	{ holdingsVisibility: "cash" },
+	{ holdingsVisibility: "cashAndShareCount" },
+	{ holdingsVisibility: "cashAndShareCount", teamPlay: true },
+	{ holdingsVisibility: "cashAndShareCount", twoPlayerMode: "fourHands" },
 ];
+
+const totalShares = (shares: Record<string, number>) => Object.values(shares).reduce((sum, count) => sum + count, 0);
 
 function lcg(seed: number): () => number {
 	let s = seed >>> 0;
@@ -61,21 +67,24 @@ function viewers(state: GameState): (number | undefined)[] {
 /** The state with every field the viewer may not see replaced by a fixed marker, for comparison. */
 function withoutSecrets(state: GameState, player: number | undefined): unknown {
 	const own = seatsOf(state, player);
-	const holdingsPublic = state.options.publicHoldings || state.ended;
+	const level = visibilityNow(state);
 	return {
 		...state,
 		seed: "",
 		rngCounter: 0,
 		pool: state.pool.length,
-		seats: state.seats.map((seat, index) =>
-			own.includes(index)
-				? seat
-				: {
-						...seat,
-						hand: seat.hand.length,
-						...(holdingsPublic ? {} : { cash: "hidden", shares: "hidden" }),
-					}
-		),
+		seats: state.seats.map((seat, index) => {
+			if (own.includes(index)) {
+				return seat;
+			}
+			const { shareCount: _, ...rest } = seat;
+			return {
+				...rest,
+				hand: seat.hand.length,
+				...(level === "private" ? { cash: "hidden" } : {}),
+				...(level === "public" ? {} : { shares: "hidden" }),
+			};
+		}),
 	};
 }
 
@@ -91,7 +100,7 @@ test("§13 each viewer's state hides exactly the private fields and passes every
 					for (const player of viewers(state)) {
 						const view = wrapper.stripSecret(state, player);
 						const own = seatsOf(state, player);
-						const holdingsPublic = state.options.publicHoldings || state.ended;
+						const level = visibilityNow(state);
 
 						assert.equal(view.seed, "", "§13 the seed (which fixes the pool order) is never sent");
 						assert.equal(view.rngCounter, 0);
@@ -111,16 +120,24 @@ test("§13 each viewer's state hides exactly the private fields and passes every
 								seat.hand.every((tile) => tile === HIDDEN),
 								"§13 other players' hands are private"
 							);
-							if (holdingsPublic) {
-								assert.equal(seat.cash, state.seats[index]!.cash);
+							if (level === "private") {
+								assert.equal(seat.cash, HIDDEN, "§13 other players' cash is private");
+							} else {
+								assert.equal(seat.cash, state.seats[index]!.cash, "§13 cash is public above the private level");
+							}
+							if (level === "public") {
 								assert.deepEqual(seat.shares, state.seats[index]!.shares);
 							} else {
-								assert.equal(seat.cash, HIDDEN, "§13 other players' cash is private");
 								assert.ok(
 									CHAIN_IDS.every((chain) => seat.shares[chain] === HIDDEN),
 									"§13 other players' stock is private"
 								);
 							}
+							assert.equal(
+								seat.shareCount,
+								level === "cashAndShareCount" ? totalShares(state.seats[index]!.shares) : undefined,
+								"§13 only the share-count level adds the total"
+							);
 						});
 
 						const masked = withoutSecrets(view, player) as Record<string, unknown>;
@@ -154,14 +171,25 @@ test("§13 a viewer cannot tell apart games that differ only in what is hidden f
 							const opponent = variant.seats[other]!;
 							[opponent.hand[0], variant.pool[0]] = [variant.pool[0]!, opponent.hand[0]!];
 						}
-						if (!state.options.publicHoldings && !state.ended) {
-							variant.seats.forEach((seat, index) => {
-								if (!own.includes(index)) {
-									seat.cash += 100;
-									seat.shares.tower += 1;
+						const level = visibilityNow(state);
+						variant.seats.forEach((seat, index) => {
+							if (own.includes(index) || level === "public") {
+								return;
+							}
+							if (level === "private") {
+								seat.cash += 100;
+							}
+							if (level === "cashAndShareCount") {
+								// Only the split between chains is hidden: move one share elsewhere.
+								const from = CHAIN_IDS.find((chain) => seat.shares[chain] > 0);
+								if (from) {
+									seat.shares[from] -= 1;
+									seat.shares[from === "tower" ? "luxor" : "tower"] += 1;
 								}
-							});
-						}
+							} else {
+								seat.shares.tower += 1;
+							}
+						});
 						assert.deepEqual(
 							JSON.stringify(wrapper.stripSecret(variant, player)),
 							JSON.stringify(wrapper.stripSecret(state, player)),

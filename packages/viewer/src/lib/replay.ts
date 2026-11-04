@@ -1,8 +1,6 @@
 // BGS replay controls: the state to display at a log position, built from the engine's
 // positionAt (the public log replayed with the engine's own placement functions).
-import { CHAIN_IDS, HIDDEN, positionAt, seatsOf, type GameState, type Shares } from "acquire-engine";
-
-const HIDDEN_SHARES = Object.fromEntries(CHAIN_IDS.map((chain) => [chain, HIDDEN])) as Shares;
+import { HIDDEN, maskHoldings, positionAt, seatsOf, visibilityNow, type GameState } from "acquire-engine";
 
 /** The first replay position: the board after setup, at the start of the first turn. */
 export function replayStart(state: GameState): number {
@@ -11,24 +9,24 @@ export function replayStart(state: GameState): number {
 }
 
 /**
- * The game as it stood after `at` log entries. Holdings show only where they are public now:
- * public holdings, a finished game, or the viewer's own seats. Tiles in hand are never shown.
+ * The game as it stood after `at` log entries. Holdings show only as far as they are public now
+ * (the holdings level, or all of them in a finished game), except on the viewer's own seats.
+ * Tiles in hand are never shown.
  */
 export function replayView(state: GameState, player: number | undefined, at: number): GameState {
 	const position = positionAt(state, at);
 	const own = seatsOf(state, player);
-	const holdingsPublic = state.options.publicHoldings || state.ended;
+	const level = visibilityNow(state);
 	return {
 		...state,
 		board: position.board,
 		bank: position.bank,
 		seats: state.seats.map((seat, index) => {
 			const shown = position.seats[index]!;
-			const visible = holdingsPublic || own.includes(index);
+			const { shareCount: _, ...rest } = seat;
 			return {
-				...seat,
-				cash: visible ? shown.cash : HIDDEN,
-				shares: visible ? shown.shares : { ...HIDDEN_SHARES },
+				...rest,
+				...maskHoldings(shown, own.includes(index) ? "public" : level),
 				hand: Array.from({ length: shown.tiles }, () => HIDDEN),
 			};
 		}),

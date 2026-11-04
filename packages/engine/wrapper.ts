@@ -73,8 +73,8 @@ export interface LogSliceOptions {
 }
 
 // Both endpoints are inclusive. The log is public (rules.md §13) except with limitedLog, where
-// entries before the player's window are placeholders. Each entry gets a `simple` line for
-// BGS's last-move display.
+// entries before the shared window (the current turn and the round before it) are placeholders
+// for every viewer. Each entry gets a `simple` line for BGS's last-move display.
 export function logSlice(
 	data: GameState,
 	options?: LogSliceOptions
@@ -84,7 +84,7 @@ export function logSlice(
 } {
 	const start = Math.max(0, options?.start ?? 0);
 	const end = options?.end ?? data.log.length - 1;
-	const log = visibleLog(data, options?.player);
+	const log = visibleLog(data);
 	// Summaries must use the same filtered history: a visible turn can follow hidden moves.
 	const shown = { ...data, log };
 	return {

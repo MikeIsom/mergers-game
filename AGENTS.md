@@ -43,7 +43,9 @@ Use Node 24 and pnpm 11. Inspect the working tree before editing and preserve un
   `toSave: undefined`; only the acting player receives the stripped preview. Revisions must
   not append saved history or award time. Commit boundaries include another player's
   decision, hidden information being revealed, draws and game end. Keep atomic moves working
-  for older viewers, tutorials and analysis.
+  for older viewers, tutorials and analysis. The viewer predicts each boundary by running the
+  engine's `draftCanContinue` on a throwaway copy of the player's own view (`moveOutcome`), so
+  the turn-ending step shows a turn summary first and merger decisions warn when undo stops.
 - Preserve two-player bank mode, four hands, team play and dropped-player behavior when changing rules.
 - Put new UI/log/tutorial text in all 17 catalogs under `packages/viewer/src/lib/locales/`.
   Keep chain names and tile coordinates unchanged. CMS text and setup labels have separate
@@ -56,7 +58,8 @@ Use Node 24 and pnpm 11. Inspect the working tree before editing and preserve un
   after all merger resolution. Keep the default Off.
 - Two tiles per turn and limited game log are optional, default Off. Two-tile turns retain
   private undo and one turn increment. Limited logs must filter both entries and BGS summaries;
-  four-hands spectators use the active player's window. Replay unlocks at game end.
+  every viewer sees the same window (current turn plus the previous round, one turn per seat).
+  Replay unlocks at game end.
 
 ## Setup options and player preferences
 

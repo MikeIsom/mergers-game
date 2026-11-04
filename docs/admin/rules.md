@@ -14,7 +14,7 @@ There are 7 hotel chains, in three price tiers:
 - **Medium:** Worldwide, American, Festival
 - **Major:** Imperial, Continental
 
-Each chain has 25 shares. Everyone starts with $6,000 and a hand of 6 tiles. Before the game, each player places one tile from the pool; the lowest tile (by number, then letter) goes first, and play continues in seat order.
+Each chain has 25 shares. Everyone starts with $6,000 and a hand of 6 tiles (or 8, 10 or 12 with the Tiles in hand option). Before the game, each player places one tile from the pool; the lowest tile (by number, then letter) goes first, and play continues in seat order.
 
 A chain of 11 or more tiles is **safe**: it can never be taken over.
 
@@ -22,7 +22,7 @@ A chain of 11 or more tiles is **safe**: it can never be taken over.
 
 1. **Place one tile** from your hand.
 2. **Buy up to 3 shares** by default, in any active chains (optional; see Shares per turn below).
-3. **Draw** back up to 6 tiles.
+3. **Draw** back up to 6 tiles (or the game’s hand size).
 
 ### What a tile does
 
@@ -39,17 +39,19 @@ A chain of 11 or more tiles is **safe**: it can never be taken over.
 
 ### Two tiles per turn
 
-If the game uses **Two tiles per turn**, each player holds 8 tiles instead of 6 and places two tiles every turn.
+If the game uses **Two tiles per turn**, each player places two tiles every turn. The number of tiles in hand is a separate option, so you can combine two tiles per turn with any hand size. (Two-tile games started before that option existed use hands of 8.)
 
-At the start of your turn, swap out any dead tiles. Then place your first tile and settle anything it causes, including a full merger with everyone's sell, trade or keep decisions, before placing your second. After both tiles, buy shares up to the game’s per-turn limit (3 by default) at the prices on the board, then draw back up to 8.
+At the start of your turn, swap out any dead tiles. Then place your first tile and settle anything it causes, including a full merger with everyone's sell, trade or keep decisions, before placing your second. After both tiles, buy shares up to the game’s per-turn limit (3 by default) at the prices on the board, then draw back up to your hand size.
 
-You may found only one chain per turn, and you can't found a chain and cause a merger in the same turn, in either order. You can cause two mergers, one with each tile. Example: your first tile merges Luxor into Tower, so your second tile can merge again or grow a chain, but it can't found a new one.
+You may found only one chain per turn, and your second tile can't cause a merger involving the chain your first tile founded. Otherwise each tile follows the usual rules: you can merge and then found a chain, found a chain and then merge two other chains, or cause two mergers, one with each tile. Example: your first tile founds Worldwide, so your second tile can merge Luxor into Tower or grow Worldwide, but it can't found another chain or cause a merger involving Worldwide.
 
 You must play a second tile if any tile in your hand is legal after the first. If none is, go straight to buying. A tile that becomes dead during your turn, for example because your first tile made a chain safe, can't be your second tile; it's swapped out at the start of your next turn.
 
 You can announce the end of the game before your first tile, between your two tiles, or while buying, as long as an end condition holds at that moment.
 
-In a two-player game, the bank's tiles are placed right after the merger that drew them, so between your two tiles if your first tile caused it. Mergers caused by the bank's tiles don't count toward your two mergers or the founding rule. If a player leaves, the game places their first two legal tiles for them.
+Two-tile games started before this rule was relaxed keep the earlier limit: a turn can't both found a chain and cause a merger, in either order (mergers caused by the bank's tiles don't count).
+
+In a two-player game, the bank's tiles are placed right after the merger that drew them, so between your two tiles if your first tile caused it. If a player leaves, the game places their first two legal tiles for them.
 
 ## Mergers
 
@@ -134,21 +136,28 @@ With two players, the bank also acts as a shareholder whenever bonuses are paid.
 
 ## What you can see
 
-Your tiles are private. Unless the game was created with **public holdings**, each player's cash and shares are private too; the game log is public (unless the game uses a limited game log, below), so a careful player can work them out.
+Your tiles are private. By default, each player's cash and shares are private too; the game log is public (unless the game uses a limited game log, below), so a careful player can work them out. The game's creator can make more visible:
+
+- **Cash only:** everyone's exact cash is shown.
+- **Cash and total share count:** everyone's exact cash and how many shares they hold in total are shown, but not which chains they are in.
+- **Everything (public holdings):** everyone's cash and shares are shown, along with an estimated net worth.
+
+Everything is shown once the game ends.
 
 ### Limited game log
 
-Much of Acquire is remembering who bought what. If the game uses **Limited game log**, the log only shows what has happened since your last turn. During a merger, the log still shows everything about that merger, even if it started before your last turn. The full log opens up once the game ends.
+Much of Acquire is remembering who bought what. If the game uses **Limited game log**, the log only shows the current turn and the full round of turns before it: one turn for each seat, so you always see what every other player did since your last turn. Everyone, including spectators, sees the same part of the log. A merger in progress is always shown in full. The full log opens up once the game ends.
 
 Because replaying the game would show the full history, replay is only available after the game ends when this setting is on.
 
 ## Game options
 
-- **Limited game log:** the log shows only what happened since your last turn, until the game ends (see above).
-- **Two tiles per turn:** hands of 8 tiles and two tiles placed every turn (see above).
+- **Limited game log:** the log shows only the current turn and the round before it, until the game ends (see above).
+- **Two tiles per turn:** two tiles placed every turn (see above).
+- **Tiles in hand:** 6 (standard), 8, 10 or 12 tiles in each hand, with or without two tiles per turn.
 - **Shares per turn:** buy up to 3 (standard), 4 or 5 shares in total per turn, independently of stock swaps.
 - **Stock swap:** optional 1:1 exchanges with the bank before buying; Off / 3 / 5 / 7 / Unlimited shares per turn (see above).
-- **Public holdings:** everyone's cash and shares are visible.
+- **What players see of each other's cash and stock:** private (standard), cash only, cash and total share count, or everything (see above).
 - **Team play** (4 players only): seats 1 and 3 play against seats 2 and 4; each team's money is added together at the end.
 - **Two-player mode:** *Bank as third shareholder* (above) or *Four hands*, where each player controls two seats in a normal four-seat game and the player with the single richest seat wins.
 - **End automatically when an end condition is met:** the game ends at the end of that turn, with no announcement.

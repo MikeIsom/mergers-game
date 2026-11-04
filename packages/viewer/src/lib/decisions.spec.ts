@@ -137,8 +137,15 @@ test("two-tile limits explain exactly the tiles the engine blocks this turn", ()
 			continue;
 		}
 		assert.ok(!placeable.includes(tileLabel(tile)));
-		const founding = placementEffect(state.board, tile).kind === "found";
-		assert.equal(limit, founding && turnPlacements(state).founded ? "oneFounding" : "foundOrMerge");
+		const effect = placementEffect(state.board, tile);
+		const { founded } = turnPlacements(state);
+		assert.ok(founded, "only a founding earlier this turn limits the second tile");
+		if (effect.kind === "merge") {
+			assert.equal(limit, "mergeFounded");
+			assert.ok(effect.chains.includes(founded));
+		} else {
+			assert.deepEqual([effect.kind, limit], ["found", "oneFounding"]);
+		}
 		assert.equal(turnLimit(state, (seat + 1) % 4, tile), undefined, "limits apply only to the active seat");
 	}
 	const view = stripSecret(state, seat);

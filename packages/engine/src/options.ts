@@ -2,7 +2,13 @@ import { END_SIZE, HAND_SIZE, MAX_BUY, TWO_TILE_HAND_SIZE } from "./config.js";
 
 /** rules.md §15, after normalisation against the player count. */
 export interface GameOptions {
+	/** Full public holdings (rules.md §13), also the highest holdingsVisibility level. */
 	publicHoldings: boolean;
+	/**
+	 * Only the intermediate levels are stored: private and public remain publicHoldings
+	 * false/true, preserving the init log of games created before this option.
+	 */
+	holdingsVisibility?: "cash" | "cashAndShareCount";
 	teamPlay: boolean;
 	twoPlayerMode: "bank" | "fourHands";
 	autoEnd: boolean;
@@ -13,6 +19,13 @@ export interface GameOptions {
 	sharesPerTurn?: 4 | 5;
 	/** Omitted when off, like stockSwap. */
 	twoTiles?: true;
+	/** Omitted at the legacy size (6, or 8 with twoTiles), so games created before it replay. */
+	handSize?: 6 | 8 | 10 | 12;
+	/**
+	 * Set with twoTiles in games created under the relaxed founding/merger limits (rules.md
+	 * §4.1). Two-tile games logged before them lack it and keep the original limits.
+	 */
+	twoTilesRelaxed?: true;
 	/** Omitted when off, like stockSwap. */
 	limitedLog?: true;
 }
@@ -32,21 +45,59 @@ export const DEFAULT_OPTIONS: GameOptions = {
 };
 
 const END_SIZES = [41, 31];
+const HAND_SIZES = [6, 8, 10, 12, "6", "8", "10", "12"];
+
+/** The optionIgnored reason when the legacy checkbox already makes holdings public. */
+export const PUBLIC_HOLDINGS_OVERRIDE = "publicHoldings makes all holdings public";
+
+/** rules.md §13: how much of other players' holdings everyone sees, from least to most. */
+export const HOLDINGS_VISIBILITY = ["private", "cash", "cashAndShareCount", "public"] as const;
+export type HoldingsVisibility = (typeof HOLDINGS_VISIBILITY)[number];
+
+/** The holdings level during play; everything becomes public when the game ends. */
+export function holdingsVisibility(options: GameOptions): HoldingsVisibility {
+	return options.publicHoldings ? "public" : (options.holdingsVisibility ?? "private");
+}
+
+/** Whether exact cash is public, so decisions that depend only on cash may reveal it. */
+export function cashIsPublic(options: GameOptions): boolean {
+	return holdingsVisibility(options) !== "private";
+}
 
 /**
  * Reads the creator's options defensively. BGS omits unticked checkboxes and always sends
  * selects (as strings), so a missing checkbox means false. Options are never rejected
  * (rules.md §3.5/§15): anything that does not apply, or has an unknown value, is ignored
- * and reported so the log can say so.
+ * and reported so the log can say so. Replay passes the options `recorded` in the game's
+ * init log, so games created under an earlier rule revision rebuild with that revision.
  */
 export function normalizeOptions(
 	players: number,
-	raw: Record<string, unknown>
+	raw: Record<string, unknown>,
+	recorded?: Partial<GameOptions>
 ): { options: GameOptions; ignored: IgnoredOption[] } {
 	const options: GameOptions = { ...DEFAULT_OPTIONS };
 	const ignored: IgnoredOption[] = [];
 
-	options.publicHoldings = raw.publicHoldings === true;
+	// The legacy publicHoldings checkbox always means full public holdings and wins over the
+	// holdingsVisibility select. Only an intermediate level it overrides is reported: the
+	// select's default "private" is always sent.
+	let visibility: HoldingsVisibility = "private";
+	if (HOLDINGS_VISIBILITY.includes(raw.holdingsVisibility as HoldingsVisibility)) {
+		visibility = raw.holdingsVisibility as HoldingsVisibility;
+	} else if (raw.holdingsVisibility !== undefined) {
+		ignored.push({ option: "holdingsVisibility", value: raw.holdingsVisibility, reason: "unknown value" });
+	}
+	if (raw.publicHoldings === true) {
+		if (visibility === "cash" || visibility === "cashAndShareCount") {
+			ignored.push({ option: "holdingsVisibility", value: visibility, reason: PUBLIC_HOLDINGS_OVERRIDE });
+		}
+		visibility = "public";
+	}
+	options.publicHoldings = visibility === "public";
+	if (visibility === "cash" || visibility === "cashAndShareCount") {
+		options.holdingsVisibility = visibility;
+	}
 	options.autoEnd = raw.autoEnd === true;
 
 	if (raw.teamPlay === true) {
@@ -96,6 +147,19 @@ export function normalizeOptions(
 
 	if (raw.twoTiles === true) {
 		options.twoTiles = true;
+		if (recorded === undefined || recorded.twoTilesRelaxed === true) {
+			options.twoTilesRelaxed = true;
+		}
+	}
+	if (raw.handSize !== undefined) {
+		if (HAND_SIZES.includes(raw.handSize as number | string)) {
+			const size = Number(raw.handSize) as 6 | 8 | 10 | 12;
+			if (size !== legacyHandSize(options)) {
+				options.handSize = size;
+			}
+		} else {
+			ignored.push({ option: "handSize", value: raw.handSize, reason: "unknown value" });
+		}
 	}
 	if (raw.limitedLog === true) {
 		options.limitedLog = true;
@@ -109,9 +173,14 @@ export function sharePurchaseLimit(options: GameOptions): number {
 	return options.sharesPerTurn ?? MAX_BUY;
 }
 
-/** rules.md §15 twoTiles: hands hold 8 tiles instead of 6. */
-export function handSize(options: GameOptions): number {
+/** Games created before the handSize option hold 6 tiles, or 8 with twoTiles. */
+function legacyHandSize(options: GameOptions): number {
 	return options.twoTiles ? TWO_TILE_HAND_SIZE : HAND_SIZE;
+}
+
+/** rules.md §15 handSize: the number of tiles each seat draws up to. */
+export function handSize(options: GameOptions): number {
+	return options.handSize ?? legacyHandSize(options);
 }
 
 /** Internal seats per real player: fourHands gives each of the 2 players two seats. */

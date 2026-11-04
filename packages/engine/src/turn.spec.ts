@@ -241,16 +241,18 @@ test("§9.6 with private holdings the buy step is not skipped for lack of cash",
 	assert.equal(state.activeSeat, 1);
 });
 
-test("§9.6 with public holdings the buy step is skipped when the player cannot afford any share", () => {
-	const state = scenario({
-		board: chainAt("tower", ["1A", "2A"]),
-		hands: [["9G"], ["11G"]],
-		cash: [100],
-		options: { publicHoldings: true },
-	});
-	play(state, 0, place("9G"));
-	assert.equal(state.activeSeat, 1);
-	assert.equal(state.phase, "place");
+test("§9.6 with public cash the buy step is skipped when the player cannot afford any share", () => {
+	for (const options of [
+		{ publicHoldings: true },
+		{ holdingsVisibility: "public" },
+		{ holdingsVisibility: "cash" },
+		{ holdingsVisibility: "cashAndShareCount" },
+	]) {
+		const state = scenario({ board: chainAt("tower", ["1A", "2A"]), hands: [["9G"], ["11G"]], cash: [100], options });
+		play(state, 0, place("9G"));
+		assert.equal(state.activeSeat, 1, JSON.stringify(options));
+		assert.equal(state.phase, "place");
+	}
 });
 
 test("§9.6 the buy step is skipped when no chain is on the board", () => {
