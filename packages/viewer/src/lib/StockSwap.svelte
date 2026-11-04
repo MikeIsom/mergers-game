@@ -43,7 +43,8 @@
 	const cash = $derived(
 		cost === 0 ? t("swap.even") : t(cost > 0 ? "swap.pay" : "swap.receive", { amount: money(Math.abs(cost)) })
 	);
-	const priceOf = (chain: ChainId) => sharePrice(chain, chainSize(game.board, chain));
+	// Chains off the board have no price; they are never offered, but the defaults may name one.
+	const priceOf = (chain: ChainId) => (active.includes(chain) ? sharePrice(chain, chainSize(game.board, chain)) : 0);
 	const after = $derived.by(() => {
 		const effect = selected && moveEffect(game, selected);
 		return effect ? holdingsAfter(game, effect) : undefined;
@@ -52,6 +53,9 @@
 	const blocked = $derived.by(() => {
 		if (remaining <= 0) {
 			return t("swap.noneLeft");
+		}
+		if (!active.includes(from) || !active.includes(to)) {
+			return t("swap.unavailable");
 		}
 		if (game.bank[to] <= 0) {
 			return t("swap.bankEmpty", { chain: chainName(to) });

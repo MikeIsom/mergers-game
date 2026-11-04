@@ -390,6 +390,10 @@ try {
 		window.acquireDev.load(state);
 	}, preparedPosition("scoring"));
 	assert.equal(await page.locator(".stock-swap").count(), 0, "off never adds UI to existing games");
+	// A random buy step where the panel's default chains (Tower, Continental) are not both on the
+	// board: the swap panel must not price a chain off the board.
+	await open("players=4&moves=16&stockSwap=3");
+	assert.equal(await page.locator(".stock-swap").count(), 1, "swaps render when a default chain is off the board");
 	report.scenarios.push(
 		"stock swaps in 17 languages and both themes at 1280/390/320px, pay/receive previews, shared allowance, undo without saved history and a separate three-share purchase"
 	);
