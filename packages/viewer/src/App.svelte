@@ -5,6 +5,7 @@
 	import Chat from "./lib/Chat.svelte";
 	import Hand from "./lib/Hand.svelte";
 	import Log from "./lib/Log.svelte";
+	import PlaceConfirm from "./lib/PlaceConfirm.svelte";
 	import Players from "./lib/Players.svelte";
 	import PriceTable from "./lib/PriceTable.svelte";
 	import Status from "./lib/Status.svelte";
@@ -30,7 +31,10 @@
 				/>
 			</div>
 			{#if store.seats.length > 0 && store.replayAt === undefined}
-				<div class="hand"><Hand {store} /></div>
+				<div class="hand">
+					<Hand {store} />
+					<div class="hand-confirm"><PlaceConfirm {store} nearHand /></div>
+				</div>
 			{/if}
 			<div class="market">
 				<ChainTable {state} seats={store.seats} />
@@ -69,6 +73,12 @@
 	}
 	.hand {
 		grid-area: hand;
+	}
+	/* Phones show the decision above the board: repeat the placement confirmation under the rack. */
+	@media (min-width: 700px) {
+		.hand-confirm {
+			display: none;
+		}
 	}
 	.market {
 		grid-area: market;

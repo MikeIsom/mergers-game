@@ -7,22 +7,14 @@
 		merger,
 		sharePrice,
 		sharePurchaseLimit,
-		tileLabel,
 		type ChainId,
 		type Shares,
 	} from "acquire-engine";
 	import ChainMark from "./ChainMark.svelte";
+	import PlaceConfirm from "./PlaceConfirm.svelte";
 	import StockSwap from "./StockSwap.svelte";
 	import { mergerPreview } from "./mergerPreview";
-	import {
-		adjustShares,
-		canBuy,
-		canDispose,
-		describePlacement,
-		disposalPresets,
-		nextDefunctChoices,
-		ofType,
-	} from "./decisions";
+	import { adjustShares, canBuy, canDispose, disposalPresets, nextDefunctChoices, ofType } from "./decisions";
 	import { chainName } from "./format";
 	import type { ViewerStore } from "./store.svelte";
 
@@ -72,12 +64,6 @@
 	const price = (chain: ChainId) => sharePrice(chain, chainSize(game.board, chain));
 	const cost = $derived(Object.entries(shares).reduce((sum, [chain, n]) => sum + n * price(chain as ChainId), 0));
 	const total = $derived(Object.values(shares).reduce((sum, n) => sum + n, 0));
-
-	function placeSelected(): void {
-		if (store.selected !== undefined) {
-			store.send({ type: "place", tile: tileLabel(store.selected) });
-		}
-	}
 </script>
 
 {#if moves.length > 0 && !store.sending}
@@ -115,18 +101,7 @@
 
 		{#if game.phase === "place"}
 			{#if store.selected !== undefined}
-				<p>
-					{t("place.effect", {
-						tile: tileLabel(store.selected),
-						effect: describePlacement(game, store.selected, lang),
-					})}
-				</p>
-				<button type="button" class="actionable primary" onclick={placeSelected}
-					>{t("place.button", { tile: tileLabel(store.selected) })}</button
-				>
-				<button type="button" class="actionable" onclick={() => (store.selected = undefined)}
-					>{t("place.another")}</button
-				>
+				<PlaceConfirm {store} />
 			{:else if legal("place")}
 				<p>{t("place.choose")}</p>
 			{/if}
