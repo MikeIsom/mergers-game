@@ -6,6 +6,7 @@ Source: <https://github.com/boardgamers/mergers-game>. The live game is public; 
 ## Dead-tile replacement (6 November 2026)
 
 - A drawn tile that would merge two safe chains is discarded and replaced at once, repeating until the hand holds no dead tile or the pool is empty. New games record `deadDrawsReplaced`; older games and replays keep the previous behavior. With two tiles per turn, a tile made dead during the turn is replaced with the end-of-turn draw. The hand hint and English rules match.
+- `pnpm check` passed (278 engine and 74 viewer tests); browser checks passed 68 locale/viewport combinations and 23 integration scenarios. Published source commit `a592198`: uploaded engine `0.0.8`, activated viewer `0.0.21` and updated the English CMS rules. The final metadata remains public with BGS version `1`, and every other field matches the pre-release snapshot. Hosted engine, JS and CSS bytes match local artifacts. Deployment snapshots are ignored under `release/publish/20261106-112714-a592198/`. Game-server activation of the engine cannot be established without server logs.
 
 ## November update (4 November 2026)
 
