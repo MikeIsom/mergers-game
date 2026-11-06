@@ -28,6 +28,11 @@ export interface GameOptions {
 	twoTilesRelaxed?: true;
 	/** Omitted when off, like stockSwap. */
 	limitedLog?: true;
+	/**
+	 * rules.md §5.3: set in games created since drawn dead tiles are replaced at once. Games
+	 * logged before lack it and keep replacing dead tiles only once per turn, also when replayed.
+	 */
+	deadDrawsReplaced?: true;
 }
 
 export interface IgnoredOption {
@@ -42,6 +47,7 @@ export const DEFAULT_OPTIONS: GameOptions = {
 	twoPlayerMode: "bank",
 	autoEnd: false,
 	endSize: END_SIZE,
+	deadDrawsReplaced: true,
 };
 
 const END_SIZES = [41, 31];
@@ -78,6 +84,9 @@ export function normalizeOptions(
 ): { options: GameOptions; ignored: IgnoredOption[] } {
 	const options: GameOptions = { ...DEFAULT_OPTIONS };
 	const ignored: IgnoredOption[] = [];
+	if (recorded !== undefined && recorded.deadDrawsReplaced !== true) {
+		delete options.deadDrawsReplaced;
+	}
 
 	// The legacy publicHoldings checkbox always means full public holdings and wins over the
 	// holdingsVisibility select. Only an intermediate level it overrides is reported: the

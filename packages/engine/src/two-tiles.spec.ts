@@ -198,7 +198,7 @@ test("§4.1 twoTiles: the second tile is skipped when only a merger with the new
 	assert.equal(state.phase, "buy");
 });
 
-test("§15 twoTiles: a tile made dead by the first tile cannot be the second and is replaced next turn", () => {
+test("§15 twoTiles: a tile made dead by the first tile cannot be the second and is replaced at the end of the turn", () => {
 	// 11A makes Tower safe, so 2B would then merge two safe chains.
 	const state = scenario({
 		board: {
@@ -210,6 +210,27 @@ test("§15 twoTiles: a tile made dead by the first tile cannot be the second and
 		poolOnly: true,
 		options: TWO_TILES,
 	});
+	assert.deepEqual(placeable(state), ["11A", "2B"]);
+	play(state, 0, place("11A"));
+	assert.equal(state.phase, "buy");
+	play(state, 0, buy);
+	assert.ok(!state.seats[0]!.hand.includes(t("2B")));
+	assert.deepEqual(entries(state, "discarded"), [{ type: "discarded", seat: 0, tiles: [t("2B")] }]);
+});
+
+test("§15 twoTiles: before deadDrawsReplaced, a tile made dead by the first tile is replaced next turn", () => {
+	// 11A makes Tower safe, so 2B would then merge two safe chains.
+	const state = scenario({
+		board: {
+			...chainAt("tower", row("A", 1, 10)),
+			...chainAt("continental", row("C", 1, 11)),
+			...chainAt("luxor", ["1G", "2G"]),
+		},
+		hands: [["11A", "2B"], ["12E"], ["12G"]],
+		poolOnly: true,
+		options: TWO_TILES,
+	});
+	delete state.options.deadDrawsReplaced;
 	assert.deepEqual(placeable(state), ["11A", "2B"]);
 	play(state, 0, place("11A"));
 	assert.equal(state.phase, "buy");
