@@ -87,19 +87,42 @@ export function endTurn(state: GameState): void {
 	}
 }
 
-/** rules.md §5.3: discard the active seat's permanently unplayable tiles and refill the hand. */
+/**
+ * rules.md §5.3: discard the active seat's permanently unplayable tiles and refill the hand.
+ * Drawn tiles that are already dead are discarded and replaced at once (deadDrawsReplaced).
+ */
 function replaceDeadTiles(state: GameState): void {
 	const seat = state.seats[state.activeSeat]!;
-	const dead = seat.hand.filter((tile) => tileLegality(state.board, tile) === "permanentlyUnplayable");
-	if (dead.length > 0) {
+	const discarded: Tile[] = [];
+	let drawn = 0;
+	for (;;) {
+		const dead = seat.hand.filter((tile) => tileLegality(state.board, tile) === "permanentlyUnplayable");
 		seat.hand = seat.hand.filter((tile) => !dead.includes(tile));
 		state.removed.push(...dead);
-		state.log.push({ type: "discarded", seat: state.activeSeat, tiles: dead });
+		discarded.push(...dead);
+		const more = fillHand(state);
+		drawn += more;
+		if (!state.options.deadDrawsReplaced || more === 0) {
+			break;
+		}
 	}
-	refillHand(state);
+	if (discarded.length > 0) {
+		state.log.push({ type: "discarded", seat: state.activeSeat, tiles: discarded });
+	}
+	if (drawn > 0) {
+		state.log.push({ type: "drew", seat: state.activeSeat, count: drawn });
+	}
 }
 
 function refillHand(state: GameState): void {
+	const drawn = fillHand(state);
+	if (drawn > 0) {
+		state.log.push({ type: "drew", seat: state.activeSeat, count: drawn });
+	}
+}
+
+/** Draws up to the hand size from the pool; returns how many tiles were drawn. */
+function fillHand(state: GameState): number {
 	const seat = state.seats[state.activeSeat]!;
 	let drawn = 0;
 	while (seat.hand.length < handSize(state.options)) {
@@ -110,18 +133,17 @@ function refillHand(state: GameState): void {
 		seat.hand.push(tile);
 		drawn++;
 	}
-	if (drawn > 0) {
-		state.log.push({ type: "drew", seat: state.activeSeat, count: drawn });
-	}
+	return drawn;
 }
 
 /**
- * rules.md §4.4-4.5: replace permanently unplayable tiles (with twoTiles, only refill) and
+ * rules.md §4.4-4.5: replace permanently unplayable tiles (with twoTiles in games created
+ * before deadDrawsReplaced, only refill) and
  * draw. Then either end the game (an announcement this turn, or the §11.1 stall rule) or pass
  * the turn on. Returns whether the game ended.
  */
 function finishTurn(state: GameState): boolean {
-	if (state.options.twoTiles) {
+	if (state.options.twoTiles && !state.options.deadDrawsReplaced) {
 		refillHand(state);
 	} else {
 		replaceDeadTiles(state);

@@ -36,6 +36,7 @@ test("§15 defaults reproduce the standard game", () => {
 		twoPlayerMode: "bank",
 		autoEnd: false,
 		endSize: 41,
+		deadDrawsReplaced: true,
 	});
 	for (let players = 2; players <= 6; players++) {
 		const state = initGame(players, {}, "defaults");
@@ -57,8 +58,15 @@ test("§15 BGS option values are read as sent: ticked checkboxes, selects as str
 		twoPlayerMode: "fourHands",
 		autoEnd: true,
 		endSize: 31,
+		deadDrawsReplaced: true,
 	});
 	assert.deepEqual(ignored, []);
+});
+
+test("§5.3 new games record deadDrawsReplaced; replay keeps a game's own revision", () => {
+	assert.equal(normalizeOptions(3, {}).options.deadDrawsReplaced, true);
+	assert.equal("deadDrawsReplaced" in normalizeOptions(3, {}, { publicHoldings: false }).options, false);
+	assert.equal(normalizeOptions(3, {}, { deadDrawsReplaced: true }).options.deadDrawsReplaced, true);
 });
 
 test("§15 an option that does not apply to the player count is ignored and logged", () => {

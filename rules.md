@@ -80,8 +80,9 @@ With `twoTiles` enabled (§15), each turn places two tiles:
    every player's disposal decisions and, in two-player bank mode, the bank's tiles
    (§12.1.4), before the second tile.
 3. Place the second tile if any tile in hand is playable now; otherwise go straight to
-   buying. A tile that became permanently unplayable during this turn cannot be placed and
-   is replaced at the start of the seat's next turn.
+   buying. A tile that became permanently unplayable during this turn cannot be placed; it
+   is replaced with the end-of-turn draw (§5.3). Games created before `deadDrawsReplaced`
+   refill without discarding at the end of the turn and replace it at the next turn's start.
 4. A turn founds at most one chain, and the second tile cannot cause a merger involving the
    chain the first tile founded (as survivor or defunct). Otherwise each tile follows the
    usual rules: a merger may be followed by a founding or another merger, and a founding by
@@ -128,6 +129,11 @@ changes (e.g. a temporarily unplayable tile becomes playable when a merger frees
 - At the end of their turn, a player discards all **permanently** unplayable tiles from
   their hand (removed from the game) and draws replacements. Temporarily unplayable tiles
   are never replaced. **[DECISION]** This is automatic, not a player choice.
+- A drawn tile that is already permanently unplayable (including a replacement) is
+  discarded and replaced at once, repeating until the hand holds no dead tile or the pool
+  is empty. All of a turn's dead tiles are logged as one discard and the draws as one draw.
+  **[DECISION]** Games created before this rule (init options without `deadDrawsReplaced`)
+  keep a drawn dead tile until the end of the seat's next turn, also when replayed.
 - If the draw pool is empty, no replacement or regular draw happens; hands simply shrink.
 
 ## 6. Founding a Chain

@@ -12,8 +12,10 @@
 	// Tiles the engine would accept right now; only these are actionable.
 	const playable = $derived(new Set(ofType(store.moves, "place").map((move) => parseTile(move.tile)!)));
 
-	// With two tiles per turn, dead tiles are swapped at the start of the turn (rules.md §4.1).
-	const replacement = $derived(t(state.options.twoTiles ? "hand.deadNextTurn" : "hand.deadReplacement"));
+	// Two-tile games created before deadDrawsReplaced swap dead tiles at the next turn start (rules.md §4.1).
+	const replacement = $derived(
+		t(state.options.twoTiles && !state.options.deadDrawsReplaced ? "hand.deadNextTurn" : "hand.deadReplacement")
+	);
 
 	function why(seat: number, tile: Tile): string {
 		const legality = tileLegality(state.board, tile);
