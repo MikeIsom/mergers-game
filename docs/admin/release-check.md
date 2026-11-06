@@ -1,9 +1,13 @@
-# Acquire — 4 November 2026
+# Acquire — 6 November 2026
 
-BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.7`, viewer `0.0.20`.
+BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.8`, viewer `0.0.21`.
 Source: <https://github.com/boardgamers/mergers-game>. The live game is public; preserve its current visibility when updating.
 
-## November update
+## Dead-tile replacement (6 November 2026)
+
+- A drawn tile that would merge two safe chains is discarded and replaced at once, repeating until the hand holds no dead tile or the pool is empty. New games record `deadDrawsReplaced`; older games and replays keep the previous behavior. With two tiles per turn, a tile made dead during the turn is replaced with the end-of-turn draw. The hand hint and English rules match.
+
+## November update (4 November 2026)
 
 - Replace the public-holdings setup checkbox with a four-level holdings-visibility selector (private, cash, cash and total share count, or public), while retaining compatibility with old games.
 - Offer independent hand sizes of 6, 8, 10 or 12 tiles; relax founding/merger restrictions for new two-tile games without changing old replays. Show every viewer the same limited-log window (current turn plus the previous round).
