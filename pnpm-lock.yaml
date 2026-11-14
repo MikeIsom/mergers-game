@@ -28,8 +28,8 @@ importers:
         version: 3.0.5
     devDependencies:
       '@boardgamers/protocol':
-        specifier: 0.10.0
-        version: 0.10.0
+        specifier: 0.11.0
+        version: 0.11.0
       '@types/node':
         specifier: 24.10.1
         version: 24.10.1
@@ -72,6 +72,9 @@ packages:
 
   '@boardgamers/protocol@0.10.0':
     resolution: {integrity: sha512-U+nOK8xeQANvjzwacHirBW+ItDf9AOmHLtkoyTI/XYFCOpL6lPsEgCbmcxnmkXv2a1/lgtVN3WpSERHUqkQkXw==}
+
+  '@boardgamers/protocol@0.11.0':
+    resolution: {integrity: sha512-YQ54+aVOIZvxUJvFmUbZR7xSBEgQaemstPdmYKVGCUHCviRX2UXRLgqLSQl6PFhr++lUT+Nynbf+p7h19zN+/g==}
 
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
@@ -776,6 +779,10 @@ packages:
 snapshots:
 
   '@boardgamers/protocol@0.10.0':
+    dependencies:
+      zod: 4.6.7
+
+  '@boardgamers/protocol@0.11.0':
     dependencies:
       zod: 4.6.7
 

@@ -8,6 +8,8 @@ import { simpleLineAt } from "./src/simple.js";
 import type { GameState, LogEntry } from "./src/types.js";
 import { seatsOf, viewFor } from "./src/view.js";
 
+export { achievementDefinitions, achievements } from "./src/achievements.js";
+
 // The seed fixes the hidden tile order, so BGS must hash it before init (rules.md §13).
 export const hashSeed = true;
 

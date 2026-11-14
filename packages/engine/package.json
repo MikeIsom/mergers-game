@@ -1,6 +1,6 @@
 {
 	"name": "acquire-engine",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"description": "Acquire rules engine for boardgamers.space",
 	"license": "AGPL-3.0-only",
 	"files": [
@@ -34,7 +34,7 @@
 		"seedrandom": "3.0.5"
 	},
 	"devDependencies": {
-		"@boardgamers/protocol": "0.10.0",
+		"@boardgamers/protocol": "0.11.0",
 		"@types/node": "24.10.1",
 		"@types/seedrandom": "3.0.8",
 		"typescript": "5.9.3"

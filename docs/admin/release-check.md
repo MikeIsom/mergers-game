@@ -3,6 +3,18 @@
 BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.7`, viewer `0.0.20`.
 Source: <https://github.com/boardgamers/mergers-game>. The live game is public; preserve its current visibility when updating.
 
+## Pending achievements candidate (not deployed)
+
+- Engine `0.0.8` adds the official protocol `0.11.0` optional achievement hooks with
+  revision 1 and 17 definitions. See [the manifest, evidence and release prerequisites](achievements.md).
+- `pnpm check` passed: formatting, lint (two existing warnings), TypeScript/Svelte,
+  288 engine tests, 74 viewer tests, and both production builds. `git diff --check` passed.
+  No UI change: browser screenshots were not required or run. A read-only independent
+  review found no blocking issue; original-seat and settlement-guard tests were expanded
+  following its feedback. Coordinator review and release approval remain outstanding.
+- This is an isolated review candidate based on canonical `701b8a2`; publishing awaits
+  independent review and coordinator authorization. The live release record below is unchanged.
+
 ## November update
 
 - Replace the public-holdings setup checkbox with a four-level holdings-visibility selector (private, cash, cash and total share count, or public), while retaining compatibility with old games.
