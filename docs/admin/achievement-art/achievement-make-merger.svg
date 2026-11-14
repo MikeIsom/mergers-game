@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="512" height="512"><title>Acquire: make-merger</title><circle cx="128" cy="128" r="125" fill="#142e3b" stroke="#efbd57" stroke-width="4"/><rect x="63" y="95" width="130" height="130" rx="6" fill="#fff2d5" stroke="#142e3b" stroke-width="3"/><g data-pictogram="actual" transform="translate(68 100) scale(1.2)"><rect x="0" y="0" width="30" height="30" fill="#a6a6a6" />
+	<rect x="35" y="0" width="30" height="30" fill="#a6a6a6" />
+	<rect x="70" y="0" width="30" height="30" fill="#21c5e2" />
+	<rect x="0" y="35" width="30" height="30" fill="#b44906" />
+	<rect x="36.5" y="36.5" width="27" height="27" fill="#1e1e1e" stroke="#a6a6a6" stroke-width="3" />
+	<rect x="70" y="35" width="30" height="30" fill="#21c5e2" />
+	<rect x="0" y="70" width="30" height="30" fill="#b44906" />
+	<rect x="35" y="70" width="30" height="30" fill="#a6a6a6" />
+	<rect x="70" y="70" width="30" height="30" fill="#21c5e2" />
+</g><path d="M128 80 V143 m-8 -9 8 9 8 -9" fill="none" stroke="#efbd57" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="112" y="46" width="32" height="32" rx="3" fill="#1e1e1e" stroke="#142e3b" stroke-width="3"/><path d="M104 53 V29 Q104 20 113 24 L130 37 H150 Q163 39 154 51 L145 57" fill="none" stroke="#fff2d5" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>

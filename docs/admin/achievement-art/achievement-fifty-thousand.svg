@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="512" height="512"><title>Acquire: fifty-thousand</title><circle cx="128" cy="128" r="125" fill="#142e3b" stroke="#efbd57" stroke-width="4"/><rect x="62" y="37" width="142" height="176" rx="12" fill="#587381" stroke="#142e3b" stroke-width="3"/><rect x="77" y="49" width="112" height="146" rx="6" fill="#142e3b" stroke="#142e3b" stroke-width="3"/><rect x="86" y="52" width="94" height="94" rx="6" fill="#fff2d5" stroke="#142e3b" stroke-width="3"/><g data-pictogram="actual" transform="translate(91 57) scale(0.84)"><rect x="0" y="0" width="30" height="30" fill="#a6a6a6" />
+	<rect x="35" y="0" width="30" height="30" fill="#a6a6a6" />
+	<rect x="70" y="0" width="30" height="30" fill="#21c5e2" />
+	<rect x="0" y="35" width="30" height="30" fill="#b44906" />
+	<rect x="36.5" y="36.5" width="27" height="27" fill="#1e1e1e" stroke="#a6a6a6" stroke-width="3" />
+	<rect x="70" y="35" width="30" height="30" fill="#21c5e2" />
+	<rect x="0" y="70" width="30" height="30" fill="#b44906" />
+	<rect x="35" y="70" width="30" height="30" fill="#a6a6a6" />
+	<rect x="70" y="70" width="30" height="30" fill="#21c5e2" />
+</g><path d="M60 60 L31 80 V183 L60 206Z" fill="none" stroke="#fff2d5" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><rect x="85" y="159" width="43" height="24" rx="3" fill="#8ec99b" stroke="#142e3b" stroke-width="3"/><path d="M106 161 V181" fill="none" stroke="#fff2d5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="139" y="159" width="43" height="24" rx="3" fill="#8ec99b" stroke="#142e3b" stroke-width="3"/><path d="M160 161 V181" fill="none" stroke="#fff2d5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M177 203 l7 7 15 -18" fill="none" stroke="#8ec99b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="125" y="232" text-anchor="middle" fill="#fff2d5" font-family="DejaVu Sans" font-size="22" font-weight="bold">50k</text></svg>

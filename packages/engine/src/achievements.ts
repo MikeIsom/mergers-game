@@ -70,12 +70,12 @@ export function achievementDefinitions(): AchievementManifest {
 		],
 	];
 	return {
-		revision: 1,
-		achievements: definitions.map(([id, name, description, text]) => ({
+		revision: 2,
+		achievements: definitions.map(([id, name, description]) => ({
 			id: id!,
 			name: name!,
 			description: description!,
-			icon: { type: "text", text: text! },
+			icon: { type: "asset", key: `achievement-${id}` },
 		})),
 	};
 }

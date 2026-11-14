@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="512" height="512"><title>Acquire: four-hands-win</title><circle cx="128" cy="128" r="125" fill="#142e3b" stroke="#efbd57" stroke-width="4"/><rect x="86" y="29" width="84" height="84" rx="6" fill="#fff2d5" stroke="#142e3b" stroke-width="3"/><g data-pictogram="actual" transform="translate(91 34) scale(0.74)"><rect x="0" y="0" width="30" height="30" fill="#a6a6a6" />
+	<rect x="35" y="0" width="30" height="30" fill="#a6a6a6" />
+	<rect x="70" y="0" width="30" height="30" fill="#21c5e2" />
+	<rect x="0" y="35" width="30" height="30" fill="#b44906" />
+	<rect x="36.5" y="36.5" width="27" height="27" fill="#1e1e1e" stroke="#a6a6a6" stroke-width="3" />
+	<rect x="70" y="35" width="30" height="30" fill="#21c5e2" />
+	<rect x="0" y="70" width="30" height="30" fill="#b44906" />
+	<rect x="35" y="70" width="30" height="30" fill="#a6a6a6" />
+	<rect x="70" y="70" width="30" height="30" fill="#21c5e2" />
+</g><g data-investor="true"><circle cx="128" cy="122" r="7" fill="#fff2d5"/><rect x="117" y="131" width="22" height="15" rx="7" fill="#fff2d5" stroke="#142e3b" stroke-width="3"/></g><path d="M128 149 V158 H78 V169 M128 158 H178 V169" fill="none" stroke="#fff2d5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="56" y="171" width="44" height="42" rx="3" fill="#fff2d5" stroke="#142e3b" stroke-width="3"/><rect x="60" y="175" width="36" height="9" rx="1" fill="#b44906" stroke="#142e3b" stroke-width="3"/><path d="M62 193 h32 M62 199 h32" fill="none" stroke="#142e3b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="156" y="171" width="44" height="42" rx="3" fill="#fff2d5" stroke="#142e3b" stroke-width="3"/><rect x="160" y="175" width="36" height="9" rx="1" fill="#21c5e2" stroke="#142e3b" stroke-width="3"/><path d="M162 193 h32 M162 199 h32" fill="none" stroke="#142e3b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M104 202 l10 9 14 -15 14 15 10 -9 -5 24 h-38Z" fill="#efbd57" stroke="#142e3b" stroke-width="3"/></svg>

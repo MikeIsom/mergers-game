@@ -24,7 +24,7 @@ function finish(state: GameState): GameState {
 test("official protocol 0.11 manifest/results, fresh definitions and stable IDs", () => {
 	assert.ok(contract.achievements);
 	achievementManifestSchema.parse(manifest);
-	assert.equal(manifest.revision, 1);
+	assert.equal(manifest.revision, 2);
 	assert.equal(manifest.achievements.length, 17);
 	assert.equal(new Set(manifest.achievements.map((d) => d.id)).size, 17);
 	for (const { id } of manifest.achievements) {

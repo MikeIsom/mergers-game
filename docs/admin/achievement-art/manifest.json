@@ -1,0 +1,182 @@
+{
+	"game": "acquire",
+	"engineVersion": "0.0.10",
+	"revision": 2,
+	"pictogram": {
+		"path": "docs/admin/pictogram.svg",
+		"sha256": "ee0d26ee761393cdce8735ac5499201217e98b7d024f53382ff09173be0f1e91"
+	},
+	"license": "AGPL-3.0-only",
+	"assets": [
+		{
+			"id": "win",
+			"key": "achievement-win",
+			"svg": "achievement-win.svg",
+			"png": "achievement-win.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "7233424a2e9b5d2d9b576d71c826da670cffd441336e456ce0c94e20e16e0551",
+			"pngSha256": "f9e9b668d9de51277d8ace164c44a577ab68671831a57b42daa1877c4b6b9c36"
+		},
+		{
+			"id": "win-2-players",
+			"key": "achievement-win-2-players",
+			"svg": "achievement-win-2-players.svg",
+			"png": "achievement-win-2-players.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "af6864f72578687e65ab45a3b06c3fff44ec62e449b15ce644460da7d070406d",
+			"pngSha256": "a38574dfded6653d6ebf013b7ae8fe51b6488a7b1ada28b093093b61b3c56213"
+		},
+		{
+			"id": "win-3-players",
+			"key": "achievement-win-3-players",
+			"svg": "achievement-win-3-players.svg",
+			"png": "achievement-win-3-players.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "3276b86afdc5cd12b3ef4e3164813fe75b6c753fa94915b915732ce1ca213693",
+			"pngSha256": "0ac2e0600f633c81e85dfa9d6109e8446c228c5d55444827e8b12a147ec1521c"
+		},
+		{
+			"id": "win-4-players",
+			"key": "achievement-win-4-players",
+			"svg": "achievement-win-4-players.svg",
+			"png": "achievement-win-4-players.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "d4b085b884629a3d8081d105dbba070238a71c7dd9c93a9b56f969245e063b4a",
+			"pngSha256": "b17f72e8139c42fb56024c0e1be05e2ee039dc0d4606e9600501f3a2abcf90d3"
+		},
+		{
+			"id": "win-5-players",
+			"key": "achievement-win-5-players",
+			"svg": "achievement-win-5-players.svg",
+			"png": "achievement-win-5-players.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "4c40cd0c8450d92647c6ed431ed66233e64d251621737d68786d0c8dcb7283dc",
+			"pngSha256": "229d7c3be7e718720ccb35bc1b36ed128e4394abccdcbdde5472a80fa9da58bf"
+		},
+		{
+			"id": "win-6-players",
+			"key": "achievement-win-6-players",
+			"svg": "achievement-win-6-players.svg",
+			"png": "achievement-win-6-players.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "9c5b6865c42260e20cb4b86129dcfefe74f3865e4b12ed96f45903c10d7ec31f",
+			"pngSha256": "844dd0ad46db6da25a374fbff6a488739136a55dcfd330f629c639abd2ad1a78"
+		},
+		{
+			"id": "team-win",
+			"key": "achievement-team-win",
+			"svg": "achievement-team-win.svg",
+			"png": "achievement-team-win.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "d1e69230a37c8e561c8cfcab312d805bf1f3bd9d6d152c4c73fd62b2c69b968f",
+			"pngSha256": "06b2028724f2bfefcc6e4301044ac1c05c6eba3f63c91e6380b18c4b7e4c65fb"
+		},
+		{
+			"id": "four-hands-win",
+			"key": "achievement-four-hands-win",
+			"svg": "achievement-four-hands-win.svg",
+			"png": "achievement-four-hands-win.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "0a82dfd278122cbd71ada023de420b3bac2e24248bfcbb9b759b210abbf614c8",
+			"pngSha256": "b25f2a433a6ae3206ad40144956c4234df42ec276576e774849460c7c2de60f5"
+		},
+		{
+			"id": "found-three-chains",
+			"key": "achievement-found-three-chains",
+			"svg": "achievement-found-three-chains.svg",
+			"png": "achievement-found-three-chains.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "b1e9f0823d82cc4da01889608e679dec350df88ba62eb07d6f57e1e87b289642",
+			"pngSha256": "b13479ef5d9b6cafa6d21575e705bedbb9f1c4e85aa6fe01cb29c857d3c7ef46"
+		},
+		{
+			"id": "make-merger",
+			"key": "achievement-make-merger",
+			"svg": "achievement-make-merger.svg",
+			"png": "achievement-make-merger.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "e2c319998062f63188feb06a08e95b68408924480dded1f9fe68d1cc1379bbdb",
+			"pngSha256": "0a7f3670c1e12fae261a860798e90d521438ed51294f308bcaf240d29f72d51e"
+		},
+		{
+			"id": "three-chain-merger",
+			"key": "achievement-three-chain-merger",
+			"svg": "achievement-three-chain-merger.svg",
+			"png": "achievement-three-chain-merger.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "0a23a34b5c15c5b4200987d8d278bd1b4de7a4ae67f05d4807622170900c0fc7",
+			"pngSha256": "ef98d7ecc4321698abc3aff3db3f75ab7c75e0f0420896ecd42192654861616c"
+		},
+		{
+			"id": "trade-six-shares",
+			"key": "achievement-trade-six-shares",
+			"svg": "achievement-trade-six-shares.svg",
+			"png": "achievement-trade-six-shares.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "35d589ad0744465b8863246d3d8b3d16f691961f4760e276b8cc568ac599743a",
+			"pngSha256": "bd93516c90e06c3c3c02a3e88c398221e414a9529850f410e83091648217321a"
+		},
+		{
+			"id": "ten-share-investor",
+			"key": "achievement-ten-share-investor",
+			"svg": "achievement-ten-share-investor.svg",
+			"png": "achievement-ten-share-investor.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "d2deb9f4e1c5fa54cd95915ee891d8650a871252b0e2ad49acaf528f69e438a7",
+			"pngSha256": "4c18c222318382ca61ca679f3df486bb85d68ae43fd236c357d4f4a0ecc0d751"
+		},
+		{
+			"id": "three-chain-portfolio",
+			"key": "achievement-three-chain-portfolio",
+			"svg": "achievement-three-chain-portfolio.svg",
+			"png": "achievement-three-chain-portfolio.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "aa93ba6bca952dd610f67b9e5b0eb0ea507887bcf66e222e4c3133fda7cd5213",
+			"pngSha256": "583ab574e264aab5fc52181f06932c04a35bc291f395f05f41d50b921f877dc6"
+		},
+		{
+			"id": "luxury-investor",
+			"key": "achievement-luxury-investor",
+			"svg": "achievement-luxury-investor.svg",
+			"png": "achievement-luxury-investor.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "39aeafe0d38259389b2bc14ec06a82e2d141510bf8a5479b19c691384db49f06",
+			"pngSha256": "e880a9d2d8d652119a81b43c2343e752b40471de7fef511dccb5c94d89421cdc"
+		},
+		{
+			"id": "thirty-thousand",
+			"key": "achievement-thirty-thousand",
+			"svg": "achievement-thirty-thousand.svg",
+			"png": "achievement-thirty-thousand.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "45d63003078c0a761e6e5879cda8fc229e6dae4e3510113179a0c6195ec4cfcc",
+			"pngSha256": "03d5433ad3c61900cb4168c2ed1653b2fc208c9916bfe9687d892a4942a6934a"
+		},
+		{
+			"id": "fifty-thousand",
+			"key": "achievement-fifty-thousand",
+			"svg": "achievement-fifty-thousand.svg",
+			"png": "achievement-fifty-thousand.png",
+			"width": 512,
+			"height": 512,
+			"svgSha256": "be31f651ade0a7d6c494e9d011a2f94363cf77610b53a2ac4b95b2aa84209bf6",
+			"pngSha256": "8d3a5ef5b51d077f1880920dfc8e5685f7e5784b9b20d5895d034a92b53cd959"
+		}
+	]
+}
