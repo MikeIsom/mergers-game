@@ -1,7 +1,28 @@
 # Acquire — 14 November 2026
 
-BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.9`, viewer `0.0.21`.
+BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.10`, viewer `0.0.21`.
 Source: <https://github.com/boardgamers/mergers-game>. The live game is public; preserve its current visibility when updating.
+
+## Achievement artwork activation (14 November 2026)
+
+- Approved source: `aaba0c771e680f4e9ca2e3f5a9f76ad5eb916c6f`; independent reviewer
+  `sub-1794659183275-7e43d81e`. Engine `0.0.10`, revision 2, all 17 asset-backed definitions
+  are live. [Sanitized combined asset and activation receipt](achievement-activation-0.0.10.json)
+  records source, asset, package and first-upload adoption evidence (private local paths omitted).
+- Exact original and publicly hosted tarball SHA-256:
+  `83d4da12cc5e842d73fbc944e91575c89a6909b7d40bc812d3e2860af98e51ba`.
+  No rebuild or repack. Public GET `/api/boardgame/acquire/info/latest` matched the package,
+  complete manifest and asset references. All 17 achievement images and seven preserved
+  pictogram/screenshots passed public-byte hash, size and full WebP decode checks.
+- `scripts/test-achievement-art.mjs` passed against the extracted packed wrapper with a
+  Pillow-enabled Python: official manifest schema, full PNG/contact-sheet decode, source
+  hashes, exact asset references and unchanged evaluator. All receipt source PNG hashes matched.
+- The existing `achievement-fifty-thousand` first upload was adopted unchanged, not uploaded
+  twice. Viewer `0.0.21`, settings, options and public visibility remain untouched; the
+  coordinator's receipt records unchanged metadata. This source-delivery pass made only
+  public GET requests, no production writes, games or previews.
+- Source delivery targets canonical `https://github.com/boardgamers/mergers-game` main
+  non-force; `MikeIsom/mergers-game` is not a required release mirror.
 
 ## Achievements release (14 November 2026)
 

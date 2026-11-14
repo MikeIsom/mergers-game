@@ -33,8 +33,9 @@ never repurpose them. Revision is **1**. Definition changes require a revision b
 | `thirty-thousand`       | One seat finishes with at least $30,000 settled cash                                   |
 | `fifty-thousand`        | One seat finishes with at least $50,000 settled cash                                   |
 
-Icons are protocol-supported short alphanumeric text marks, not external URLs or
-unpublished asset keys. No artwork upload prerequisite.
+Revision 2 (engine `0.0.10`) replaces the original text marks with 17 published,
+asset-backed illustrations. See the [artwork activation receipt](achievement-activation-0.0.10.json)
+and [release verification](release-check.md#achievement-artwork-activation-14-november-2026).
 
 ## Evidence and eligibility
 

@@ -1,0 +1,511 @@
+{
+	"schema": 1,
+	"game": "acquire",
+	"status": "activated-and-verified",
+	"sourceCommit": "aaba0c771e680f4e9ca2e3f5a9f76ad5eb916c6f",
+	"envelopeSha256": "e4d649f7a0c19dff13e9e6ca932f4d65261b3d6a056d26c30b4c9765f9fa5940",
+	"privateReceiptSha256": "e465e2b944574e1b8bee81a1e7ee3045f00a3ce7321b97b2ed8aee74e0c12977",
+	"assets": {
+		"achievement-found-three-chains": {
+			"sourceSha256": "b13479ef5d9b6cafa6d21575e705bedbb9f1c4e85aa6fe01cb29c857d3c7ef46",
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-found-three-chains/f0ead7ed975c747a/achievement-found-three-chains.webp",
+			"sha256": "f0ead7ed975c747a1a893cb9d4c35898682c73630e9e8c86e4f5e0c83382b725",
+			"size": 13478,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:34.202Z",
+			"metadataPreserved": true
+		},
+		"achievement-four-hands-win": {
+			"sourceSha256": "b25f2a433a6ae3206ad40144956c4234df42ec276576e774849460c7c2de60f5",
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-four-hands-win/b1fbc5c3e0b61aea/achievement-four-hands-win.webp",
+			"sha256": "b1fbc5c3e0b61aead77e2710488f111b095b25f7243e267577a7a92040b324cd",
+			"size": 14106,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:34.274Z",
+			"metadataPreserved": true
+		},
+		"achievement-luxury-investor": {
+			"sourceSha256": "7b0ea3348787867effd47554f42d0239d4827b22f44c4ad5723e88767c0e0d12",
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-luxury-investor/a8b321fc1c51733f/achievement-luxury-investor.webp",
+			"sha256": "a8b321fc1c51733f0fdd2c0773165aa108c8456d99e69aa9a777c6e7ea1a358d",
+			"size": 15510,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:34.305Z",
+			"metadataPreserved": true
+		},
+		"achievement-make-merger": {
+			"sourceSha256": "0a7f3670c1e12fae261a860798e90d521438ed51294f308bcaf240d29f72d51e",
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-make-merger/19c2d88f2731a9ab/achievement-make-merger.webp",
+			"sha256": "19c2d88f2731a9abf42ab47783ca59f8ff0f7b8cacd6bc091b5389909de81264",
+			"size": 12888,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:34.333Z",
+			"metadataPreserved": true
+		},
+		"achievement-team-win": {
+			"sourceSha256": "06b2028724f2bfefcc6e4301044ac1c05c6eba3f63c91e6380b18c4b7e4c65fb",
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-team-win/eb876259e8bb7e62/achievement-team-win.webp",
+			"sha256": "eb876259e8bb7e622a12c8df97d7eadda272a5f41ace9058999066891b652d8e",
+			"size": 14552,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:34.362Z",
+			"metadataPreserved": true
+		},
+		"achievement-ten-share-investor": {
+			"sourceSha256": "4c18c222318382ca61ca679f3df486bb85d68ae43fd236c357d4f4a0ecc0d751",
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-ten-share-investor/3beb5e5336df30ae/achievement-ten-share-investor.webp",
+			"sha256": "3beb5e5336df30aec5a18419b38d51f21333789b57950a3e78d28236ff53d663",
+			"size": 14752,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:34.608Z",
+			"metadataPreserved": true
+		},
+		"achievement-thirty-thousand": {
+			"sourceSha256": "03d5433ad3c61900cb4168c2ed1653b2fc208c9916bfe9687d892a4942a6934a",
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-thirty-thousand/3bafad7a24048eab/achievement-thirty-thousand.webp",
+			"sha256": "3bafad7a24048eab6b0891e18f3908cabd2ff2fc90b981de5ba310e91605d597",
+			"size": 14366,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:34.637Z",
+			"metadataPreserved": true
+		},
+		"achievement-three-chain-merger": {
+			"sourceSha256": "ef98d7ecc4321698abc3aff3db3f75ab7c75e0f0420896ecd42192654861616c",
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-three-chain-merger/7d68a8661e77951a/achievement-three-chain-merger.webp",
+			"sha256": "7d68a8661e77951a36c87af771098199ec490f13535e3b17abb4f763ae2f7029",
+			"size": 13964,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:34.666Z",
+			"metadataPreserved": true
+		},
+		"achievement-three-chain-portfolio": {
+			"sourceSha256": "583ab574e264aab5fc52181f06932c04a35bc291f395f05f41d50b921f877dc6",
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-three-chain-portfolio/ca93d6261a3b5c4a/achievement-three-chain-portfolio.webp",
+			"sha256": "ca93d6261a3b5c4a25d68253542760ba776d65dee339f0d17ce661882f076f9f",
+			"size": 15508,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:34.700Z",
+			"metadataPreserved": true
+		},
+		"achievement-trade-six-shares": {
+			"sourceSha256": "bd93516c90e06c3c3c02a3e88c398221e414a9529850f410e83091648217321a",
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-trade-six-shares/b95a5a6b9db88845/achievement-trade-six-shares.webp",
+			"sha256": "b95a5a6b9db88845e4238557811af2099bf60d2b67bfdda9d8b4a568c5b4da0e",
+			"size": 16642,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:34.782Z",
+			"metadataPreserved": true
+		},
+		"achievement-win": {
+			"sourceSha256": "f9e9b668d9de51277d8ace164c44a577ab68671831a57b42daa1877c4b6b9c36",
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-win/1a0acdbffca4e66b/achievement-win.webp",
+			"sha256": "1a0acdbffca4e66b5d319cc5da71c0ebfa91d3aae79d241e6493f64d3a147976",
+			"size": 15936,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:34.928Z",
+			"metadataPreserved": true
+		},
+		"achievement-win-2-players": {
+			"sourceSha256": "a38574dfded6653d6ebf013b7ae8fe51b6488a7b1ada28b093093b61b3c56213",
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-win-2-players/49ab3b62cc29b984/achievement-win-2-players.webp",
+			"sha256": "49ab3b62cc29b98426122687faccadcbd78061b355bf4ea9fe4caeec234a37d7",
+			"size": 13702,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:35.024Z",
+			"metadataPreserved": true
+		},
+		"achievement-win-3-players": {
+			"sourceSha256": "0ac2e0600f633c81e85dfa9d6109e8446c228c5d55444827e8b12a147ec1521c",
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-win-3-players/ade377564811c606/achievement-win-3-players.webp",
+			"sha256": "ade377564811c6063d22c1224694e27db62d1f690faab9059300c1e17e990384",
+			"size": 15424,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:35.079Z",
+			"metadataPreserved": true
+		},
+		"achievement-win-4-players": {
+			"sourceSha256": "b17f72e8139c42fb56024c0e1be05e2ee039dc0d4606e9600501f3a2abcf90d3",
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-win-4-players/3d7f22c2a773b1a8/achievement-win-4-players.webp",
+			"sha256": "3d7f22c2a773b1a8c6c43c4f4381e9d357a3b6b2ed62a15e9e5062ff9ff23c87",
+			"size": 17618,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:35.109Z",
+			"metadataPreserved": true
+		},
+		"achievement-win-5-players": {
+			"sourceSha256": "229d7c3be7e718720ccb35bc1b36ed128e4394abccdcbdde5472a80fa9da58bf",
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-win-5-players/4e6ac89b3c33506a/achievement-win-5-players.webp",
+			"sha256": "4e6ac89b3c33506aef772395563932d122a0bf76a1e93d829a6157990c45fcbc",
+			"size": 18748,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:35.139Z",
+			"metadataPreserved": true
+		},
+		"achievement-win-6-players": {
+			"sourceSha256": "844dd0ad46db6da25a374fbff6a488739136a55dcfd330f629c639abd2ad1a78",
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-win-6-players/1723cbde77f508dd/achievement-win-6-players.webp",
+			"sha256": "1723cbde77f508dda7c868e216c69aa3ea1504bcf954e9f3874eab6f21be84ab",
+			"size": 15408,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:35.166Z",
+			"metadataPreserved": true
+		}
+	},
+	"preserved": {
+		"achievement-fifty-thousand": {
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-fifty-thousand/a9d157e234dcec50/achievement-fifty-thousand.webp",
+			"sha256": "a9d157e234dcec505d5c069a2fef5f778ede12ebca8bf02ecd6fffcfbf2867c0",
+			"size": 15200,
+			"format": "webp",
+			"width": 512,
+			"height": 512,
+			"verifiedAt": "2026-11-14T12:46:35.198Z",
+			"metadata": {
+				"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-fifty-thousand/a9d157e234dcec50/achievement-fifty-thousand.webp",
+				"contentType": "image/webp",
+				"size": 15200,
+				"uploadedAt": "2026-11-14T12:34:28.583Z"
+			}
+		},
+		"pictogram": {
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/assets/acquire/pictogram/a57f6b6e180e6d83/pictogram.webp",
+			"sha256": "a57f6b6e180e6d834ddf0a7b656849ba57378eb740e4808ac05d27d6dca4549e",
+			"size": 666,
+			"format": "webp",
+			"width": 256,
+			"height": 256,
+			"verifiedAt": "2026-11-14T12:46:35.222Z",
+			"metadata": {
+				"url": "https://s3.fr-par.scw.cloud/bgs-assets/assets/acquire/pictogram/a57f6b6e180e6d83/pictogram.webp",
+				"contentType": "image/webp",
+				"size": 666,
+				"uploadedAt": "2026-10-22T16:38:19.568Z"
+			}
+		},
+		"screenshot-merger": {
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/assets/acquire/screenshot-merger/4b6896617fa8f30c/screenshot-merger.webp",
+			"sha256": "4b6896617fa8f30c31f7c9dc0e3be0b83cc8287fb932fa704847a1d64b38799e",
+			"size": 91014,
+			"format": "webp",
+			"width": 1280,
+			"height": 878,
+			"verifiedAt": "2026-11-14T12:46:35.274Z",
+			"metadata": {
+				"url": "https://s3.fr-par.scw.cloud/bgs-assets/assets/acquire/screenshot-merger/4b6896617fa8f30c/screenshot-merger.webp",
+				"contentType": "image/webp",
+				"size": 91014,
+				"uploadedAt": "2026-10-22T20:52:28.730Z"
+			}
+		},
+		"screenshot-merger-dark": {
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/assets/acquire/screenshot-merger-dark/53d574b7f295b9b2/screenshot-merger-dark.webp",
+			"sha256": "53d574b7f295b9b2a874144242d5835bae9541b2a84af2b9952708c927fd5a27",
+			"size": 90188,
+			"format": "webp",
+			"width": 1280,
+			"height": 878,
+			"verifiedAt": "2026-11-14T12:46:35.314Z",
+			"metadata": {
+				"url": "https://s3.fr-par.scw.cloud/bgs-assets/assets/acquire/screenshot-merger-dark/53d574b7f295b9b2/screenshot-merger-dark.webp",
+				"contentType": "image/webp",
+				"size": 90188,
+				"uploadedAt": "2026-10-22T20:52:29.062Z"
+			}
+		},
+		"screenshot-overview": {
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/assets/acquire/screenshot-overview/95ac29c15e96e0dd/screenshot-overview.webp",
+			"sha256": "95ac29c15e96e0dde757fa28615c0075bf8b763643f3e530f689ca3f1bab9a37",
+			"size": 82088,
+			"format": "webp",
+			"width": 1280,
+			"height": 757,
+			"verifiedAt": "2026-11-14T12:46:35.352Z",
+			"metadata": {
+				"url": "https://s3.fr-par.scw.cloud/bgs-assets/assets/acquire/screenshot-overview/95ac29c15e96e0dd/screenshot-overview.webp",
+				"contentType": "image/webp",
+				"size": 82088,
+				"uploadedAt": "2026-10-22T20:52:28.189Z"
+			}
+		},
+		"screenshot-overview-dark": {
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/assets/acquire/screenshot-overview-dark/292358b945f3c3a8/screenshot-overview-dark.webp",
+			"sha256": "292358b945f3c3a83385a26844636931de0ca1e20c23ae9e12e5089687a46910",
+			"size": 82056,
+			"format": "webp",
+			"width": 1280,
+			"height": 757,
+			"verifiedAt": "2026-11-14T12:46:35.399Z",
+			"metadata": {
+				"url": "https://s3.fr-par.scw.cloud/bgs-assets/assets/acquire/screenshot-overview-dark/292358b945f3c3a8/screenshot-overview-dark.webp",
+				"contentType": "image/webp",
+				"size": 82056,
+				"uploadedAt": "2026-10-22T20:52:28.515Z"
+			}
+		},
+		"screenshot-phone": {
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/assets/acquire/screenshot-phone/3e3d12b78dc51e26/screenshot-phone.webp",
+			"sha256": "3e3d12b78dc51e269e43dc8240e302353fea396e7be698d954a1a81e41ea2626",
+			"size": 35086,
+			"format": "webp",
+			"width": 390,
+			"height": 851,
+			"verifiedAt": "2026-11-14T12:46:35.433Z",
+			"metadata": {
+				"url": "https://s3.fr-par.scw.cloud/bgs-assets/assets/acquire/screenshot-phone/3e3d12b78dc51e26/screenshot-phone.webp",
+				"contentType": "image/webp",
+				"size": 35086,
+				"uploadedAt": "2026-10-22T20:52:29.534Z"
+			}
+		},
+		"screenshot-phone-dark": {
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/assets/acquire/screenshot-phone-dark/c5b0c0927b7be6ed/screenshot-phone-dark.webp",
+			"sha256": "c5b0c0927b7be6ed0de5e90518417792ddc96df64377c474292b05c39e79f8e4",
+			"size": 35372,
+			"format": "webp",
+			"width": 390,
+			"height": 851,
+			"verifiedAt": "2026-11-14T12:46:35.460Z",
+			"metadata": {
+				"url": "https://s3.fr-par.scw.cloud/bgs-assets/assets/acquire/screenshot-phone-dark/c5b0c0927b7be6ed/screenshot-phone-dark.webp",
+				"contentType": "image/webp",
+				"size": 35372,
+				"uploadedAt": "2026-10-22T20:52:29.767Z"
+			}
+		}
+	},
+	"planSha256": "f56f13e4baf570de0f52d40c4bf1dfd124ee0a04e5201880447848455740ddeb",
+	"activationReceiptSha256": "2479c22e27a9a827dfe874e3dcc06c8a591a86c10ad2b7ee7bf747511dff5a4a",
+	"tgzSha256": "83d4da12cc5e842d73fbc944e91575c89a6909b7d40bc812d3e2860af98e51ba",
+	"package": {
+		"name": "acquire-engine",
+		"version": "0.0.10",
+		"url": "https://s3.fr-par.scw.cloud/bgs-assets/games/acquire/1/engine/83d4da12cc5e842d/acquire-engine-0.0.10.tgz"
+	},
+	"hostedPackage": {
+		"url": "https://s3.fr-par.scw.cloud/bgs-assets/games/acquire/1/engine/83d4da12cc5e842d/acquire-engine-0.0.10.tgz",
+		"size": 46308,
+		"sha256": "83d4da12cc5e842d73fbc944e91575c89a6909b7d40bc812d3e2860af98e51ba"
+	},
+	"manifest": {
+		"revision": 2,
+		"achievements": [
+			{
+				"id": "win",
+				"name": "Hotel magnate",
+				"description": "Win a completed game, including a shared victory.",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-win"
+				}
+			},
+			{
+				"id": "win-2-players",
+				"name": "2-player victor",
+				"description": "Win a completed 2-player game, including a shared victory.",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-win-2-players"
+				}
+			},
+			{
+				"id": "win-3-players",
+				"name": "3-player victor",
+				"description": "Win a completed 3-player game, including a shared victory.",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-win-3-players"
+				}
+			},
+			{
+				"id": "win-4-players",
+				"name": "4-player victor",
+				"description": "Win a completed 4-player game, including a shared victory.",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-win-4-players"
+				}
+			},
+			{
+				"id": "win-5-players",
+				"name": "5-player victor",
+				"description": "Win a completed 5-player game, including a shared victory.",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-win-5-players"
+				}
+			},
+			{
+				"id": "win-6-players",
+				"name": "6-player victor",
+				"description": "Win a completed 6-player game, including a shared victory.",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-win-6-players"
+				}
+			},
+			{
+				"id": "team-win",
+				"name": "Partners in profit",
+				"description": "Win a completed team game, including a shared victory.",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-team-win"
+				}
+			},
+			{
+				"id": "four-hands-win",
+				"name": "Two portfolios",
+				"description": "Win a completed four-hands game, including a shared victory.",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-four-hands-win"
+				}
+			},
+			{
+				"id": "found-three-chains",
+				"name": "Hotel developer",
+				"description": "Found three distinct hotel chains with one seat in a completed game.",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-found-three-chains"
+				}
+			},
+			{
+				"id": "make-merger",
+				"name": "Deal maker",
+				"description": "Place a tile that triggers a merger in a completed game (bank tiles excluded).",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-make-merger"
+				}
+			},
+			{
+				"id": "three-chain-merger",
+				"name": "Big deal",
+				"description": "Place a tile merging at least three chains in a completed game (bank tiles excluded).",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-three-chain-merger"
+				}
+			},
+			{
+				"id": "trade-six-shares",
+				"name": "Trade up",
+				"description": "Trade at least six defunct shares for survivor stock in one merger disposal in a completed game.",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-trade-six-shares"
+				}
+			},
+			{
+				"id": "ten-share-investor",
+				"name": "Major investor",
+				"description": "Sell at least ten shares of one chain from one seat at final scoring.",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-ten-share-investor"
+				}
+			},
+			{
+				"id": "three-chain-portfolio",
+				"name": "Diversified portfolio",
+				"description": "Sell shares of at least three distinct chains from one seat at final scoring.",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-three-chain-portfolio"
+				}
+			},
+			{
+				"id": "luxury-investor",
+				"name": "Luxury investor",
+				"description": "Sell at least ten Imperial or ten Continental shares from one seat at final scoring.",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-luxury-investor"
+				}
+			},
+			{
+				"id": "thirty-thousand",
+				"name": "Growing fortune",
+				"description": "Finish a completed game with at least $30,000 cash in one seat after final scoring.",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-thirty-thousand"
+				}
+			},
+			{
+				"id": "fifty-thousand",
+				"name": "Hotel fortune",
+				"description": "Finish a completed game with at least $50,000 cash in one seat after final scoring.",
+				"icon": {
+					"type": "asset",
+					"key": "achievement-fifty-thousand"
+				}
+			}
+		]
+	},
+	"verification": {
+		"publicCatalog": true,
+		"allAssets": true,
+		"unchangedMetadata": true
+	},
+	"adoptedExisting": {
+		"key": "achievement-fifty-thousand",
+		"achievementId": "fifty-thousand",
+		"sourcePath": "png/achievement-fifty-thousand.png",
+		"sourceSha256": "8d3a5ef5b51d077f1880920dfc8e5685f7e5784b9b20d5895d034a92b53cd959",
+		"sha256": "a9d157e234dcec505d5c069a2fef5f778ede12ebca8bf02ecd6fffcfbf2867c0",
+		"width": 512,
+		"height": 512,
+		"metadata": {
+			"url": "https://s3.fr-par.scw.cloud/bgs-assets/achievements/acquire/achievement-fifty-thousand/a9d157e234dcec50/achievement-fifty-thousand.webp",
+			"contentType": "image/webp",
+			"size": 15200,
+			"uploadedAt": "2026-11-14T12:34:28.583Z"
+		},
+		"originalReceipt": {
+			"sha256": "8c5bc6f5979b58265bddd8101512251469f80cda2b28c1e3374456b9a57fad57"
+		}
+	},
+	"deliveryVerification": {
+		"reviewer": "sub-1794659183275-7e43d81e",
+		"publicEndpoint": "https://boardgamers.space/api/boardgame/acquire/info/latest",
+		"achievementCount": 17,
+		"assetFullDecodeAndHashes": true,
+		"hostedMatchesOriginalTarball": true,
+		"adoption": "First-upload fifty-thousand asset adopted unchanged; no duplicate upload.",
+		"scope": "Source delivery only; no production writes, rebuild or repack. Viewer, settings and visibility untouched."
+	}
+}
