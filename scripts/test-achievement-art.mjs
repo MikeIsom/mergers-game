@@ -12,6 +12,46 @@ const { achievementDefinitions } = await import(
 const defs = achievementDefinitions();
 achievementManifestSchema.parse(defs);
 assert.equal(defs.revision, 2);
+assert.equal(manifest.game, "acquire");
+assert.equal(manifest.engineVersion, "0.0.10");
+assert.equal(manifest.engineVersion, JSON.parse(readFileSync(new URL("packages/engine/package.json", root))).version);
+assert.equal(manifest.revision, 2);
+assert.equal(manifest.revision, defs.revision);
+assert.equal(manifest.pictogram.path, "docs/admin/pictogram.svg");
+assert.equal(
+	manifest.pictogram.sha256,
+	createHash("sha256")
+		.update(readFileSync(new URL(manifest.pictogram.path, root)))
+		.digest("hex")
+);
+// Pillow is already a generator dependency. load() decodes every pixel, unlike
+// reading IHDR dimensions (or Pillow verify(), which only validates structure).
+execFileSync(
+	process.env.PYTHON || "python3",
+	[
+		"-c",
+		`
+import json, sys
+from pathlib import Path
+from PIL import Image
+root = Path(sys.argv[1])
+manifest = json.loads((root / 'manifest.json').read_text())
+for asset in manifest['assets']:
+    with Image.open(root / asset['png']) as image:
+        assert image.format == 'PNG'
+        image.load()
+        assert image.size == (512, 512)
+        assert image.mode == 'RGBA'
+for size in [32, 48, 64, 160]:
+    with Image.open(root / f'contact-{size}.png') as image:
+        assert image.format == 'PNG'
+        image.load()
+        assert image.size == (1000, 17 * (size + 18))
+`,
+		art.pathname,
+	],
+	{ stdio: "inherit" }
+);
 assert.equal(manifest.assets.length, 17);
 assert.deepEqual(defs.achievements.map((a) => a.id).sort(), manifest.assets.map((a) => a.id).sort());
 const hashes = new Set();

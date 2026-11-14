@@ -93,10 +93,15 @@ ART['three-chain-portfolio'] = board(90, 27, 76)
 for x,c in [(48,ORANGE),(109,CYAN),(170,GREEN)]:
     ART['three-chain-portfolio'] += cert(x, 122, c, 36, 42) + path(f'M{x+18} 170 L128 190', GOLD, 3)
 ART['three-chain-portfolio'] += rect(89, 190, 78, 29, CREAM) + path('M128 194 V216 M97 201 H119 M137 201 H159', NAVY, 3)
-ART['luxury-investor'] = board(89, 28, 78)
-for i in range(3):
-    ART['luxury-investor'] += cert(48+i*7, 141-i*7, CYAN, 48, 62)
-ART['luxury-investor'] += path('M69 167 V146 L79 138 89 146 V167 M76 151 V161 M83 151 V161', NAVY, 3) + label('10', 88, 219) + arrow(117, 163, 28) + rect(157, 149, 44, 25, GREEN) + tray(150, 196, 59)
+# One monumental premium hotel (either luxury chain), not two required chains.
+# Stepped architecture dominates at 32px; no certificate-stack silhouette or crown.
+ART['luxury-investor'] = '<g data-premium-hotel="single"><path d="M40 182 V77 H54 V59 H68 V41 H106 V59 H120 V77 H134 V182Z" fill="'+GOLD+'" stroke="'+NAVY+'" stroke-width="4"/>'
+ART['luxury-investor'] += rect(58, 77, 58, 19, NAVY, 1) + label('HOTEL', 87, 91, 12)
+for x in [58, 83, 108]:
+    ART['luxury-investor'] += path(f'M{x} 106 V133', NAVY, 8)
+ART['luxury-investor'] += f'<path d="M72 182 V159 a15 15 0 0 1 30 0 V182Z" fill="{NAVY}"/>' + rect(32, 182, 110, 10, CREAM, 1) + '</g>'
+ART['luxury-investor'] += board(151, 55, 66) + path('M184 138 V171 m-9 -9 9 9 9 -9', GOLD, 6)
+ART['luxury-investor'] += label('10', 85, 220, 23) + rect(155, 185, 49, 24, GREEN) + tray(146, 216, 67)
 ART['thirty-thousand'] = board(79, 30, 98) + rect(48, 155, 49, 57, CREAM) + path('M60 163 V205 M68 169 H87 M68 180 H87', NAVY, 3)
 for i in range(3):
     ART['thirty-thousand'] += rect(112+i*9, 160-i*8, 60, 26, GREEN)

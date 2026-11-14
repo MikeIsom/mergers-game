@@ -37,8 +37,11 @@ licences); no font file is redistributed. The SVGs are editable source exports.
 - Trade: exactly six source certificates and three survivor certificates,
   with reciprocal exchange arrows (2:1 disposal, not optional stock swaps).
 - Final sales: certificates flow to a checked settlement tray. Diversification
-  instead joins three certificate types into one closing ledger. Luxury uses a
-  single premium hotel certificate stack, not a requirement for both chains.
+  instead joins three certificate types into one closing ledger. Luxury instead
+  has one dominant stepped premium hotel with tall windows and an arched entrance,
+  a separate board at upper right and a downward arrow into checked cash settlement.
+  This architectural silhouette replaces the similar certificate stack after review;
+  one hotel stands for Imperial OR Continental, never a requirement for both.
 - Cash: closed ledger/counting tray versus open treasury with bundled notes.
   Threshold numerals are supplementary; no victory decoration on economic awards.
 
@@ -59,8 +62,11 @@ pnpm --filter acquire-engine pack --pack-destination "$PWD/release/achievement-a
 For an extracted tarball, set `ACQUIRE_PACKED_WRAPPER` to its absolute
 `file:///.../package/dist/wrapper.js` URL and rerun the art test with its runtime
 seedrandom dependency installed. The test validates protocol schema, exact key
-coverage, hashes/dimensions, actual pictogram inclusion and byte-identical
-baseline definitions/evaluator. Existing 288 engine tests cover awards,
+coverage, explicit game/version/revision and source-pictogram hash assertions,
+asset hashes, full Pillow pixel decode/dimensions of all PNGs and contact sheets,
+actual pictogram inclusion and byte-identical baseline definitions/evaluator.
+Set `PYTHON` to the existing generator virtualenv's Python when running the Node
+test if Pillow is not installed on the default `python3`. Existing 288 engine tests cover awards,
 thresholds, team/four-hands ownership and engine regressions.
 
 `contact-32.png`, `contact-48.png`, `contact-64.png` and `contact-160.png` show
