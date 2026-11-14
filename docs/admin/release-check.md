@@ -1,9 +1,9 @@
-# Acquire — 6 November 2026
+# Acquire — 14 November 2026
 
-BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.8`, viewer `0.0.21`.
+BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.9`, viewer `0.0.21`.
 Source: <https://github.com/boardgamers/mergers-game>. The live game is public; preserve its current visibility when updating.
 
-## Authorized achievements release (awaiting deployment verification)
+## Achievements release (14 November 2026)
 
 - Engine `0.0.9` adds the official protocol `0.11.0` optional achievement hooks with
   revision 1 and 17 definitions. See [the manifest, evidence and release prerequisites](achievements.md).
@@ -17,6 +17,28 @@ Source: <https://github.com/boardgamers/mergers-game>. The live game is public; 
   source/version records from `upstream/release-dead-tile` (`30c7223`) and advanced this
   engine to `0.0.9`; achievement source remains exactly as approved. Viewer `0.0.21`
   is retained, not republished.
+
+- Published source `ccd6c0c134930bccb0a776889ddae1c07d9e8a00` non-force to canonical
+  `boardgamers/mergers-game` main. The optional upstream copy to `MikeIsom/mergers-game`
+  was denied by GitHub permissions; canonical delivery succeeded.
+- Re-ran `pnpm check` after integrating the prior release: 288 engine and 74 viewer tests,
+  type checks and both builds passed. Extracted engine `0.0.9` from its packed archive;
+  official schemas, all 17 revision-1 definitions, a complete legal game fixture, pure
+  extraction and replay equivalence passed against that packed code.
+- Uploaded engine only. Hosted archive SHA-256:
+  `3be2b8244065599632d266efead4cac57441a803ead3ee5b1f9ca9761ad5f6e1`.
+  Read-only production inspection on `coyotech-base` confirmed initialized installer state,
+  `active.acquire_1.engine` exactly matching the uploaded `0.0.9` artifact,
+  `achievementsProbed: true`, and the exact 17-definition revision-1 manifest.
+- Public `/api/boardgame/acquire/info/1` exposes the exact packed manifest.
+  [Acquire's album](https://boardgamers.space/badges/games/acquire) was inspected in-browser:
+  all 17 entries and their text icons render. The platform currently wraps the four-letter
+  `SWAP` mark inside its small badge circle; this is cosmetic, not an asset or schema failure.
+  No production games were created or played and no awards were fabricated.
+- Final metadata differs only in `engine.package`, installer-published `achievementManifest`
+  and `updatedAt`. Public visibility, viewer `0.0.21`, options, preferences, tutorials,
+  CMS references and all other metadata remain unchanged. Ignored snapshots, packed
+  archive and verification receipts: `release/publish/acquire-achievements-190e59f/`.
 
 ## Dead-tile replacement (6 November 2026)
 

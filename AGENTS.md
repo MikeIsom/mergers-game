@@ -97,7 +97,9 @@ for local review before publication. For an authorized release:
    is `/api/admin/page/acquire:rules/en`. Sound and stock-swap declarations already exist.
 6. Verify hosted artifacts and the final metadata. Engine installation is asynchronous,
    normally around a minute; a successful upload alone does not prove server activation.
-   Check live behavior when practical without making moves in someone else's ongoing game.
+   For achievement releases, verify the active installer artifact and manifest, then the
+   public album; see the activation procedure in `docs/registering.md`. Check live behavior
+   when practical without making moves in someone else's ongoing game.
    Keep BGS version integer **1** for compatible updates so ongoing games receive fixes.
    Treat changing that integer as a deliberate migration, not a routine package-version bump.
 

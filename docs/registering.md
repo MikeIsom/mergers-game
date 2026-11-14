@@ -112,6 +112,23 @@ metadata and matching hosted bytes confirm publication, **not** successful serve
 verify activation through server status or live behavior when accessible. In particular,
 coordinate new setup options with availability of the engine that understands them.
 
+### Verify achievement-engine activation
+
+For engines exporting the optional achievement hooks, read the production host's
+`~/boardgamers-mono/apps/game-server/games/active-engines.json` through authorized,
+read-only SSH access (`ssh bgs` in the current deployment). Compare
+`active.acquire_1.engine` with the exact uploaded artifact and check
+`achievementsProbed: true` plus the expected `achievementManifest`. Check each serving
+host if the deployment becomes multi-host; do not mistake a historical
+`lastAcceptedAchievementManifest` for the active manifest.
+
+Then compare `GET https://boardgamers.space/api/boardgame/acquire/info/1` with the packed
+manifest and inspect <https://boardgamers.space/badges/games/acquire>. The public manifest
+is installer-published evidence; a matching host activation record is stronger evidence
+than upload metadata alone. No synthetic production game is needed for these checks.
+When comparing final metadata, allow the intended engine package, installer manifest and
+`updatedAt` changes only; preserve all unrelated fields. Save receipts under `release/`.
+
 ## 3. Upload and activate the viewer, if changed
 
 Use the platform repository's publisher. On the usual workstation it is in

@@ -70,16 +70,16 @@ unpublished asset keys. No artwork upload prerequisite.
   Tests use invariant-checked positions, real settlement and merger actions, plus seeded
   complete legal games and replay; position fixtures are not claims of historical play.
 
-## Review and eventual release prerequisites
+## Delivery and future release requirements
 
 - Engine source/version, protocol dependency and lockfile are included together. The
   viewer remains on its existing version and dependency: no viewer artifact changed.
 - Validate with `pnpm check`; no UI change means browser screenshot checks are not required.
-- Independent feature review and coordinator approval are required before merge or publish.
-  This branch must not push to main or deploy BGS artifacts autonomously.
-- Confirm the deployed platform supports both optional hooks, manifest ingestion, original
-  seat eligibility, outcome semantics and platform-only exclusion gates before activation.
-- After approval, follow [the publishing guide](../registering.md): pack the engine,
+- Independent review approved feature `190e59ff`; the user authorized canonical source
+  delivery and BGS publication. Engine `0.0.9` is activated; see the release receipts.
+- The coordinator confirmed deployed platform hook/capture/icon support and eligibility
+  handling. Actual installer and public album verification passed without synthetic games.
+- For future authorized releases, follow [the publishing guide](../registering.md): pack the engine,
   fetch fresh live metadata, preserve visibility and unrelated fields, upload engine first,
   retain BGS version 1, and verify asynchronous installation. Do not overwrite live metadata
   with the bootstrap template. No npm publication is required.
