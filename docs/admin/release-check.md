@@ -1,21 +1,29 @@
-# Acquire — 4 November 2026
+# Acquire — 6 November 2026
 
-BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.7`, viewer `0.0.20`.
+BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.8`, viewer `0.0.21`.
 Source: <https://github.com/boardgamers/mergers-game>. The live game is public; preserve its current visibility when updating.
 
-## Pending achievements candidate (not deployed)
+## Authorized achievements release (awaiting deployment verification)
 
-- Engine `0.0.8` adds the official protocol `0.11.0` optional achievement hooks with
+- Engine `0.0.9` adds the official protocol `0.11.0` optional achievement hooks with
   revision 1 and 17 definitions. See [the manifest, evidence and release prerequisites](achievements.md).
 - `pnpm check` passed: formatting, lint (two existing warnings), TypeScript/Svelte,
   288 engine tests, 74 viewer tests, and both production builds. `git diff --check` passed.
   No UI change: browser screenshots were not required or run. A read-only independent
   review found no blocking issue; original-seat and settlement-guard tests were expanded
-  following its feedback. Coordinator review and release approval remain outstanding.
-- This is an isolated review candidate based on canonical `701b8a2`; publishing awaits
-  independent review and coordinator authorization. The live release record below is unchanged.
+  following its feedback. A fresh independent review approved `190e59ff`; the user
+  authorized canonical delivery and BGS publication.
+- Fresh preflight found live engine `0.0.8` from the dead-tile release. Integrated its
+  source/version records from `upstream/release-dead-tile` (`30c7223`) and advanced this
+  engine to `0.0.9`; achievement source remains exactly as approved. Viewer `0.0.21`
+  is retained, not republished.
 
-## November update
+## Dead-tile replacement (6 November 2026)
+
+- A drawn tile that would merge two safe chains is discarded and replaced at once, repeating until the hand holds no dead tile or the pool is empty. New games record `deadDrawsReplaced`; older games and replays keep the previous behavior. With two tiles per turn, a tile made dead during the turn is replaced with the end-of-turn draw. The hand hint and English rules match.
+- `pnpm check` passed (278 engine and 74 viewer tests); browser checks passed 68 locale/viewport combinations and 23 integration scenarios. Published source commit `a592198`: uploaded engine `0.0.8`, activated viewer `0.0.21` and updated the English CMS rules. The final metadata remains public with BGS version `1`, and every other field matches the pre-release snapshot. Hosted engine, JS and CSS bytes match local artifacts. Deployment snapshots are ignored under `release/publish/20261106-112714-a592198/`. Game-server activation of the engine cannot be established without server logs.
+
+## November update (4 November 2026)
 
 - Replace the public-holdings setup checkbox with a four-level holdings-visibility selector (private, cash, cash and total share count, or public), while retaining compatibility with old games.
 - Offer independent hand sizes of 6, 8, 10 or 12 tiles; relax founding/merger restrictions for new two-tile games without changing old replays. Show every viewer the same limited-log window (current turn plus the previous round).

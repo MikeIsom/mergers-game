@@ -1,8 +1,10 @@
-# Acquire achievements — revision 1 (review candidate)
+# Acquire achievements — revision 1
 
-Game identity: `acquire`, BGS version `1`. Engine candidate: `0.0.8`.
-Based on canonical `origin/main` commit `701b8a2`, including the drawn-dead-tile fix.
-This feature is not deployed. No viewer or CMS changes are required.
+Game identity: `acquire`, BGS version `1`. Achievement engine: `0.0.9`.
+Based on canonical `origin/main` commit `701b8a2`, including the drawn-dead-tile fix,
+with the previous release records integrated from `30c7223`. Version `0.0.8` was already
+live and is not reused. See [release receipts](release-check.md) for deployment status.
+No viewer or CMS changes are required.
 
 ## Manifest
 
