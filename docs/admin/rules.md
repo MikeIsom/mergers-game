@@ -33,7 +33,7 @@ A chain of 11 or more tiles is **safe**: it can never be taken over.
 
 ### Tiles you can't play
 
-- A tile that would merge two safe chains can never be played. At the end of your turn it is swapped for a new one automatically.
+- A tile that would merge two safe chains can never be played. At the end of your turn it is swapped for a new one automatically, and if you draw a dead tile it is swapped straight away.
 - A tile that would found an 8th chain can't be played while all 7 chains are on the board. You keep it; it becomes playable when a chain disappears.
 - If none of your tiles can be played, you skip placing and may still buy stock.
 
@@ -45,7 +45,7 @@ At the start of your turn, swap out any dead tiles. Then place your first tile a
 
 You may found only one chain per turn, and your second tile can't cause a merger involving the chain your first tile founded. Otherwise each tile follows the usual rules: you can merge and then found a chain, found a chain and then merge two other chains, or cause two mergers, one with each tile. Example: your first tile founds Worldwide, so your second tile can merge Luxor into Tower or grow Worldwide, but it can't found another chain or cause a merger involving Worldwide.
 
-You must play a second tile if any tile in your hand is legal after the first. If none is, go straight to buying. A tile that becomes dead during your turn, for example because your first tile made a chain safe, can't be your second tile; it's swapped out at the start of your next turn.
+You must play a second tile if any tile in your hand is legal after the first. If none is, go straight to buying. A tile that becomes dead during your turn, for example because your first tile made a chain safe, can't be your second tile; it's swapped out when you draw at the end of the turn.
 
 You can announce the end of the game before your first tile, between your two tiles, or while buying, as long as an end condition holds at that moment.
 
@@ -68,6 +68,8 @@ Each chain being taken over is settled in turn, largest first (the merging playe
    - **Sell** them to the bank at the chain's price.
    - **Trade** them 2 for 1 for shares of the surviving chain, while the bank has some left.
    - **Keep** them. They are worth nothing unless the chain is founded again later.
+
+If the game uses **Merging player chooses the order**, the merging player picks the order of all the chains being taken over, whatever their sizes. If the game uses **Largest holding first** for merger stock decisions, shareholders decide in order of how many shares of that chain they hold, largest first; equal holdings go round the table from the merging player. Everyone can see that order, so it shows how the holders rank.
 
 Then the survivor absorbs all the tiles. The names of the chains taken over are free to be founded again.
 
@@ -161,6 +163,8 @@ Because replaying the game would show the full history, replay is only available
 - **Team play** (4 players only): seats 1 and 3 play against seats 2 and 4; each team's money is added together at the end.
 - **Two-player mode:** *Bank as third shareholder* (above) or *Four hands*, where each player controls two seats in a normal four-seat game and the player with the single richest seat wins.
 - **End automatically when an end condition is met:** the game ends at the end of that turn, with no announcement.
+- **Merging player chooses the order defunct chains are settled:** instead of largest first (see Mergers).
+- **Merger stock decisions:** in turn order from the merging player (standard) or largest holding first (see Mergers).
 - **Chain size that ends the game:** 41 tiles (standard) or 31 tiles for a shorter game. Safe size and prices don't change.
 
 Options that don't fit the number of players are ignored, and the log says so.

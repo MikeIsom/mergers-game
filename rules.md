@@ -80,8 +80,9 @@ With `twoTiles` enabled (§15), each turn places two tiles:
    every player's disposal decisions and, in two-player bank mode, the bank's tiles
    (§12.1.4), before the second tile.
 3. Place the second tile if any tile in hand is playable now; otherwise go straight to
-   buying. A tile that became permanently unplayable during this turn cannot be placed and
-   is replaced at the start of the seat's next turn.
+   buying. A tile that became permanently unplayable during this turn cannot be placed; it
+   is replaced with the end-of-turn draw (§5.3). Games created before `deadDrawsReplaced`
+   refill without discarding at the end of the turn and replace it at the next turn's start.
 4. A turn founds at most one chain, and the second tile cannot cause a merger involving the
    chain the first tile founded (as survivor or defunct). Otherwise each tile follows the
    usual rules: a merger may be followed by a founding or another merger, and a founding by
@@ -128,6 +129,11 @@ changes (e.g. a temporarily unplayable tile becomes playable when a merger frees
 - At the end of their turn, a player discards all **permanently** unplayable tiles from
   their hand (removed from the game) and draws replacements. Temporarily unplayable tiles
   are never replaced. **[DECISION]** This is automatic, not a player choice.
+- A drawn tile that is already permanently unplayable (including a replacement) is
+  discarded and replaced at once, repeating until the hand holds no dead tile or the pool
+  is empty. All of a turn's dead tiles are logged as one discard and the draws as one draw.
+  **[DECISION]** Games created before this rule (init options without `deadDrawsReplaced`)
+  keep a drawn dead tile until the end of the seat's next turn, also when replayed.
 - If the draw pool is empty, no replacement or regular draw happens; hands simply shrink.
 
 ## 6. Founding a Chain
@@ -156,6 +162,8 @@ Defunct chains are resolved one at a time, **largest first** (by pre-merger size
 defunct chains tie in size, the mergermaker chooses the order. **[DECISION]** The full
 order is chosen once, up front, right after the survivor is known and before any bonuses
 are paid; it cannot be changed partway through the merger.
+With the `freeMergerOrder` house rule (§15), the mergermaker chooses the order of
+**all** defunct chains whenever there are two or more, regardless of size, in the same way.
 
 For each defunct chain, in that order:
 
@@ -168,6 +176,11 @@ For each defunct chain, in that order:
      limited by the survivor shares left in the bank.
    - **Hold** the rest. Held shares keep no value unless the chain is founded again.
    - Players holding no stock in the defunct chain are skipped automatically.
+
+   With the `disposalOrder: shares` house rule (§15), players decide in order of their
+   holding in the defunct chain, largest first; equal holdings go clockwise from the
+   mergermaker. **[DECISION]** The resulting order is visible to everyone, so it reveals how
+   the holders rank even when holdings are otherwise private.
 
 ### 7.3 Board update
 
@@ -412,6 +425,8 @@ switches on one engine, not as separate code paths. Defaults reproduce the stand
 | `twoTiles` | true / false | false | Two placements per turn (house rule). See §4.1. |
 | `handSize` | 6 / 8 / 10 / 12 | 6 | Tiles each seat draws at setup and refills to (house rule), with or without `twoTiles`. **[DECISION]** Without `handSize` in the init options (games created before it), hands hold 6, or 8 with `twoTiles`; normalized options omit `handSize` at that legacy size so those games replay identically. Twelve tiles for each of 6 players use 78 of the 108 tiles at setup, counting turn-order tiles. |
 | `limitedLog` | true / false | false | The log shows only the current turn and the round before it until the game ends (house rule). See §13. |
+| `freeMergerOrder` | true / false | false | The mergermaker chooses the order in which all defunct chains are resolved, regardless of size (house rule). See §7.2. |
+| `disposalOrder` | `turn` / `shares` | `turn` | `shares`: merger stock decisions go largest holding first, ties clockwise from the mergermaker (house rule). See §7.2. |
 | `endSize` | 41 / 31 | 41 | The chain size that triggers the end condition in §11.1. Setting 31 gives a shorter game (house rule). Does not change the safe size (11) or the price table. |
 
 **[DECISION]** Invalid combinations are never rejected. An option that does not apply to
@@ -430,7 +445,7 @@ stock and cash and is scored normally. For every decision it uses these defaults
 | Place tile | The first playable tile in hand, with the hand in board order (§3.3: by number, then letter). If none is playable, skip placement. |
 | Name a new chain | The first available chain in config order (§8). |
 | Choose merger survivor (tie) | The first tied chain in config order. |
-| Choose defunct order (tie) | Tied chains in config order. |
+| Choose defunct order (tie, or any order with `freeMergerOrder`) | Largest first; tied chains in config order. |
 | Stock disposal | Hold all defunct stock. |
 | Buy stock | Buy nothing. |
 | Announce the end | Never. |

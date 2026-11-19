@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="512" height="512"><title>Acquire: win-4-players</title><circle cx="128" cy="128" r="125" fill="#142e3b" stroke="#efbd57" stroke-width="4"/><polygon points="128.0,53.0 206.0,131.0 128.0,209.0 50.0,131.0" fill="#355363" stroke="#efbd57" stroke-width="3"/><rect x="81" y="82" width="94" height="94" rx="6" fill="#fff2d5" stroke="#142e3b" stroke-width="3"/><g data-pictogram="actual" transform="translate(86 87) scale(0.84)"><rect x="0" y="0" width="30" height="30" fill="#a6a6a6" />
+	<rect x="35" y="0" width="30" height="30" fill="#a6a6a6" />
+	<rect x="70" y="0" width="30" height="30" fill="#21c5e2" />
+	<rect x="0" y="35" width="30" height="30" fill="#b44906" />
+	<rect x="36.5" y="36.5" width="27" height="27" fill="#1e1e1e" stroke="#a6a6a6" stroke-width="3" />
+	<rect x="70" y="35" width="30" height="30" fill="#21c5e2" />
+	<rect x="0" y="70" width="30" height="30" fill="#b44906" />
+	<rect x="35" y="70" width="30" height="30" fill="#a6a6a6" />
+	<rect x="70" y="70" width="30" height="30" fill="#21c5e2" />
+</g><g data-investor="true"><circle cx="128.0" cy="21.0" r="7" fill="#fff2d5"/><rect x="117.0" y="30.0" width="22" height="15" rx="7" fill="#fff2d5" stroke="#142e3b" stroke-width="3"/></g><g data-investor="true"><circle cx="228.0" cy="121.0" r="7" fill="#fff2d5"/><rect x="217.0" y="130.0" width="22" height="15" rx="7" fill="#fff2d5" stroke="#142e3b" stroke-width="3"/></g><g data-investor="true"><circle cx="128.0" cy="221.0" r="7" fill="#fff2d5"/><rect x="117.0" y="230.0" width="22" height="15" rx="7" fill="#fff2d5" stroke="#142e3b" stroke-width="3"/></g><g data-investor="true"><circle cx="28.0" cy="121.0" r="7" fill="#fff2d5"/><rect x="17.0" y="130.0" width="22" height="15" rx="7" fill="#fff2d5" stroke="#142e3b" stroke-width="3"/></g><path d="M104 191 l10 9 14 -15 14 15 10 -9 -5 24 h-38Z" fill="#efbd57" stroke="#142e3b" stroke-width="3"/></svg>

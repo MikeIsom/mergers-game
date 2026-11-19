@@ -36,6 +36,7 @@ test("§15 defaults reproduce the standard game", () => {
 		twoPlayerMode: "bank",
 		autoEnd: false,
 		endSize: 41,
+		deadDrawsReplaced: true,
 	});
 	for (let players = 2; players <= 6; players++) {
 		const state = initGame(players, {}, "defaults");
@@ -57,8 +58,15 @@ test("§15 BGS option values are read as sent: ticked checkboxes, selects as str
 		twoPlayerMode: "fourHands",
 		autoEnd: true,
 		endSize: 31,
+		deadDrawsReplaced: true,
 	});
 	assert.deepEqual(ignored, []);
+});
+
+test("§5.3 new games record deadDrawsReplaced; replay keeps a game's own revision", () => {
+	assert.equal(normalizeOptions(3, {}).options.deadDrawsReplaced, true);
+	assert.equal("deadDrawsReplaced" in normalizeOptions(3, {}, { publicHoldings: false }).options, false);
+	assert.equal(normalizeOptions(3, {}, { deadDrawsReplaced: true }).options.deadDrawsReplaced, true);
 });
 
 test("§15 an option that does not apply to the player count is ignored and logged", () => {
@@ -365,6 +373,46 @@ test("§15 holdingsVisibility games replay identically", () => {
 	for (const holdingsVisibility of ["cash", "cashAndShareCount", "public"]) {
 		const state = initGame(4, { holdingsVisibility }, `replay-${holdingsVisibility}`);
 		for (let step = 1; !state.ended && step < 200; step++) {
+			const moves = legalMoves(state).filter((move) => move.type !== "announce");
+			wrapper.move(state, moves[(step * 7919) % moves.length]!, wrapper.currentPlayer(state)!);
+		}
+		assert.deepEqual(wrapper.replay(structuredClone(state)), state);
+	}
+});
+
+test("§7.2 merger house rules: missing, default and invalid values keep the standard order", () => {
+	const standard = {
+		publicHoldings: false,
+		teamPlay: false,
+		twoPlayerMode: "bank",
+		autoEnd: false,
+		endSize: 41,
+		deadDrawsReplaced: true,
+	};
+	assert.deepEqual(normalizeOptions(4, {}), { options: standard, ignored: [] });
+	assert.deepEqual(normalizeOptions(4, { freeMergerOrder: false, disposalOrder: "turn" }), {
+		options: standard,
+		ignored: [],
+	});
+	assert.deepEqual(normalizeOptions(4, { disposalOrder: "smallest" }), {
+		options: standard,
+		ignored: [{ option: "disposalOrder", value: "smallest", reason: "unknown value" }],
+	});
+	assert.deepEqual(normalizeOptions(4, { freeMergerOrder: true, disposalOrder: "shares" }).options, {
+		...standard,
+		freeMergerOrder: true,
+		disposalOrder: "shares",
+	});
+});
+
+test("§7.2 merger house-rule games replay identically", () => {
+	for (const [i, raw] of [
+		{ freeMergerOrder: true },
+		{ disposalOrder: "shares" },
+		{ freeMergerOrder: true, disposalOrder: "shares" },
+	].entries()) {
+		const state = initGame(i === 2 ? 2 : 4, raw, `replay-merger-order-${i}`);
+		for (let step = 1; !state.ended && step < 400; step++) {
 			const moves = legalMoves(state).filter((move) => move.type !== "announce");
 			wrapper.move(state, moves[(step * 7919) % moves.length]!, wrapper.currentPlayer(state)!);
 		}

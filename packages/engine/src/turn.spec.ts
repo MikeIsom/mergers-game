@@ -149,6 +149,34 @@ test("§5.3 permanently unplayable tiles are discarded and replaced at the end o
 	);
 });
 
+test("§5.3 drawn tiles that are already dead are discarded and replaced at once", () => {
+	const pool = ["2B", "12I", "12H", "12G", "12F", "3B", "12E", "12D"];
+	const state = scenario({ board: SAFE_PAIR, hands: [["1B", "10G"], ["9G"]], poolTop: pool });
+	play(state, 0, place("10G"));
+	play(state, 0, buy());
+	assert.deepEqual(state.seats[0]!.hand.map(tileLabel).sort(), ["12D", "12E", "12F", "12G", "12H", "12I"]);
+	assert.deepEqual(
+		state.log.filter((e) => e.type === "discarded" || e.type === "drew"),
+		[
+			{ type: "discarded", seat: 0, tiles: [t("1B"), t("2B"), t("3B")] },
+			{ type: "drew", seat: 0, count: 8 },
+		]
+	);
+});
+
+test("§5.3 games created before deadDrawsReplaced keep drawn dead tiles until the next turn", () => {
+	const pool = ["2B", "12I", "12H", "12G", "12F", "3B", "12E", "12D"];
+	const state = scenario({ board: SAFE_PAIR, hands: [["1B", "10G"], ["9G"]], poolTop: pool });
+	delete state.options.deadDrawsReplaced;
+	play(state, 0, place("10G"));
+	play(state, 0, buy());
+	assert.ok(state.seats[0]!.hand.includes(t("2B")) && state.seats[0]!.hand.includes(t("3B")));
+	assert.deepEqual(
+		state.log.find((e) => e.type === "discarded"),
+		{ type: "discarded", seat: 0, tiles: [t("1B")] }
+	);
+});
+
 test("§5.3 temporarily unplayable tiles are never replaced", () => {
 	const state = scenario({ board: { ...SEVEN_CHAINS, "1G": "loose" }, hands: [["1H", "10G"], ["9G"]] });
 	play(state, 0, place("10G"));

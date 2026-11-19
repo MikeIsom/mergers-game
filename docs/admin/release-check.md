@@ -1,9 +1,72 @@
-# Acquire — 4 November 2026
+# Acquire — 14 November 2026
 
-BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.7`, viewer `0.0.20`.
+BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.10`, viewer `0.0.21`.
 Source: <https://github.com/boardgamers/mergers-game>. The live game is public; preserve its current visibility when updating.
 
-## November update
+## Achievement artwork activation (14 November 2026)
+
+- Approved source: `aaba0c771e680f4e9ca2e3f5a9f76ad5eb916c6f`; independent reviewer
+  `sub-1794659183275-7e43d81e`. Engine `0.0.10`, revision 2, all 17 asset-backed definitions
+  are live. [Sanitized combined asset and activation receipt](achievement-activation-0.0.10.json)
+  records source, asset, package and first-upload adoption evidence (private local paths omitted).
+- Exact original and publicly hosted tarball SHA-256:
+  `83d4da12cc5e842d73fbc944e91575c89a6909b7d40bc812d3e2860af98e51ba`.
+  No rebuild or repack. Public GET `/api/boardgame/acquire/info/latest` matched the package,
+  complete manifest and asset references. All 17 achievement images and seven preserved
+  pictogram/screenshots passed public-byte hash, size and full WebP decode checks.
+- `scripts/test-achievement-art.mjs` passed against the extracted packed wrapper with a
+  Pillow-enabled Python: official manifest schema, full PNG/contact-sheet decode, source
+  hashes, exact asset references and unchanged evaluator. All receipt source PNG hashes matched.
+- The existing `achievement-fifty-thousand` first upload was adopted unchanged, not uploaded
+  twice. Viewer `0.0.21`, settings, options and public visibility remain untouched; the
+  coordinator's receipt records unchanged metadata. This source-delivery pass made only
+  public GET requests, no production writes, games or previews.
+- Source delivery targets canonical `https://github.com/boardgamers/mergers-game` main
+  non-force; `MikeIsom/mergers-game` is not a required release mirror.
+
+## Achievements release (14 November 2026)
+
+- Engine `0.0.9` adds the official protocol `0.11.0` optional achievement hooks with
+  revision 1 and 17 definitions. See [the manifest, evidence and release prerequisites](achievements.md).
+- `pnpm check` passed: formatting, lint (two existing warnings), TypeScript/Svelte,
+  288 engine tests, 74 viewer tests, and both production builds. `git diff --check` passed.
+  No UI change: browser screenshots were not required or run. A read-only independent
+  review found no blocking issue; original-seat and settlement-guard tests were expanded
+  following its feedback. A fresh independent review approved `190e59ff`; the user
+  authorized canonical delivery and BGS publication.
+- Fresh preflight found live engine `0.0.8` from the dead-tile release. Integrated its
+  source/version records from `upstream/release-dead-tile` (`30c7223`) and advanced this
+  engine to `0.0.9`; achievement source remains exactly as approved. Viewer `0.0.21`
+  is retained, not republished.
+
+- Published source `ccd6c0c134930bccb0a776889ddae1c07d9e8a00` non-force to canonical
+  `boardgamers/mergers-game` main. The optional upstream copy to `MikeIsom/mergers-game`
+  was denied by GitHub permissions; canonical delivery succeeded.
+- Re-ran `pnpm check` after integrating the prior release: 288 engine and 74 viewer tests,
+  type checks and both builds passed. Extracted engine `0.0.9` from its packed archive;
+  official schemas, all 17 revision-1 definitions, a complete legal game fixture, pure
+  extraction and replay equivalence passed against that packed code.
+- Uploaded engine only. Hosted archive SHA-256:
+  `3be2b8244065599632d266efead4cac57441a803ead3ee5b1f9ca9761ad5f6e1`.
+  Read-only production inspection on `coyotech-base` confirmed initialized installer state,
+  `active.acquire_1.engine` exactly matching the uploaded `0.0.9` artifact,
+  `achievementsProbed: true`, and the exact 17-definition revision-1 manifest.
+- Public `/api/boardgame/acquire/info/1` exposes the exact packed manifest.
+  [Acquire's album](https://boardgamers.space/badges/games/acquire) was inspected in-browser:
+  all 17 entries and their text icons render. The platform currently wraps the four-letter
+  `SWAP` mark inside its small badge circle; this is cosmetic, not an asset or schema failure.
+  No production games were created or played and no awards were fabricated.
+- Final metadata differs only in `engine.package`, installer-published `achievementManifest`
+  and `updatedAt`. Public visibility, viewer `0.0.21`, options, preferences, tutorials,
+  CMS references and all other metadata remain unchanged. Ignored snapshots, packed
+  archive and verification receipts: `release/publish/acquire-achievements-190e59f/`.
+
+## Dead-tile replacement (6 November 2026)
+
+- A drawn tile that would merge two safe chains is discarded and replaced at once, repeating until the hand holds no dead tile or the pool is empty. New games record `deadDrawsReplaced`; older games and replays keep the previous behavior. With two tiles per turn, a tile made dead during the turn is replaced with the end-of-turn draw. The hand hint and English rules match.
+- `pnpm check` passed (278 engine and 74 viewer tests); browser checks passed 68 locale/viewport combinations and 23 integration scenarios. Published source commit `a592198`: uploaded engine `0.0.8`, activated viewer `0.0.21` and updated the English CMS rules. The final metadata remains public with BGS version `1`, and every other field matches the pre-release snapshot. Hosted engine, JS and CSS bytes match local artifacts. Deployment snapshots are ignored under `release/publish/20261106-112714-a592198/`. Game-server activation of the engine cannot be established without server logs.
+
+## November update (4 November 2026)
 
 - Replace the public-holdings setup checkbox with a four-level holdings-visibility selector (private, cash, cash and total share count, or public), while retaining compatibility with old games.
 - Offer independent hand sizes of 6, 8, 10 or 12 tiles; relax founding/merger restrictions for new two-tile games without changing old replays. Show every viewer the same limited-log window (current turn plus the previous round).

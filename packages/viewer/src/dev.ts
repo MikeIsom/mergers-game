@@ -1,7 +1,8 @@
 // Local dev harness (not part of the BGS bundle): runs the real engine in the page, plays
 // random moves on request, and lets you view the game as any player or as a spectator.
 // URL parameters: players=2..6, seed=..., view=N, hotseat=0, theme=light|dark, locale=de, and any game option, e.g. publicHoldings=1,
-// holdingsVisibility=cash|cashAndShareCount|public, twoPlayerMode=fourHands, teamPlay=1, autoEnd=1, endSize=31, twoTiles=1, handSize=12. For reproducible screenshots: moves=N plays N random moves,
+// holdingsVisibility=cash|cashAndShareCount|public, twoPlayerMode=fourHands, teamPlay=1, autoEnd=1, endSize=31, twoTiles=1, handSize=12,
+// freeMergerOrder=1, disposalOrder=shares. For reproducible screenshots: moves=N plays N random moves,
 // merger=1 then plays on to the next merger decision, bar=0 hides this toolbar.
 import * as rules from "acquire-engine";
 import { currentSeat, legalMoves, type GameState } from "acquire-engine";
@@ -29,12 +30,20 @@ async function loadBuiltViewer(): Promise<typeof import("./viewer").viewer> {
 const players = Math.min(6, Math.max(2, Number(params.get("players") ?? 4)));
 const seed = params.get("seed") ?? "dev";
 const options: Record<string, unknown> = {};
-for (const key of ["publicHoldings", "teamPlay", "autoEnd", "twoTiles", "limitedLog"]) {
+for (const key of ["publicHoldings", "teamPlay", "autoEnd", "twoTiles", "limitedLog", "freeMergerOrder"]) {
 	if (params.get(key) === "1") {
 		options[key] = true;
 	}
 }
-for (const key of ["holdingsVisibility", "twoPlayerMode", "endSize", "stockSwap", "sharesPerTurn", "handSize"]) {
+for (const key of [
+	"holdingsVisibility",
+	"twoPlayerMode",
+	"endSize",
+	"stockSwap",
+	"sharesPerTurn",
+	"handSize",
+	"disposalOrder",
+]) {
 	const value = params.get(key);
 	if (value) {
 		options[key] = value;

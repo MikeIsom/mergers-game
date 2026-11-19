@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="512" height="512"><title>Acquire: team-win</title><circle cx="128" cy="128" r="125" fill="#142e3b" stroke="#efbd57" stroke-width="4"/><rect x="73" y="41" width="110" height="110" rx="6" fill="#fff2d5" stroke="#142e3b" stroke-width="3"/><g data-pictogram="actual" transform="translate(78 46) scale(1.0)"><rect x="0" y="0" width="30" height="30" fill="#a6a6a6" />
+	<rect x="35" y="0" width="30" height="30" fill="#a6a6a6" />
+	<rect x="70" y="0" width="30" height="30" fill="#21c5e2" />
+	<rect x="0" y="35" width="30" height="30" fill="#b44906" />
+	<rect x="36.5" y="36.5" width="27" height="27" fill="#1e1e1e" stroke="#a6a6a6" stroke-width="3" />
+	<rect x="70" y="35" width="30" height="30" fill="#21c5e2" />
+	<rect x="0" y="70" width="30" height="30" fill="#b44906" />
+	<rect x="35" y="70" width="30" height="30" fill="#a6a6a6" />
+	<rect x="70" y="70" width="30" height="30" fill="#21c5e2" />
+</g><g data-investor="true"><circle cx="76" cy="172" r="7" fill="#fff2d5"/><rect x="65" y="181" width="22" height="15" rx="7" fill="#fff2d5" stroke="#142e3b" stroke-width="3"/></g><g data-investor="true"><circle cx="180" cy="172" r="7" fill="#fff2d5"/><rect x="169" y="181" width="22" height="15" rx="7" fill="#fff2d5" stroke="#142e3b" stroke-width="3"/></g><path d="M88 190 Q128 210 168 190 M85 168 L99 150 M171 168 L157 150" fill="none" stroke="#fff2d5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M104 199 l10 9 14 -15 14 15 10 -9 -5 24 h-38Z" fill="#efbd57" stroke="#142e3b" stroke-width="3"/></svg>
