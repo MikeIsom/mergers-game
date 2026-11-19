@@ -6,6 +6,7 @@ Source: <https://github.com/boardgamers/mergers-game>. The live game is public; 
 ## Merger order house rules (19 November 2026)
 
 - Two optional setup rules, both off by default and omitted from normalized options when off, so existing games and replays are unchanged: `freeMergerOrder` lets the merging player choose the order of all defunct chains whenever there are two or more, regardless of size; `disposalOrder: shares` has merger stock decisions go largest holding first, ties clockwise from the merging player. The order prompt names the house rule in all 17 catalogs.
+- `pnpm check` passed (295 engine and 74 viewer tests); browser checks passed 68 locale/viewport combinations and 23 integration scenarios. Both rules were also played through in the dev harness, with the standard order checked unchanged. Published source commit `9fc7569`: uploaded engine `0.0.11`, activated viewer `0.0.22`, appended the `freeMergerOrder` and `disposalOrder` declarations to the live options and updated the English CMS rules. The final metadata remains public with BGS version `1`; apart from engine, viewer and options, every field matches the pre-release snapshot, including the 17-definition achievement manifest. Hosted engine, JS and CSS bytes match local artifacts, and the public game info lists the new engine, viewer and options. Deployment snapshots are ignored under `release/publish/20261119-125658-108114b/`. Game-server activation of the engine cannot be established without server logs.
 
 ## Achievement artwork activation (14 November 2026)
 
