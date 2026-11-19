@@ -194,6 +194,28 @@
 			"label": "Limited game log (only last round)",
 			"type": "checkbox",
 			"default": false
+		},
+		{
+			"name": "freeMergerOrder",
+			"label": "Merging player chooses the order defunct chains are settled (house rule)",
+			"type": "checkbox",
+			"default": false
+		},
+		{
+			"name": "disposalOrder",
+			"label": "Merger stock decisions",
+			"type": "select",
+			"default": "turn",
+			"items": [
+				{
+					"name": "turn",
+					"label": "In turn order from the merging player (standard)"
+				},
+				{
+					"name": "shares",
+					"label": "Largest holding first (house rule)"
+				}
+			]
 		}
 	],
 	"settings": [],

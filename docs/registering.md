@@ -165,8 +165,9 @@ Current declaration sources are in [admin/gameinfo.json](admin/gameinfo.json):
 
 - Setup options include holdings visibility (private / cash / cash and share count / public), team play, two-player mode, automatic ending, end size,
   **Shares per turn: 3 (standard) / 4 / 5**, **Stock swap: Off / 3 / 5 / 7 / Unlimited**,
-  two tiles per turn and limited game log.
-  Stock swaps, two tiles per turn and limited logs default Off.
+  two tiles per turn, limited game log, merging player chooses the defunct order, and
+  merger stock decisions in turn order or largest holding first.
+  Stock swaps, two tiles per turn, limited logs and both merger house rules default Off.
 - The **sound** preference, default on, also honoring BGS's global sound setting.
 - Three interactive tutorial chapters: founding, mergers and scoring.
 

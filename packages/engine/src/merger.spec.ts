@@ -399,3 +399,79 @@ test("§7/§10 four-way merger: survivor tie, tied defunct order, and the surviv
 	assert.equal(chainSize(state.board, "luxor"), 3 + 3 + 2 + 2 + 1);
 	assert.equal(state.activeSeat, 1);
 });
+
+test("§7.2 freeMergerOrder: the mergermaker orders defunct chains of different sizes", () => {
+	const board = {
+		...chainAt("tower", row("E", 1, 4)),
+		...chainAt("luxor", row("E", 6, 8)),
+		...chainAt("festival", ["5F", "5G"]),
+	};
+	const state = scenario({ board, hands: hands(0, "5E"), options: { freeMergerOrder: true } });
+	play(state, 0, place("5E"));
+	assert.equal(state.phase, "defunctOrder");
+	assert.equal(currentSeat(state), 0);
+	assert.throws(() => applyMove(state, { type: "defunctOrder", chains: ["festival"] }, 0), /every defunct chain once/);
+	play(state, 0, { type: "defunctOrder", chains: ["festival", "luxor"] });
+	assert.deepEqual(entries(state, "mergerPlan")[0]?.defunct, ["festival", "luxor"]);
+	assert.deepEqual(
+		entries(state, "bonuses").map((e) => e.chain),
+		["festival", "luxor"]
+	);
+	assert.equal(chainSize(state.board, "tower"), 4 + 3 + 2 + 1);
+});
+
+test("§7.2 freeMergerOrder: still no choice with a single defunct chain or the survivor", () => {
+	const state = scenario({ board: TWO_CHAINS, hands: hands(0, "4A"), options: { freeMergerOrder: true } });
+	play(state, 0, place("4A"));
+	assert.deepEqual(entries(state, "mergerPlan"), [{ type: "mergerPlan", survivor: "tower", defunct: ["luxor"] }]);
+	assert.equal(state.phase, "buy");
+});
+
+test("§7.2 without freeMergerOrder, defunct chains of different sizes resolve largest first", () => {
+	const board = {
+		...chainAt("tower", row("E", 1, 4)),
+		...chainAt("luxor", row("E", 6, 8)),
+		...chainAt("festival", ["5F", "5G"]),
+	};
+	const state = scenario({ board, hands: hands(0, "5E") });
+	play(state, 0, place("5E"));
+	assert.deepEqual(entries(state, "mergerPlan")[0]?.defunct, ["luxor", "festival"]);
+});
+
+const DISPOSAL_SHARES = [{ luxor: 2 }, { luxor: 2 }, { luxor: 5 }, { luxor: 3 }];
+
+test("§7.2 stock disposal goes clockwise from the mergermaker by default", () => {
+	const state = scenario({
+		seats: 4,
+		board: TWO_CHAINS,
+		hands: [["12I"], ["4A"], ["12G"], ["10I"]],
+		activeSeat: 1,
+		shares: DISPOSAL_SHARES,
+	});
+	play(state, 1, place("4A"));
+	assert.deepEqual(state.merger?.disposers, [1, 2, 3, 0]);
+});
+
+test("§7.2 disposalOrder shares: largest holding first, ties clockwise from the mergermaker", () => {
+	const state = scenario({
+		seats: 4,
+		board: TWO_CHAINS,
+		hands: [["12I"], ["4A"], ["12G"], ["10I"]],
+		activeSeat: 1,
+		shares: DISPOSAL_SHARES,
+		options: { disposalOrder: "shares" },
+	});
+	play(state, 1, place("4A"));
+	assert.deepEqual(state.merger?.disposers, [2, 3, 1, 0]);
+	assert.equal(currentSeat(state), 2);
+	play(state, 2, dispose(5, 0));
+	play(state, 3, dispose(0, 0));
+	play(state, 1, dispose(0, 2));
+	assert.equal(currentSeat(state), 0);
+	play(state, 0, dispose(2, 0));
+	assert.deepEqual(
+		entries(state, "disposed").map((e) => e.seat),
+		[2, 3, 1, 0]
+	);
+	assert.deepEqual(activeChains(state.board), ["tower"]);
+});
