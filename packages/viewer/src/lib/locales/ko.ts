@@ -72,6 +72,8 @@ export const ko: Catalog = {
 	tiles: { other: "타일 {count}개" },
 	"order.prompt":
 		"{survivor}이(가) 살아남습니다. 흡수되는 체인 중 크기가 같은 것이 있습니다. 처음부터 마지막까지 정산할 순서를 고르세요.",
+	"order.promptFree":
+		"{survivor}이(가) 살아남습니다. 하우스 룰: 흡수되는 체인을 정산할 순서를 처음부터 마지막까지 고르세요.",
 	"order.confirm": "순서 확정",
 	"order.confirmChains": "{chains} 순서로 정리",
 	"order.reset": "다시 고르기",

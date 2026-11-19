@@ -71,6 +71,7 @@ export const zhCN: Catalog = {
 	"survivor.confirm": "确认：{survivor} 并购 {defunct}",
 	tiles: { other: "{count} 块" },
 	"order.prompt": "{survivor} 存续。部分被吞并的连锁大小相同：请从先到后选择它们的结算顺序。",
+	"order.promptFree": "{survivor} 存续。房规：请从先到后选择被吞并连锁的结算顺序。",
 	"order.confirm": "确认顺序",
 	"order.confirmChains": "按此顺序结算 {chains}",
 	"order.reset": "重新选择",

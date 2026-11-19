@@ -20,8 +20,11 @@ export function survivorCandidates(m: MergerState): ChainId[] {
 	return chains.filter((chain) => m.sizes[chain] === largest);
 }
 
-/** rules.md §7.2: defunct chains must be resolved largest first; only ties are a choice. */
-export function isValidDefunctOrder(m: MergerState, order: ChainId[]): boolean {
+/**
+ * rules.md §7.2: defunct chains must be resolved largest first; only ties are a choice. With
+ * `free` (the freeMergerOrder house rule) any order of every defunct chain is valid.
+ */
+export function isValidDefunctOrder(m: MergerState, order: ChainId[], free = false): boolean {
 	const expected = CHAIN_IDS.filter((chain) => m.sizes[chain] !== undefined && chain !== m.survivor);
 	if (order.length !== expected.length || new Set(order).size !== order.length) {
 		return false;
@@ -29,7 +32,7 @@ export function isValidDefunctOrder(m: MergerState, order: ChainId[]): boolean {
 	if (!order.every((chain) => expected.includes(chain))) {
 		return false;
 	}
-	return order.every((chain, i) => i === 0 || m.sizes[order[i - 1]!]! >= m.sizes[chain]!);
+	return free || order.every((chain, i) => i === 0 || m.sizes[order[i - 1]!]! >= m.sizes[chain]!);
 }
 
 /** Starts a merger for a tile already on the board as a loose tile, placed by a player or the bank. */
@@ -60,7 +63,8 @@ export function setSurvivor(state: GameState, survivor: ChainId): void {
 		(a, b) => m.sizes[b]! - m.sizes[a]!
 	);
 	const sizes = defunct.map((chain) => m.sizes[chain]!);
-	if (new Set(sizes).size !== sizes.length) {
+	const choice = state.options.freeMergerOrder ? defunct.length > 1 : new Set(sizes).size !== sizes.length;
+	if (choice) {
 		state.phase = "defunctOrder";
 		return;
 	}
@@ -85,15 +89,29 @@ function resolveNextDefunct(state: GameState): void {
 		}
 		m.current = chain;
 		payBonuses(state, chain, m.sizes[chain]!, "wait");
-		const seats = state.seats.length;
-		m.disposers = Array.from({ length: seats }, (_, i) => (m.mergermaker + i) % seats).filter(
-			(seat) => state.seats[seat]!.shares[chain] > 0
-		);
+		m.disposers = disposalOrder(state, chain);
 		if (m.disposers.length > 0) {
 			state.phase = "dispose";
 			return;
 		}
 	}
+}
+
+/**
+ * rules.md §7.2: shareholders of `chain` clockwise from the mergermaker or, with the
+ * disposalOrder house rule, largest holding first with ties clockwise from the mergermaker.
+ */
+function disposalOrder(state: GameState, chain: ChainId): number[] {
+	const m = merger(state);
+	const seats = state.seats.length;
+	const order = Array.from({ length: seats }, (_, i) => (m.mergermaker + i) % seats).filter(
+		(seat) => state.seats[seat]!.shares[chain] > 0
+	);
+	if (state.options.disposalOrder === "shares") {
+		// Array.prototype.sort is stable, so equal holdings keep their clockwise order.
+		order.sort((a, b) => state.seats[b]!.shares[chain] - state.seats[a]!.shares[chain]);
+	}
+	return order;
 }
 
 /**

@@ -72,6 +72,7 @@ export const vi: Catalog = {
 	tiles: { other: "{count} ô" },
 	"order.prompt":
 		"{survivor} tồn tại. Một số chuỗi bị thâu tóm có cùng kích thước: chọn thứ tự thanh toán chúng, từ đầu đến cuối.",
+	"order.promptFree": "{survivor} tồn tại. Luật nhà: chọn thứ tự thanh toán các chuỗi bị thâu tóm, từ đầu đến cuối.",
 	"order.confirm": "Xác nhận thứ tự",
 	"order.confirmChains": "Giải quyết {chains} theo thứ tự này",
 	"order.reset": "Chọn lại",

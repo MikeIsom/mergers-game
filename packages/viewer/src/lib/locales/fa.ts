@@ -72,6 +72,7 @@ export const fa: Catalog = {
 	tiles: { one: "{count} کاشی", other: "{count} کاشی" },
 	"order.prompt":
 		"{survivor} می‌ماند. برخی زنجیره‌های ادغام‌شونده هم‌اندازه‌اند: ترتیب تسویه‌ی آن‌ها را از اول تا آخر انتخاب کنید.",
+	"order.promptFree": "{survivor} می‌ماند. قانون خانگی: ترتیب تسویه‌ی زنجیره‌های ادغام‌شونده را از اول تا آخر انتخاب کنید.",
 	"order.confirm": "تأیید ترتیب",
 	"order.confirmChains": "تسویه‌ی {chains} به همین ترتیب",
 	"order.reset": "از نو",

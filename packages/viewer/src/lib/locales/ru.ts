@@ -72,6 +72,8 @@ export const ru: Catalog = {
 	tiles: { one: "{count} фишка", few: "{count} фишки", many: "{count} фишек", other: "{count} фишки" },
 	"order.prompt":
 		"{survivor} уцелеет. Некоторые поглощаемые сети одного размера: выберите порядок их расчёта, от первой до последней.",
+	"order.promptFree":
+		"{survivor} уцелеет. Домашнее правило: выберите порядок расчёта поглощаемых сетей, от первой до последней.",
 	"order.confirm": "Подтвердить порядок",
 	"order.confirmChains": "Ликвидировать {chains} в этом порядке",
 	"order.reset": "Начать заново",

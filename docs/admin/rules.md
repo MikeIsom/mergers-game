@@ -69,6 +69,8 @@ Each chain being taken over is settled in turn, largest first (the merging playe
    - **Trade** them 2 for 1 for shares of the surviving chain, while the bank has some left.
    - **Keep** them. They are worth nothing unless the chain is founded again later.
 
+If the game uses **Merging player chooses the order**, the merging player picks the order of all the chains being taken over, whatever their sizes. If the game uses **Largest holding first** for merger stock decisions, shareholders decide in order of how many shares of that chain they hold, largest first; equal holdings go round the table from the merging player. Everyone can see that order, so it shows how the holders rank.
+
 Then the survivor absorbs all the tiles. The names of the chains taken over are free to be founded again.
 
 ## Buying stock
@@ -161,6 +163,8 @@ Because replaying the game would show the full history, replay is only available
 - **Team play** (4 players only): seats 1 and 3 play against seats 2 and 4; each team's money is added together at the end.
 - **Two-player mode:** *Bank as third shareholder* (above) or *Four hands*, where each player controls two seats in a normal four-seat game and the player with the single richest seat wins.
 - **End automatically when an end condition is met:** the game ends at the end of that turn, with no announcement.
+- **Merging player chooses the order defunct chains are settled:** instead of largest first (see Mergers).
+- **Merger stock decisions:** in turn order from the merging player (standard) or largest holding first (see Mergers).
 - **Chain size that ends the game:** 41 tiles (standard) or 31 tiles for a shorter game. Safe size and prices don't change.
 
 Options that don't fit the number of players are ignored, and the log says so.

@@ -117,8 +117,9 @@ export function sanitizeMove(state: GameState, raw: unknown, seat: number): Move
 		}
 		case "defunctOrder": {
 			const chains = raw.chains;
-			if (!Array.isArray(chains) || !chains.every(isChainId) || !isValidDefunctOrder(merger(state), chains)) {
-				throw new Error("List every defunct chain, largest first");
+			const free = state.options.freeMergerOrder === true;
+			if (!Array.isArray(chains) || !chains.every(isChainId) || !isValidDefunctOrder(merger(state), chains, free)) {
+				throw new Error(free ? "List every defunct chain once" : "List every defunct chain, largest first");
 			}
 			return { type: "defunctOrder", chains: [...chains] };
 		}

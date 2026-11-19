@@ -72,6 +72,8 @@ export const nl: Catalog = {
 	tiles: { one: "{count} tegel", other: "{count} tegels" },
 	"order.prompt":
 		"{survivor} overleeft. Sommige overgenomen ketens zijn even groot: kies de volgorde waarin ze worden afgehandeld, van eerste tot laatste.",
+	"order.promptFree":
+		"{survivor} overleeft. Huisregel: kies de volgorde waarin de overgenomen ketens worden afgehandeld, van eerste tot laatste.",
 	"order.confirm": "Volgorde bevestigen",
 	"order.confirmChains": "{chains} in deze volgorde afhandelen",
 	"order.reset": "Opnieuw beginnen",

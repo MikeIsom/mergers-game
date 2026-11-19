@@ -72,6 +72,8 @@ export const ptBR: Catalog = {
 	tiles: { one: "{count} peça", many: "{count} peças", other: "{count} peças" },
 	"order.prompt":
 		"A {survivor} sobrevive. Algumas redes absorvidas têm o mesmo tamanho: escolha a ordem em que são liquidadas, da primeira à última.",
+	"order.promptFree":
+		"A {survivor} sobrevive. Regra da casa: escolha a ordem em que as redes absorvidas são liquidadas, da primeira à última.",
 	"order.confirm": "Confirmar a ordem",
 	"order.confirmChains": "Liquidar {chains} nesta ordem",
 	"order.reset": "Recomeçar",

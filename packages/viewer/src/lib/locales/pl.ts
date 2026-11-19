@@ -72,6 +72,8 @@ export const pl: Catalog = {
 	tiles: { one: "{count} płytka", few: "{count} płytki", many: "{count} płytek", other: "{count} płytki" },
 	"order.prompt":
 		"{survivor} przetrwa. Niektóre przejmowane sieci są tej samej wielkości: wybierz kolejność ich rozliczenia, od pierwszej do ostatniej.",
+	"order.promptFree":
+		"{survivor} przetrwa. Zasada domowa: wybierz kolejność rozliczenia przejmowanych sieci, od pierwszej do ostatniej.",
 	"order.confirm": "Potwierdź kolejność",
 	"order.confirmChains": "Rozlicz {chains} w tej kolejności",
 	"order.reset": "Zacznij od nowa",

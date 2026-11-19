@@ -33,6 +33,10 @@ export interface GameOptions {
 	 * logged before lack it and keep replacing dead tiles only once per turn, also when replayed.
 	 */
 	deadDrawsReplaced?: true;
+	/** rules.md §7.2: the mergermaker orders the defunct chains freely (house rule). Omitted when off. */
+	freeMergerOrder?: true;
+	/** rules.md §7.2: stock disposal goes largest holding first (house rule). Omitted at turn order. */
+	disposalOrder?: "shares";
 }
 
 export interface IgnoredOption {
@@ -172,6 +176,14 @@ export function normalizeOptions(
 	}
 	if (raw.limitedLog === true) {
 		options.limitedLog = true;
+	}
+	if (raw.freeMergerOrder === true) {
+		options.freeMergerOrder = true;
+	}
+	if (raw.disposalOrder === "shares") {
+		options.disposalOrder = "shares";
+	} else if (raw.disposalOrder !== undefined && raw.disposalOrder !== "turn") {
+		ignored.push({ option: "disposalOrder", value: raw.disposalOrder, reason: "unknown value" });
 	}
 
 	return { options, ignored };

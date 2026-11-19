@@ -77,6 +77,8 @@ export const en = {
 	tiles: { one: "{count} tile", other: "{count} tiles" },
 	"order.prompt":
 		"{survivor} survives. Some defunct chains are the same size: choose the order they are resolved in, first to last.",
+	"order.promptFree":
+		"{survivor} survives. House rule: choose the order the defunct chains are resolved in, first to last.",
 	"order.confirm": "Confirm order",
 	"order.confirmChains": "Resolve {chains} in this order",
 	"order.reset": "Start over",

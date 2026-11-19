@@ -72,6 +72,8 @@ export const de: Catalog = {
 	tiles: { one: "{count} Plättchen", other: "{count} Plättchen" },
 	"order.prompt":
 		"{survivor} bleibt bestehen. Einige übernommene Ketten sind gleich groß: Wähle die Reihenfolge, in der sie abgerechnet werden, von der ersten bis zur letzten.",
+	"order.promptFree":
+		"{survivor} bleibt bestehen. Hausregel: Wähle die Reihenfolge, in der die übernommenen Ketten abgerechnet werden, von der ersten bis zur letzten.",
 	"order.confirm": "Reihenfolge bestätigen",
 	"order.confirmChains": "{chains} in dieser Reihenfolge abwickeln",
 	"order.reset": "Neu beginnen",

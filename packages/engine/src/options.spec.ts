@@ -379,3 +379,43 @@ test("§15 holdingsVisibility games replay identically", () => {
 		assert.deepEqual(wrapper.replay(structuredClone(state)), state);
 	}
 });
+
+test("§7.2 merger house rules: missing, default and invalid values keep the standard order", () => {
+	const standard = {
+		publicHoldings: false,
+		teamPlay: false,
+		twoPlayerMode: "bank",
+		autoEnd: false,
+		endSize: 41,
+		deadDrawsReplaced: true,
+	};
+	assert.deepEqual(normalizeOptions(4, {}), { options: standard, ignored: [] });
+	assert.deepEqual(normalizeOptions(4, { freeMergerOrder: false, disposalOrder: "turn" }), {
+		options: standard,
+		ignored: [],
+	});
+	assert.deepEqual(normalizeOptions(4, { disposalOrder: "smallest" }), {
+		options: standard,
+		ignored: [{ option: "disposalOrder", value: "smallest", reason: "unknown value" }],
+	});
+	assert.deepEqual(normalizeOptions(4, { freeMergerOrder: true, disposalOrder: "shares" }).options, {
+		...standard,
+		freeMergerOrder: true,
+		disposalOrder: "shares",
+	});
+});
+
+test("§7.2 merger house-rule games replay identically", () => {
+	for (const [i, raw] of [
+		{ freeMergerOrder: true },
+		{ disposalOrder: "shares" },
+		{ freeMergerOrder: true, disposalOrder: "shares" },
+	].entries()) {
+		const state = initGame(i === 2 ? 2 : 4, raw, `replay-merger-order-${i}`);
+		for (let step = 1; !state.ended && step < 400; step++) {
+			const moves = legalMoves(state).filter((move) => move.type !== "announce");
+			wrapper.move(state, moves[(step * 7919) % moves.length]!, wrapper.currentPlayer(state)!);
+		}
+		assert.deepEqual(wrapper.replay(structuredClone(state)), state);
+	}
+});
