@@ -203,7 +203,9 @@
 			>
 			{#if lastUndo}<p class="final-note">{t("turn.finalStep")}</p>{/if}
 		{:else if game.phase === "defunctOrder" && m}
-			<p>{t("order.prompt", { survivor: chainName(m.survivor!) })}</p>
+			<p>
+				{t(game.options.freeMergerOrder ? "order.promptFree" : "order.prompt", { survivor: chainName(m.survivor!) })}
+			</p>
 			<div class="choices">
 				{#each CHAIN_IDS.filter((chain) => m.sizes[chain] !== undefined && chain !== m.survivor) as chain (chain)}
 					{@const position = order.indexOf(chain)}

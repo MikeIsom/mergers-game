@@ -71,6 +71,7 @@ export const hi: Catalog = {
 	"survivor.confirm": "पुष्टि करें: {survivor}, {defunct} का अधिग्रहण करेगी",
 	tiles: { one: "{count} टाइल", other: "{count} टाइलें" },
 	"order.prompt": "{survivor} बचती है। विलय होने वाली कुछ श्रृंखलाएँ एक ही आकार की हैं: पहली से आख़िरी तक, उनके निपटान का क्रम चुनें।",
+	"order.promptFree": "{survivor} बचती है। घरेलू नियम: विलय होने वाली श्रृंखलाओं के निपटान का क्रम पहली से आख़िरी तक चुनें।",
 	"order.confirm": "क्रम की पुष्टि करें",
 	"order.confirmChains": "{chains} को इसी क्रम में निपटाएँ",
 	"order.reset": "फिर से शुरू करें",

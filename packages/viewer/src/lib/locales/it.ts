@@ -72,6 +72,8 @@ export const it: Catalog = {
 	tiles: { one: "{count} tessera", many: "{count} tessere", other: "{count} tessere" },
 	"order.prompt":
 		"{survivor} sopravvive. Alcune catene assorbite hanno la stessa dimensione: scegli l'ordine in cui vengono liquidate, dalla prima all'ultima.",
+	"order.promptFree":
+		"{survivor} sopravvive. Regola della casa: scegli l'ordine in cui vengono liquidate le catene assorbite, dalla prima all'ultima.",
 	"order.confirm": "Conferma l'ordine",
 	"order.confirmChains": "Liquida {chains} in quest’ordine",
 	"order.reset": "Ricomincia",

@@ -73,6 +73,8 @@ export const ro: Catalog = {
 	tiles: { one: "{count} piesă", few: "{count} piese", other: "{count} de piese" },
 	"order.prompt":
 		"{survivor} supraviețuiește. Unele lanțuri absorbite au aceeași mărime: alege ordinea în care sunt decontate, de la primul la ultimul.",
+	"order.promptFree":
+		"{survivor} supraviețuiește. Regulă a casei: alege ordinea în care sunt decontate lanțurile absorbite, de la primul la ultimul.",
 	"order.confirm": "Confirmă ordinea",
 	"order.confirmChains": "Rezolvă {chains} în această ordine",
 	"order.reset": "Ia de la capăt",

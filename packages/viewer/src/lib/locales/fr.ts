@@ -73,6 +73,8 @@ export const fr: Catalog = {
 	tiles: { one: "{count} tuile", many: "{count} tuiles", other: "{count} tuiles" },
 	"order.prompt":
 		"{survivor} survit. Certaines chaînes absorbées ont la même taille : choisissez l’ordre dans lequel elles sont réglées, de la première à la dernière.",
+	"order.promptFree":
+		"{survivor} survit. Règle maison : choisissez l’ordre dans lequel les chaînes absorbées sont réglées, de la première à la dernière.",
 	"order.confirm": "Confirmer l’ordre",
 	"order.confirmChains": "Liquider {chains} dans cet ordre",
 	"order.reset": "Recommencer",

@@ -71,6 +71,7 @@ export const zhTW: Catalog = {
 	"survivor.confirm": "確認：{survivor} 併購 {defunct}",
 	tiles: { other: "{count} 塊" },
 	"order.prompt": "{survivor} 存續。部分被併購的連鎖大小相同：請由先到後選擇它們的結算順序。",
+	"order.promptFree": "{survivor} 存續。房規：請由先到後選擇被併購連鎖的結算順序。",
 	"order.confirm": "確認順序",
 	"order.confirmChains": "依此順序結算 {chains}",
 	"order.reset": "重新選擇",

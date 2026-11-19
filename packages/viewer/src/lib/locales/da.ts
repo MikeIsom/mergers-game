@@ -72,6 +72,8 @@ export const da: Catalog = {
 	tiles: { one: "{count} brik", other: "{count} brikker" },
 	"order.prompt":
 		"{survivor} overlever. Nogle opslugte kæder er lige store: vælg rækkefølgen, de afregnes i, fra første til sidste.",
+	"order.promptFree":
+		"{survivor} overlever. Husregel: vælg rækkefølgen, de opslugte kæder afregnes i, fra første til sidste.",
 	"order.confirm": "Bekræft rækkefølge",
 	"order.confirmChains": "Afvikl {chains} i denne rækkefølge",
 	"order.reset": "Start forfra",
