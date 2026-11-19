@@ -1,7 +1,11 @@
-# Acquire — 14 November 2026
+# Acquire — 19 November 2026
 
-BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.10`, viewer `0.0.21`.
+BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.11`, viewer `0.0.22`.
 Source: <https://github.com/boardgamers/mergers-game>. The live game is public; preserve its current visibility when updating.
+
+## Merger order house rules (19 November 2026)
+
+- Two optional setup rules, both off by default and omitted from normalized options when off, so existing games and replays are unchanged: `freeMergerOrder` lets the merging player choose the order of all defunct chains whenever there are two or more, regardless of size; `disposalOrder: shares` has merger stock decisions go largest holding first, ties clockwise from the merging player. The order prompt names the house rule in all 17 catalogs.
 
 ## Achievement artwork activation (14 November 2026)
 
