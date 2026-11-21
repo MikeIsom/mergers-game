@@ -6,6 +6,7 @@ Source: <https://github.com/boardgamers/mergers-game>. The live game is public; 
 ## Merger tile confirmation (21 November 2026)
 
 - Viewer only. When undo is on and a tile placement would end it, because the tile merges chains and bonuses are paid, the viewer asks for confirmation first. This applies even when the placement is the turn's first move. It reuses the existing final-step warning text, and quiet placements are unchanged. The endgame summary added in the same source is only reachable from the local dev harness, not the shipped viewer. Its `summary.*` strings are in all 17 catalogs.
+- `pnpm check` passed (295 engine and 76 viewer tests); browser checks passed 68 locale/viewport combinations and 23 integration scenarios. Published source commit `e4aa122`: activated viewer `0.0.23` only (engine stays `0.0.11`, options and CMS unchanged). The final metadata remains public with BGS version `1`; apart from the viewer, every field matches the pre-release snapshot. Hosted JS and CSS bytes match local artifacts, and the public game info lists the new viewer. Deployment snapshots are ignored under `release/publish/20261121-012254-e4aa122/`.
 
 ## Merger order house rules (19 November 2026)
 
