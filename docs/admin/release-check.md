@@ -1,7 +1,11 @@
 # Acquire — 21 November 2026
 
-BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.11`, viewer `0.0.23`.
+BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.11`, viewer `0.0.24`.
 Source: <https://github.com/boardgamers/mergers-game>. The live game is public; preserve its current visibility when updating.
+
+## Endgame summary (21 November 2026)
+
+- Viewer only. Once a game has ended, a Game summary button under the final results opens a tabbed summary (overview, timeline, mergers, chains, stock) built from the game log. It is hidden during replay and never shown before the end, when holdings may be private or the log limited. Its strings are in all 17 catalogs. The summary was run on all 23 finished Acquire games on BGS: every player's money breakdown equals final cash and every stock flow matches final holdings, across limited logs, four hands, stock swaps, two-tile turns and 3–6 players.
 
 ## Merger tile confirmation (21 November 2026)
 
