@@ -160,17 +160,16 @@ test("commit boundaries predicted from a private view match the engine's draft b
 	}
 });
 
-const review = (view: GameState, move: Move, player: number, undoable: number) =>
-	reviewFor(view, move, moveOutcome(view, move, player), undoable);
+const review = (view: GameState, move: Move, player: number) => reviewFor(view, move, moveOutcome(view, move, player));
 
 test("only the turn's final step, or a placement that ends undo, asks for review", () => {
 	const full = preparedPosition("founding");
 	const view = () => engine.stripSecret(full, 0);
-	assert.equal(review(view(), place, 0, 0), undefined, "placing a founding tile continues");
+	assert.equal(review(view(), place, 0), undefined, "placing a founding tile continues");
 	applyMove(full, place, 0);
 	applyMove(full, found, 0);
-	assert.equal(review(view(), { type: "buy", shares: {} }, 0, 2), "end");
-	assert.equal(review(view(), { type: "announce" }, 0, 2), undefined);
+	assert.equal(review(view(), { type: "buy", shares: {} }, 0), "end");
+	assert.equal(review(view(), { type: "announce" }, 0), undefined);
 	assert.deepEqual(
 		currentTurnEntries(view()).flatMap((entry) => (entry.type === "move" ? [entry.move.type] : [])),
 		["place", "found"]
@@ -183,7 +182,7 @@ test("only the turn's final step, or a placement that ends undo, asks for review
 	const tile = quiet.seats[seat]!.hand[0]!;
 	const lone: Move = { type: "place", tile: tileLabel(tile) };
 	assert.equal(moveOutcome(engine.stripSecret(quiet, seat), lone, seat).endsTurn, true);
-	assert.equal(review(engine.stripSecret(quiet, seat), lone, seat, 0), undefined);
+	assert.equal(review(engine.stripSecret(quiet, seat), lone, seat), undefined);
 
 	// With two tiles, the second placement ends the turn after an earlier move.
 	const two = initGame(3, { twoTiles: true }, "two");
@@ -194,7 +193,7 @@ test("only the turn's final step, or a placement that ends undo, asks for review
 	const second: Move = { type: "place", tile: "5E" };
 	assert.equal(two.phase, "place");
 	assert.equal(moveOutcome(engine.stripSecret(two, turnSeat), second, turnSeat).endsTurn, true);
-	assert.equal(review(engine.stripSecret(two, turnSeat), second, turnSeat, 1), "end");
+	assert.equal(review(engine.stripSecret(two, turnSeat), second, turnSeat), "end");
 });
 
 test("a placement that pays merger bonuses after an undoable move warns before undo ends", () => {
@@ -205,7 +204,16 @@ test("a placement that pays merger bonuses after an undoable move warns before u
 	const view = engine.stripSecret(full, 0);
 	const merge: Move = { type: "place", tile: "4A" };
 	assert.deepEqual(moveOutcome(view, merge, 0), { commits: true, endsTurn: false, endsGame: false });
-	assert.equal(review(view, merge, 0, 1), "commit");
-	assert.equal(review(view, merge, 0, 0), undefined, "nothing to lose without undoable moves");
+	assert.equal(review(view, merge, 0), "commit");
 	assert.equal(moveOutcome(view, merge, undefined).commits, true, "spectators never act");
+});
+
+test("a merger tile placed as the turn's first move is confirmed before bonuses are paid", () => {
+	const full = preparedPosition("mergers");
+	full.seats[0]!.hand = [parseTile("4A")!, parseTile("12I")!];
+	const view = engine.stripSecret(full, 0);
+	const merge: Move = { type: "place", tile: "4A" };
+	assert.deepEqual(moveOutcome(view, merge, 0), { commits: true, endsTurn: false, endsGame: false });
+	assert.equal(review(view, merge, 0), "commit");
+	assert.equal(review(view, { type: "place", tile: "12I" }, 0), undefined, "a quiet tile stays undoable");
 });

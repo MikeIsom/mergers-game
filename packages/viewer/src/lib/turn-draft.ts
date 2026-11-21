@@ -47,14 +47,10 @@ export function currentTurnEntries(state: GameState): GameState["log"] {
 /**
  * Which confirmation a move needs before it is sent: a turn summary when it ends the turn
  * (except a lone placement, which has its own confirmation), or a final-step warning when a
- * placement would make earlier undoable moves permanent. Merger decisions confirm in place.
+ * placement ends undo, as a merger tile paying bonuses does, even as the turn's first move.
+ * Merger decisions confirm in place.
  */
-export function reviewFor(
-	view: GameState,
-	move: Move,
-	outcome: MoveOutcome,
-	undoable: number
-): "end" | "commit" | undefined {
+export function reviewFor(view: GameState, move: Move, outcome: MoveOutcome): "end" | "commit" | undefined {
 	if (outcome.endsTurn) {
 		const seat = currentSeat(view);
 		const earlier = currentTurnEntries(view).some(
@@ -62,7 +58,7 @@ export function reviewFor(
 		);
 		return earlier || (move.type !== "place" && move.type !== "pass") ? "end" : undefined;
 	}
-	return outcome.commits && undoable > 0 && move.type === "place" ? "commit" : undefined;
+	return outcome.commits && move.type === "place" ? "commit" : undefined;
 }
 
 /** Only server-validated private views are cached; hidden holdings are never simulated here. */
