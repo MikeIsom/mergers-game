@@ -1,3 +1,5 @@
+import { defaultMove } from "./src/autoplay.js";
+import { botMove } from "./src/bot.js";
 import { applyTurnRequest, earnedTimeIncrements, isTurnRequest } from "./src/turn-draft.js";
 import { visibleLog } from "./src/limited-log.js";
 import { applyMove, currentSeat, dropPlayerSeats } from "./src/moves.js";
@@ -37,6 +39,28 @@ export function move(data: GameState, mv: unknown, player: number): GameState {
 	}
 	// mv is untrusted JSON from the network; applyMove validates it before any mutation.
 	return applyMove(data, mv, seat);
+}
+
+/**
+ * BGS bot seats: plays `player`'s decisions until another player must act or the turn passes.
+ * Each decision comes from the player's own view, so hidden hands, holdings and draws stay unused.
+ */
+export function moveAI(data: GameState, player: number): GameState {
+	const turn = data.turn;
+	for (let moves = 0; moves < 100; moves++) {
+		const seat = currentSeat(data);
+		if (seat === undefined || data.seatOwner[seat] !== player || (moves > 0 && data.turn !== turn)) {
+			break;
+		}
+		let next: GameState;
+		try {
+			next = applyMove(data, botMove(viewFor(data, player), player), seat);
+		} catch {
+			next = applyMove(data, defaultMove(data, seat), seat);
+		}
+		data = next;
+	}
+	return data;
 }
 
 export function ended(data: GameState): boolean {

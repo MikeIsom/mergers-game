@@ -47,6 +47,9 @@ Use Node 24 and pnpm 11. Inspect the working tree before editing and preserve un
   engine's `draftCanContinue` on a throwaway copy of the player's own view (`moveOutcome`), so
   the turn-ending step shows a turn summary first and merger decisions warn when undo stops.
 - Preserve two-player bank mode, four hands, team play and dropped-player behavior when changing rules.
+- BGS bot seats use the wrapper's `moveAI`, which plays one turn from `src/bot.ts`. The bot decides
+  only from `viewFor` for its own player; `bot.spec.ts` checks this by disguising hidden information.
+  Measure strength changes with `node dist-test/src/bot.bench.js <games> random|simple|bot`.
 - Put new UI/log/tutorial text in all 17 catalogs under `packages/viewer/src/lib/locales/`.
   Keep chain names and tile coordinates unchanged. CMS text and setup labels have separate
   translations; do not claim they are translated merely because viewer catalogs are complete.
