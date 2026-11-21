@@ -1,7 +1,11 @@
 # Acquire — 21 November 2026
 
-BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.11`, viewer `0.0.24`.
+BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.12`, viewer `0.0.24`.
 Source: <https://github.com/boardgamers/mergers-game>. The live game is public; preserve its current visibility when updating.
+
+## Bot seats (21 November 2026)
+
+- Engine only. The wrapper exports `moveAI`, so the BGS installer enables bot seats for Acquire. A bot plays one turn per call, choosing each decision from its own player's view only (`viewFor`): opponents' hands, the draw order and private holdings are never used, and private holdings are estimated from the public log or, with a limited log, from the bank's public counts. Rules, options and saved games are unchanged; human moves and replays behave as before. `bot.spec.ts` checks legal play to the end under every option family, exact replay, and that disguising hidden information leaves every decision unchanged. Benchmark (`bot.bench.js`, 2–6 players across option sets): first or tied first in 46 of 48 games against random players and 90 of 96 against casual-style players; no rejected decisions; about 1.5 ms per decision. Strength against experienced human players is unmeasured.
 
 ## Endgame summary (21 November 2026)
 
