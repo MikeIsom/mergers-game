@@ -6,6 +6,7 @@ Source: <https://github.com/boardgamers/mergers-game>. The live game is public; 
 ## Endgame summary (21 November 2026)
 
 - Viewer only. Once a game has ended, a Game summary button under the final results opens a tabbed summary (overview, timeline, mergers, chains, stock) built from the game log. It is hidden during replay and never shown before the end, when holdings may be private or the log limited. Its strings are in all 17 catalogs. The summary was run on all 23 finished Acquire games on BGS: every player's money breakdown equals final cash and every stock flow matches final holdings, across limited logs, four hands, stock swaps, two-tile turns and 3–6 players.
+- `pnpm check` passed (295 engine and 76 viewer tests); browser checks passed 68 locale/viewport combinations and 23 integration scenarios; the built bundle was checked by hand on desktop and phone widths, including replay hiding the button. Published source commit `2e29fa3`: activated viewer `0.0.24` only (engine stays `0.0.11`, options and CMS unchanged). The final metadata remains public with BGS version `1`; apart from the viewer, every field matches the pre-release snapshot. Hosted JS and CSS bytes match local artifacts, and the public game info lists the new viewer. Deployment snapshots are ignored under `release/publish/20261121-013327-2e29fa3/`.
 
 ## Merger tile confirmation (21 November 2026)
 
