@@ -158,7 +158,7 @@ export class ViewerStore {
 		if (!confirmed && this.options.reviewTurns && this.state) {
 			const view = $state.snapshot(this.state);
 			const outcome = moveOutcome(view, action, this.player);
-			const kind = reviewFor(view, action, outcome, this.drafting ? this.undoCount : 0);
+			const kind = reviewFor(view, action, outcome);
 			if (kind) {
 				this.review = { move: action, kind, outcome };
 				return;
