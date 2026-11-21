@@ -3,11 +3,13 @@
 // URL parameters: players=2..6, seed=..., view=N, hotseat=0, theme=light|dark, locale=de, and any game option, e.g. publicHoldings=1,
 // holdingsVisibility=cash|cashAndShareCount|public, twoPlayerMode=fourHands, teamPlay=1, autoEnd=1, endSize=31, twoTiles=1, handSize=12,
 // freeMergerOrder=1, disposalOrder=shares. For reproducible screenshots: moves=N plays N random moves,
-// merger=1 then plays on to the next merger decision, bar=0 hides this toolbar.
+// merger=1 then plays on to the next merger decision, summary=1 plays to the end and opens the endgame
+// summary mockup, bar=0 hides this toolbar.
 import * as rules from "acquire-engine";
 import { currentSeat, legalMoves, type GameState } from "acquire-engine";
 import * as engine from "acquire-engine/wrapper.js";
 import { LOCALES } from "./lib/i18n.ts";
+import { openSummary } from "./summary/mount.ts";
 
 const params = new URLSearchParams(window.location.search);
 const viewer = params.get("bundle") === "1" ? await loadBuiltViewer() : (await import("./viewer")).viewer;
@@ -59,7 +61,10 @@ if (Number.isNaN(viewAs) || viewAs >= players) {
 }
 
 if (params.has("tutorial")) {
-	await viewer.launchTutorial("#app", { chapter: params.get("tutorial")!, locale: params.get("locale") ?? "en" });
+	await viewer.launchTutorial("#app", {
+		chapter: params.get("tutorial")!,
+		locale: params.get("locale") ?? "en",
+	});
 } else {
 	const emitter = viewer.launch("#app");
 
@@ -113,6 +118,34 @@ if (params.has("tutorial")) {
 		nextMerger();
 		sync();
 	});
+	function playToEnd(): void {
+		// Random moves skip announcing for a while so games run long enough to have mergers.
+		for (let i = 0; i < 20000 && !state.ended; i++) {
+			const moves = legalMoves(state);
+			const pick = moves.filter((m) => m.type !== "announce");
+			rng = (Math.imul(rng, 1103515245) + 12345) >>> 0;
+			const list = pick.length > 0 && i < 3000 ? pick : moves;
+			engine.move(state, list[rng % list.length]!, state.seatOwner[currentSeat(state)!]!);
+		}
+	}
+	let closeSummary: (() => void) | undefined;
+	function showSummary(): void {
+		closeSummary?.();
+		if (state.ended) {
+			closeSummary = openSummary(structuredClone(state), {
+				theme: theme.value,
+				locale: language.value,
+				appearance,
+				avatars,
+			});
+		}
+	}
+	button("Play to end", () => {
+		playToEnd();
+		sync();
+		showSummary();
+	});
+	button("Game summary", showSummary);
 	button("Announce", () => {
 		const move = legalMoves(state).find((m) => m.type === "announce");
 		if (move) {
@@ -157,7 +190,10 @@ if (params.has("tutorial")) {
 	);
 	const appearance = {
 		players: NAMES.slice(0, players).map((_, i) => ({ pro: i === 1 })),
-		supporterBadge: { url: `${location.origin}/dev-badge.svg`, label: "Supporter" },
+		supporterBadge: {
+			url: `${location.origin}/dev-badge.svg`,
+			label: "Supporter",
+		},
 		playerColors: COLORS.slice(0, players),
 	};
 	// The BGS interface language, sent as preferences.locale.
@@ -257,12 +293,18 @@ if (params.has("tutorial")) {
 	if (params.get("merger") === "1") {
 		nextMerger();
 	}
+	if (params.get("summary") === "1") {
+		playToEnd();
+	}
 	if (params.get("bar") === "0") {
 		bar.style.display = "none";
 	}
 	emitter.on("fetchState", sync);
 	applyTheme();
 	sendPreferences();
+	if (params.get("summary") === "1") {
+		showSummary();
+	}
 	emitter.on("move", (move) => {
 		if (viewAs !== undefined) {
 			try {
@@ -274,7 +316,10 @@ if (params.has("tutorial")) {
 				} else {
 					emitter.emit("gamelog", {
 						start: state.log.length,
-						data: engine.logSlice(result, { start: state.log.length, player: viewAs }),
+						data: engine.logSlice(result, {
+							start: state.log.length,
+							player: viewAs,
+						}),
 					});
 				}
 				emitter.emit("move:result", { move, ok: true });
