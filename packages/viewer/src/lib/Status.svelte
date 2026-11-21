@@ -1,28 +1,35 @@
 <script lang="ts">
 	import { currentSeat, playerRankings, playerScores, type GameState } from "acquire-engine";
+	import GameSummary from "../summary/GameSummary.svelte";
 	import { pendingDecision } from "./format";
 	import PlayerName from "./PlayerName.svelte";
 	import { useStore } from "./store.svelte";
 
-	let { state, seats }: { state: GameState; seats: number[] } = $props();
+	let { state: game, seats }: { state: GameState; seats: number[] } = $props();
 
 	const store = useStore();
 	const t = $derived(store.lang.t);
 	const replaying = $derived(store.replayAt !== undefined);
-	const replayTurn = $derived(state.log.filter((entry) => entry.type === "turn").length);
-	const yourMove = $derived(!replaying && seats.includes(currentSeat(state) ?? -1));
+	const replayTurn = $derived(game.log.filter((entry) => entry.type === "turn").length);
+	const yourMove = $derived(!replaying && seats.includes(currentSeat(game) ?? -1));
 	const results = $derived(
-		state.ended
-			? playerScores(state)
+		game.ended
+			? playerScores(game)
 					.map((score, player) => ({
 						player,
 						score,
-						rank: playerRankings(state)[player]!,
-						seat: state.seatOwner.indexOf(player),
+						rank: playerRankings(game)[player]!,
+						seat: game.seatOwner.indexOf(player),
 					}))
 					.sort((a, b) => a.rank - b.rank)
 			: []
 	);
+	let summaryOpen = $state(false);
+	let summaryButton = $state<HTMLButtonElement>();
+	function closeSummary(): void {
+		summaryOpen = false;
+		summaryButton?.focus();
+	}
 </script>
 
 <section class="status" class:yours={yourMove} aria-live="polite">
@@ -31,24 +38,30 @@
 		<p class="note">{t("status.replayNote")}</p>
 	{:else}
 		<p class="pending">
-			{pendingDecision(state, store.lang)}{#if yourMove}<span class="you">{t("status.yourDecision")}</span>{/if}
+			{pendingDecision(game, store.lang)}{#if yourMove}<span class="you">{t("status.yourDecision")}</span>{/if}
 		</p>
 	{/if}
-	{#if !replaying && state.endAnnounced !== null && !state.ended}
+	{#if !replaying && game.endAnnounced !== null && !game.ended}
 		<p class="note">{t("status.announced")}</p>
 	{/if}
-	{#if !replaying && state.ended}
+	{#if !replaying && game.ended}
 		<ol class="results">
 			{#each results as result (result.player)}
 				<li>
 					<span class="rank">{result.rank}.</span>
-					<PlayerName {state} seat={result.seat} playerOnly />
+					<PlayerName state={game} seat={result.seat} playerOnly />
 					<span class="score">{store.lang.money(result.score)}</span>
 				</li>
 			{/each}
 		</ol>
+		<button type="button" class="summary actionable" bind:this={summaryButton} onclick={() => (summaryOpen = true)}>
+			{t("summary.title")}
+		</button>
 	{/if}
 </section>
+{#if summaryOpen && game.ended && !replaying}
+	<GameSummary state={game} onclose={closeSummary} />
+{/if}
 
 <style>
 	.status {
@@ -84,6 +97,9 @@
 		display: inline-block;
 		width: 24px;
 		font-weight: 700;
+	}
+	.summary {
+		margin-top: 8px;
 	}
 	.score {
 		font-variant-numeric: tabular-nums;

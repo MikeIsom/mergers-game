@@ -1,6 +1,6 @@
-// Endgame summary MOCKUP (dev harness only; not part of the BGS bundle). Folds a finished game's
-// log into per-seat money, stock, merger and chain statistics. Every figure comes from committed
-// log events, so it works for any saved game; a real release would move this into the engine.
+// Endgame summary: folds a finished game's log into per-seat money, stock, merger and chain
+// statistics. Every figure comes from committed log events, so it works for any saved game. It is
+// shown only once the game has ended, when every holding is public and the whole log is visible.
 import {
 	CHAIN_IDS,
 	STARTING_CASH,

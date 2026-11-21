@@ -1,6 +1,7 @@
 <script lang="ts">
-	// MOCKUP: endgame summary with tabs (dev harness only for now).
+	// Endgame summary with tabs, opened from the final results once the game has ended.
 	import { CHAIN_IDS, type ChainId, type GameState } from "acquire-engine";
+	import { onMount } from "svelte";
 	import ChainMark from "../lib/ChainMark.svelte";
 	import PlayerName from "../lib/PlayerName.svelte";
 	import { useStore } from "../lib/store.svelte";
@@ -64,6 +65,9 @@
 	});
 	const endHolding = (seat: number) => CHAIN_IDS.reduce((t, c) => t + summary.seats[seat]!.stock[c].final, 0);
 
+	let dialog: HTMLElement;
+	onMount(() => dialog.querySelector<HTMLElement>("[role=tab][aria-selected=true]")?.focus());
+
 	function keydown(event: KeyboardEvent): void {
 		if (event.key === "Escape") {
 			onclose();
@@ -82,7 +86,15 @@
 </script>
 
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-<div class="backdrop" role="dialog" aria-modal="true" aria-labelledby="summary-title" tabindex="-1" onkeydown={keydown}>
+<div
+	class="backdrop"
+	bind:this={dialog}
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby="summary-title"
+	tabindex="-1"
+	onkeydown={keydown}
+>
 	<div class="sheet">
 		<header>
 			<div>

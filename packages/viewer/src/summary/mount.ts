@@ -1,4 +1,4 @@
-// Dev harness only: opens the endgame summary mockup over the game, with its own store context
+// Dev harness: opens the endgame summary over the game, with its own store context
 // so player names, colours and the theme match the game view.
 import { mount, unmount } from "svelte";
 import type { PlayerAppearance } from "@boardgamers/protocol";
@@ -40,6 +40,5 @@ export function openSummary(
 		props: { state, onclose: close },
 		context: new Map([[STORE, store]]),
 	});
-	host.querySelector<HTMLElement>("[role=tab][aria-selected=true]")?.focus();
 	return close;
 }

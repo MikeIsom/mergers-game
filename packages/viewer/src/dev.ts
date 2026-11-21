@@ -4,7 +4,7 @@
 // holdingsVisibility=cash|cashAndShareCount|public, twoPlayerMode=fourHands, teamPlay=1, autoEnd=1, endSize=31, twoTiles=1, handSize=12,
 // freeMergerOrder=1, disposalOrder=shares. For reproducible screenshots: moves=N plays N random moves,
 // merger=1 then plays on to the next merger decision, summary=1 plays to the end and opens the endgame
-// summary mockup, bar=0 hides this toolbar.
+// summary, bar=0 hides this toolbar.
 import * as rules from "acquire-engine";
 import { currentSeat, legalMoves, type GameState } from "acquire-engine";
 import * as engine from "acquire-engine/wrapper.js";
