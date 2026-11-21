@@ -1,7 +1,11 @@
-# Acquire — 19 November 2026
+# Acquire — 21 November 2026
 
-BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.11`, viewer `0.0.22`.
+BGS registration: `acquire`, version `1`. Release artifacts: engine `0.0.11`, viewer `0.0.23`.
 Source: <https://github.com/boardgamers/mergers-game>. The live game is public; preserve its current visibility when updating.
+
+## Merger tile confirmation (21 November 2026)
+
+- Viewer only. When undo is on and a tile placement would end it, because the tile merges chains and bonuses are paid, the viewer asks for confirmation first. This applies even when the placement is the turn's first move. It reuses the existing final-step warning text, and quiet placements are unchanged. The endgame summary added in the same source is only reachable from the local dev harness, not the shipped viewer. Its `summary.*` strings are in all 17 catalogs.
 
 ## Merger order house rules (19 November 2026)
 
