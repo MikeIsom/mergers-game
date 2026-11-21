@@ -3,7 +3,8 @@
 ## Repository and live status
 
 - This is **Acquire**, in `boardgamers/mergers-game`; the BGS game id is `acquire`, version **1**.
-- **The BGS game is public**, verified 29 October 2026. Preserve the live visibility and
+- **The BGS game is public**, verified 29 October 2026. Bot seats are enabled (`meta.bots`, set by the
+  installer because the engine exports `moveAI`) since engine 0.0.12 on 21 November 2026. Preserve the live visibility and
   unrelated metadata on updates. Fetch fresh metadata before publishing; this file is not a
   substitute for checking the live configuration.
 - `docs/admin/gameinfo.json` is a bootstrap template. Its `public: false` and blank artifact
